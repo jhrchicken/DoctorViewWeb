@@ -12,7 +12,9 @@
 		<li><a href="/">루트</a></li>
 	</ul>
 	
-	<h2>뿌리림</h2>
-	
+	<h2>자유게시판</h2>
+	<ul>
+		<li><a href="./freeboard.do">게시판목록</a></li>
+	</ul>
 </body>
 </html>
