@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import oracle.jdbc.proxy.annotation.Post;
 import utils.PagingUtil;
+
 
 @Controller
 public class FreeboardController {
@@ -64,6 +66,9 @@ public class FreeboardController {
 		// 줄바꿈 처리 및 저장
 		boardDTO.setContent(boardDTO.getContent().replace("\r\n", "<br/>"));
 		model.addAttribute("boardDTO", boardDTO);
+		// 댓글 처리
+		ArrayList<CommentsDTO> commentsList = boardDAO.listComments(boardDTO);
+		model.addAttribute("commentsList", commentsList);
 		return "freeboard/view";
 	}
 	
@@ -98,6 +103,34 @@ public class FreeboardController {
 	@PostMapping("/freeboard/deletePost.do")
 	public String deletePostPost(HttpServletRequest req) {
 		boardDAO.deletePost(req.getParameter("board_idx"));
-		return "redirect:freeboard.do";
+		return "redirect:../freeboard.do";
+	}
+	
+	@PostMapping("/freeboard/writeComment.do")
+	public String writeCommentPost(HttpServletRequest req) {
+		// 폼값
+		String id = req.getParameter("id");
+		int board_idx = Integer.parseInt(req.getParameter("board_idx"));
+		String content = req.getParameter("content");
+		// 댓글 작성
+		boardDAO.writeComment(id, board_idx, content);
+		return "redirect:../freeboard/viewPost.do?board_idx=" + board_idx;
+	}
+	
+	@PostMapping("/freeboard/editComment.do")
+	public String editCommentPost(HttpServletRequest req) {
+		// 폼값
+		int board_ref = Integer.parseInt(req.getParameter("board_ref"));
+		String content = req.getParameter("content");
+		int comm_idx = Integer.parseInt(req.getParameter("comm_idx"));
+		// 댓글 수정
+		boardDAO.editComment(comm_idx, content);
+		return "redirect:../freeboard/viewPost.do?board_idx=" + board_ref;
+	}
+
+	@PostMapping("/freeboard/deleteComment.do")
+	public String deleteCommentGet(HttpServletRequest req) {
+		boardDAO.deleteComment(req.getParameter("comm_idx"));
+		return "redirect:../freeboard/viewPost.do?board_idx=" + req.getParameter("board_ref");
 	}
 }

@@ -65,27 +65,28 @@
 	</delete>
 	
 	<!-- 댓글 목록: 자유게시판에서 특정 게시물에 해당하는 댓글을 인출 -->
-<!-- 	<select id="listComment"
-		resultType="com.edu.springboot.board.BoardDTO">
-		SELECT * FROM comments WHERE writer_ref=?
-		
-	</select> -->
+	<select id="listComments"
+		resultType="com.edu.springboot.board.CommentsDTO"
+		parameterType="com.edu.springboot.board.BoardDTO">
+		SELECT * FROM comments WHERE board_ref=#{board_idx}
+		ORDER BY postdate DESC
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id = "writeComment">
+		INSERT INTO comments (comm_idx, content, board_ref, writer_ref)
+		VALUES (seq_comments_idx.nextval, #{param3}, #{param2}, #{param1})
+	</insert>
 
-	
-	
-	
-	
-	
-	
-	
-	
+	<!-- 댓글 수정 -->
+	<update id="editComment">
+		UPDATE comments SET content=#{param2}
+		WHERE comm_idx=#{param1}
+	</update>
 
-	
-	
-	
-	
-	
-	
-	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment">
+		DELETE FROM comments WHERE comm_idx=#{param1}
+	</delete>
 	
 </mapper>

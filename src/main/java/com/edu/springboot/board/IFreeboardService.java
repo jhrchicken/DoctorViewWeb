@@ -3,7 +3,6 @@ package com.edu.springboot.board;
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface IFreeboardService {
@@ -20,7 +19,15 @@ public interface IFreeboardService {
 	// 게시글 수정
 	public int editPost(BoardDTO boardDTO);
 	// 게시글 삭제
-	public int deletePost(String idx);
+	public int deletePost(String board_idx);
+	
 	// 댓글 조회
-	public CommentDTO viewComment(CommentDTO commentDTO);
+	public ArrayList<CommentsDTO> listComments(BoardDTO boardDTO);
+	// 댓글 작성
+	public int writeComment(String id, int board_idx, String content);
+	// 댓글 수정
+	public int editComment(int board_idx, String content);
+	// 댓글 삭제
+	public int deleteComment(String comm_idx);
+	
 }
