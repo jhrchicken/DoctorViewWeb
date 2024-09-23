@@ -6,7 +6,7 @@
 
 <mapper namespace="com.edu.springboot.board.IFreeboardService">
 	
-	<!-- 목록: 자유게시판의 게시글 개수를 카운트 -->
+	<!-- 게시글 목록: 자유게시판의 게시글 개수를 카운트 -->
 	<select id="countPost"
 		resultType="int"
 		parameterType="com.edu.springboot.board.ParameterDTO">
@@ -17,7 +17,7 @@
 		</if>
 	</select>
 	
-	<!-- 목록: 자유게시판에서 한 페이지에 출력할 게시글을 인출 -->
+	<!-- 게시글 목록: 자유게시판에서 한 페이지에 출력할 게시글을 인출 -->
 	<select id="listPost"
 		resultType="com.edu.springboot.board.BoardDTO"
 		parameterType="com.edu.springboot.board.ParameterDTO">
@@ -33,34 +33,59 @@
 		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}
 	</select>
 	
-	<!-- 조회: 게시글의 일련번호를 DTO를 통해 받은 후 조회하고 결과를 다시 DTO에 저장 -->
+	<!-- 게시글 조회: 게시글의 일련번호를 DTO를 통해 받은 후 조회하고 결과를 다시 DTO에 저장 -->
 	<select id="viewPost"
 		resultType="com.edu.springboot.board.BoardDTO"
 		parameterType="com.edu.springboot.board.ParameterDTO">
 		SELECT * FROM board WHERE board_idx=#{board_idx}
 	</select>
 	
-	<!-- 조회: 자유게시판에서 게시글의 조회수 증가 -->
+	<!-- 게시글 조회: 자유게시판에서 게시글의 조회수 증가 -->
 	<update id="plusVisitcount"
 		parameterType="com.edu.springboot.board.ParameterDTO">
 		UPDATE board SET visitcount=visitcount+1 WHERE board_idx=#{board_idx}
 	</update>
 	
-	<!-- 작성 -->
+	<!-- 게시글 작성 -->
 	<insert id="writePost">
 		INSERT INTO board (board_idx, boardname, title, content, writer_ref)
 		VALUES (seq_board_idx.nextval, 'freeboard', #{param1}, #{param2}, #{param3})
 	</insert>
 	
-	<!-- 수정 -->
+	<!-- 게시글 수정 -->
 	<update id="editPost"
 		parameterType="com.edu.springboot.board.ParameterDTO">
 		UPDATE board SET title=#{title}, content=#{content}
 		WHERE board_idx=#{board_idx}
 	</update>
 	
-	<!-- 삭제 -->
+	<!-- 게시글 삭제 -->
 	<delete id="deletePost">
 		DELETE FROM board WHERE board_idx=#{param1}
 	</delete>
+	
+	<!-- 댓글 목록: 자유게시판에서 특정 게시물에 해당하는 댓글을 인출 -->
+<!-- 	<select id="listComment"
+		resultType="com.edu.springboot.board.BoardDTO">
+		SELECT * FROM comments WHERE writer_ref=?
+		
+	</select> -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
