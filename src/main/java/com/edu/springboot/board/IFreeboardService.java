@@ -30,4 +30,12 @@ public interface IFreeboardService {
 	// 댓글 삭제
 	public int deleteComment(String comm_idx);
 	
+	// 좋아요 수 조회
+	public int countLike(String recodenum);
+	// 댓글 수 조회
+	public int countComment(BoardDTO boardDTO);
+	// 좋아요 수 증가
+	public int plusLike(String member_idx, String board_idx);
+	// 신고 수 증가
+	public int plusReport(String board_idx);
 }

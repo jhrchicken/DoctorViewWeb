@@ -79,8 +79,8 @@ function validateCommentForm(form) {
 						<td class="board_content" colspan="3">${ boardDTO.content }</td>
 					</tr>
 					<tr>
-						<td class="left">좋아요</td> <td>492</td>
-						<td class="left">댓글</td> <td>198</td>
+						<td class="left">좋아요</td> <td>${ likecount }</td>
+						<td class="left">댓글</td> <td>${ commentcount }</td>
 					</tr>
 					<!-- 하단 메뉴(버튼) -->
 				</table>
@@ -90,6 +90,17 @@ function validateCommentForm(form) {
 					<button type="button" onclick="deletePost(${ param.board_idx });">삭제하기</button>
 				</div>
 			</div>
+		</div>
+		
+		<div class="board_btn">
+			<button type="button" onclick="location.href='../freeboard/plusLike.do?board_idx=${ param.board_idx }';">
+				<img src="/images/like.png" width="24px">
+				${ likecount }
+			</button>
+			<button type="button" onclick="location.href='../freeboard/plusReport.do?board_idx=${ param.board_idx }';">
+				<img src="/images/dislike.png" width="24px">
+				${ boardDTO.reportcount }
+			</button>
 		</div>
 		
 		<form name="deleteCommentForm" method="post">
@@ -166,7 +177,7 @@ function validateCommentForm(form) {
 				<!-- Modal Body -->
 				<div class="modal-body">
 					<input type="text" name="id" placeholder="아이디를 작성하세요" />
-					<textarea class="form-control" id="content1" name="content" style="height: 100px;" placeholder="내용을 입력하세요"></textarea>
+					<textarea class="form-control" name="content" style="height: 100px;" placeholder="내용을 입력하세요"></textarea>
 				</div>
 				<!-- Modal Footer -->
 				<div class="modal-footer">

@@ -50,7 +50,7 @@ public class FreeboardController {
 		// 게시물의 목록 저장
 		ArrayList<BoardDTO> postsList = boardDAO.listPost(parameterDTO);
 		model.addAttribute("postsList", postsList);
-		// 게시판 하단에 출력할 페이지번호를 String으로 저장한 후 Model에 저장 (********** 수정 필요 **********)
+		// 게시판 하단에 출력할 페이지 번호를 String으로 저장한 후 Model에 저장 (********** 수정 필요 **********)
 		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/freeboard.do?");
 		model.addAttribute("pagingImg", pagingImg);
 		return "freeboard/list";
@@ -68,6 +68,11 @@ public class FreeboardController {
 		// 댓글 처리
 		ArrayList<CommentsDTO> commentsList = boardDAO.listComments(boardDTO);
 		model.addAttribute("commentsList", commentsList);
+		// 좋아요 수와 댓글 수 조회 및 저장
+		int likecount = boardDAO.countLike(Integer.toString(boardDTO.getBoard_idx()));
+		int commentcount = boardDAO.countComment(boardDTO);
+		model.addAttribute("likecount", likecount);
+		model.addAttribute("commentcount", commentcount);
 		return "freeboard/view";
 	}
 	
@@ -105,6 +110,20 @@ public class FreeboardController {
 		return "redirect:../freeboard.do";
 	}
 	
+	@GetMapping("/freeboard/plusLike.do")
+	public String plusLikeGet(HttpServletRequest req) {
+		String board_idx = req.getParameter("board_idx");
+		boardDAO.plusLike("harim", board_idx);
+		return "redirect:../freeboard/viewPost.do?board_idx=" + board_idx;
+	}
+	
+	@GetMapping("/freeboard/plusReport.do")
+	public String plusReportGet(HttpServletRequest req) {
+		String board_idx = req.getParameter("board_idx");
+		boardDAO.plusReport(board_idx);
+		return "redirect:../freeboard/viewPost.do?board_idx=" + board_idx;
+	}
+	
 	@PostMapping("/freeboard/writeComment.do")
 	public String writeCommentPost(HttpServletRequest req) {
 		// 폼값
@@ -132,4 +151,12 @@ public class FreeboardController {
 		boardDAO.deleteComment(req.getParameter("comm_idx"));
 		return "redirect:../freeboard/viewPost.do?board_idx=" + req.getParameter("board_ref");
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

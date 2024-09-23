@@ -89,4 +89,25 @@
 		DELETE FROM comments WHERE comm_idx=#{param1}
 	</delete>
 	
+	<!-- 좋아요 수 조회 -->
+	<select id="countLike">
+		SELECT COUNT(*) FROM likes WHERE tablename='board' and recodenum=#{param1}
+	</select>
+	
+	<!-- 댓글 수 조회 -->
+	<select id="countComment">
+		SELECT COUNT(*) FROM comments WHERE board_ref=#{board_idx}
+	</select>
+	
+	<!-- 좋아요 수 증가 -->
+	<insert id="plusLike">
+		INSERT INTO likes VALUES (seq_likes_idx.nextval, #{param1}, 'board', #{param2})
+	</insert>
+	
+	<!-- 신고 수 증가 -->
+	<update id="plusReport">
+		UPDATE board SET reportcount=reportcount+1
+		WHERE board_idx=#{param1}
+	</update>
+	
 </mapper>

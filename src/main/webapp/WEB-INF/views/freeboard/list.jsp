@@ -77,26 +77,10 @@
 					<button type="button" onclick="location.href='../freeboard/writePost.do';">글쓰기</button>
 				</div>
 				
-				<!-- 하단 메뉴(바로가기, 글쓰기) -->
+				<!-- 페이지네이션 -->
 				<div class="pagination">
-					<a class="prev" href="#"> < </a>
-					<a class="active" href="#">1</a>
-					<a href="#">2</a>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<a class="next" href="#"> > </a>
-				</div>
-<%-- 			    <table border="1" width="90%">
-			        <tr align="center">
-			            <td>
-			                ${ pagingImg }
-			            </td>
-			            <td width="100"><button type="button"
-			                onclick="location.href='./freeboard/writePost.do';">글쓰기</button></td>
-			        </tr>
-    			</table> --%>
-				
+					${ pagingImg }
+				</div>		
 			</div>
 		</div>
 	</main>
