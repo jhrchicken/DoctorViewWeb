@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import utils.PagingUtil;
 
+
 @Controller
 public class FreeboardController {
 	
@@ -48,8 +49,16 @@ public class FreeboardController {
 		model.addAttribute("maps", maps);
 		// 게시물의 목록 저장
 		ArrayList<BoardDTO> postsList = boardDAO.listPost(parameterDTO);
+		for (BoardDTO post : postsList) {
+			String nickname = boardDAO.selectBoardNickname(post);
+			int likecount = boardDAO.countLike(Integer.toString(post.getBoard_idx()));
+			int commentcount = boardDAO.countComment(post);
+			post.setNickname(nickname);
+			post.setLikecount(likecount);
+			post.setCommentcount(commentcount);
+		}
 		model.addAttribute("postsList", postsList);
-		// 게시판 하단에 출력할 페이지번호를 String으로 저장한 후 Model에 저장 (********** 수정 필요 **********)
+		// 게시판 하단에 출력할 페이지 번호를 String으로 저장한 후 Model에 저장 (********** 수정 필요 **********)
 		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/freeboard.do?");
 		model.addAttribute("pagingImg", pagingImg);
 		return "freeboard/list";
@@ -64,6 +73,18 @@ public class FreeboardController {
 		// 줄바꿈 처리 및 저장
 		boardDTO.setContent(boardDTO.getContent().replace("\r\n", "<br/>"));
 		model.addAttribute("boardDTO", boardDTO);
+		// 댓글 처리
+		ArrayList<CommentsDTO> commentsList = boardDAO.listComments(boardDTO);
+		for (CommentsDTO comment : commentsList) {
+			String nickname = boardDAO.selectCommNickname(comment);
+			comment.setNickname(nickname);
+		}
+		model.addAttribute("commentsList", commentsList);
+		// 좋아요 수와 댓글 수 조회 및 저장
+		int likecount = boardDAO.countLike(Integer.toString(boardDTO.getBoard_idx()));
+		int commentcount = boardDAO.countComment(boardDTO);
+		model.addAttribute("likecount", likecount);
+		model.addAttribute("commentcount", commentcount);
 		return "freeboard/view";
 	}
 	
@@ -98,6 +119,56 @@ public class FreeboardController {
 	@PostMapping("/freeboard/deletePost.do")
 	public String deletePostPost(HttpServletRequest req) {
 		boardDAO.deletePost(req.getParameter("board_idx"));
-		return "redirect:freeboard.do";
+		return "redirect:../freeboard.do";
 	}
+	
+	@GetMapping("/freeboard/plusLike.do")
+	public String plusLikeGet(HttpServletRequest req) {
+		String board_idx = req.getParameter("board_idx");
+		boardDAO.plusLike("harim", board_idx);
+		return "redirect:../freeboard/viewPost.do?board_idx=" + board_idx;
+	}
+	
+	@GetMapping("/freeboard/plusReport.do")
+	public String plusReportGet(HttpServletRequest req) {
+		String board_idx = req.getParameter("board_idx");
+		boardDAO.plusReport(board_idx);
+		return "redirect:../freeboard/viewPost.do?board_idx=" + board_idx;
+	}
+	
+	@PostMapping("/freeboard/writeComment.do")
+	public String writeCommentPost(HttpServletRequest req) {
+		// 폼값
+		String id = req.getParameter("id");
+		int board_idx = Integer.parseInt(req.getParameter("board_idx"));
+		String content = req.getParameter("content");
+		// 댓글 작성
+		boardDAO.writeComment(id, board_idx, content);
+		return "redirect:../freeboard/viewPost.do?board_idx=" + board_idx;
+	}
+	
+	@PostMapping("/freeboard/editComment.do")
+	public String editCommentPost(HttpServletRequest req) {
+		// 폼값
+		int board_ref = Integer.parseInt(req.getParameter("board_ref"));
+		String content = req.getParameter("content");
+		int comm_idx = Integer.parseInt(req.getParameter("comm_idx"));
+		// 댓글 수정
+		boardDAO.editComment(comm_idx, content);
+		return "redirect:../freeboard/viewPost.do?board_idx=" + board_ref;
+	}
+
+	@PostMapping("/freeboard/deleteComment.do")
+	public String deleteCommentGet(HttpServletRequest req) {
+		boardDAO.deleteComment(req.getParameter("comm_idx"));
+		return "redirect:../freeboard/viewPost.do?board_idx=" + req.getParameter("board_ref");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -16,8 +16,6 @@
     url(../fonts/Pretendard-Bold.ttf) format('truetype');
 }
 
-
-
 /* 반응형, 모바일에서 모든 요소의 패딩, 선을 크기 안에 포함시킴 */
 *, ::before, ::after {
     box-sizing: border-box;
@@ -82,7 +80,6 @@
     (터치한 순간) 터치한 부분의 배경에 네모칸이 순간적으로 생김 */
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
   }
-  
   
   /* iframe으로 외부컨텐츠 연결시 외부컨텐츠 안쪽내용이 페이지에 영향을 주지못하도록 가려줌
   
@@ -301,8 +298,8 @@
   input[type='checkbox'] + label::before {
     content: '';
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     border: 1px solid #dddddd;
     vertical-align: middle;
     margin-right: 6px;
@@ -310,12 +307,12 @@
   input[type='checkbox']:checked + label::after {
     content: '';
     position: absolute;
-    left: 1px;
-    top: 4px;
+    left: 0;
+    top: 50%;
+    transform: translateY(-40%);
     width:24px;
     height: 24px;
-    background: url(../images/common/check.svg) no-repeat 0 0 / 18px;
-    /* 체크박스를 클릭하면 체크 표시가 생김 */
+    background: url(../images/check.svg) no-repeat 0 0 / 100%;
   }
   
   /* radio 공통 */
@@ -435,7 +432,7 @@
     width: 100%;
     border: none;
     background: #f8f8f8;
-    padding: 15px;
+    padding: 10px;
   }
   
   /* 파일선택 */

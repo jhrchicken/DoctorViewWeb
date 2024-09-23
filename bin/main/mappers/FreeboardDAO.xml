@@ -65,27 +65,61 @@
 	</delete>
 	
 	<!-- 댓글 목록: 자유게시판에서 특정 게시물에 해당하는 댓글을 인출 -->
-<!-- 	<select id="listComment"
-		resultType="com.edu.springboot.board.BoardDTO">
-		SELECT * FROM comments WHERE writer_ref=?
-		
-	</select> -->
+	<select id="listComments"
+		resultType="com.edu.springboot.board.CommentsDTO"
+		parameterType="com.edu.springboot.board.BoardDTO">
+		SELECT * FROM comments WHERE board_ref=#{board_idx}
+		ORDER BY postdate DESC
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id = "writeComment">
+		INSERT INTO comments (comm_idx, content, board_ref, writer_ref)
+		VALUES (seq_comments_idx.nextval, #{param3}, #{param2}, #{param1})
+	</insert>
 
-	
-	
-	
-	
-	
-	
-	
-	
+	<!-- 댓글 수정 -->
+	<update id="editComment">
+		UPDATE comments SET content=#{param2}
+		WHERE comm_idx=#{param1}
+	</update>
 
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment">
+		DELETE FROM comments WHERE comm_idx=#{param1}
+	</delete>
 	
+	<!-- 게시글 작성자 닉네임 인출 -->
+	<select id="selectBoardNickname"
+		parameterType="com.edu.springboot.board.BoardDTO">
+		SELECT nickname FROM member WHERE id=#{writer_ref}
+	</select>
 	
+	<!-- 댓글 작성자 닉네임 인출 -->
+	<select id="selectCommNickname"
+		parameterType="com.edu.springboot.board.CommentsDTO">
+		SELECT nickname FROM member WHERE id=#{writer_ref}
+	</select>
 	
+	<!-- 좋아요 수 조회 -->
+	<select id="countLike">
+		SELECT COUNT(*) FROM likes WHERE tablename='board' and recodenum=#{param1}
+	</select>
 	
+	<!-- 댓글 수 조회 -->
+	<select id="countComment">
+		SELECT COUNT(*) FROM comments WHERE board_ref=#{board_idx}
+	</select>
 	
+	<!-- 좋아요 수 증가 -->
+	<insert id="plusLike">
+		INSERT INTO likes VALUES (seq_likes_idx.nextval, #{param1}, 'board', #{param2})
+	</insert>
 	
-	
+	<!-- 신고 수 증가 -->
+	<update id="plusReport">
+		UPDATE board SET reportcount=reportcount+1
+		WHERE board_idx=#{param1}
+	</update>
 	
 </mapper>

@@ -14,4 +14,7 @@ public class BoardDTO {
 	private int visitcount;
 	private int reportcount;
 	private String writer_ref;
+	private String nickname;
+	private int likecount;
+	private int commentcount;
 }
