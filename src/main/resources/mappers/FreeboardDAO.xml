@@ -70,7 +70,7 @@
 		SELECT * FROM comments WHERE writer_ref=?
 		
 	</select> -->
-	
+
 	
 	
 	
