@@ -11,4 +11,5 @@ public class CommentsDTO {
 	private String content;
 	private int board_ref;
 	private String writer_ref;
+	private String nickname;
 }

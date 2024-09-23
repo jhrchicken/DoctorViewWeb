@@ -89,6 +89,18 @@
 		DELETE FROM comments WHERE comm_idx=#{param1}
 	</delete>
 	
+	<!-- 게시글 작성자 닉네임 인출 -->
+	<select id="selectBoardNickname"
+		parameterType="com.edu.springboot.board.BoardDTO">
+		SELECT nickname FROM member WHERE id=#{writer_ref}
+	</select>
+	
+	<!-- 댓글 작성자 닉네임 인출 -->
+	<select id="selectCommNickname"
+		parameterType="com.edu.springboot.board.CommentsDTO">
+		SELECT nickname FROM member WHERE id=#{writer_ref}
+	</select>
+	
 	<!-- 좋아요 수 조회 -->
 	<select id="countLike">
 		SELECT COUNT(*) FROM likes WHERE tablename='board' and recodenum=#{param1}

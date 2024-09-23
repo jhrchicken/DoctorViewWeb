@@ -68,7 +68,7 @@ function validateCommentForm(form) {
 					</tr>
 					<tr>
 						<td class="left">작성자</td>
-						<td colspan="3">${ boardDTO.writer_ref }</td>
+						<td colspan="3">${ boardDTO.nickname }</td>
 					</tr>
 					<tr>
 						<td class="left">작성일</td> <td>${ boardDTO.postdate }</td>
@@ -92,7 +92,7 @@ function validateCommentForm(form) {
 			</div>
 		</div>
 		
-		<div class="board_btn">
+		<div class="like_btn">
 			<button type="button" onclick="location.href='../freeboard/plusLike.do?board_idx=${ param.board_idx }';">
 				<img src="/images/like.png" width="24px">
 				${ likecount }
@@ -124,7 +124,7 @@ function validateCommentForm(form) {
 					<th width="150px">작성자</th>
 					<th width="*">내용</th>
 					<th width="150px">작성일</th>
-					<th width="150px">수정 삭제</th>
+					<th width="150px">수정 / 삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -139,7 +139,7 @@ function validateCommentForm(form) {
 					<c:otherwise>
 						<c:forEach items="${ commentsList }" var="row" varStatus="loop">
 							<tr align="center">
-					            <td class="writer">${ row.writer_ref }</td>
+					            <td class="writer">${ row.nickname }</td>
 					            <td class="comm_content" align="left">${ row.content }</td> 
 					            <td class="postdate">${ row.postdate }</td>
 							  	<td class="board_btn">
@@ -216,13 +216,3 @@ function validateCommentForm(form) {
 	</form>
 </body>   
 </html>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-

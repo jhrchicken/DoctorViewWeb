@@ -55,7 +55,7 @@
 								<c:forEach items="${ postsList }" var="row" varStatus="loop">
 									<tr>
 										<td class="num">${ maps.total - (((maps.pageNum-1) * maps.postsPerPage)	+ loop.index)}</td>
-										<td class="name">${ row.writer_ref }</td>
+										<td class="name">${ row.nickname }</td>
 										<td class="title">
 											<a href="./freeboard/viewPost.do?board_idx=${ row.board_idx }">
 												<p>${ row.title }</p>
@@ -63,8 +63,8 @@
 											</a>
 										</td>
 										<td class="date">${ row.postdate }</td>
-										<td class="like">하트 201</td>
-										<td class="comment">댓글 138</td>
+										<td class="like">${ row.likecount }</td>
+										<td class="comment">${ row.commentcount }</td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>

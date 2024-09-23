@@ -30,6 +30,10 @@ public interface IFreeboardService {
 	// 댓글 삭제
 	public int deleteComment(String comm_idx);
 	
+	// 닉네임 인출
+	public String selectBoardNickname(BoardDTO boardDTO);
+	// 닉네임 인출
+	public String selectCommNickname(CommentsDTO commentsDTO);
 	// 좋아요 수 조회
 	public int countLike(String recodenum);
 	// 댓글 수 조회

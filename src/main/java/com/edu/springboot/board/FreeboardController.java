@@ -49,6 +49,14 @@ public class FreeboardController {
 		model.addAttribute("maps", maps);
 		// 게시물의 목록 저장
 		ArrayList<BoardDTO> postsList = boardDAO.listPost(parameterDTO);
+		for (BoardDTO post : postsList) {
+			String nickname = boardDAO.selectBoardNickname(post);
+			int likecount = boardDAO.countLike(Integer.toString(post.getBoard_idx()));
+			int commentcount = boardDAO.countComment(post);
+			post.setNickname(nickname);
+			post.setLikecount(likecount);
+			post.setCommentcount(commentcount);
+		}
 		model.addAttribute("postsList", postsList);
 		// 게시판 하단에 출력할 페이지 번호를 String으로 저장한 후 Model에 저장 (********** 수정 필요 **********)
 		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/freeboard.do?");
@@ -67,6 +75,10 @@ public class FreeboardController {
 		model.addAttribute("boardDTO", boardDTO);
 		// 댓글 처리
 		ArrayList<CommentsDTO> commentsList = boardDAO.listComments(boardDTO);
+		for (CommentsDTO comment : commentsList) {
+			String nickname = boardDAO.selectCommNickname(comment);
+			comment.setNickname(nickname);
+		}
 		model.addAttribute("commentsList", commentsList);
 		// 좋아요 수와 댓글 수 조회 및 저장
 		int likecount = boardDAO.countLike(Integer.toString(boardDTO.getBoard_idx()));
