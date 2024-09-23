@@ -38,6 +38,31 @@
 #container .board .board_content {
   height: 500px;
 }
+
+/*** 게시판 - 댓글 ***/
+#container .comment {
+  border-top: 1px solid #ddd;
+  margin-top: 10px;
+}
+#container .comment tr {
+  height: 75px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  color: var(--gray-600);
+  font-size: 16px;
+}
+#container .comment .writer {
+  font-weight: 700;
+}
+#container .comment .comm_content {
+  text-align: left;
+  padding: 0 20px;
+}
+#container .comment .postdate {
+  font-size: 13px;
+  color: var(—gray-500);
+  margin-top: 5px;
+}
 /*** 게시판 - 버튼 ***/
 #container .board_btn {
   width: 100%;
@@ -51,6 +76,22 @@
   color: var(--gray-400);
   border: 2px solid #ddd;
   width: 80px;
+  height: 41px;
+  padding: 0 10px;
+}
+/*** 게시판 - 댓글 작성 버튼 ***/
+#container .comment_btn {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 0 10px;
+}
+#container .comment_btn button {
+  background: none;
+  color: var(--point-color1);
+  border: 2px solid #ddd;
+  width: 120px;
   height: 41px;
   padding: 0 10px;
 }

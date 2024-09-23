@@ -40,7 +40,7 @@
   background: url(../images/drop_down_arrow.svg) no-repeat right 5px top 50%;
   cursor: pointer;
 }
-#container .searchKeyword {
+#container .searchWord {
   border: 2px solid #ddd;
   background: none;
   height: 41px;

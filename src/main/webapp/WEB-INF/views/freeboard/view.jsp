@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<%@include file="../common/head.jsp" %>
+<link rel="stylesheet" href="/css/board-view.css" />
 <script>
 function deletePost(board_idx) {
 	if (confirm("정말로 삭제하시겠습니까?")) {
@@ -29,6 +31,9 @@ function deleteComment(board_ref, comm_idx) {
 		form.submit();
 	}
 }
+function openWriteModal(board_idx) {
+	document.getElementById("board_idx").value = board_idx;
+}
 function openEditModal(board_ref, comm_idx, content) {
 	document.getElementById("board_ref").value = board_ref;
     document.getElementById("content").value = content;
@@ -44,131 +49,169 @@ function validateCommentForm(form) {
 </script>
 </head>
 <body>
-	<h2>게시판 읽기(Mybatis)</h2>	
-	<form name="deletePostForm">
-		<input type="hidden" name="board_idx" value="${ boardDTO.board_idx }" />
-	</form>
-	<table border="1" width="90%">
-	    <colgroup>
-	        <col width="15%"/> <col width="35%"/>
-	        <col width="15%"/> <col width="*"/>
-	    </colgroup>	
-	    <!-- 게시글 정보 -->
-	    <tr>
-	        <td>번호</td> <td>${ boardDTO.board_idx }</td>
-	        <td>작성자</td> <td>${ boardDTO.writer_ref }</td>
-	    </tr>
-	    <tr>
-	        <td>작성일</td> <td>${ boardDTO.postdate }</td>
-	        <td>조회수</td> <td>${ boardDTO.visitcount }</td>
-	    </tr>
-	    <tr>
-	        <td>제목</td>
-	        <td colspan="3">${ boardDTO.title }</td>
-	    </tr>
-	    <tr>
-	        <td>내용</td>
-	        <td colspan="3" height="100">
-	        	${ boardDTO.content }
-	        </td>
-	    </tr>
-	    <!-- 하단 메뉴(버튼) -->
-	    <tr>
-	        <td colspan="4" align="center">
-	            <button type="button" onclick="location.href='../freeboard/editPost.do?board_idx=${ param.board_idx }';">
-	                수정하기
-	            </button>
-	            <button type="button" onclick="deletePost(${ param.board_idx });">
-	                삭제하기
-	            </button>
-	            <button type="button" onclick="location.href='../freeboard.do';">
-	                목록 바로가기
-	            </button>
-	        </td>
-	    </tr>
-	</table>
+	<%@include file="../common/main_header.jsp" %>
 	
-	<!-- 댓글 -->
-	<form name="deleteCommentForm" method="post">
-	    <input type="hidden" name="board_ref" value="" />
-	    <input type="hidden" name="comm_idx" value="" />
-	</form>
-	<!-- 하단 메뉴 (바로가기, 글쓰기) -->
-	<div>
+	<main id="container">
+		<div class="content">
+			<!-- 게시글 -->
+			<h2>게시글 상세보기</h2>	
+			<div class="board_inner">
+				<form name="deletePostForm">
+					<input type="hidden" name="board_idx" value="${ boardDTO.board_idx }" />
+				</form>
+				
+				<table class="board">
+					<!-- 게시글 정보 -->
+					<tr>
+						<td class="left">제목</td>
+						<td colspan="3">${ boardDTO.title }</td>
+					</tr>
+					<tr>
+						<td class="left">작성자</td>
+						<td colspan="3">${ boardDTO.writer_ref }</td>
+					</tr>
+					<tr>
+						<td class="left">작성일</td> <td>${ boardDTO.postdate }</td>
+						<td class="left">조회수</td> <td>${ boardDTO.visitcount }</td>
+					</tr>
+					<tr>
+						<td class="left">내용</td>
+						<td class="board_content" colspan="3">${ boardDTO.content }</td>
+					</tr>
+					<tr>
+						<td class="left">좋아요</td> <td>492</td>
+						<td class="left">댓글</td> <td>198</td>
+					</tr>
+					<!-- 하단 메뉴(버튼) -->
+				</table>
+				<div class="board_btn">
+					<button type="button" onclick="location.href='../freeboard.do';">뒤로가기</button>
+					<button type="button" onclick="location.href='../freeboard/editPost.do?board_idx=${ param.board_idx }';">수정하기</button>
+					<button type="button" onclick="deletePost(${ param.board_idx });">삭제하기</button>
+				</div>
+			</div>
+		</div>
+		
+		<form name="deleteCommentForm" method="post">
+		    <input type="hidden" name="board_ref" value="" />
+		    <input type="hidden" name="comm_idx" value="" />
+		</form>
 		<div>
-			<!-- 댓글 입력 폼 -->
-			<form method="post" action="../freeboard/writeComment.do" onsubmit="return validateCommentForm(this);">
-		  		<input type="hidden" name="board_idx" value="${ param.board_idx }" />
-		  		<input type="text" name="id" placeholder="작성자 아이디를 입력하세요." />
-		  		<input type="text" name="content" placeholder="댓글을 입력하세요." />
-		  		<!-- 댓글 작성하기 버튼 -->
-		  		<button type="submit">댓글 작성하기</button>
-		  		</form>
+		<div>
+	  		<!-- 댓글 작성하기 버튼 -->
+	  		<div class="comment_btn">
+		  		<button type="button" data-bs-toggle="modal" data-bs-target="#writeCommentModal"
+		  			onclick="openWriteModal(${ param.board_idx })">
+	                댓글 작성하기
+	            </button>
+	  		</div>
 		</div>
 	</div>
-	<table border="1" width="90%">
-        <tr>
-            <th width="15%">작성자 아이디</th>
-            <th width="*">내용</th>
-            <th width="15%">작성일</th>
-        </tr>
-<c:choose>
-    <c:when test="${ empty commentsList }"> 
-        <tr>
-            <td colspan="5" align="center">
-                댓글을 남겨보세요
-            </td>
-        </tr>
-    </c:when> 
-    <c:otherwise> 
-        <c:forEach items="${ commentsList }" var="row" varStatus="loop">
-        <tr align="center">
-            <td>${ row.writer_ref }</td>
-            <td align="left">${ row.content }</td> 
-            <td>${ row.postdate }</td>
-		  	<td>
-				<%-- <c:if test="${ row.id == id }"> --%>
-				<!-- 수정 버튼 클릭 시 댓글 내용을 모달에 표시 -->
-		            <button type="button" data-bs-toggle="modal" data-bs-target="#editCommentModal"
-		                    onclick="openEditModal(${ row.board_ref }, ${ row.comm_idx }, '${ row.content }')">
-		                수정
-		            </button>
-				<button type="button" onclick="deleteComment(${ row.board_ref }, ${ row.comm_idx });">
-					삭제
-				</button>
-				<%-- </c:if> --%>
-			</td>
-        </tr>
-        </c:forEach>
-    </c:otherwise>    
-</c:choose>
-    </table>
-</body>
-
-<!-- 댓글 수정 모달창 -->
-<form method="post" action="../freeboard/editComment.do" onsubmit="return validateCommentForm(this);">
-<input type="hidden" id="board_ref" name="board_ref" value="" />
-<div class="modal" id="editCommentModal" >
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">댓글 수정</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <!-- Modal Body -->
-      <div class="modal-body">
-        <input type="hidden" id="comm_idx" name="comm_idx" value="">
-        <textarea class="form-control" id="content" name="content" style="height: 100px;"></textarea>
-      </div>
-      <!-- Modal Footer -->
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">수정하기</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
-      </div>
-    </div>
-  </div>
-</div>
-</form>
+		<table class="comment">
+			<thead>
+				<tr>
+					<th width="150px">작성자</th>
+					<th width="*">내용</th>
+					<th width="150px">작성일</th>
+					<th width="150px">수정 삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:choose>
+					<c:when test="${ empty commentsList }">
+						<tr>
+							<td colspan="4" align="center">
+								댓글을 남겨보세요
+							</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${ commentsList }" var="row" varStatus="loop">
+							<tr align="center">
+					            <td class="writer">${ row.writer_ref }</td>
+					            <td class="comm_content" align="left">${ row.content }</td> 
+					            <td class="postdate">${ row.postdate }</td>
+							  	<td class="board_btn">
+									<%-- <c:if test="${ row.id == id }"> --%>
+										<!-- 수정 버튼 클릭 시 댓글 내용을 모달에 표시 -->
+							            <button type="button" data-bs-toggle="modal" data-bs-target="#editCommentModal"
+							                    onclick="openEditModal(${ row.board_ref }, ${ row.comm_idx }, '${ row.content }')">
+							                수정
+							            </button>
+										<button type="button" onclick="deleteComment(${ row.board_ref }, ${ row.comm_idx });">
+											삭제
+										</button>
+									<%-- </c:if> --%>
+								</td>
+					        </tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+		</table>
+	</main>
+    <%-- <%@include file="../common/main_footer.jsp" %> --%>
     
-</body>
+    <!-- 댓글 작성 모달창 -->
+	<form method="post" action="../freeboard/writeComment.do" onsubmit="return validateCommentForm(this);">
+		<input type="hidden" id="board_idx" name="board_idx" value="" />
+		<div class="modal" id="writeCommentModal" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">댓글을 작성하세요</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<!-- Modal Body -->
+				<div class="modal-body">
+					<input type="text" name="id" placeholder="아이디를 작성하세요" />
+					<textarea class="form-control" id="content1" name="content" style="height: 100px;" placeholder="내용을 입력하세요"></textarea>
+				</div>
+				<!-- Modal Footer -->
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">작성하기</button>
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+				</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<!-- 댓글 수정 모달창 -->
+	<form method="post" action="../freeboard/editComment.do" onsubmit="return validateCommentForm(this);">
+		<input type="hidden" id="board_ref" name="board_ref" value="" />
+		<div class="modal" id="editCommentModal" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">댓글을 수정하세요</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<!-- Modal Body -->
+				<div class="modal-body">
+					<input type="hidden" id="comm_idx" name="comm_idx" value="">
+					<textarea class="form-control" id="content" name="content" style="height: 100px;"></textarea>
+				</div>
+				<!-- Modal Footer -->
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">수정하기</button>
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+				</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>   
+</html>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
