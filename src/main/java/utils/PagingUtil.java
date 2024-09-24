@@ -31,6 +31,17 @@ public class PagingUtil {
 								(intTemp-blockPage)+"'>"
 				+ "<img src='./images/paging2.png'></a>";
 		}
+		// 페이지네이션 위치 조정을 위한 코드
+		if(intTemp == 1) {
+			pagingStr += ""
+				+ "<a class='disabled' href='"+page+"pageNum=1'>"
+				+ "<img src='./images/paging1.png'></a>";
+			pagingStr += "&nbsp;";
+			pagingStr += ""
+				+ "<a class='disabled' href='"+page+"pageNum="+
+								(intTemp-blockPage)+"'>"
+				+ "<img src='./images/paging2.png'></a>";
+		}
 		
 		// 페이지표시 제어를 위한 변수
 		int blockCount = 1;
@@ -59,6 +70,17 @@ public class PagingUtil {
 											totalPage+"'>"
 				+ "<img src='./images/paging4.png'></a>";
 		}
+		// 페이지네이션 위치 조정을 위한 코드
+		if(intTemp == totalPage) {
+			pagingStr += ""
+				+ "<a class='disabled' href='"+page+"pageNum="+intTemp+"'>"
+				+ "<img src='./images/paging3.png'></a>";
+			pagingStr += "&nbsp;";
+			pagingStr += ""
+				+ "<a class='disabled' href='"+page+"pageNum="+totalPage+"'>"
+				+ "<img src='./images/paging4.png'></a>";
+		}
+		
 		
 		return pagingStr;
 	}

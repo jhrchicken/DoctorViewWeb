@@ -116,10 +116,13 @@
 }
 /*** 게시판 - 페이지네이션 ***/
 #container .pagination {
+  margin-top: 85px;  
+  width: 100%;
+}
+#container .pagination_inner {
   display: flex;
   justify-content: center;
   text-align: center;
-  margin-top: 85px;  
 }
 #container .pagination a {
   font-weight: 700;
@@ -134,4 +137,7 @@
 #container .pagination a>img {
   width: 21px;
   height: 21px;
+}
+#container .pagination .disabled {
+  visibility: hidden;
 }

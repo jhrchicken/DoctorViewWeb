@@ -82,7 +82,9 @@
 				
 				<!-- 페이지네이션 -->
 				<div class="pagination">
-					${ pagingImg }
+					<div class="pagination_inner">
+						${ pagingImg }
+					</div>
 				</div>		
 			</div>
 		</div>
