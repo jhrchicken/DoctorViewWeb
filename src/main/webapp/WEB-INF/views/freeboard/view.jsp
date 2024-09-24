@@ -90,6 +90,7 @@ function validateCommentForm(form) {
 					</c:if>
 				</div>
 				
+				<!-- 여기에요~~~~~ -->
 				<div class="like_btn">
 					<button type="button" onclick="location.href='../freeboard/clickLike.do?board_idx=${ param.board_idx }';">
 						<p class="like"></p>
