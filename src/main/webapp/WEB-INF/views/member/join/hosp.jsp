@@ -77,14 +77,6 @@
 	        alert("약관에 동의해야 합니다.");
 	        return false;
 	    }
-	    
-// 	    의료진 병원명 설정
-	    form.hosp_ref.value = form.id.value;
-	    
-	    
-		
-
-
 		return true;
 	}
 	
@@ -175,27 +167,64 @@
 		<tr>
 			<th>영업시간</th>
 			<td>
-				요일: <input type="text" name="week" value="" placeholder="요일"/><br />
-				진료시작 시간: <input type="text" name="starttime" value="" placeholder="진료시작 시간"/><br />
-				진료종료 시간: <input type="text" name="endtime" value="" placeholder="진료종료 시간"/><br />
-				휴게시간 시작 시간: <input type="text" name="startbreak" value="" placeholder="휴게시간 시작 시간"/><br />
-				휴게시간 종료 시간: <input type="text" name="endbreak" value="" placeholder="휴게시간 종료 시"/><br />
-				접수마감 시간: <input type="text" name="deadline" value="" placeholder="접수마감 시간"/>
+				요일: 
+				<input type="checkbox" name="weeks" value="월요일" />
+				<label for="monday">월</label>
+				<input type="checkbox" name="weeks" value="화요일" />
+				<label for="tuesday">화</label>
+				<input type="checkbox" name="weeks" value="수요일" />
+				<label for="wednesday ">수</label>
+				<input type="checkbox" name="weeks" value="목요일" />
+				<label for="thursday ">목</label>
+				<input type="checkbox" name="weeks" value="금요일" />
+				<label for="friday  ">금</label>
+				<input type="checkbox" name="weeks" value="토요일" />
+				<label for="saturday ">토</label>
+				<input type="checkbox" name="weeks" value="일요일" />
+				<label for="sunday ">일</label> <br />
+				
+				진료시간: <input type="time" name="starttime" value="" placeholder="진료시작 시간"/> - <input type="time" name="endtime" value="" placeholder="진료종료 시간"/><br />
+				휴게시간 시간: <input type="time" name="startbreak" value="" placeholder="휴게시간 시작 시간"/> - <input type="time" name="endbreak" value="" placeholder="휴게시간 종료 시"/><br />
+				접수마감 시간: <input type="time" name="deadline" value="" placeholder="접수마감 시간"/>
 			</td>
 		</tr>
 		
 		<!-- DOCTOR  -->
-		<tr>
-			<th>의료진</th>
-			<td>
-				이름: <input type="text" name="doctorname" value="" placeholder="이름"/><br />
-				전공: <input type="text" name="major" value="" placeholder="전공"/><br />
-				경력: <input type="text" name="career" value="" placeholder="경력"/><br />
-				진료 요일 및 시간: <input type="text" name="hours" value="" placeholder="진료시간"/>
-				<!-- hosp_ref 설정을 위한 히든 폼 -->
-				<input type="hidden" name="hosp_ref" value="" />
-			</td>
-		</tr>
+ 		<tr>
+            <th>의료진</th>
+            <td id="doctorContainer">
+                <div class="doctor-info">
+                    이름: <input type="text" name="doctornamez" value="" placeholder="이름"/><br />
+                    전공: <input type="text" name="majorz" value="" placeholder="전공"/><br />
+                    경력: <input type="text" name="careerz" value="" placeholder="경력"/><br />
+                    진료 요일 및 시간: <input type="text" name="hoursz" value="" placeholder="진료시간"/><br />
+                </div>
+		        <button type="button" id="addDoctor">+</button>
+            </td>
+        </tr>
+		
+		<script>
+	        document.getElementById("addDoctor").onclick = function() {
+	            // 새로운 의료진 정보 추가
+	            const newDoctorInfo = document.createElement("div");
+	            newDoctorInfo.className = "doctor-info";
+	            newDoctorInfo.innerHTML = `
+	            	<br />
+	                이름: <input type="text" name="doctornamez" value="" placeholder="이름"/><br />
+	                전공: <input type="text" name="majorz" value="" placeholder="전공"/><br />
+	                경력: <input type="text" name="careerz" value="" placeholder="경력"/><br />
+	                진료 요일 및 시간: <input type="text" name="hoursz" value="" placeholder="진료시간"/><br />
+	            `;
+	            
+	            const doctorContainer = document.getElementById("doctorContainer");
+	            doctorContainer.appendChild(newDoctorInfo);
+	            doctorContainer.appendChild(document.getElementById("addDoctor"));
+	        };
+	    </script>
+		
+		
+		
+		
 		<tr>
 		    <th>약관동의</th>
 		    <td>

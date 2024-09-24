@@ -29,6 +29,14 @@
     	INSERT INTO hours 
     	VALUES (seq_hours_idx.nextval, #{week}, #{starttime}, #{endtime}, #{startbreak}, #{endbreak}, #{deadline}, #{hosp_ref})
 	</insert>
+
+
+
+	
+	
+	
+	
+	
     
     <!-- 로그인 -->
     <select id="loginMember" 
