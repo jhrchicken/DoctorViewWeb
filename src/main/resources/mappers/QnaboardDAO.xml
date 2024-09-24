@@ -4,13 +4,13 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.edu.springboot.board.IQnaboardService">
+<mapper namespace="com.edu.springboot.board.IFreeboardService">
 	
 	<!-- 게시글 목록: 자유게시판의 게시글 개수를 카운트 -->
 	<select id="countPost"
 		resultType="int"
 		parameterType="com.edu.springboot.board.ParameterDTO">
-		SELECT COUNT(*) FROM board WHERE boardname='qnaboard'
+		SELECT COUNT(*) FROM board WHERE boardname='freeboard'
 		<!-- 검색어가 있는 경우 -->
 		<if test="searchWord!=null and !searchWord.equals('')">
 			AND ${searchField} LIKE '%'||#{searchWord}||'%'
@@ -23,7 +23,7 @@
 		parameterType="com.edu.springboot.board.ParameterDTO">
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM board WHERE boardname='qnaboard'
+				SELECT * FROM board WHERE boardname='freeboard'
 					<if test="searchWord!=null and !searchWord.equals('')">
 						AND ${searchField} LIKE '%'||#{searchWord}||'%'
 					</if>
