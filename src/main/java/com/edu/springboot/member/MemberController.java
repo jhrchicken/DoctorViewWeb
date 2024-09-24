@@ -42,7 +42,7 @@ public class MemberController {
 		
 		memberDAO.userJoin(memberDTO);
 		return "redirect:../../member/login.do";
-	}
+	} 
 	
 //	회원가입: 병원
 	@GetMapping("/member/join/hosp.do")
