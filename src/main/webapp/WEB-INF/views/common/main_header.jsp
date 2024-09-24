@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page session="true" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <header id="header">
 	<div class="inner">
 		<h1 class="logo">
@@ -22,7 +24,7 @@
 					<div class="depth2">
 						<ul>
 							<li><a href="../freeboard.do">자유게시판</a></li>
-							<li><a href="#">의료 상담 게시판</a></li>
+							<li><a href="../qnaboard.do">상담게시판</a></li>
 							<li><a href="#">베스트 글</a></li>
 							<li><a href="#">내가 쓴 글 / 댓글 단 글</a></li>
 							<li><a href="#">답변을 기다리는 글</a></li>
@@ -55,16 +57,26 @@
 		</nav>
 		<div class="login_wrap">
 			<ul>
-				<!-- 로그아웃 상태일 때 -->
-				<!-- <li><a href="#">로그인</a></li><li><a href="#">회원가입</a></li> -->
-				<!-- 로그인 상태일 때 -->
-				<li><a href="#">로그아웃</a></li><li><a href="#">나의 예약</a></li>
+				<!-- 로그인 하지 않은 상태 -->
+				<c:if test="${ empty sessionScope.userId }">
+					<li><a href="../member/login.do">로그인</a></li>
+					<li><a href="../member/join.do">회원가입</a></li>
+				</c:if>
+				<!-- 로그인 한 상태 -->
+				<c:if test="${ not empty sessionScope.userId }">
+					<li><a href="../member/logout.do">로그아웃</a></li>
+					<li><a href="#">나의 예약</a></li>
+				</c:if>
 				<div class="btn_wrap">
-					<!-- 로그아웃 상태일 때 -->
-					<!-- <img src="images/global.svg" alt="아이콘"> -->
-					<!-- 로그인 상태일 때 -->
-					<li><button class="chat_btn" type="button"><span class="blind">채팅</span></button></li>
-					<li><button class="my_btn" type="button"><span class="blind">마이</span></button></li>
+					<!-- 로그인 하지 않은 상태 -->
+					<c:if test="${ empty sessionScope.userId }">
+						<img src="images/global.svg" alt="아이콘">
+					</c:if>
+					<!-- 로그인 한 상태 -->
+					<c:if test="${ not empty sessionScope.userId }">
+						<li><button class="chat_btn" type="button"><span class="blind">채팅</span></button></li>
+						<li><button class="my_btn" type="button"><span class="blind">마이</span></button></li>
+					</c:if>
 				</div>
 			</ul>
 		</div>

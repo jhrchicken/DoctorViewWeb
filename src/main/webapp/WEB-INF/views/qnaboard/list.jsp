@@ -58,7 +58,7 @@
 										<td class="num">${ maps.total - (((maps.pageNum-1) * maps.postsPerPage)	+ loop.index)}</td>
 										<td class="name">${ row.nickname }</td>
 										<td class="title">
-											<a href="./freeboard/viewPost.do?board_idx=${ row.board_idx }">
+											<a href="./qnaboard/viewPost.do?board_idx=${ row.board_idx }">
 												<p>${ row.title }</p>
 												<p class="intro">${ row.content }</p>
 											</a>
@@ -76,15 +76,13 @@
 				<!-- 로그인 한 경우에만 글쓰기 버튼 -->
 				<c:if test="${ not empty sessionScope.userId }">
 				    <div class="write_btn">
-				        <button type="button" onclick="location.href='../freeboard/writePost.do';">글쓰기</button>
+				        <button type="button" onclick="location.href='../qnaboard/writePost.do';">글쓰기</button>
 				    </div>
 				</c:if>
 				
 				<!-- 페이지네이션 -->
 				<div class="pagination">
-					<div class="pagination_inner">
-						${ pagingImg }
-					</div>
+					${ pagingImg }
 				</div>		
 			</div>
 		</div>

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface IFreeboardService {
+public interface IQnaboardService {
 	// 게시글 목록: 자유게시판의 게시글 개수를 카운트
 	public int countPost(ParameterDTO parameterDTO);
 	// 게시글 목록: 자유게시판에서 한 페이지에 출력할 게시글을 인출
