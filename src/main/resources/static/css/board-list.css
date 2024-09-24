@@ -1,3 +1,12 @@
+/* 컬러 변수 */
+:root {
+  --point-color1: #ffce32;
+  --point-color2: #005ad5;
+  --gray-400: #999;
+  --gray-500: #666;
+  --gray-600: #292929;
+}
+
 #container .content {
   padding: 200px 0 80px;
 }
