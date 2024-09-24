@@ -20,4 +20,5 @@ public class MemberDTO {
 	private int enable;
 	private String auth;
 	private String email;
+	private String approve;
 }

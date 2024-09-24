@@ -160,7 +160,7 @@
 		<tr>
 			<th>아이디</th>
 			<td>
-				<input type="text" name="id" value="" placeholder="아이디"/>
+				<input type="text" name="id" value="" maxlength="15" placeholder="아이디"/>
 				<button type="button" name="idCheckBtn" id="idCheckBtn">중복 확인</button>
             	<span id="idCheckResult"></span><br> 
 				<!-- 아이디 중복 확인 여부를 위한 hidden input태그 -->
@@ -169,11 +169,11 @@
 		</tr>
 		<tr>
 			<th>비밀번호</th>
-			<td><input type="password" name="password" value="" placeholder="비밀번호"/></td>
+			<td><input type="password" name="password" maxlength="20" value="" placeholder="비밀번호"/></td>
 		</tr>
 		<tr>
 			<th>비밀번호 확인</th>
-			<td><input type="password" name="passwordCheck" value="" placeholder="비밀번호 확인"/></td>
+			<td><input type="password" name="passwordCheck" maxlength="20" value="" placeholder="비밀번호 확인"/></td>
 		</tr>
 		<tr>
 			<th>이름</th>

@@ -2,6 +2,7 @@ package com.edu.springboot.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +53,10 @@ public class MemberController {
 	@PostMapping("/member/join/hosp.do")
 	public String hospJoinPost(MemberDTO memberDTO, DoctorDTO doctorDTO, HoursDTO hoursDTO, HttpServletRequest req) {
 		// member
+		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
+		String taxid = req.getParameter("taxid1") + "-" + req.getParameter("taxid2") + "-" + req.getParameter("taxid3");
+		memberDTO.setTel(tel);
+		memberDTO.setTaxid(taxid);
 		int memberResult = memberDAO.joinMember(memberDTO);
 	    
 	    // doctor
@@ -128,10 +133,15 @@ public class MemberController {
 	}
 	
 	@PostMapping("/member/login.do")
-	public String login(MemberDTO memberDTO, HttpSession session) {
+	public String login(MemberDTO memberDTO, HttpSession session, Model model) {
 		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
 		
+		
 		if(loginUser != null) {
+			if(loginUser.getApprove().equals("F")) {
+				// 회원가입 승인 대기 처리 추가
+				return "redirect:/";
+			}
 		    session.setAttribute("userId", loginUser.getId()); 
 		    session.setAttribute("userPassword", loginUser.getPassword()); 
 		    session.setAttribute("userName", loginUser.getName()); 
