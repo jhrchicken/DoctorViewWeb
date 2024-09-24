@@ -1,126 +1,125 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>병원회원 회원가입</title>
+<title>회원가입 - 병원</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<%@ include file="../../common/head.jsp" %>
+<link rel="stylesheet" href="/css/member-join-hosp.css" />
 <script>
 // 	폼값 검증
-	function validateForm(form) {
-		if (form.id.value == '') {
-			alert("아이디를 입력하세요.");
-			form.id.focus();
-			return false;
-		}
-	    if (form.idCheck.value !== "check") {
-	        alert("아이디 중복체크를 진행하세요.");
-	        form.idCheckBtn.focus();
-	        return false;
-	    }
-		if (form.password.value == '') {
-			alert("비밀번호를 입력하세요.");
-			form.password.focus();
-			return false;
-		}
-		if (form.password.value != form.passwordCheck.value) {
-	        alert("비밀번호가 일치하지 않습니다.");
-	        form.passwordCheck.focus();
-	        return false;
-	    } 
-		var password_pattern =  /^[a-zA-Z0-9]{8,20}$/;
-		if (!password_pattern.test(form.password.value)) {
-		    alert("비밀번호는 영문자와 숫자가 포함되어야 하며, 8~20자여야 합니다.");
-		    form.password.focus();
-		    return false;
-		}
-		if (form.password.value == form.id.value) {
-		    alert("비밀번호와 아이디는 일치할 수 없습니다.");
-		    form.password.focus();
-		    return false;
-		}
-		
-		if (form.name.value == '') {
-			alert("병원명을 입력하세요.");
-			form.name.focus();
-			return false;
-		}
-		if (form.tel.value == '') {
-			alert("전화번호를 입력하세요.");
-			form.tel.focus();
-			return false;
-		}
-		if (form.address.value == '') {
-			alert("주소를 입력하세요.");
-			form.address.focus();
-			return false;
-		}
-		if (form.department.value == '') {
-			alert("진료과목을 입력하세요.");
-			form.department.focus();
-			return false;
-		}
-		if (form.taxid.value == '') {
-			alert("사업자번호를 입력하세요.");
-			form.taxid.focus();
-			return false;
-		}
-
-		
-	    if (!form.terms1.checked) {
-	        alert("약관에 동의해야 합니다.");
-	        return false;
-	    }
-	    if (!form.terms2.checked) {
-	        alert("약관에 동의해야 합니다.");
-	        return false;
-	    }
-		return true;
+function validateForm(form) {
+	if (form.id.value == '') {
+		alert("아이디를 입력하세요.");
+		form.id.focus();
+		return false;
+	}
+    if (form.idCheck.value !== "check") {
+        alert("아이디 중복체크를 진행하세요.");
+        form.idCheckBtn.focus();
+        return false;
+    }
+	if (form.password.value == '') {
+		alert("비밀번호를 입력하세요.");
+		form.password.focus();
+		return false;
+	}
+	if (form.password.value != form.passwordCheck.value) {
+        alert("비밀번호가 일치하지 않습니다.");
+        form.passwordCheck.focus();
+        return false;
+    } 
+	var password_pattern =  /^[a-zA-Z0-9]{8,20}$/;
+	if (!password_pattern.test(form.password.value)) {
+	    alert("비밀번호는 영문자와 숫자가 포함되어야 하며, 8~20자여야 합니다.");
+	    form.password.focus();
+	    return false;
+	}
+	if (form.password.value == form.id.value) {
+	    alert("비밀번호와 아이디는 일치할 수 없습니다.");
+	    form.password.focus();
+	    return false;
 	}
 	
+	if (form.name.value == '') {
+		alert("병원명을 입력하세요.");
+		form.name.focus();
+		return false;
+	}
+	if (form.tel.value == '') {
+		alert("전화번호를 입력하세요.");
+		form.tel.focus();
+		return false;
+	}
+	if (form.address.value == '') {
+		alert("주소를 입력하세요.");
+		form.address.focus();
+		return false;
+	}
+	if (form.department.value == '') {
+		alert("진료과목을 입력하세요.");
+		form.department.focus();
+		return false;
+	}
+	if (form.taxid.value == '') {
+		alert("사업자번호를 입력하세요.");
+		form.taxid.focus();
+		return false;
+	}
 	
-	// 아이디 중복 확인
-	$(function() {
-	    $.ajaxSetup({
-	        url: "../../member/join/checkId.do",
-	        dataType: "text",
-	    });
+    if (!form.terms1.checked) {
+        alert("약관에 동의해야 합니다.");
+        return false;
+    }
+    if (!form.terms2.checked) {
+        alert("약관에 동의해야 합니다.");
+        return false;
+    }
+	return true;
+}
 
-	    $("#idCheckBtn").click(function() {
-	        var join_id = $('input[name="id"]').val();
-		  	var id_pattern =  /^[a-zA-Z0-9]{6,15}$/;
-		  	
-	      	// 아이디가 패턴에 맞지않으면 반려
-	        if (!id_pattern.test(join_id)) {
-	        	alert("아이디는 영문자와 숫자만 포함되어야 합니다.");
-	        	$('input[name="id"]').focus();
-		        return false;
-	        }
+// 아이디 중복 확인
+$(function() {
+    $.ajaxSetup({
+        url: "../../member/join/checkId.do",
+        dataType: "text",
+    });
 
-	        $.ajax({
-	            data: { join_id: join_id },
-	            success: function(responseData) {
-	                if (responseData === "0") {
-	                    $("#idCheckResult").css("color","green").text("사용가능한 아이디");
-	                    $('input[name="idCheck"]').val("check");
-	                } else {
-	                    $("#idCheckResult").css("color","red").text("사용할 수 없는 아이디");
-	                    $('input[name="idCheck"]').val("unCheck");
-	                }
-	            },
-	            error: function(errData) {
-	                alert("실패: " + errData.status + " - " + errData.statusText);
-	            }
-	        });
-	    });
-	});
-	
-	
+    $("#idCheckBtn").click(function() {
+        var join_id = $('input[name="id"]').val();
+	  	var id_pattern =  /^[a-zA-Z0-9]{6,15}$/;
+	  	
+      	// 아이디가 패턴에 맞지않으면 반려
+        if (!id_pattern.test(join_id)) {
+        	alert("아이디는 영문자와 숫자만 포함되어야 합니다.");
+        	$('input[name="id"]').focus();
+	        return false;
+        }
+
+        $.ajax({
+            data: { join_id: join_id },
+            success: function(responseData) {
+                if (responseData === "0") {
+                    $("#idCheckResult").css("color","green").text("사용가능한 아이디");
+                    $('input[name="idCheck"]').val("check");
+                } else {
+                    $("#idCheckResult").css("color","red").text("사용할 수 없는 아이디");
+                    $('input[name="idCheck"]').val("unCheck");
+                }
+            },
+            error: function(errData) {
+                alert("실패: " + errData.status + " - " + errData.statusText);
+            }
+        });
+    });
+});
 </script>
 </head>
 <body>
+	<%@ include file="../../common/main_header.jsp" %>
+	
 	<h2>병원회원 등록</h2>
 	<form name="joinFrm" method="post" action="../../member/join/hosp.do" onsubmit="return validateForm(this);">
 	<table border="1">
@@ -237,5 +236,7 @@
 	</table>
 	<input type="submit" value="회원가입" />
 	</form>
+	
+	<%-- <%@include file="../../common/main_footer.jsp" %> --%>
 </body>
 </html>
