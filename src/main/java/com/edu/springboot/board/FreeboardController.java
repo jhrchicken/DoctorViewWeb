@@ -66,7 +66,7 @@ public class FreeboardController {
 	}
 	
 	@RequestMapping("/freeboard/viewPost.do")
-	public String viewPostReq(Model model, BoardDTO boardDTO) {
+	public String viewPostReq(Model model, BoardDTO boardDTO, HttpSession session) {
 		// 자유게시판의 게시글 조회
 		boardDTO = boardDAO.viewPost(boardDTO);
 		// 조회수 증가
@@ -91,6 +91,12 @@ public class FreeboardController {
 		model.addAttribute("likecount", likecount);
 		model.addAttribute("reportcount", reportcount);
 		model.addAttribute("commentcount", commentcount);
+		// 좋아요 신고 클릭 여부
+		String id = (String) session.getAttribute("userId");
+		int likecheck = boardDAO.checkLike(id, Integer.toString(boardDTO.getBoard_idx()));
+		int reportcheck = boardDAO.checkReport(id, Integer.toString(boardDTO.getBoard_idx()));
+		model.addAttribute("likecheck", likecheck);
+		model.addAttribute("reportcheck", reportcheck);
 		return "freeboard/view";
 	}
 	
