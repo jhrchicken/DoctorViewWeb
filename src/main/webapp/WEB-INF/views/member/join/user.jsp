@@ -52,14 +52,29 @@
 			form.name.focus();
 			return false;
 		}
-		if (form.tel.value == '') {
+		if (form.tel1.value == '') {
 			alert("전화번호를 입력하세요.");
-			form.tel.focus();
+			form.tel1.focus();
 			return false;
 		}
-		if (form.email.value == '') {
+		if (form.tel2.value == '') {
+			alert("전화번호를 입력하세요.");
+			form.tel2.focus();
+			return false;
+		}
+		if (form.tel3.value == '') {
+			alert("전화번호를 입력하세요.");
+			form.tel3.focus();
+			return false;
+		}
+		if (form.email1.value == '') {
 			alert("이메일을 입력하세요.");
-			form.email.focus();
+			form.email1.focus();
+			return false;
+		}
+		if (form.email2.value == '') {
+			alert("이메일을 입력하세요.");
+			form.email2.focus();
 			return false;
 		}
 		if (form.address.value == '') {
@@ -67,9 +82,14 @@
 			form.address.focus();
 			return false;
 		}
-		if (form.rrn.value == '') {
+		if (form.rrn1.value == '') {
 			alert("주민등록번호를 입력하세요.");
-			form.rrn.focus();
+			form.rrn1.focus();
+			return false;
+		}
+		if (form.rrn2.value == '') {
+			alert("주민등록번호를 입력하세요.");
+			form.rrn2.focus();
 			return false;
 		}
 		
@@ -130,6 +150,7 @@
 	});
 
 	
+	
 </script>
 </head>
 <body>
@@ -164,23 +185,54 @@
 				<input type="text" name="nickname" value=""  placeholder="닉네임"/>
 				<button type="button" name="randomNickname" id="randomNickname">닉네임 생성</button>
 			</td>
-			
 		</tr>
 		<tr>
 			<th>전화번호</th>
-			<td><input type="tel" name="tel" value="" placeholder="ex) 010-0000-0000"/></td>
+			<td>
+			<input type="tel" name="tel1" maxlength="3" value="" placeholder="010"/> -
+			<input type="tel" name="tel2" maxlength="4" value="" placeholder="0000"/> -
+			<input type="tel" name="tel3" maxlength="4" value="" placeholder="0000"/>
+			</td>
 		</tr>
 		<tr>
 			<th>이메일</th>
-			<td><input type="email" name="email" value="" placeholder="ex) abcd@naver.com"/></td>
+			<td>
+				<input type="text" name="email1" value="" placeholder="이메일"/> @  
+				<input type="text" name="email2" id="email2" value="" placeholder="naver.com"/>
+				<select id="emailDomainSelect">
+		            <option value="">직접 입력</option>
+		            <option value="naver.com">naver.com</option>
+		            <option value="gmail.com">gmail.com</option>
+		            <option value="daum.net">daum.net</option>
+		            <option value="hanmail.net">hanmail.net</option>
+		        </select>
+			</td>
 		</tr>
+		<script>
+		    document.getElementById("emailDomainSelect").addEventListener("change", function() {
+		        var email2 = document.getElementById("email2");
+		        var selectedValue = this.value;
+		
+		        if (selectedValue === "") {
+		            email2.value = "";
+		            email2.readOnly = false;
+		            email2.placeholder = "직접 입력";
+		        } else {
+		            email2.value = selectedValue;
+		            email2.readOnly = true;
+		        }
+		    });
+		</script>
 		<tr>
 			<th>주소</th>
-			<td><input type="text" name="address" value="" placeholder="주소"/></td>
+			<td><input type="text" name="address" value="" placeholder="ex) 서울특별시"/></td>
 		</tr>
 		<tr>
 			<th>주민등록번호</th>
-			<td><input type="text" name="rrn" value="" placeholder="주민등록번호"/></td>
+			<td>
+				<input type="text" name="rrn1" value="" maxlength="6" placeholder="주민등록번호 앞자리"/> - 
+				<input type="text" name="rrn2" value="" placeholder="주민등록번호 뒷자리" maxlength="1" />
+			</td>
 		</tr>
 		<tr>
 		    <th>약관동의</th>
