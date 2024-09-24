@@ -221,7 +221,7 @@
 		            email2.value = selectedValue;
 		            email2.readOnly = true;
 		        }
-		    });
+		    }); 
 		</script>
 		<tr>
 			<th>주소</th>
