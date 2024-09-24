@@ -30,16 +30,28 @@ public interface IFreeboardService {
 	// 댓글 삭제
 	public int deleteComment(String comm_idx);
 	
-	// 닉네임 인출
+	// 닉네임 인출: 게시글 작성자 닉네임 인출
 	public String selectBoardNickname(BoardDTO boardDTO);
-	// 닉네임 인출
+	// 닉네임 인출: 댓글 작성자 닉네임 인출
 	public String selectCommNickname(CommentsDTO commentsDTO);
-	// 좋아요 수 조회
+	// 좋아요: 좋아요 수 조회
 	public int countLike(String recodenum);
-	// 댓글 수 조회
+	// 좋아요: 좋아요 레코드 존재 여부 확인
+	public int checkLike(String id, String board_idx);
+	// 좋아요: 좋아요 수 증가
+	public int plusLike(String id, String board_idx);
+	// 좋아요: 좋아요 수 감소
+	public int minusLike(String id, String board_idx);
+	// 신고: 신고 수 조회
+	public int countReport(int board_idx);
+	// 신고: 신고 레코드 존재 여부 확인
+	public int checkReport(String id, String board_idx);
+	// 신고: 신고 수 증가
+	public int plusReport(String id, String board_idx);
+	// 신고: 신고 수 감소
+	public int minusReport(String id, String board_idx);
+	
+	// 조회
 	public int countComment(BoardDTO boardDTO);
-	// 좋아요 수 증가
-	public int plusLike(String member_idx, String board_idx);
-	// 신고 수 증가
-	public int plusReport(String board_idx);
+
 }

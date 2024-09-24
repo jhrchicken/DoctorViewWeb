@@ -71,9 +71,10 @@
   gap: 0 10px;
 }
 #container .board_btn button {
-  background: none;
-  color: var(--gray-400);
-  border: 2px solid #ddd;
+  background: var(--point-color2);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
   width: 80px;
   height: 41px;
   padding: 0 10px;
@@ -93,6 +94,9 @@
   width: 80px;
   height: 41px;
   padding: 0 10px;
+}
+#container .like_btn button>img {
+  margin-right: 10px;
 }
 /*** 게시판 - 댓글 작성 버튼 ***/
 #container .comment_btn {

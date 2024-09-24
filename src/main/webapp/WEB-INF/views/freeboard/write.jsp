@@ -37,13 +37,6 @@
 				<form name="writeFrm" method="post"
 					action="../freeboard/writePost.do" onsubmit="return validateWriteForm(this);">
 					<table class="board">
-						<!-- **************** 임시 작성자 폼 **************** -->
-						<tr>
-					        <td>작성자</td>
-					        <td>
-					            <input type="text" name="writer_idx" style="width:150px;" />
-					        </td>
-					    </tr>
 						<tr>
 							<td class="left">제목</td>
 							<td><input type="text" name="title" /></td>

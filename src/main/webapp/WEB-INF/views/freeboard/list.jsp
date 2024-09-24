@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page session="true" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
@@ -7,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/board-edit.css" />
+<link rel="stylesheet" href="/css/board-list.css" />
 </head>
 <body>
 	<%@include file="../common/main_header.jsp" %>
@@ -28,7 +29,7 @@
 							<option value="content">내용</option>
 						</select>
 						<input class="searchWord" type="text" name="searchWord" placeholder="검색어를 입력하세요" />
-						<input class="search_btn" type="submit" value="검색">
+						<input class="search_btn" type="submit" value="">
 					</form>
 				</div>
 				
@@ -72,10 +73,12 @@
 					</tbody>
 				</table>
 				
-				<!-- ***************** 로그인 한 경우에만 나타나도록 처리 ***************** -->
-				<div class="write_btn">
-					<button type="button" onclick="location.href='../freeboard/writePost.do';">글쓰기</button>
-				</div>
+				<!-- 로그인 한 경우에만 글쓰기 버튼 -->
+				<c:if test="${ not empty sessionScope.userId }">
+				    <div class="write_btn">
+				        <button type="button" onclick="location.href='../freeboard/writePost.do';">글쓰기</button>
+				    </div>
+				</c:if>
 				
 				<!-- 페이지네이션 -->
 				<div class="pagination">
