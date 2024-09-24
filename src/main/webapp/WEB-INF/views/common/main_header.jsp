@@ -3,7 +3,7 @@
 <header id="header">
 	<div class="inner">
 		<h1 class="logo">
-			<a href="index.html"><span class="blind">닥터뷰</span></a>
+			<a href="/"><span class="blind">닥터뷰</span></a>
 		</h1>
 		<nav class="gnb_wrap">
 			<ul class="gnb">
@@ -21,7 +21,7 @@
 					<a href="#">게시판</a>
 					<div class="depth2">
 						<ul>
-							<li><a href="#">자유게시판</a></li>
+							<li><a href="../freeboard.do">자유게시판</a></li>
 							<li><a href="#">의료 상담 게시판</a></li>
 							<li><a href="#">베스트 글</a></li>
 							<li><a href="#">내가 쓴 글 / 댓글 단 글</a></li>

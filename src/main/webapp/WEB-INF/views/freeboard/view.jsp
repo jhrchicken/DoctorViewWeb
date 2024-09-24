@@ -118,6 +118,8 @@ function validateCommentForm(form) {
 	  		</div>
 		</div>
 	</div>
+	
+	<div class="board_inner">
 		<table class="comment">
 			<thead>
 				<tr>
@@ -160,6 +162,7 @@ function validateCommentForm(form) {
 				</c:choose>
 			</tbody>
 		</table>
+	</div>
 	</main>
     <%-- <%@include file="../common/main_footer.jsp" %> --%>
     
