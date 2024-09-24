@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page session="true" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
@@ -78,16 +79,15 @@ function validateCommentForm(form) {
 						<td class="left">내용</td>
 						<td class="board_content" colspan="3">${ boardDTO.content }</td>
 					</tr>
-					<tr>
-						<td class="left">좋아요</td> <td>${ likecount }</td>
-						<td class="left">댓글</td> <td>${ commentcount }</td>
-					</tr>
 					<!-- 하단 메뉴(버튼) -->
 				</table>
 				<div class="board_btn">
 					<button type="button" onclick="location.href='../freeboard.do';">뒤로가기</button>
-					<button type="button" onclick="location.href='../freeboard/editPost.do?board_idx=${ param.board_idx }';">수정하기</button>
-					<button type="button" onclick="deletePost(${ param.board_idx });">삭제하기</button>
+					<!-- 로그인 사용자와 글 작성자가 일치하는 경우 수정 삭제 버튼 -->
+					<c:if test="${ boardDTO.writer_ref == sessionScope.userId }">
+						<button type="button" onclick="location.href='../freeboard/editPost.do?board_idx=${ param.board_idx }';">수정하기</button>
+						<button type="button" onclick="deletePost(${ param.board_idx });">삭제하기</button>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -109,13 +109,15 @@ function validateCommentForm(form) {
 		</form>
 		<div>
 		<div>
-	  		<!-- 댓글 작성하기 버튼 -->
-	  		<div class="comment_btn">
-		  		<button type="button" data-bs-toggle="modal" data-bs-target="#writeCommentModal"
-		  			onclick="openWriteModal(${ param.board_idx })">
-	                댓글 작성하기
-	            </button>
-	  		</div>
+	  		<!-- 로그인 한 경우 댓글 작성 버튼 -->
+	  		<c:if test="${ not empty sessionScope.userId }">
+		  		<div class="comment_btn">
+			  		<button type="button" data-bs-toggle="modal" data-bs-target="#writeCommentModal"
+			  			onclick="openWriteModal(${ param.board_idx })">
+		                댓글 작성하기
+		            </button>
+	  			</div>
+	  		</c:if>
 		</div>
 	</div>
 	
@@ -145,8 +147,8 @@ function validateCommentForm(form) {
 					            <td class="comm_content" align="left">${ row.content }</td> 
 					            <td class="postdate">${ row.postdate }</td>
 							  	<td class="board_btn">
-									<%-- <c:if test="${ row.id == id }"> --%>
-										<!-- 수정 버튼 클릭 시 댓글 내용을 모달에 표시 -->
+							  		<!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->
+									<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
 							            <button type="button" data-bs-toggle="modal" data-bs-target="#editCommentModal"
 							                    onclick="openEditModal(${ row.board_ref }, ${ row.comm_idx }, '${ row.content }')">
 							                수정
@@ -154,7 +156,7 @@ function validateCommentForm(form) {
 										<button type="button" onclick="deleteComment(${ row.board_ref }, ${ row.comm_idx });">
 											삭제
 										</button>
-									<%-- </c:if> --%>
+									</c:if>
 								</td>
 					        </tr>
 						</c:forEach>
@@ -174,12 +176,11 @@ function validateCommentForm(form) {
 				<div class="modal-content">
 				<!-- Modal Header -->
 				<div class="modal-header">
-					<h4 class="modal-title">댓글을 작성하세요</h4>
+					<h4 class="modal-title">댓글 작성</h4>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<!-- Modal Body -->
 				<div class="modal-body">
-					<input type="text" name="id" placeholder="아이디를 작성하세요" />
 					<textarea class="form-control" name="content" style="height: 100px;" placeholder="내용을 입력하세요"></textarea>
 				</div>
 				<!-- Modal Footer -->
@@ -200,7 +201,7 @@ function validateCommentForm(form) {
 				<div class="modal-content">
 				<!-- Modal Header -->
 				<div class="modal-header">
-					<h4 class="modal-title">댓글을 수정하세요</h4>
+					<h4 class="modal-title">댓글 수정</h4>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<!-- Modal Body -->

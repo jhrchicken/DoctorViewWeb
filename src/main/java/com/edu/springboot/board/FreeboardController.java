@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import utils.PagingUtil;
 
 
@@ -72,11 +73,14 @@ public class FreeboardController {
 		boardDAO.plusVisitcount(boardDTO);
 		// 줄바꿈 처리 및 저장
 		boardDTO.setContent(boardDTO.getContent().replace("\r\n", "<br/>"));
+		// 닉네임
+		String nickname = boardDAO.selectBoardNickname(boardDTO);
+		boardDTO.setNickname(nickname);
 		model.addAttribute("boardDTO", boardDTO);
 		// 댓글 처리
 		ArrayList<CommentsDTO> commentsList = boardDAO.listComments(boardDTO);
 		for (CommentsDTO comment : commentsList) {
-			String nickname = boardDAO.selectCommNickname(comment);
+			nickname = boardDAO.selectCommNickname(comment);
 			comment.setNickname(nickname);
 		}
 		model.addAttribute("commentsList", commentsList);
@@ -93,20 +97,22 @@ public class FreeboardController {
 		return "freeboard/write";
 	}
 	@PostMapping("/freeboard/writePost.do")
-	public String writePostPost(Model model, HttpServletRequest req) {
+	public String writePostPost(Model model, HttpServletRequest req, HttpSession session) {
 		// 폼값
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
-		String writer_idx = req.getParameter("writer_idx");
-		// ************** 작성자 정보 가져오기 *****************
-		
-		boardDAO.writePost(title, content, writer_idx);
+		// 세션에 저장된 로그인 아이디
+		String id = (String) session.getAttribute("userId");
+		boardDAO.writePost(title, content, id);
 		return "redirect:../freeboard.do";
 	}
 	
 	@GetMapping("/freeboard/editPost.do")
 	public String editPostGet(Model model, BoardDTO boardDTO) {
 		boardDTO = boardDAO.viewPost(boardDTO);
+		// 닉네임
+		String nickname = boardDAO.selectBoardNickname(boardDTO);
+		boardDTO.setNickname(nickname);
 		model.addAttribute("boardDTO", boardDTO);
 		return "freeboard/edit";
 	}
@@ -137,11 +143,12 @@ public class FreeboardController {
 	}
 	
 	@PostMapping("/freeboard/writeComment.do")
-	public String writeCommentPost(HttpServletRequest req) {
+	public String writeCommentPost(HttpServletRequest req, HttpSession session) {
 		// 폼값
-		String id = req.getParameter("id");
 		int board_idx = Integer.parseInt(req.getParameter("board_idx"));
 		String content = req.getParameter("content");
+		// 세션에 저장된 로그인 아이디
+		String id = (String) session.getAttribute("userId");
 		// 댓글 작성
 		boardDAO.writeComment(id, board_idx, content);
 		return "redirect:../freeboard/viewPost.do?board_idx=" + board_idx;

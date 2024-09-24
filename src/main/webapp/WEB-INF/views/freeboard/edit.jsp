@@ -26,7 +26,7 @@
     					<tr>
     						<td class="left">작성자</td>
     						<td colspan="3">
-    							<input type="text" name="name" style="width:150px;" value="${ boardDTO.writer_ref }" />
+    							${ boardDTO.nickname }
     						</td>
     					</tr>
     					<tr>
@@ -36,10 +36,6 @@
     					<tr>
     						<td class="left">내용</td>
     						<td class="area board_content" colspan="3"><textarea name="content">${ boardDTO.content }</textarea></td>
-    					</tr>
-    					<tr>
-    						<td class="left">좋아요</td> <td>492</td>
-    						<td class="left">댓글</td> <td>198</td>
     					</tr>
     				</table>
     				<!-- 하단 메뉴(버튼) -->
