@@ -89,27 +89,32 @@ function validateCommentForm(form) {
 						<button type="button" onclick="deletePost(${ param.board_idx });">삭제하기</button>
 					</c:if>
 				</div>
+				
+				<div class="like_btn">
+					<button type="button" onclick="location.href='../freeboard/clickLike.do?board_idx=${ param.board_idx }';">
+						<p class="like"></p>
+						<span>${ likecount }</span>
+					</button>
+					<button type="button" onclick="location.href='../freeboard/clickReport.do?board_idx=${ param.board_idx }';">
+						<p class="dislike"></p>
+						<span>${ reportcount }</span>
+					</button>
+				</div>
 			</div>
 		</div>
 		
-		<div class="like_btn">
-			<button type="button" onclick="location.href='../freeboard/clickLike.do?board_idx=${ param.board_idx }';">
-				<img src="/images/like.png" width="24px">
-				${ likecount }
-			</button>
-			<button type="button" onclick="location.href='../freeboard/clickReport.do?board_idx=${ param.board_idx }';">
-				<img src="/images/dislike.png" width="24px">
-				${ reportcount }
-			</button>
-		</div>
 		
+		
+
+	  		
+	
+	<div class="board_inner">
 		<form name="deleteCommentForm" method="post">
 		    <input type="hidden" name="board_ref" value="" />
 		    <input type="hidden" name="comm_idx" value="" />
 		</form>
 		<div>
-		<div>
-	  		<!-- 로그인 한 경우 댓글 작성 버튼 -->
+			<!-- 로그인 한 경우 댓글 작성 버튼 -->
 	  		<c:if test="${ not empty sessionScope.userId }">
 		  		<div class="comment_btn">
 			  		<button type="button" data-bs-toggle="modal" data-bs-target="#writeCommentModal"
@@ -119,9 +124,6 @@ function validateCommentForm(form) {
 	  			</div>
 	  		</c:if>
 		</div>
-	</div>
-	
-	<div class="board_inner">
 		<table class="comment">
 			<thead>
 				<tr>
@@ -165,7 +167,7 @@ function validateCommentForm(form) {
 			</tbody>
 		</table>
 	</div>
-	</main>
+</main>
     <%-- <%@include file="../common/main_footer.jsp" %> --%>
     
     <!-- 댓글 작성 모달창 -->

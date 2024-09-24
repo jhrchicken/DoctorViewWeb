@@ -20,17 +20,17 @@
 					<p class="board_total">
 						총 <strong>${ maps.total }</strong>건의 게시글이 있습니다.
 					</p>
-				</div>
-				<!-- 검색 폼 -->
-				<div class="board_search">
-					<form class="searchForm" method="get" name="searchForm">
-						<select class="searchField" name="searchField">
-							<option value="title">제목</option>
-							<option value="content">내용</option>
-						</select>
-						<input class="searchWord" type="text" name="searchWord" placeholder="검색어를 입력하세요" />
-						<input class="search_btn" type="submit" value="">
-					</form>
+					<!-- 검색 폼 -->
+					<div class="board_search">
+						<form class="searchForm" method="get" name="searchForm">
+							<select class="searchField" name="searchField">
+								<option value="title">제목</option>
+								<option value="content">내용</option>
+							</select>
+							<input class="searchWord" type="text" name="searchWord" placeholder="검색어를 입력하세요" />
+							<input class="search_btn" type="submit" value=''>
+						</form>
+					</div>
 				</div>
 				
 				<!-- 게시글 목록 -->

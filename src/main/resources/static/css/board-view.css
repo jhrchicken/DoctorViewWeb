@@ -82,21 +82,45 @@
 /*** 좋아요 신고 - 버튼 ***/
 #container .like_btn {
   width: 100%;
-  margin-bottom: 20px;
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   gap: 0 10px;
 }
 #container .like_btn button {
+  color: var(--point-color2);
   background: none;
-  color: var(--gray-400);
-  border: 2px solid #ddd;
+  border: 2px solid #005ad5;
+  border-radius: 5px;
   width: 80px;
   height: 41px;
   padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-#container .like_btn button>img {
-  margin-right: 10px;
+#container .like_btn button.active {
+  color: #fff;
+  background: var(--point-color2);
+  border: none;
+}
+#container .like_btn button>p {
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+#container .like_btn button>.like {
+  background: url(/images/like_blue.svg) no-repeat 0 0 / 100%;
+}
+#container .like_btn button.active>.like {
+  background-image: url(/images/like_white.svg);
+}
+#container .like_btn button>.dislike {
+  background: url(/images/dislike_blue.svg) no-repeat 0 0 / 100%;
+}
+#container .like_btn button.active>.dislike {
+  background: url(/images/dislike_white.svg);
 }
 /*** 게시판 - 댓글 작성 버튼 ***/
 #container .comment_btn {
