@@ -4,26 +4,26 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.edu.springboot.board.IFreeboardService">
+<mapper namespace="com.edu.springboot.board.IQnaboardService">
 	
-	<!-- 게시글 목록: 자유게시판의 게시글 개수를 카운트 -->
+	<!-- 게시글 목록: 질문게시판의 게시글 개수를 카운트 -->
 	<select id="countPost"
 		resultType="int"
 		parameterType="com.edu.springboot.board.ParameterDTO">
-		SELECT COUNT(*) FROM board WHERE boardname='freeboard'
+		SELECT COUNT(*) FROM board WHERE boardname='qnaboard'
 		<!-- 검색어가 있는 경우 -->
 		<if test="searchWord!=null and !searchWord.equals('')">
 			AND ${searchField} LIKE '%'||#{searchWord}||'%'
 		</if>
 	</select>
 	
-	<!-- 게시글 목록: 자유게시판에서 한 페이지에 출력할 게시글을 인출 -->
+	<!-- 게시글 목록: 질문게시판에서 한 페이지에 출력할 게시글을 인출 -->
 	<select id="listPost"
 		resultType="com.edu.springboot.board.BoardDTO"
 		parameterType="com.edu.springboot.board.ParameterDTO">
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM board WHERE boardname='freeboard'
+				SELECT * FROM board WHERE boardname='qnaboard'
 					<if test="searchWord!=null and !searchWord.equals('')">
 						AND ${searchField} LIKE '%'||#{searchWord}||'%'
 					</if>
@@ -40,7 +40,7 @@
 		SELECT * FROM board WHERE board_idx=#{board_idx}
 	</select>
 	
-	<!-- 게시글 조회: 자유게시판에서 게시글의 조회수 증가 -->
+	<!-- 게시글 조회: 질문게시판에서 게시글의 조회수 증가 -->
 	<update id="plusVisitcount"
 		parameterType="com.edu.springboot.board.ParameterDTO">
 		UPDATE board SET visitcount=visitcount+1 WHERE board_idx=#{board_idx}
@@ -64,7 +64,7 @@
 		DELETE FROM board WHERE board_idx=#{param1}
 	</delete>
 	
-	<!-- 댓글 목록: 자유게시판에서 특정 게시물에 해당하는 댓글을 인출 -->
+	<!-- 댓글 목록: 질문게시판에서 특정 게시물에 해당하는 댓글을 인출 -->
 	<select id="listComments"
 		resultType="com.edu.springboot.board.CommentsDTO"
 		parameterType="com.edu.springboot.board.BoardDTO">

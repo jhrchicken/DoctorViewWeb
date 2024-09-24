@@ -52,5 +52,4 @@ public interface IQnaboardService {
 	public int plusReport(String id, String board_idx);
 	// 신고: 신고 수 감소
 	public int minusReport(String id, String board_idx);
-	
 }

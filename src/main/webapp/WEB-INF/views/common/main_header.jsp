@@ -22,7 +22,7 @@
 					<div class="depth2">
 						<ul>
 							<li><a href="../freeboard.do">자유게시판</a></li>
-							<li><a href="#">의료 상담 게시판</a></li>
+							<li><a href="../qnaboard.do">상담게시판</a></li>
 							<li><a href="#">베스트 글</a></li>
 							<li><a href="#">내가 쓴 글 / 댓글 단 글</a></li>
 							<li><a href="#">답변을 기다리는 글</a></li>
