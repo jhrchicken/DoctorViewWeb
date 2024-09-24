@@ -19,6 +19,5 @@ public class MemberDTO {
 	private String photo;
 	private int enable;
 	private String auth;
-	
-//	private String email;
+	private String email;
 }

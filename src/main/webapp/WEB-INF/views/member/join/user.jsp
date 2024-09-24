@@ -84,57 +84,51 @@
 		return true;
 	}
 	
-	
 	// 아이디 중복 확인
 	$(function() {
-	    $.ajaxSetup({
-	        url: "../../member/join/checkId.do",
-	        dataType: "text",
-	    });
 
-	    $("#idCheckBtn").click(function() {
-	        var join_id = $('input[name="id"]').val();
-		  	var id_pattern =  /^[a-zA-Z0-9]{6,15}$/;
-		  	
-	      	// 아이디가 패턴에 맞지않으면 반려
-	        if (!id_pattern.test(join_id)) {
-	        	alert("아이디는 영문자와 숫자만 포함되어야 합니다.");
-	        	$('input[name="id"]').focus();
+		$("#idCheckBtn").click(function() {
+		    var join_id = $('input[name="id"]').val();
+		    var id_pattern = /^[a-zA-Z0-9]{6,15}$/;
+	
+		    if (!id_pattern.test(join_id)) {
+		        alert("아이디는 영문자와 숫자만 포함되어야 합니다.");
+		        $('input[name="id"]').focus();
 		        return false;
-	        }
-
-	        $.ajax({
-	            data: { join_id: join_id },
-	            success: function(responseData) {
-	                if (responseData === "0") {
-	                    $("#idCheckResult").css("color","green").text("사용가능한 아이디");
-	                    $('input[name="idCheck"]').val("check");
-	                } else {
-	                    $("#idCheckResult").css("color","red").text("사용할 수 없는 아이디");
-	                    $('input[name="idCheck"]').val("unCheck");
-	                }
-	            },
-	            error: function(errData) {
-	                alert("실패: " + errData.status + " - " + errData.statusText);
-	            }
-	        });
-	    });
+		    }
+	
+		    $.ajax({
+		        url: "../../member/join/checkId.do", 
+		        data: { join_id: join_id },
+		        success: function(responseData) {
+		            if (responseData === "0") {
+		                $("#idCheckResult").css("color", "green").text("사용가능한 아이디");
+		                $('input[name="idCheck"]').val("check");
+		            } else {
+		                $("#idCheckResult").css("color", "red").text("사용할 수 없는 아이디");
+		                $('input[name="idCheck"]').val("unCheck");
+		            }
+		        },
+		        error: function(errData) {
+		            alert("실패: " + errData.status + " - " + errData.statusText);
+		        }
+		    });
+		});
+		
+		// 닉네임 생성
+		$("#randomNickname").click(function() {
+		    $.ajax({
+		        url: "../../member/join/getNick.do",
+		        success: function(responseData) {
+		            $('input[name="nickname"]').val(responseData);
+		        },
+		        error: function(errData) {
+		            alert("실패: " + errData.status + " - " + errData.statusText);
+		        }
+		    });
+		});
 	});
 
-	
-    // 닉네임 랜덤 생성
-    $("#randomNickname").click(function() {
-        $.ajax({
-            url: "../../member/join/getNick.do",
-            success: function(responseData) {
-                // 서버에서 반환한 랜덤 문자열을 nickname 입력란에 설정
-                $('input[name="nickname"]').val(responseData);
-            },
-            error: function(errData) {
-                alert("닉네임 생성 실패: " + errData.status + " - " + errData.statusText);
-            }
-        });
-    });
 	
 </script>
 </head>
@@ -167,7 +161,7 @@
 		<tr>
 			<th>닉네임</th>
 			<td>
-				<input type="text" name="nickname" value="" placeholder="닉네임"/>
+				<input type="text" name="nickname" value=""  placeholder="닉네임"/>
 				<button type="button" name="randomNickname" id="randomNickname">닉네임 생성</button>
 			</td>
 			
@@ -191,10 +185,20 @@
 		<tr>
 		    <th>약관동의</th>
 		    <td>
-		        <p>약관1 (필수)</p>
-		        <input type="checkbox" name="terms1" value="yes" />
-		        <p>약관2 (필수)</p>
-		        <input type="checkbox" name="terms2" value="yes" />
+		        <p>
+		            약관1 (필수)
+		            <label>
+		                <input type="checkbox" name="terms1" value="yes" />
+		                동의
+		            </label>
+		        </p>
+		        <p>
+		            약관2 (필수)
+		            <label>
+		                <input type="checkbox" name="terms2" value="yes" />
+		                동의
+		            </label>
+		        </p>
 		    </td>
 		</tr>
 	</table>

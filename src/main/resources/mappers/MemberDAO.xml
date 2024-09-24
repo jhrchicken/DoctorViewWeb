@@ -7,19 +7,28 @@
 <mapper namespace="com.edu.springboot.member.IMemberService">
 	
 	<!-- user 회원가입 -->
-	<insert id="joinMemer"
+	<insert id="userJoin"
 		parameterType="com.edu.springboot.member.MemberDTO">
 		INSERT INTO member (id, password, name, nickname, tel, email, address, rrn, enable, auth, approve)
 		VALUES (#{id}, #{password}, #{name}, #{nickname}, #{tel}, #{email}, #{address}, #{rrn}, 1, 'ROLE_USER', 'T')
 	</insert>
 	
-	<!-- 병원 회원가입 -->
-	<insert id="joinMemer"
+	<!-- hosp 회원가입 -->
+	<insert id="joinMember"
 		parameterType="com.edu.springboot.member.MemberDTO">
-		INSERT INTO member (id, password, name, nickname, tel, email, address, rrn, enable, auth, approve)
-		VALUES (#{id}, #{password}, #{name}, #{nickname}, #{tel}, #{email}, #{address}, #{rrn}, 1, 'ROLE_USER', 'T')
+		INSERT INTO member (id, password, name, nickname, tel, address, taxid, department, enable, auth)
+    	VALUES (#{id}, #{password}, #{name}, #{name}, #{tel}, #{address}, #{taxid}, #{department}, 1, 'ROLE_HOSP')
 	</insert>
-	
+	<insert id="joinDoctor"
+		parameterType="com.edu.springboot.member.DoctorDTO">
+    	INSERT INTO doctor (doc_idx, name, major, career, hours, hosp_ref) 
+    	VALUES (seq_doctor_idx.nextval, #{doctorname}, #{major}, #{career}, #{hours}, #{hosp_ref})
+	</insert>
+	<insert id="joinHours"
+		parameterType="com.edu.springboot.member.HoursDTO">
+    	INSERT INTO hours 
+    	VALUES (seq_hours_idx.nextval, #{week}, #{starttime}, #{endtime}, #{startbreak}, #{endbreak}, #{deadline}, #{hosp_ref})
+	</insert>
     
     <!-- 로그인 -->
     <select id="loginMember" 
@@ -27,9 +36,8 @@
     	resultType="com.edu.springboot.member.MemberDTO">
         SELECT * FROM member WHERE id = #{id} and password=#{password}
     </select>
-
 	
-	 <!-- 아이디 중복 체크 -->
+ 	<!-- 아이디 중복 체크 -->
     <select id="checkId" 
     	parameterType="String"
     	resultType="int">

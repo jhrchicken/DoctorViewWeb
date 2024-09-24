@@ -15,7 +15,7 @@
 	
 	<h2>자유게시판</h2>
 	<ul>
-<!-- 		<li><a href="./freeboard.do">게시판목록</a></li> -->
+		<li><a href="./freeboard.do">게시판목록</a></li>
 	</ul>
 	
 	<h2>회원관리</h2>

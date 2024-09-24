@@ -77,6 +77,11 @@
 	        alert("약관에 동의해야 합니다.");
 	        return false;
 	    }
+	    
+// 	    의료진 병원명 설정
+	    form.hosp_ref.value = form.id.value;
+	    
+	    
 		
 
 
@@ -95,7 +100,7 @@
 	        var join_id = $('input[name="id"]').val();
 		  	var id_pattern =  /^[a-zA-Z0-9]{6,15}$/;
 		  	
-//	      	아이디가 패턴에 맞지않으면 반려
+	      	// 아이디가 패턴에 맞지않으면 반려
 	        if (!id_pattern.test(join_id)) {
 	        	alert("아이디는 영문자와 숫자만 포함되어야 합니다.");
 	        	$('input[name="id"]').focus();
@@ -113,21 +118,19 @@
 	                    $('input[name="idCheck"]').val("unCheck");
 	                }
 	            },
-	            error: errFunc
+	            error: function(errData) {
+	                alert("실패: " + errData.status + " - " + errData.statusText);
+	            }
 	        });
 	    });
 	});
-
-	// 아이디 중복 실패 
-	function errFunc(errData) {
-	    alert("실패: " + errData.status + "-" + errData.statusText);
-	}
+	
 	
 </script>
 </head>
 <body>
 	<h2>병원회원 등록</h2>
-	<form name="joinFrm" method="post" action="../../member/join/user.do" onsubmit="return validateForm(this);">
+	<form name="joinFrm" method="post" action="../../member/join/hosp.do" onsubmit="return validateForm(this);">
 	<table border="1">
 		<tr>
 			<th>아이디</th>
@@ -170,20 +173,28 @@
 		
 		<!-- HOURS -->
 		<tr>
-			<!-- hours 컬럼에 맞게 input 수정필요 -->
 			<th>영업시간</th>
-			<td><input type="text" name="rrn" value="" placeholder="영업시간"/></td>
-		</tr>
-		<tr>
-			<th>휴무일</th>
-			<td><input type="text" name="rrn" value="" placeholder="휴무일"/></td>
+			<td>
+				요일: <input type="text" name="week" value="" placeholder="요일"/><br />
+				진료시작 시간: <input type="text" name="starttime" value="" placeholder="진료시작 시간"/><br />
+				진료종료 시간: <input type="text" name="endtime" value="" placeholder="진료종료 시간"/><br />
+				휴게시간 시작 시간: <input type="text" name="startbreak" value="" placeholder="휴게시간 시작 시간"/><br />
+				휴게시간 종료 시간: <input type="text" name="endbreak" value="" placeholder="휴게시간 종료 시"/><br />
+				접수마감 시간: <input type="text" name="deadline" value="" placeholder="접수마감 시간"/>
+			</td>
 		</tr>
 		
 		<!-- DOCTOR  -->
 		<tr>
-			<!-- doctor 컬럼에 맞게 input 수정필요 -->
 			<th>의료진</th>
-			<td><input type="text" name="rrn" value="" placeholder="의료진"/></td>
+			<td>
+				이름: <input type="text" name="doctorname" value="" placeholder="이름"/><br />
+				전공: <input type="text" name="major" value="" placeholder="전공"/><br />
+				경력: <input type="text" name="career" value="" placeholder="경력"/><br />
+				진료 요일 및 시간: <input type="text" name="hours" value="" placeholder="진료시간"/>
+				<!-- hosp_ref 설정을 위한 히든 폼 -->
+				<input type="hidden" name="hosp_ref" value="" />
+			</td>
 		</tr>
 		<tr>
 		    <th>약관동의</th>

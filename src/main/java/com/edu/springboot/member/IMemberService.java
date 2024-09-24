@@ -5,8 +5,13 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface IMemberService {
 	
-//	회원가입 
-	public int joinMemer(MemberDTO memberDTO);
+//	회원가입: 개인회원 
+	public int userJoin(MemberDTO memberDTO);
+	
+//	회원가입: 병원회원
+	public int joinMember(MemberDTO memberDTO);
+	public int joinDoctor(DoctorDTO doctorDTO);
+	public int joinHours(HoursDTO hoursDTO);
 	
 //	로그인
 	public MemberDTO loginMember(MemberDTO memberDTO);
