@@ -93,13 +93,13 @@ function validateCommentForm(form) {
 		</div>
 		
 		<div class="like_btn">
-			<button type="button" onclick="location.href='../freeboard/plusLike.do?board_idx=${ param.board_idx }';">
+			<button type="button" onclick="location.href='../freeboard/clickLike.do?board_idx=${ param.board_idx }';">
 				<img src="/images/like.png" width="24px">
 				${ likecount }
 			</button>
-			<button type="button" onclick="location.href='../freeboard/plusReport.do?board_idx=${ param.board_idx }';">
+			<button type="button" onclick="location.href='../freeboard/clickReport.do?board_idx=${ param.board_idx }';">
 				<img src="/images/dislike.png" width="24px">
-				${ boardDTO.reportcount }
+				${ reportcount }
 			</button>
 		</div>
 		

@@ -84,10 +84,12 @@ public class FreeboardController {
 			comment.setNickname(nickname);
 		}
 		model.addAttribute("commentsList", commentsList);
-		// 좋아요 수와 댓글 수 조회 및 저장
+		// 좋아요수 신고수 댓글수
 		int likecount = boardDAO.countLike(Integer.toString(boardDTO.getBoard_idx()));
+		int reportcount = boardDAO.countReport(boardDTO.getBoard_idx());
 		int commentcount = boardDAO.countComment(boardDTO);
 		model.addAttribute("likecount", likecount);
+		model.addAttribute("reportcount", reportcount);
 		model.addAttribute("commentcount", commentcount);
 		return "freeboard/view";
 	}
@@ -128,17 +130,37 @@ public class FreeboardController {
 		return "redirect:../freeboard.do";
 	}
 	
-	@GetMapping("/freeboard/plusLike.do")
-	public String plusLikeGet(HttpServletRequest req) {
+	@GetMapping("/freeboard/clickLike.do")
+	public String clickLikeGet(HttpServletRequest req, HttpSession session) {
+		// 좋아요 여부 확인
+		String id = (String) session.getAttribute("userId");
 		String board_idx = req.getParameter("board_idx");
-		boardDAO.plusLike("harim", board_idx);
+		int likecheck = boardDAO.checkLike(id, board_idx);
+		if (likecheck == 0) {
+			// 좋아요 증가
+			boardDAO.plusLike(id, board_idx);
+		}
+		else {
+			// 좋아요 취소
+			boardDAO.minusLike(id, board_idx);
+		}
 		return "redirect:../freeboard/viewPost.do?board_idx=" + board_idx;
 	}
 	
-	@GetMapping("/freeboard/plusReport.do")
-	public String plusReportGet(HttpServletRequest req) {
+	@GetMapping("/freeboard/clickReport.do")
+	public String clickReportGet(HttpServletRequest req, HttpSession session) {
+		// 신고 여부 확인
+		String id = (String) session.getAttribute("userId");
 		String board_idx = req.getParameter("board_idx");
-		boardDAO.plusReport(board_idx);
+		int reportcheck = boardDAO.checkReport(id, board_idx);
+		if (reportcheck == 0) {
+			// 신고 수 증가
+			boardDAO.plusReport(id, board_idx);
+		}
+		else {
+			// 신고 수 감소
+			boardDAO.minusReport(id, board_idx);
+		}
 		return "redirect:../freeboard/viewPost.do?board_idx=" + board_idx;
 	}
 	

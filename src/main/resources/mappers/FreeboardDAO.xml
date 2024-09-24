@@ -89,37 +89,61 @@
 		DELETE FROM comments WHERE comm_idx=#{param1}
 	</delete>
 	
-	<!-- 게시글 작성자 닉네임 인출 -->
+	<!-- 닉네임 인출: 게시글 작성자 닉네임 인출 -->
 	<select id="selectBoardNickname"
 		parameterType="com.edu.springboot.board.BoardDTO">
 		SELECT nickname FROM member WHERE id=#{writer_ref}
 	</select>
 	
-	<!-- 댓글 작성자 닉네임 인출 -->
+	<!-- 닉네임 인출: 댓글 작성자 닉네임 인출 -->
 	<select id="selectCommNickname"
 		parameterType="com.edu.springboot.board.CommentsDTO">
 		SELECT nickname FROM member WHERE id=#{writer_ref}
 	</select>
 	
-	<!-- 좋아요 수 조회 -->
+	<!-- 좋아요: 좋아요 수 조회 -->
 	<select id="countLike">
 		SELECT COUNT(*) FROM likes WHERE tablename='board' and recodenum=#{param1}
 	</select>
+	
+	<!-- 좋아요: 좋아요 레코드 존재 여부 확인 -->
+	<select id="checkLike">
+		SELECT COUNT(*) FROM likes WHERE tablename='board' and member_ref=#{param1} and recodenum=#{param2}
+	</select>
+	
+	<!-- 좋아요: 좋아요 수 증가 -->
+	<insert id="plusLike">
+		INSERT INTO likes VALUES (seq_likes_idx.nextval, #{param1}, 'board', #{param2})
+	</insert>
+	
+	<!-- 좋아요: 좋아요 수 감소 -->
+	<delete id="minusLike">
+		DELETE FROM likes WHERE tablename='board' and member_ref=#{param1} and recodenum=#{param2}
+	</delete>
+	
+	<!-- 신고: 신고 수 조회 -->
+	<select id="countReport">
+		SELECT COUNT(*) FROM report WHERE board_ref=#{param1}
+	</select>
+	
+	<!-- 신고: 신고 레코드 존재 여부 확인 -->
+	<select id="checkReport">
+		SELECT COUNT(*) FROM report WHERE member_ref=#{param1} and board_ref=#{param2}
+	</select>
+	
+	<!-- 신고: 신고 수 증가 -->
+	<insert id="plusReport">
+		INSERT INTO report VALUES (seq_report_idx.nextval, #{param1}, #{param2})
+	</insert>
+	
+	<!-- 신고: 신고 수 감소 -->
+	<delete id="minusReport">
+		DELETE FROM report WHERE member_ref=#{param1} and board_ref=#{param2}
+	</delete>
 	
 	<!-- 댓글 수 조회 -->
 	<select id="countComment">
 		SELECT COUNT(*) FROM comments WHERE board_ref=#{board_idx}
 	</select>
-	
-	<!-- 좋아요 수 증가 -->
-	<insert id="plusLike">
-		INSERT INTO likes VALUES (seq_likes_idx.nextval, #{param1}, 'board', #{param2})
-	</insert>
-	
-	<!-- 신고 수 증가 -->
-	<update id="plusReport">
-		UPDATE board SET reportcount=reportcount+1
-		WHERE board_idx=#{param1}
-	</update>
 	
 </mapper>
