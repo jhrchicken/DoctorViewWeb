@@ -36,7 +36,7 @@
 	<!-- 게시글 조회: 게시글의 일련번호를 DTO를 통해 받은 후 조회하고 결과를 다시 DTO에 저장 -->
 	<select id="viewPost"
 		resultType="com.edu.springboot.board.BoardDTO"
-		parameterType="com.edu.springboot.board.ParameterDTO">
+		parameterType="com.edu.springboot.board.BoardDTO">
 		SELECT * FROM board WHERE board_idx=#{board_idx}
 	</select>
 	
@@ -69,7 +69,7 @@
 		resultType="com.edu.springboot.board.CommentsDTO"
 		parameterType="com.edu.springboot.board.BoardDTO">
 		SELECT * FROM comments WHERE board_ref=#{board_idx}
-		ORDER BY postdate DESC
+		ORDER BY comm_idx DESC
 	</select>
 	
 	<!-- 댓글 작성 -->
