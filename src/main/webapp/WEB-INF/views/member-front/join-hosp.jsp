@@ -35,7 +35,7 @@
                 본인은 위 내용을 충분히 이해하였으며, 이에 동의합니다.</p>
               </div>
               <label class="checkbox_wrap">
-              	<!-- checkAgree <-> terms1 -->
+              	<!-- 다영이가 쓴 이름 terms1 / 회리가 썼던 이름 checkAgree  -->
                 <input id="terms1" name="terms1" type="checkbox" value="yes">
                 <label for="terms1">개인정보 수집 및 이용에 동의합니다. <span class="must">(필수)</span></label>
               </label>
