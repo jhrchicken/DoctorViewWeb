@@ -90,34 +90,33 @@ function validateCommentForm(form) {
 					</c:if>
 				</div>
 				
-				<!-- 여기에요~~~~~ -->
 				<div class="like_btn">
 					<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
 					<c:if test="${ likecheck == 0 }">
 						<button type="button" onclick="location.href='../freeboard/clickLike.do?board_idx=${ param.board_idx }';">
 							<p class="like"></p>
-							<span>안눌렀다${ likecount }</span>
+							<span>${ likecount }</span>
 						</button>
 					</c:if>
 					<!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
 					<c:if test="${ likecheck == 1 }">
-						<button type="button" onclick="location.href='../freeboard/clickLike.do?board_idx=${ param.board_idx }';">
+						<button class="push" type="button" onclick="location.href='../freeboard/clickLike.do?board_idx=${ param.board_idx }';">
 							<p class="like"></p>
-							<span>눌렀다${ likecount }</span>
+							<span>${ likecount }</span>
 						</button>
 					</c:if>
 					<!-- 로그인 한 사용자가 신고를 누르지 않은 경우 -->
 					<c:if test="${ reportcount == 0 }">
 						<button type="button" onclick="location.href='../freeboard/clickReport.do?board_idx=${ param.board_idx }';">
 							<p class="dislike"></p>
-							<span>안눌렀다${ reportcount }</span>
+							<span>${ reportcount }</span>
 						</button>
 					</c:if>
 					<!-- 로그인 한 사용자가 신고를 누른 경우 -->
 					<c:if test="${ reportcount == 1 }">
-						<button type="button" onclick="location.href='../freeboard/clickReport.do?board_idx=${ param.board_idx }';">
+						<button class="push" type="button" onclick="location.href='../freeboard/clickReport.do?board_idx=${ param.board_idx }';">
 							<p class="dislike"></p>
-							<span>눌렀다${ reportcount }</span>
+							<span>${ reportcount }</span>
 						</button>
 					</c:if>
 				</div>
@@ -141,46 +140,46 @@ function validateCommentForm(form) {
 		  		</c:if>
 			</div>
 			<table class="comment">
-				<thead>
-					<tr>
-						<th width="150px">작성자</th>
-						<th width="*">내용</th>
-						<th width="150px">작성일</th>
-						<th width="150px">수정 / 삭제</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:choose>
-						<c:when test="${ empty commentsList }">
-							<tr>
-								<td colspan="4" align="center">
-									댓글을 남겨보세요
+			<thead>
+				<tr>
+					<th width="150px">작성자</th>
+					<th width="*">내용</th>
+					<th width="150px">작성일</th>
+					<th width="150px">수정 / 삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:choose>
+					<c:when test="${ empty commentsList }">
+						<tr>
+							<td colspan="4" align="center">
+								댓글을 남겨보세요
+							</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${ commentsList }" var="row" varStatus="loop">
+							<tr align="center">
+					            <td class="writer">${ row.nickname }</td>
+					            <td class="comm_content" align="left">${ row.content }</td> 
+					            <td class="postdate">${ row.postdate }</td>
+							  	<td class="board_btn">
+							  		<!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->
+									<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
+							            <button type="button" data-bs-toggle="modal" data-bs-target="#editCommentModal"
+							                    onclick="openEditModal(${ row.board_ref }, ${ row.comm_idx }, '${ row.content }')">
+							                수정
+							            </button>
+										<button type="button" onclick="deleteComment(${ row.board_ref }, ${ row.comm_idx });">
+											삭제
+										</button>
+									</c:if>
 								</td>
-							</tr>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${ commentsList }" var="row" varStatus="loop">
-								<tr align="center">
-						            <td class="writer">${ row.nickname }</td>
-						            <td class="comm_content" align="left">${ row.content }</td> 
-						            <td class="postdate">${ row.postdate }</td>
-								  	<td class="board_btn">
-								  		<!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->
-										<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
-								            <button type="button" data-bs-toggle="modal" data-bs-target="#editCommentModal"
-								                    onclick="openEditModal(${ row.board_ref }, ${ row.comm_idx }, '${ row.content }')">
-								                수정
-								            </button>
-											<button type="button" onclick="deleteComment(${ row.board_ref }, ${ row.comm_idx });">
-												삭제
-											</button>
-										</c:if>
-									</td>
-						        </tr>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-				</tbody>
+					        </tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
 			</table>
 		</div>
 	</main>
