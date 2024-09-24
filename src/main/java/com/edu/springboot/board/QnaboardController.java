@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import utils.PagingUtil;
 
+
 @Controller
 public class QnaboardController {
 	
@@ -65,8 +66,8 @@ public class QnaboardController {
 	}
 	
 	@RequestMapping("/qnaboard/viewPost.do")
-	public String viewPostReq(Model model, BoardDTO boardDTO, HttpServletRequest session) {
-		// 질문게시판의 게시글 조회
+	public String viewPostReq(Model model, BoardDTO boardDTO, HttpSession session) {
+		// 자유게시판의 게시글 조회
 		boardDTO = boardDAO.viewPost(boardDTO);
 		// 조회수 증가
 		boardDAO.plusVisitcount(boardDTO);
@@ -103,7 +104,6 @@ public class QnaboardController {
 	public String writePostGet(Model model) {
 		return "qnaboard/write";
 	}
-	
 	@PostMapping("/qnaboard/writePost.do")
 	public String writePostPost(Model model, HttpServletRequest req, HttpSession session) {
 		// 폼값
@@ -191,6 +191,12 @@ public class QnaboardController {
 		// 댓글 수정
 		boardDAO.editComment(comm_idx, content);
 		return "redirect:../qnaboard/viewPost.do?board_idx=" + board_ref;
+	}
+
+	@PostMapping("/qnaboard/deleteComment.do")
+	public String deleteCommentGet(HttpServletRequest req) {
+		boardDAO.deleteComment(req.getParameter("comm_idx"));
+		return "redirect:../qnaboard/viewPost.do?board_idx=" + req.getParameter("board_ref");
 	}
 	
 }

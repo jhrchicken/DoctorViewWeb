@@ -6,32 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%@include file="common/head.jsp" %>
 </head>
 <body>
-	<h2>스프링 부트 프로젝트</h2>
-	<ul>
-		<li><a href="/">루트</a></li>
-	</ul>
+	<%@include file="common/main_header.jsp" %>
 	
-	<h2>자유게시판</h2>
-	<ul>
-		<li><a href="./freeboard.do">자유게시판</a></li>
-		<li><a href="./qnaboard.do">Q&A게시판</a></li>
-	</ul>
-	
-	<h2>회원관리</h2>
-	<ul>
-		<c:if test="${ empty userId }">
-	    	<li><a href="../member/join.do">회원가입</a></li>
-			<li><a href="../member/login.do">로그인</a></li>
-		</c:if>
-		<c:if test="${ not empty userId }">
-			<li><a href="../member/logout.do">로그아웃</a></li>
-			<p><strong>${ userName }</strong>님</p>
-		</c:if>
-	</ul>
-	
-	
-	
+	<%-- <%@include file="../common/main_footer.jsp" %> --%>
 </body>
 </html>
