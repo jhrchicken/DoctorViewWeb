@@ -134,7 +134,7 @@
 #container .pagination a:hover {
   color: var(--point-color2);
 }
-#container .pagination a>img {
+#container .pagination img {
   width: 21px;
   height: 21px;
 }
