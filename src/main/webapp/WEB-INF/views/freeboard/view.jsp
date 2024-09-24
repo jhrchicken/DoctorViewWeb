@@ -120,68 +120,64 @@ function validateCommentForm(form) {
 						</button>
 					</c:if>
 				</div>
+			
+				<form name="deleteCommentForm" method="post">
+				    <input type="hidden" name="board_ref" value="" />
+				    <input type="hidden" name="comm_idx" value="" />
+				</form>
+				<div>
+					<!-- 로그인 한 경우 댓글 작성 버튼 -->
+			  		<c:if test="${ not empty sessionScope.userId }">
+				  		<div class="comment_btn">
+					  		<button type="button" data-bs-toggle="modal" data-bs-target="#writeCommentModal"
+					  			onclick="openWriteModal(${ param.board_idx })">
+				                댓글 작성하기
+				            </button>
+			  			</div>
+			  		</c:if>
+				</div>
+				<table class="comment">
+					<thead align="center">
+						<th width="150px">작성자</th>
+						<th width="*">내용</th>
+						<th width="150px">작성일</th>
+						<th width="150px">수정 / 삭제</th>
+					</thead>
+					<tbody>
+						<c:choose>
+							<c:when test="${ empty commentsList }">
+								<tr>
+									<td colspan="4" align="center">
+										댓글을 남겨보세요
+									</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${ commentsList }" var="row" varStatus="loop">
+									<tr align="center">
+							            <td class="writer">${ row.nickname }</td>
+							            <td class="comm_content" align="left">${ row.content }</td> 
+							            <td class="postdate">${ row.postdate }</td>
+									  	<td class="comm_btn">
+									  		<!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->
+											<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
+									            <button type="button" data-bs-toggle="modal" data-bs-target="#editCommentModal"
+									                    onclick="openEditModal(${ row.board_ref }, ${ row.comm_idx }, '${ row.content }')">
+									                수정
+									            </button>
+												<button type="button" onclick="deleteComment(${ row.board_ref }, ${ row.comm_idx });">
+													삭제
+												</button>
+											</c:if>
+										</td>
+							        </tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</tbody>
+				</table>
 			</div>
-		</div>
-
-		<div class="board_inner">
-			<form name="deleteCommentForm" method="post">
-			    <input type="hidden" name="board_ref" value="" />
-			    <input type="hidden" name="comm_idx" value="" />
-			</form>
-			<div>
-				<!-- 로그인 한 경우 댓글 작성 버튼 -->
-		  		<c:if test="${ not empty sessionScope.userId }">
-			  		<div class="comment_btn">
-				  		<button type="button" data-bs-toggle="modal" data-bs-target="#writeCommentModal"
-				  			onclick="openWriteModal(${ param.board_idx })">
-			                댓글 작성하기
-			            </button>
-		  			</div>
-		  		</c:if>
-			</div>
-			<table class="comment">
-			<thead>
-				<tr>
-					<th width="150px">작성자</th>
-					<th width="*">내용</th>
-					<th width="150px">작성일</th>
-					<th width="150px">수정 / 삭제</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:choose>
-					<c:when test="${ empty commentsList }">
-						<tr>
-							<td colspan="4" align="center">
-								댓글을 남겨보세요
-							</td>
-						</tr>
-					</c:when>
-					<c:otherwise>
-						<c:forEach items="${ commentsList }" var="row" varStatus="loop">
-							<tr align="center">
-					            <td class="writer">${ row.nickname }</td>
-					            <td class="comm_content" align="left">${ row.content }</td> 
-					            <td class="postdate">${ row.postdate }</td>
-							  	<td class="board_btn">
-							  		<!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->
-									<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
-							            <button type="button" data-bs-toggle="modal" data-bs-target="#editCommentModal"
-							                    onclick="openEditModal(${ row.board_ref }, ${ row.comm_idx }, '${ row.content }')">
-							                수정
-							            </button>
-										<button type="button" onclick="deleteComment(${ row.board_ref }, ${ row.comm_idx });">
-											삭제
-										</button>
-									</c:if>
-								</td>
-					        </tr>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-			</tbody>
-			</table>
-		</div>
+		</div>		
 	</main>
     <%-- <%@include file="../common/main_footer.jsp" %> --%>
     

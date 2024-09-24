@@ -58,7 +58,7 @@
 /*** 좋아요, 신고 버튼 ***/
 #container .like_btn {
   width: 100%;
-  margin-top: 50px;
+  margin: 50px 0;
   display: flex;
   justify-content: center;
   gap: 0 10px;
@@ -101,30 +101,7 @@
   background: url(/images/dislike_white.svg);
 }
 
-/*** 댓글 ***/
-#container .comment {
-  border-top: 1px solid #ddd;
-  margin-top: 10px;
-}
-#container .comment tr {
-  height: 75px;
-  border-bottom: 1px solid #ddd;
-  text-align: center;
-  color: var(--gray-600);
-  font-size: 16px;
-}
-#container .comment .writer {
-  font-weight: 700;
-}
-#container .comment .comm_content {
-  text-align: left;
-  padding: 0 20px;
-}
-#container .comment .postdate {
-  font-size: 13px;
-  color: var(—gray-500);
-  margin-top: 5px;
-}
+
 /*** 댓글 작성 버튼 ***/
 #container .comment_btn {
     width: 100%;
@@ -133,11 +110,49 @@
     justify-content: right;
 }
 #container .comment_btn button {
-    background: var(--point-color2);
+    background: #bbb;
     color: #fff;
     border: none;
     border-radius: 5px;
-    width: 120px;
+    width: 110px;
     height: 41px;
     padding: 0 10px;
+    margin-right: 20px;
+}
+
+
+
+/*** 댓글 ***/
+#container .comment {
+  border-top: 4px solid #ddd;
+  border-bottom: 4px solid #ddd;
+  margin-top: 10px;
+}
+#container .comment tr {
+  height: 70px;
+  border-bottom: 1px solid #ddd;
+  color: var(--gray-600);
+  font-size: 16px;
+}
+#container .comment th,
+#container .comment td {
+  padding: 0 20px;
+}
+#container .comment .writer {
+  font-weight: 700;
+}
+/*** 댓글 - 수정, 삭제 버튼 ***/
+#container .comment .comm_btn {
+  display: flex;
+  gap: 0 10px;
+  justify-content: center;
+  padding: 15px 0;
+}
+#container .comment .comm_btn button {
+  background: #bbb;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: 50px;
+  height: 41px;
 }
