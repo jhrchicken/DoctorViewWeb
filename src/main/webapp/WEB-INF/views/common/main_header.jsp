@@ -23,8 +23,8 @@
 					<a href="#">게시판</a>
 					<div class="depth2">
 						<ul>
-							<li><a href="../freeboard.do">자유게시판</a></li>
-							<li><a href="../qnaboard.do">상담게시판</a></li>
+							<li><a href="${pageContext.request.contextPath}/freeboard.do">자유게시판</a></li>
+							<li><a href="${pageContext.request.contextPath}/qnaboard.do">상담게시판</a></li>
 							<li><a href="#">베스트 글</a></li>
 							<li><a href="#">내가 쓴 글 / 댓글 단 글</a></li>
 							<li><a href="#">답변을 기다리는 글</a></li>
@@ -59,18 +59,18 @@
 			<ul>
 				<!-- 로그인 하지 않은 상태 -->
 				<c:if test="${ empty sessionScope.userId }">
-					<li><a href="../member/login.do">로그인</a></li>
-					<li><a href="../member/join.do">회원가입</a></li>
+					<li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a></li>
+					<li><a href="${pageContext.request.contextPath}/member/join.do">회원가입</a></li>
 				</c:if>
 				<!-- 로그인 한 상태 -->
 				<c:if test="${ not empty sessionScope.userId }">
-					<li><a href="../member/logout.do">로그아웃</a></li>
+					<li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
 					<li><a href="#">나의 예약</a></li>
 				</c:if>
 				<div class="btn_wrap">
 					<!-- 로그인 하지 않은 상태 -->
 					<c:if test="${ empty sessionScope.userId }">
-						<img src="images/global.svg" alt="아이콘">
+						<img src="${pageContext.request.contextPath}/images/global.svg" alt="아이콘">
 					</c:if>
 					<!-- 로그인 한 상태 -->
 					<c:if test="${ not empty sessionScope.userId }">
