@@ -30,11 +30,6 @@
     	VALUES (seq_hours_idx.nextval, #{week}, #{starttime}, #{endtime}, #{startbreak}, #{endbreak}, #{deadline}, #{hosp_ref})
 	</insert>
 
-
-
-	
-	
-	
 	
 	
     
@@ -52,7 +47,12 @@
         SELECT COUNT(*) FROM member WHERE id = #{id}
     </select>
 	
-
+	<!-- 아이디 찾기 -->
+	<select id="foundIdMember" 
+    	parameterType="com.edu.springboot.member.MemberDTO"
+    	resultType="com.edu.springboot.member.MemberDTO">
+        SELECT * FROM member WHERE email = #{email} and password=#{password}
+    </select>
 
 	
 	

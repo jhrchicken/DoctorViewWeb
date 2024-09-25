@@ -155,6 +155,7 @@
 </head>
 <body>
 	<h2>개인회원 등록</h2>
+	${ joinFaild }
 	<form name="joinFrm" method="post" action="../../member/join/user.do" onsubmit="return validateForm(this);">
 	<table border="1">
 		<tr>

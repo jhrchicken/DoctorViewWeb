@@ -1,12 +1,9 @@
 package com.edu.springboot.member;
 
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface IMemberService {
-	
 //	회원가입: 개인회원 
 	public int userJoin(MemberDTO memberDTO);
 	
@@ -23,5 +20,8 @@ public interface IMemberService {
 	
 //	회원가입 랜덤 닉네임 생성
 	public String getNick();
+	
+//	아이디찾기
+	public MemberDTO foundIdMember(MemberDTO memberDTO);
 
 }

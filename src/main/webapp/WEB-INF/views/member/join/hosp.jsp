@@ -137,6 +137,7 @@
 </head>
 <body>
 	<h2>병원회원 등록</h2>
+	${ joinFaild }
 	<form name="joinFrm" method="post" action="../../member/join/hosp.do" onsubmit="return validateForm(this);">
 	<table border="1">
 		<tr>

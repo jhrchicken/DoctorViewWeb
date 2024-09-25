@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.CookieManager;
 
 @Controller
 public class MemberController {
@@ -31,7 +33,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/member/join/user.do")
-	public String userJoinPost(MemberDTO memberDTO, HttpServletRequest req) {
+	public String userJoinPost(MemberDTO memberDTO, HttpServletRequest req, Model model) {
 		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
 		String eamil = req.getParameter("email1") + "@" + req.getParameter("email2");
 		String rrn = req.getParameter("rrn1") + "-" + req.getParameter("rrn2") + "000000";
@@ -40,8 +42,25 @@ public class MemberController {
 		memberDTO.setEmail(eamil);
 		memberDTO.setRrn(rrn);
 		
-		memberDAO.userJoin(memberDTO);
-		return "redirect:../../member/login.do";
+		System.out.println(memberDTO.getId());
+		System.out.println(memberDTO.getPassword());
+		System.out.println(memberDTO.getName());
+		System.out.println(memberDTO.getNickname());
+		System.out.println(memberDTO.getTel());
+		System.out.println(memberDTO.getEmail());
+		System.out.println(memberDTO.getAddress());
+		System.out.println(memberDTO.getRrn());
+		
+		
+//		memberDAO.userJoin(memberDTO);
+		
+		if (memberDAO.userJoin(memberDTO) == 1) {
+			return "redirect:../../member/login.do";
+		}
+		else {
+			model.addAttribute("joinFaild", "회원가입에 실패했습니다.");
+			return "member/join/user";
+		}
 	} 
 	
 //	회원가입: 병원
@@ -51,7 +70,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/member/join/hosp.do")
-	public String hospJoinPost(MemberDTO memberDTO, DoctorDTO doctorDTO, HoursDTO hoursDTO, HttpServletRequest req) {
+	public String hospJoinPost(MemberDTO memberDTO, DoctorDTO doctorDTO, HoursDTO hoursDTO, HttpServletRequest req, Model model) {
 		// member
 		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
 		String taxid = req.getParameter("taxid1") + "-" + req.getParameter("taxid2") + "-" + req.getParameter("taxid3");
@@ -91,9 +110,11 @@ public class MemberController {
 	    
 		// 회원가입 성공
 	    if (memberResult == 1 && doctorResult == 1 && hoursResult == 1) {
-	        return "redirect:../../member/login.do";
+//	    	회원승인이 필요하기때문에 home으로 이동
+	        return "redirect:/";
 	    } else {
 	    	// 회원가입 실패
+	    	model.addAttribute("joinFaild", "회원가입에 실패했습니다.");
 	    	return "member/join/hosp";
 	    }
 	}
@@ -133,21 +154,31 @@ public class MemberController {
 	}
 	
 	@PostMapping("/member/login.do")
-	public String login(MemberDTO memberDTO, HttpSession session, Model model) {
+	public String login(MemberDTO memberDTO, HttpSession session, Model model, HttpServletRequest req, HttpServletResponse resp) {
 		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
-		
+		String saveId = req.getParameter("save");
 		
 		if(loginUser != null) {
 			if(loginUser.getApprove().equals("F")) {
 				// 회원가입 승인 대기 처리 추가
-				return "redirect:/";
+				model.addAttribute("approve", "회원승인 대기 상태입니다.");
+				return "member/login";
 			}
 		    session.setAttribute("userId", loginUser.getId()); 
 		    session.setAttribute("userPassword", loginUser.getPassword()); 
 		    session.setAttribute("userName", loginUser.getName()); 
-			return "redirect:/";
+		    
+		    // 아이디 저장버튼이 눌렸다면 로그아웃을 해도 다음 로그인 시 아이디가 표시됨
+            if(req.getParameter("saveId") != null) {
+            	CookieManager.makeCookie(resp, "savdId", memberDTO.getId(), 86400);
+            } else {
+            	CookieManager.deleteCookie(resp, "savdId");
+            }
+		    
+		    return "redirect:/";
 		}
 		else {
+			model.addAttribute("loginFaild", "아이디 혹은 비밀번호가 일치하지않습니다.");
 			return "member/login";
 		}
 	}
@@ -160,6 +191,34 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+//	아이디찾기
+	@GetMapping("/member/findId.do")
+	public String findIdGet() {
+		return "member/findId";
+	}
+	
+	@PostMapping("/member/findId.do")
+	public String findIdPost(MemberDTO memberDTO, Model model) {
+		MemberDTO findId = memberDAO.foundIdMember(memberDTO);
+		
+		if(findId != null) {
+			model.addAttribute("foundId", findId.getId());
+			return "member/findId";
+		}
+		else {
+			model.addAttribute("notfountId", "회원정보가 없습니다.");
+			return "member/findId";
+		}
+	}
+	
+//	비밀번호찾기
+	@GetMapping("/member/findPass.do")
+	public String findPass() {
+		
+		
+		
+		return "member/findPass";
+	}
 	
 
 }
