@@ -11,6 +11,16 @@
 <body>
 	<%@include file="common/main_header.jsp" %>
 	
-	<%-- <%@include file="../common/main_footer.jsp" %> --%>
+	<!-- 채팅 -->
+	<%-- <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<%@ include file="../../chat/index.html" %> --%>
+	<!-- <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	<iframe src="/chat/index.html"></iframe>
+	<a href="/chat/index.html">채팅 바로가기 링크</a>
+	<h2>왜 안떠</h2> -->
+	 
+	<%-- <%@include file="common/main_footer.jsp" %> --%>
 </body>
 </html>
