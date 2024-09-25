@@ -9,136 +9,138 @@
 <%@ include file="../../common/head.jsp" %>
 <link rel="stylesheet" href="/css/member-join-hosp.css" />
 <script>
-//폼값 검증
-function validateForm(form) {
- const fieldsToValidate = [
-     { field: form.id, message: "아이디를 입력하세요." },
-     { field: form.password, message: "비밀번호를 입력하세요." },
-     { field: form.passwordCheck, message: "비밀번호 확인을 입력하세요." },
-     { field: form.name, message: "병원명을 입력하세요." },
-     { field: form.tel1, message: "전화번호를 입력하세요." },
-     { field: form.tel2, message: "전화번호를 입력하세요." },
-     { field: form.tel3, message: "전화번호를 입력하세요." },
-     { field: form.address, message: "주소를 입력하세요." },
-     { field: form.department, message: "진료과목을 입력하세요." },
-     { field: form.taxid1, message: "사업자 번호를 입력하세요." },
-     { field: form.taxid2, message: "사업자 번호를 입력하세요." },
-     { field: form.taxid3, message: "사업자 번호를 입력하세요." },
-     { field: form.starttime, message: "진료 시작 시간을 입력하세요." },
-     { field: form.endtime, message: "진료 종료 시간을 입력하세요." },
-     { field: form.startbreak, message: "휴게 시작 시간을 입력하세요." },
-     { field: form.endbreak, message: "휴게 종료 시간을 입력하세요." },
-     { field: form.deadline, message: "접수 마감 시간을 입력하세요." },
-     { field: form.doctornamez, message: "의료진 이름을 입력하세요." },
-     { field: form.majorz, message: "전공을 입력하세요." },
-     { field: form.careerz, message: "경력을 입력하세요." },
-     { field: form.hoursz, message: "진료 시간을 입력하세요." }
- ];
+//    폼값 검증
+   function validateForm(form) {
+    const fieldsToValidate = [
+        { field: form.id, message: "아이디를 입력하세요." },
+        { field: form.password, message: "비밀번호를 입력하세요." },
+        { field: form.passwordCheck, message: "비밀번호 확인을 입력하세요." },
+        { field: form.name, message: "병원명을 입력하세요." },
+        { field: form.tel1, message: "전화번호를 입력하세요." },
+        { field: form.tel2, message: "전화번호를 입력하세요." },
+        { field: form.tel3, message: "전화번호를 입력하세요." },
+        { field: form.address, message: "주소를 입력하세요." },
+        { field: form.department, message: "진료과목을 입력하세요." },
+        { field: form.taxid1, message: "사업자 번호를 입력하세요." },
+        { field: form.taxid2, message: "사업자 번호를 입력하세요." },
+        { field: form.taxid3, message: "사업자 번호를 입력하세요." },
+        { field: form.starttime, message: "진료 시작 시간을 입력하세요." },
+        { field: form.endtime, message: "진료 종료 시간을 입력하세요." },
+        { field: form.startbreak, message: "휴게 시작 시간을 입력하세요." },
+        { field: form.endbreak, message: "휴게 종료 시간을 입력하세요." },
+        { field: form.deadline, message: "접수 마감 시간을 입력하세요." },
+        { field: form.doctornamez, message: "의료진 이름을 입력하세요." },
+        { field: form.majorz, message: "전공을 입력하세요." },
+        { field: form.careerz, message: "경력을 입력하세요." },
+        { field: form.hoursz, message: "진료 시간을 입력하세요." }
+    ];
 
- for (let i = 0; i < fieldsToValidate.length; i++) {
-     const { field, message } = fieldsToValidate[i];
-     if (field.value.trim() === '') {
-         alert(message);
-         field.focus();
-         return false;
-     }
- }
+    for (let i = 0; i < fieldsToValidate.length; i++) {
+        const { field, message } = fieldsToValidate[i];
+        if (field.value.trim() === '') {
+            alert(message);
+            field.focus();
+            return false;
+        }
+    }
 
- // 아이디 중복 체크 여부
- if (form.idCheck.value !== "check") {
-     alert("아이디 중복체크를 진행하세요.");
-     form.idCheckBtn.focus();
-     return false;
- }
+    // 아이디 중복 체크 여부
+    if (form.idCheck.value !== "check") {
+        alert("아이디 중복체크를 진행하세요.");
+        form.idCheckBtn.focus();
+        return false;
+    }
 
- // 비밀번호 확인
- if (form.password.value !== form.passwordCheck.value) {
-     alert("비밀번호가 일치하지 않습니다.");
-     form.passwordCheck.focus();
-     return false;
- }
+    // 비밀번호 확인
+    if (form.password.value !== form.passwordCheck.value) {
+        alert("비밀번호가 일치하지 않습니다.");
+        form.passwordCheck.focus();
+        return false;
+    }
 
- // 비밀번호 패턴 체크
- const passwordPattern = /^[a-zA-Z0-9]{8,20}$/;
- if (!passwordPattern.test(form.password.value)) {
-     alert("비밀번호는 영문자와 숫자가 포함되어야 하며, 8~20자여야 합니다.");
-     form.password.focus();
-     return false;
- }
+    // 비밀번호 패턴 체크
+    const passwordPattern = /^[a-zA-Z0-9]{8,20}$/;
+    if (!passwordPattern.test(form.password.value)) {
+        alert("비밀번호는 영문자와 숫자가 포함되어야 하며, 8~20자여야 합니다.");
+        form.password.focus();
+        return false;
+    }
 
- // 비밀번호와 아이디 일치 체크
- if (form.password.value === form.id.value) {
-     alert("비밀번호와 아이디는 일치할 수 없습니다.");
-     form.password.focus();
-     return false;
- }
+    // 비밀번호와 아이디 일치 체크
+    if (form.password.value === form.id.value) {
+        alert("비밀번호와 아이디는 일치할 수 없습니다.");
+        form.password.focus();
+        return false;
+    }
 
- // 요일 체크 여부
- const weeksCheckboxes = form.querySelectorAll('input[name="weeks"]');
- const isWeekChecked = Array.from(weeksCheckboxes).some(checkbox => checkbox.checked);
- if (!isWeekChecked) {
-     alert("요일 중 하나를 반드시 선택하세요.");
-     return false;
- }
+    // 요일 체크 여부
+    const weeksCheckboxes = form.querySelectorAll('input[name="weeks"]');
+    const isWeekChecked = Array.from(weeksCheckboxes).some(checkbox => checkbox.checked);
+    if (!isWeekChecked) {
+        alert("요일 중 하나를 반드시 선택하세요.");
+        return false;
+    }
 
- // 약관 동의 여부 확인
- if (!form.terms1.checked) {
-     alert("개인정보 수집 및 이용에 동의해야 합니다.");
-     return false;
- }
+    // 약관 동의 여부 확인
+    if (!form.terms1.checked) {
+        alert("약관1에 동의해야 합니다.");
+        return false;
+    }
 
- if (!form.terms2.checked) {
-     alert("개인정보 위탁에 동의해야 합니다.");
-     return false;
- }
+    if (!form.terms2.checked) {
+        alert("약관2에 동의해야 합니다.");
+        return false;
+    }
 
- return true;
+    return true;
 }
 
+   
+   
+   // 아이디 중복 확인
+   $(function() {
+       $.ajaxSetup({
+           url: "../../member/join/checkId.do",
+           dataType: "text",
+       });
 
+       $("#idCheckBtn").click(function() {
+           var join_id = $('input[name="id"]').val();
+           var id_pattern =  /^[a-zA-Z0-9]{6,15}$/;
+           
+            // 아이디가 패턴에 맞지않으면 반려
+           if (!id_pattern.test(join_id)) {
+              alert("아이디는 영문자와 숫자만 포함되어야 합니다.");
+              $('input[name="id"]').focus();
+              return false;
+           }
 
-// 아이디 중복 확인 << 여기에욧
-$(function() {
-    $.ajaxSetup({
-        url: "../../member/join/checkId.do",
-        dataType: "text",
-    });
-
-    $("#idCheckBtn").click(function() {
-        var join_id = $('input[name="id"]').val();
-        var id_pattern =  /^[a-zA-Z0-9]{6,15}$/;
-        
-         // 아이디가 패턴에 맞지않으면 반려
-        if (!id_pattern.test(join_id)) {
-           alert("아이디는 영문자와 숫자만 포함되어야 합니다.");
-           $('input[name="id"]').focus();
-           return false;
-        }
-
-        $.ajax({
-            data: { join_id: join_id },
-            success: function(responseData) {
-                if (responseData === "0") {
-                    $("#idCheckResult").css("color","green").text("사용가능한 아이디");
-                    $('input[name="idCheck"]').val("check");
-                } else {
-                    $("#idCheckResult").css("color","red").text("사용할 수 없는 아이디");
-                    $('input[name="idCheck"]').val("unCheck");
-                }
-            },
-            error: function(errData) {
-                alert("실패: " + errData.status + " - " + errData.statusText);
-            }
-        });
-    });
-});
-
+           $.ajax({
+               data: { join_id: join_id },
+               success: function(responseData) {
+                   if (responseData === "0") {
+                       $("#idCheckResult").css("color","green").html("<br>사용가능한 아이디<br>");
+                       $('input[name="idCheck"]').val("check");
+                   } else {
+                       $("#idCheckResult").css("color","red").html("<br>사용할 수 없는 아이디<br>");
+                       $('input[name="idCheck"]').val("unCheck");
+                   }
+               },
+               error: function(errData) {
+                   alert("실패: " + errData.status + " - " + errData.statusText);
+               }
+           });
+       });
+   });
+   
+   
 </script>
 </head>
 <body>
-	<%@ include file="../../common/main_header.jsp" %>
+
+<%@ include file="../../common/main_header.jsp" %>
 	
-	<main id="container">
+<main id="container">
   <div class="content">
     <div class="content_inner">
       <div class="login_wrap">
@@ -218,6 +220,7 @@ $(function() {
                   <input type="text" name="id" value="" placeholder="아이디* (영문+숫자, 6~15자)" />
                   <!-- 실시간 중복 확인 가능하게 되면 삭제할 것 -->
                   <button id="idCheckBtn" name="idCheckBtn" class="id_check" type="button"><span class="blind">중복 확인</span></button>
+                  <span id="idCheckResult"></span> 
                   <input type="hidden" name="idCheck" value="unCheck" />
                   <!-- 실시간 중복 확인 가능하게 되면 주석 해제 -->
                   <!-- <br />
@@ -407,5 +410,6 @@ $(function() {
 </main>
 	
 	<%-- <%@include file="../../common/main_footer.jsp" %> --%>
+>>>>>>> branch 'main' of https://github.com/jhrchicken/DoctorViewWeb.git
 </body>
 </html>
