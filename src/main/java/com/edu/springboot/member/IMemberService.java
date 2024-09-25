@@ -26,6 +26,11 @@ public interface IMemberService {
 	
 //	비밀번호찾기
 	public MemberDTO findPassMember(MemberDTO memberDTO);
+	
 //  새로운 비밀번호 생성
 	public int newPassword(String password, String id, String email);
+	
+//	회원정보수정: user
+	public int userEdit(MemberDTO memberDTO);
+	
 }

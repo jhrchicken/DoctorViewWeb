@@ -24,7 +24,7 @@ public class MemberController {
 	@Autowired
 	EmailSending email;
 	
-//	회원가입: 공통
+//	회원가입: 진입
 	@GetMapping("/member/join.do")
 	public String join() {
 		return "member/join";
@@ -46,20 +46,10 @@ public class MemberController {
 		memberDTO.setEmail(eamil);
 		memberDTO.setRrn(rrn);
 		
-		System.out.println(memberDTO.getId());
-		System.out.println(memberDTO.getPassword());
-		System.out.println(memberDTO.getName());
-		System.out.println(memberDTO.getNickname());
-		System.out.println(memberDTO.getTel());
-		System.out.println(memberDTO.getEmail());
-		System.out.println(memberDTO.getAddress());
-		System.out.println(memberDTO.getRrn());
-		
-		
-//		memberDAO.userJoin(memberDTO);
+		memberDAO.userJoin(memberDTO);
 		
 		if (memberDAO.userJoin(memberDTO) == 1) {
-			return "redirect:../../member/login.do";
+			return "redirect:/member/login.do";
 		}
 		else {
 			model.addAttribute("joinFaild", "회원가입에 실패했습니다.");
@@ -249,6 +239,79 @@ public class MemberController {
 			return "member/findPass";
 		}
 	}
+	
+//	회원인증: 로그인 유저 비밀번호 인증
+	@GetMapping("/member/checkMember.do")
+	public String checkMemberGet() {
+		return "member/checkMember";
+	}
+	
+	@PostMapping("/member/checkMember.do")
+	public String checkMemberPost(MemberDTO memberDTO, Model model) {
+		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
+		
+		if(loginUser != null) {
+//			주민번호 데이터가 있으면 개인회원
+			if(loginUser.getRrn() != null) {
+				return "redirect:/member/editUser.do";
+			}
+//			병원회원
+			return "redirect:/member/editHosp.do";
+		}
+		else {
+			model.addAttribute("checkMemberFaild", "비밀번호가 일치하지 않습니다.");
+			return "member/checkMember";
+		}
+	}
+	
+//	회원정보 수정: user
+	@GetMapping("/member/editUser.do")
+	public String editUserGet(MemberDTO memberDTO, HttpSession session, Model model) {
+		memberDTO.setId((String) session.getAttribute("userId"));
+		memberDTO.setPassword((String) session.getAttribute("userPassword"));
+		
+		
+		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
+		String[] tel =  loginUser.getTel().split("-");
+		String[] email =  loginUser.getEmail().split("@");
+		String[] rrn =  loginUser.getRrn().split("-");
+		
+		model.addAttribute("loginUserInfo", loginUser);
+		model.addAttribute("tel", tel);
+		model.addAttribute("email", email);
+		model.addAttribute("rrn1", rrn[0]);
+		model.addAttribute("rrn2", rrn[1].substring(0,1));
+		
+		return "member/editUser";
+	}
+	
+	@PostMapping("/member/editUser.do")
+	public String editUserPost(MemberDTO memberDTO, HttpServletRequest req, HttpSession session, Model model) {
+		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
+		String eamil = req.getParameter("email1") + "@" + req.getParameter("email2");
+		String rrn = req.getParameter("rrn1") + "-" + req.getParameter("rrn2") + "000000";
+		
+		memberDTO.setTel(tel);
+		memberDTO.setEmail(eamil);
+		memberDTO.setRrn(rrn);
+		
+		memberDAO.userEdit(memberDTO);
+		
+		if (memberDAO.userEdit(memberDTO) == 1) {
+			session.setAttribute("userPassword", memberDAO.loginMember(memberDTO).getPassword());
+			return "redirect:/member/editUser.do";
+		}
+		else {
+			model.addAttribute("editUserFaild", "회원정보 수정에 실패했습니다.");
+			return "member/editUser";
+		}
+	}
+
+	
+	
+	
+	
+	
 	
 //	비밀번호 랜덤생성 함수
 	 public static String randomPass() {

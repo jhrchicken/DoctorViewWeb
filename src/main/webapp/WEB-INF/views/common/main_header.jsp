@@ -44,7 +44,7 @@
 					<a href="#">마이페이지</a>
 					<div class="depth2">
 						<ul>
-							<li><a href="#">개인정보 수정</a></li>
+							<li><a href="${pageContext.request.contextPath}/member/checkMember.do">개인정보 수정</a></li>
 							<li><a href="#">예약 정보 관리</a></li>
 							<li><a href="#">좋아요한 병원</a></li>
 							<li><a href="#">좋아요한 의사</a></li>

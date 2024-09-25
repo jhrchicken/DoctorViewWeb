@@ -59,11 +59,16 @@
     	resultType="com.edu.springboot.member.MemberDTO">
         SELECT * FROM member WHERE id = #{id} and email = #{email}
     </select>
-    
     <update id="newPassword" 
     	parameterType="String">
         UPDATE member SET password = #{param1} WHERE id = #{param2} AND email = #{param3}
     </update>
+    
+	<update id="userEdit"
+		parameterType="com.edu.springboot.member.MemberDTO">
+		UPDATE member SET password=#{password}, name=#{name}, nickname=#{nickname}, tel=#{tel}, email=#{email}, address=#{address} 
+		WHERE id=#{id}
+	</update>
 
 	
 	
