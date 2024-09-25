@@ -73,12 +73,14 @@
   text-align: center;
   border-right: 1px solid #ddd;
 }
-#container .regist input {
+#container .regist td>input {
   border: 1px solid #ddd;
   width: 90%;
   height: 40px;
+  padding: 0 10px;
 }
-#container .regist .mobile>input {
+/* 전화번호 select로 구현하면 주석 해제 */
+/* #container .regist .mobile>input {
   width: 30%;
 }
 #container .regist .mobile>select {
@@ -88,10 +90,8 @@
   border: 1px solid #ddd;
   background: url(../images/drop_down_arrow.svg) no-repeat right 5px top 50%;
   cursor: pointer;
-}
-#container .regist .regi>input {
-  width: 28.5%;
-}
+} */
+
 #container .regist button {
   border: 1px solid #ddd;
   width: 40px;
@@ -100,12 +100,9 @@
   padding: 2px;
 }
 /* 실시간 검증 가능하면 삭제할 것 */
-/* #container .regist .id_check {
-  background: url(../images/id_check.svg) no-repeat 1.5px 1.5px / 90%;
+#container .regist .id_check {
+  background: url(/images/id_check.svg) no-repeat 1.5px 1.5px / 90%;
 }
-#container .regist .pass_check {
-  background: url(../images/pass_check.svg) no-repeat 2px 0 / 90%;
-} */
 #container .regist .notice_no {
   font-size: 13px;
   color: red;
@@ -116,33 +113,6 @@
   color: var(--point-color2);
   margin: 2px;
 }
-/*** 영업시간 - 요일 체크 ***/
-.week_wrap {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-#container .week_check input[type="checkbox"] {
-  display: none;
-}
-#container .week_check span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid #005ad5;
-  border-radius: 5px;
-  font-size: 16px;
-  color: var(--point-color2);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-#container .week_check input[type="checkbox"]:checked + span {
-  background: var(--point-color2);
-  color: #fff;
-  border-color: var(--point-color2);
-}
 /*** 영업시간 - 시간 선택 ***/
 #container .regist .time>td>input {
   width: 30%;
@@ -150,39 +120,27 @@
   margin: 0 10px;
 }
 /*** 의료진 입력폼 ***/
-#container .regist .doc>td {
-  padding: 10px 10px 5px;
-}
-#container .regist .doc>td>input {
-  width: 80%;
-  padding: 0 10px;
-  margin: 0 10px;
-}
-#container .regist .doc>td>.doc_time {
-  width: 80%;
-  height: 200px;
-  margin-top: 5px;
-  background: none;
+#container .regist .doc .doctor-info {
   border: 1px solid #ddd;
+  margin-bottom: 5px;
 }
 /*** 의료진 추가 버튼 ***/
 #container .regist .doc .plus {
   border-left: 1px solid #ddd;
 }
-#container .regist .doc .plus>button {
+#container .regist .doc .plus {
   width: 50px;
   height: 50px;
   background: url(../images/plus.svg) no-repeat 0 0 / 100%;
 }
 
-/*** 취소 / 완료 버튼 ***/
+/*** 완료 버튼 ***/
 #container .btn_wrap {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  gap: 0 20px;
 }
-#container .btn_wrap button {
+#container .btn_wrap input {
   width: 80px;
   height: 41px;
   border: none;
