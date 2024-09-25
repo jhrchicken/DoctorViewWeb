@@ -97,7 +97,7 @@ function validateForm(form) {
 
 
 
-// 아이디 중복 확인
+// 아이디 중복 확인 << 여기에욧
 $(function() {
     $.ajaxSetup({
         url: "../../member/join/checkId.do",
