@@ -119,10 +119,10 @@
                data: { join_id: join_id },
                success: function(responseData) {
                    if (responseData === "0") {
-                       $("#idCheckResult").css("color","green").text("사용가능한 아이디");
+                       $("#idCheckResult").css("color","green").html("<br>사용가능한 아이디<br>");
                        $('input[name="idCheck"]').val("check");
                    } else {
-                       $("#idCheckResult").css("color","red").text("사용할 수 없는 아이디");
+                       $("#idCheckResult").css("color","red").html("<br>사용할 수 없는 아이디<br>");
                        $('input[name="idCheck"]').val("unCheck");
                    }
                },
@@ -220,7 +220,7 @@
                   <input type="text" name="id" value="" placeholder="아이디* (영문+숫자, 6~15자)" />
                   <!-- 실시간 중복 확인 가능하게 되면 삭제할 것 -->
                   <button id="idCheckBtn" name="idCheckBtn" class="id_check" type="button"><span class="blind">중복 확인</span></button>
-                   <span id="idCheckResult"></span><br> 
+                  <span id="idCheckResult"></span> 
                   <input type="hidden" name="idCheck" value="unCheck" />
                   <!-- 실시간 중복 확인 가능하게 되면 주석 해제 -->
                   <!-- <br />

@@ -1,5 +1,7 @@
 package com.edu.springboot.member;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ public class MemberController {
 	
 	@Autowired
 	IMemberService memberDAO;
+	@Autowired
+	EmailSending email;
 	
 //	회원가입: 공통
 	@GetMapping("/member/join.do")
@@ -161,7 +165,7 @@ public class MemberController {
 		if(loginUser != null) {
 			if(loginUser.getApprove().equals("F")) {
 				// 회원가입 승인 대기 처리 추가
-				model.addAttribute("approve", "회원승인 대기 상태입니다.");
+				model.addAttribute("loginFaild", "회원승인 대기 상태입니다.");
 				return "member/login";
 			}
 		    session.setAttribute("userId", loginUser.getId()); 
@@ -199,7 +203,7 @@ public class MemberController {
 	
 	@PostMapping("/member/findId.do")
 	public String findIdPost(MemberDTO memberDTO, Model model) {
-		MemberDTO findId = memberDAO.foundIdMember(memberDTO);
+		MemberDTO findId = memberDAO.findIdMember(memberDTO);
 		
 		if(findId != null) {
 			model.addAttribute("foundId", findId.getId());
@@ -213,12 +217,72 @@ public class MemberController {
 	
 //	비밀번호찾기
 	@GetMapping("/member/findPass.do")
-	public String findPass() {
-		
-		
-		
+	public String findPassGet() {
 		return "member/findPass";
 	}
+	
+	@PostMapping("/member/findPass.do")
+	public String findPassPost(MemberDTO memberDTO, Model model) {
+		MemberDTO findPass = memberDAO.findPassMember(memberDTO);
+		
+//		입력된 아이디와 이메일과 일치하는 회원이 있는지 확인
+		if(findPass != null) {
+			InfoDTO infoDTO = new InfoDTO();
+			
+//			비번랜덤생성
+			String newPassword = randomPass();
+//			랜덤생성된 비밀번호로 변경
+			memberDAO.newPassword(newPassword, findPass.getId(), findPass.getEmail());
+			
+			infoDTO.setTo(findPass.getEmail());
+			infoDTO.setSubject("비밀번호 찾기");
+			infoDTO.setContent("임시 비밀번호는 " + newPassword + "입니다. 로그인 후 비밀번호 변경을 진행하세요.");
+			infoDTO.setFormat("text");
+			email.myEmailSender(infoDTO);
+			
+			
+			model.addAttribute("passInfo", "임시비밀번호가 발급되었습니다. 메일함을 확인하세요");
+			return "member/findPass";
+		}
+		else {
+			model.addAttribute("notfountPass", "회원정보가 없습니다.");
+			return "member/findPass";
+		}
+	}
+	
+//	비밀번호 랜덤생성 함수
+	 public static String randomPass() {
+	 	Random random = new Random();
+	 	int[] passPattern = {0, 1, 2};
+	 	char randomChar;
+	 	String newPassword = "";
+	 	
+        for (int i = 0; i < 4; i++) {
+        	for (int pass : passPattern) {
+        		switch (pass) {
+//	        		대문자
+                case 0:
+	                randomChar = (char) ('A' + random.nextInt(26));
+	                newPassword += randomChar;
+                    break;
+//	                소문자
+                case 1:
+                	randomChar = (char) ('a' + random.nextInt(26));
+                	newPassword += randomChar;
+                    break;
+//	                숫자
+                case 2:
+                	int passNum = (int) (Math.random() * 10);
+                	newPassword += passNum;
+                    break;
+	            }
+	        }
+    	}
+        
+        return newPassword;
+        }
+
+	
 	
 
 }

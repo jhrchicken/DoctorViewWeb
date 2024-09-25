@@ -6,6 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>아이디찾기</title>
+<script>
+	function validateForm(form) {
+		if (!form.email.value) {
+			alert("이메일을 입력하세요.");
+			form.email.focus();
+			return false;
+		}
+		if (!form.password.value) {
+			alert("비밀번호를 입력하세요.");
+			form.password.focus();
+			return false;
+		}
+	}
+</script>
 </head>
 <body>
 	${ foundId }

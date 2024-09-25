@@ -22,6 +22,10 @@ public interface IMemberService {
 	public String getNick();
 	
 //	아이디찾기
-	public MemberDTO foundIdMember(MemberDTO memberDTO);
-
+	public MemberDTO findIdMember(MemberDTO memberDTO);
+	
+//	비밀번호찾기
+	public MemberDTO findPassMember(MemberDTO memberDTO);
+//  새로운 비밀번호 생성
+	public int newPassword(String password, String id, String email);
 }

@@ -35,12 +35,11 @@ function validateForm(form) {
 	        <p>닥터뷰 회원으로 로그인하시면 제공하는<br>
 	          다양한 서비스를 이용할 수 있습니다.</p>
 	          
-	          
-	          
-   		${ loginFaild }
-		${ approve }
-		
-		
+	        <!-- 로그인 실패 시 메시지 -->
+	        <c:if test="${ not empty loginFaild }">
+				<!-- 글자색 css 변경필요 -->
+		   		<p><b>${ loginFaild }</b></p>
+	        </c:if>
 		
 	        <form name="loginFrm" method="post" action="../member/login.do" onsubmit="return validateForm(this);">
 	          <div class="login">
@@ -58,11 +57,11 @@ function validateForm(form) {
 	        </form>
 	        <div class="other_wrap">
 	          <ul>
-	            <li><a href="#">아이디 찾기</a></li>
+	            <li><a href="../member/findId.do">아이디 찾기</a></li>
 	            <li>|</li>
-	            <li><a href="#">비밀번호 찾기</a></li>
+	            <li><a href="../member/findPass.do">비밀번호 찾기</a></li>
 	            <li>|</li>
-	            <li><a href="#">회원가입</a></li>
+	            <li><a href="../member/join.do">회원가입</a></li>
 	          </ul>
 	        </div>
 	      </div>
