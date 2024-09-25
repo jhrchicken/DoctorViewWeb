@@ -156,7 +156,7 @@ public class MemberController {
 	public String login() {
 		return "member/login";
 	}
-	
+	 
 	@PostMapping("/member/login.do")
 	public String login(MemberDTO memberDTO, HttpSession session, Model model, HttpServletRequest req, HttpServletResponse resp) {
 		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
