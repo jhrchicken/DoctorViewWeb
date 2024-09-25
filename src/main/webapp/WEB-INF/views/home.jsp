@@ -7,19 +7,22 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@include file="common/head.jsp" %>
+<script>
+function chat(user_id, hosp_id) {
+	window.open('/chat/index.html#/chat/talk?room=' + hosp_id + ' - ' + user_id + '&user=' + user_id,
+			hosp_id + '-' + user_id, 'width=500, height=650')
+}
+</script>
 </head>
 <body>
 	<%@include file="common/main_header.jsp" %>
 	
 	<!-- 채팅 -->
-	<%-- <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-	<%@ include file="../../chat/index.html" %> --%>
-	<!-- <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-	<iframe src="/chat/index.html"></iframe>
-	<a href="/chat/index.html">채팅 바로가기 링크</a>
-	<h2>왜 안떠</h2> -->
+	<a href="javascript:chat('harim', 'hospital1');">채팅방 열기</a>
+	
+	
 	 
 	<%-- <%@include file="common/main_footer.jsp" %> --%>
 </body>
