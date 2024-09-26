@@ -1,30 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>닥터뷰 | 로그인</title>
-<%@ include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/member-findId.css" />
-<script>
-	function validateForm(form) {
-		if (!form.email.value) {
-			alert("이메일을 입력하세요.");
-			form.email.focus();
-			return false;
-		}
-		if (!form.password.value) {
-			alert("비밀번호를 입력하세요.");
-			form.password.focus();
-			return false;
-		}
-	}
-</script>
-</head>
-<body>
-
-<%@ include file="../common/main_header.jsp" %>
 
 <main id="container">
   <div class="content">
@@ -51,7 +26,3 @@
     </div>
   </div>
 </main>
-
-<%@include file="../common/main_footer.jsp" %>
-</body>
-</html>
