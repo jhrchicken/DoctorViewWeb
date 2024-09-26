@@ -43,9 +43,14 @@
 	
 	<!-- 의사 정보 작성 -->
 	<insert id="writeDoctor">
-		INSERT INTO doctor (doc_idx, name, major, career, hours, hosp_ref)
-		VALUES (seq_doctor_idx.nextval, #{param1}, #{param2}, #{param3}, #{param5}, #{param6})
+		INSERT INTO doctor (doc_idx, name, major, career, photo, hours, hosp_ref)
+		VALUES (seq_doctor_idx.nextval, #{name}, #{major}, #{career}, #{photo}, #{hours}, #{hosp_ref})
 	</insert>
+	
+	<!-- 의사 사진 작성 -->
+	<update id="writePhoto">
+		UPDATE doctor SET photo=#{param2} WHERE doc_idx=#{param1}
+	</update>
 	
 	<!-- 의사 정보 수정 -->
 	<update id="editDoctor"

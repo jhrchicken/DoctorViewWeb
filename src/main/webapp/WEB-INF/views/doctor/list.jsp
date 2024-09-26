@@ -42,13 +42,12 @@
 							<ul class="hospital">
 								<li>
 									<span class="img">
-										<c:if test="${ row.photo == null }">
-											<img src="/images/account.svg" alt=""></img>
+										<c:if test="${ row.photo == 'NULL' }">
+											<img src="/images/doctor.png" alt=""></img>
 										</c:if>
-										<c:if test="${ row.photo != null }">
-											${ row.photo }
+										<c:if test="${ row.photo != 'NULL' }">
+											<img src="/uploads/${ row.photo }"><br/>
 										</c:if>
-									
 									</span>
 									<div class="info">
 										<div class="info_top">

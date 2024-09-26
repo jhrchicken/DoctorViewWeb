@@ -39,7 +39,7 @@
 		<div class="content">
 			<h2>글쓰기</h2>
 			<div class="board_inner">
-				<form name="writeFrm" method="post"
+				<form name="writeFrm" method="post" enctype="multipart/form-data"
 					action="../doctor/writeDoctor.do" onsubmit="return validateWriteForm(this);">
 					<table class="board">
 						<tr>
@@ -56,7 +56,9 @@
 						</tr>
 						<tr>
 							<td class="left">사진</td>
-							<td><input type="text" name="photo" /></td>
+							<td><input type="file" name="file" /></td>
+							
+							<!-- <td><input type="text" name="photo" /></td> -->				
 						</tr>
 						<tr>
 							<td class="left">진료 요일 및 시간</td>

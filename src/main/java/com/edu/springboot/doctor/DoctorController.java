@@ -1,5 +1,6 @@
 package com.edu.springboot.doctor;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,14 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.edu.springboot.board.BoardDTO;
 import com.edu.springboot.board.ParameterDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import utils.FileUtil;
 import utils.PagingUtil;
 
 @Controller
@@ -118,18 +123,62 @@ public class DoctorController {
 		return "doctor/write";
 	}
 	@PostMapping("/doctor/writeDoctor.do")
-	public String writeDoctorPost(Model model, HttpServletRequest req, HttpSession session) {
-		// 폼값
-		String name = req.getParameter("name");
-		String major = req.getParameter("major");
-		String career = req.getParameter("career");
-		// ********** 사진 추가 **********
-		String photo = null;
-		String hours = req.getParameter("hours");
+	public String writeDoctorPost(HttpSession session, HttpServletRequest req, DoctorDTO doctorDTO) {
+		// 파일업로드
+		try {
+			String uploadDir = ResourceUtils.getFile("classpath:static/uploads/").toPath().toString();
+			Part part = req.getPart("file");
+			String partHeader = part.getHeader("content-disposition");
+			String[] phArr = partHeader.split("filename=");
+			String filename = phArr[1].trim().replace("\"", "");
+			if (!filename.isEmpty()) {
+				part.write(uploadDir + File.separator + filename);
+				String photo = FileUtil.renameFile(uploadDir, filename);
+				doctorDTO.setPhoto(photo);
+			}
+			else {
+				doctorDTO.setPhoto("NULL");
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		// 세션에 저장된 로그인 아이디
 		String id = (String) session.getAttribute("userId");
-		doctorDAO.writeDoctor(name, major, career, photo, hours, id);
+		doctorDTO.setHosp_ref(id);
+		doctorDAO.writeDoctor(doctorDTO);
 		return "redirect:../doctor.do";
+	}
+	
+	@GetMapping("/doctor/editDoctor.do")
+	public String editDoctorGet(HttpServletRequest req, Model model, DoctorDTO doctorDTO) {
+		doctorDTO = doctorDAO.viewDoctor(doctorDTO);
+		model.addAttribute("doctorDTO", doctorDTO);
+		return "doctor/edit";
+	}
+	@PostMapping("/doctor/editDoctor.do")
+	public String editDoctorPost(HttpServletRequest req, DoctorDTO doctorDTO) {
+		// 파일업로드
+		try {
+			String uploadDir = ResourceUtils.getFile("classpath:static/uploads/").toPath().toString();
+			Part part = req.getPart("file");
+			String partHeader = part.getHeader("content-disposition");
+			String[] phArr = partHeader.split("filename=");
+			String filename = phArr[1].trim().replace("\"", "");
+			if (!filename.isEmpty()) {
+				part.write(uploadDir + File.separator + filename);
+				String photo = FileUtil.renameFile(uploadDir, filename);
+				doctorDTO.setPhoto(photo);
+			}
+			else {
+				doctorDTO.setPhoto("NULL");
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		doctorDAO.editDoctor(doctorDTO);
+		return "redirect:../doctor/viewDoctor.do?doc_idx=" + doctorDTO.getDoc_idx();
 	}
 	
 	@PostMapping("/doctor/deleteDoctor.do")
