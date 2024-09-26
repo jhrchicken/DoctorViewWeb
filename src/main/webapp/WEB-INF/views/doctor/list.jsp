@@ -8,99 +8,87 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/board-list.css" />
+<link rel="stylesheet" href="/css/doc-search.css" />
 </head>
 <body>
 	<%@include file="../common/main_header.jsp" %>
 	<main id="container">
 		<div class="content">
-			<h2>의사 찾기</h2>
-			<div class="board_inner">
-				<div class="board_top">
-					<p class="board_total">
-						총 <strong>${ maps.total }</strong>건의 게시글이 있습니다.
-					</p>
-					<!-- 검색 폼 -->
-					<div class="board_search">
-						<form class="searchForm" method="get" name="searchForm">
-							<select class="searchField" name="searchField">
-								<option value="title">제목</option>
-								<option value="content">내용</option>
-							</select>
-							<input class="searchWord" type="text" name="searchWord" placeholder="검색어를 입력하세요" />
-							<input class="search_btn" type="submit" value=''>
-						</form>
-					</div>
+			<div class="content_inner">
+				<div class="list_title">
+					<h2>의사 찾기</h2>
+					<p>의사 이름을 검색해보세요</p>
 				</div>
 				
-				<!-- 게시글 목록 -->
-				<table class="board">
-					<thead>
+				<div class="list_search">
+					<form class="searchForm" name="searchForm">
+						<select class="searchField" name="searchField">
+							<option value="name">이름</option>
+						</select>
+						<input name="searchWord" class="searchKeyword" type="text" placeholder="검색어를 입력하세요">
+						<input type="submit" class="search_btn" value="">
+					</form>
+				</div>
+				
+				<c:choose>
+					<c:when test="${ empty doctorsList }">
 						<tr>
-							<th width="100px">NO</th>
-							<th>사진</th>
-							<th width="200px">의사이름</th>
-							<th width="200px">소속병원</th>
-							<th width="200px">전공</th>
-							<th width="200px">진료시간</th>
-							<th width="200px">좋아요수</th>
-							<th width="100px">별점</th>
-							<th width="100px">리뷰수</th>
+							<p>검색 결과가 없습니다</p>
 						</tr>
-					</thead>
-					<tbody>
-						<c:choose>
-							<c:when test="${ empty doctorsList }">
-								<tr>
-									<td colspan="5" align="center">등록된 의사가 없습니다.</td>
-								</tr>
-							</c:when>
-							<c:otherwise>
-								<c:forEach items="${ doctorsList }" var="row" varStatus="loop">
-									<tr>
-										<td class="num">${ maps.total - (((maps.pageNum-1) * maps.postsPerPage)	+ loop.index)}</td>
-										<!-- 여기에 조건문 추가 필요 -->
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${ doctorsList }" var="row" varStatus="loop">
+							<ul class="hospital">
+								<li>
+									<span class="img">
 										<c:if test="${ row.photo == null }">
-											<td class="photo"><img src="/images/account.svg" alt="의사사진"></img></td>
+											<img src="/images/account.svg" alt=""></img>
 										</c:if>
 										<c:if test="${ row.photo != null }">
-											<td class="photo">${ row.photo }</td>
+											${ row.photo }
 										</c:if>
-										<td class="name"><a href="./doctor/viewDoctor.do?doc_idx=${ row.doc_idx }">${ row.name }</a></td>
-										<td class="hospname">${ row.hospname }</td>
-										<td class="major">${ row.major }</td>
-										<td class="hours">${ row.hours }</td>
- 										<td class="like">${ row.likecount }</td>
- 										
-										<td class="score">${ row.score }</td>
-										<td class="review">${ row.reviewcount }</td>
-									</tr>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-					</tbody>
-				</table>
+									
+									</span>
+									<div class="info">
+										<div class="info_top">
+											<!-- 소속병원 -->
+											<p>${ row.hospname }</p>
+											<h3>${ row.name }</h3>
+											<div class="detail">
+												<!--  색상 다르게 (파랑 - 검정) -->
+												<p>전공</p><p>${ row.major }</p><br/>
+												<p>경력</p><p>${ row.career }</p><br/>
+												<p>근무시간</p><p>${ row.hours }</p>
+											</div>
+											<div class="info_right">
+												<div class="right_down">
+													<p class="like">(하트) ${ row.likecount }</p>
+													<p class="comm">(리뷰) ${ row.score } ${ row.reviewcount }</p>
+												</div>
+											</div>
+											<a href="./doctor/viewDoctor.do?doc_idx=${ row.doc_idx }"><span class="blind">의사 바로가기</span></a>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 				
 				<!-- 로그인 한 경우에만 글쓰기 버튼 -->
-				<c:if test="${ not empty sessionScope.userId }">
-				    <div class="write_btn">
-				        <button type="button" onclick="location.href='../doctor/writeDoctor.do';">의사 등록하기</button>
-				    </div>
-				</c:if>
-				
-				<!-- 페이지네이션 -->
+				<!-- 추후 의사의 마이페이지로 옮길 예정 테스트용 버튼이니 CSS 작업 안하셔도 됩니다! -->
+			    <div class="write_btn">
+			        <button type="button" onclick="location.href='../doctor/writeDoctor.do';">의사 등록하기</button>
+			    </div>
+			    
+			    <!-- 페이지네이션 -->
 				<div class="pagination">
 					${ pagingImg }
-				</div>		
+				</div>
+
 			</div>
 		</div>
 	</main>
 	<%@include file="../common/main_footer.jsp" %>
 </body>
 </html>
-
-
-
-
-
-
