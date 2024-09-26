@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰</title>
+<title>닥터뷰 | 자유게시판</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/board-list.css" />
 </head>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰</title>
+<title>닥터뷰 | 자유게시판</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/board-write.css" />
 <script>
@@ -33,7 +33,7 @@
 	<main id="container">
 		<div class="content">
 			<div class="content_inner">
-				<h2>글쓰기</h2>
+				<h2>게시글 작성하기</h2>
 				<form name="writeFrm" method="post"
 					action="../freeboard/writePost.do" onsubmit="return validateWriteForm(this);">
 					<table class="board">

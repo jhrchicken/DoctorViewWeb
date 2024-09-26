@@ -4,8 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>닥터뷰</title>
+<title>닥터뷰 | 자유게시판</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/board-edit.css" />
 </head>
@@ -14,7 +13,7 @@
 	<main id="container">
 		<div class="content">
 			<div class="content_inner">
-	    		<h2>수정하기</h2>
+	    		<h2>게시글 수정하기</h2>
 	   			<form name="writePostForm" method="post"
 	   				action="../freeboard/editPost.do" onsubmit="return validateWriteFrom(this);">
 	   				<input type="hidden" name="board_idx" value="${ boardDTO.board_idx }" />
