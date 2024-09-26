@@ -78,7 +78,7 @@
 /*** 헤더 드롭다운 ***/
 #header .depth2 {
   overflow: hidden;
-  opacity: 0;
+  display: none;
   position: absolute;
   left: 0;
   top: -20px;
@@ -88,7 +88,7 @@
   transition: all 0.4s;
 }
 #header.on .depth2 {
-  opacity: 1;
+  display: block;
 }
 #header .depth2 li>a {
   display: block;
