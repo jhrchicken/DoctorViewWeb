@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>닥터뷰</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -54,9 +54,9 @@ function validateCommentForm(form) {
 	
 	<main id="container">
 		<div class="content">
-			<!-- 게시글 -->
-			<h2>게시글 상세보기</h2>	
-			<div class="board_inner">
+			<div class="content_inner">
+				<!-- 게시글 -->
+				<h2>게시글 상세보기</h2>	
 				<form name="deletePostForm">
 					<input type="hidden" name="board_idx" value="${ boardDTO.board_idx }" />
 				</form>
