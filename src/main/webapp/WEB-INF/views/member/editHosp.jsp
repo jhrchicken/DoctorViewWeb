@@ -76,11 +76,18 @@ function validateForm(form) {
 	</tr>
 	<tr>
 		<th>사업자 번호</th>
-		<td><input type="text" name="taxid" value="${loginUserInfo.taxid }" placeholder="사업자번호*" /></td>
+		
+		<td>
+			<!-- 사업자번호 input 길이 조정 필요 -->
+<input type="text" name="taxid1" value="${taxid[0] }" placeholder="사업자번호*" /> -
+<input type="text" name="taxid2" value="${taxid[1]  }" placeholder="사업자번호*" /> -
+<input type="text" name="taxid3" value="${taxid[2]  }" placeholder="사업자번호*" />
+
+		</td>
 	</tr>
 	<!-- 영업시간 폼 시작 -->
     <tr class="time">
-      <th rowspan="4" class="left">영업시간</th>
+      <th rowspan="5" class="left">영업시간</th>
       <td>
          요일:  
         	<label class="checkbox_wrap">
@@ -114,15 +121,14 @@ function validateForm(form) {
       </td>
     </tr>
     <tr>
-		<th>진료 시간</th>
-		<td>
+	  <td>
         진료 시간: 
-        <input type="time" name="starttime" value="" />
+        <input type="time" name="starttime" value="${hoursDTO.starttime }" />
          ~ 
-        <input type="time" name="endtime" value="" />
+        <input type="time" name="endtime" value="${hoursDTO.endtime }" />
       </td>
     <tr>
-	<tr class="time">
+	<tr>
       <td>
         휴게 시간: 
         <input type="time" name="startbreak" value="" />
@@ -135,18 +141,14 @@ function validateForm(form) {
         접수 마감: <input type="time" name="deadline" value="" />
       </td>
     </tr>
+    <!-- 의료진 추가 -->
+    <tr>
+      <th>의료진</th>
+      <!-- 의료진 관리 - 수정 페이지로 이동  -->
+      <td><a href="">의료진 관리</a></td>
+    </tr>
 </table>
 <input type="submit" value="수정하기" />
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,5 +1,6 @@
 package com.edu.springboot.member;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -317,20 +318,44 @@ public class MemberController {
 		memberDTO.setId((String) session.getAttribute("userId"));
 		memberDTO.setPassword((String) session.getAttribute("userPassword"));
 		
-		
+		// member 
 		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
 		String[] tel =  loginUser.getTel().split("-");
+		String[] taxid =  loginUser.getTaxid().split("-");
 		
 		model.addAttribute("loginUserInfo", loginUser);
 		model.addAttribute("tel", tel);
+		model.addAttribute("taxid", taxid);
+		
+		// hours
+		List<HoursDTO> hoursDTO = memberDAO.hospHours(memberDTO); 
+//		for (HoursDTO dto : hoursDTO) {
+//		    System.out.println("week: " + dto.getWeek());
+//		    System.out.println("Starttime: " + dto.getStarttime());
+//		    System.out.println("End Time: " + dto.getEndtime());
+//		    System.out.println("Break Time Start: " + dto.getStartbreak());
+//		    System.out.println("Break Time End: " + dto.getEndbreak());
+//		    System.out.println("데드라인: " + dto.getDeadline());
+//		    System.out.println("병원: " + dto.getHosp_ref());
+//		    System.out.println("-------------------------");
+//		}
+		
+		model.addAttribute("hoursDTO", hoursDTO);
+		
+		
 		
 		return "member/editHosp";
 	}
 	
-	
-	
-	
-	
+//	@PostMapping("/member/editHosp.do")
+//	public String editHospPost(MemberDTO memberDTO, DoctorDTO doctorDTO, HoursDTO hoursDTO, HttpServletRequest req, HttpSession session, Model model) {
+//		
+//		
+//		return
+//	}
+//	
+//	
+//	
 	
 	
 	
