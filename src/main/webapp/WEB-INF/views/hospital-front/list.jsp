@@ -108,7 +108,13 @@
             <div class="info">
               
               <div class="info_top">
-                <h3>동안의원</h3>
+
+                <div class="hosp_name">
+                  <h3>동안의원</h3>
+                  <!-- 회원가입된 사용자일 때만 보이게 처리해야 함 -->
+                  <span class="approve"></span>
+                </div>
+
                 <div class="detail">
                   <p class="depart">피부과</p>
                   <p class="address">서울특별시 종로구 어쩌고 저쩌고 샬라샬라</p>
@@ -135,12 +141,14 @@
                   <p>#해시태그</p>
                 </div>
               </div>
+
+              
             </div>
 
-            <a href="#"><span class="blind">병원 바로가기</span></a>
+            <!-- <a href="#"><span class="blind">병원 바로가기</span></a> -->
           </li>
 
-          <li>
+          <!-- <li>
             <span class="img"></span>
             <div class="info">
               
@@ -210,8 +218,9 @@
               </div>
             </div>
 
+
             <a href="#"><span class="blind">병원 바로가기</span></a>
-          </li>
+          </li> -->
         </ul>
 
 
