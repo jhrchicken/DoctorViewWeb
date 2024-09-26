@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>닥터뷰 | 회원가입</title>
 <%@ include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/member-join.css" />
 </head>

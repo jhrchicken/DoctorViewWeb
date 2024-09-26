@@ -6,7 +6,7 @@
 <html>
 <head> 
 <meta charset="UTF-8">
-<title>병원회원정보 수정</title>
+<title>닥터뷰 | 마이페이지</title>
 <%@ include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/member-login.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
