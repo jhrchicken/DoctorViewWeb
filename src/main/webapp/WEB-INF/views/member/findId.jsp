@@ -43,10 +43,10 @@
             <p>비밀번호</p>
             <input type="password" name="password" value="" placeholder="이메일 입력">
           </div>
+	      <div class="login_btn">
+	        <input type="submit" value="회원인증"/>
+	      </div>
         </form>
-        <div class="login_btn">
-          <input type="submit" value="회원인증"/>
-        </div>
       </div>
     </div>
   </div>

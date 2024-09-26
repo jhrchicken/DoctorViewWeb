@@ -54,16 +54,14 @@
 #container .login_btn {
   margin-top: 20px;
 }
-#container .login_btn a {
-  display: block;
+#container .login_btn input {
   width: 100%;
   height: 56px;
-  padding: 20px 0;
-  text-align: center;
-  background: var(--point-color2);
-  color: #fff;
   border: none;
   border-radius: 5px;
+  background: var(--point-color2);
+  color: #fff;
+  font-size: 18px;
 }
 /*** 비밀번호 찾기 - 아이디 찾기 바로가기 ***/
 #container .other_wrap {

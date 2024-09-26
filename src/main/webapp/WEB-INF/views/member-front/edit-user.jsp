@@ -6,76 +6,90 @@
     <div class="content_inner">
       <div class="login_wrap">
         <h2>회원정보 변경</h2>
-        <form>
+        
+        <!-- 로그인 실패 시 메시지 -->
+        <c:if test="${ not empty editUserFaild }">
+			<!-- 글자색 css 변경필요 -->
+	   		<p><b>${ editUserFaild }</b></p>
+        </c:if>
+        
+        <form name="joinFrm" method="post" action="../../member/editUser.do" onsubmit="return validateForm(this);">
           <p>*필수 입력사항</p>
           <table class="regist">
             <tr>
               <td class="left">아이디</td>
-              <td>test1234</td>
+              <td>
+			  	<input type="text" name="id" value="${ loginUserInfo.id }" maxlength="15" readonly/>
+			  </td>
             </tr>
             <tr class="pass">
               <td rowspan="2" class="left">비밀번호</td>
-              <td><input type="password" name="userPass" placeholder="비밀번호* (영문+숫자, 특수문자(선택), 8~20자)" /></td>
+              <td><input type="password" name="password" value="" maxlength="20" placeholder="비밀번호* (영문+숫자, 특수문자(선택), 8~20자)" /></td>
             </tr>
             <tr>
               <td>
-                <input type="password" name="userPass" placeholder="비밀번호 확인*">
-                  <br>
-                  <span class="notice_no">비밀번호를 입력해주세요.</span>
-                  <!-- <span class="notice_no">비밀번호가 일치하지 않습니다.</span> -->
-                  <!-- <span class="notice_ok">사용 가능한 비밀번호 입니다.</span> -->
-              </td>
-            </tr>
-            <tr>
-              <td class="left">닉네임</td>
-              <td>
-                <input type="text" name="userName" placeholder="닉네임*" />
-                <button class="random" type="button"><span class="blind">랜덤 추천</span></button>
+                <input type="password" name="passwordCheck" value="" maxlength="20" placeholder="비밀번호 확인*">
               </td>
             </tr>
             <tr>
               <td class="left">이름</td>
-              <td><input type="text" name="userName" placeholder="이름*" /></td>
+              <td><input type="text" name="name" value="${ loginUserInfo.name }" placeholder="이름*" /></td>
+            </tr>
+            <tr>
+              <td class="left">닉네임</td>
+              <td>
+                <input type="text" name="nickname" value="${ loginUserInfo.nickname }" placeholder="닉네임*" />
+                <button class="random" type="button" name="randomNickname" id="randimNickname"><span class="blind">랜덤 추천</span></button>
+              </td>
             </tr>
             <tr>
               <td class="left">전화번호</td>
               <td class="mobile">
-                <select name="userNumber">
-                  <option value="010">010</option>
-                  <option value="011">011</option>
-                  <option value="016">016</option>
-                  <option value="017">017</option>
-                  <option value="018">018</option>
-                  <option value="019">019</option>
-                </select>
-                <span>-</span>
-                <input type="text" name="userNumber" placeholder="전화번호*">
-                <span>-</span>
-                <input type="text" name="userNumber">
+               	<input type="tel" name="tel1" maxlength="3" value="${ tel[0] }" placeholder="010"/> -
+				<input type="tel" name="tel2" maxlength="4" value="${ tel[1] }" placeholder="0000"/> -
+				<input type="tel" name="tel3" maxlength="4" value="${ tel[2] }" placeholder="0000"/>
               </td>
             </tr>
             <tr>
               <td class="left">이메일</td>
-              <td><input type="text" name="userMail" placeholder="이메일*"></td>
-            </tr>
-            <tr>
-              <td class="left">주소</td>
-              <td><input type="text" name="userAdd" placeholder="주소*"></td>
-            </tr>
-            <tr>
-              <td class="left">주민등록번호</td>
-              <td class="resi">
-                <!-- type="number"로 변경하면 javascript로 maxlength 처리하기 -->
-                <input type="text" name="userResi" placeholder="주민등록번호*" maxlength="6">
-                <span>-</span>
-                <input type="text" name="userResi" maxlength="7">
+              <td>
+                <input type="text" name="email1" value="${ email[0] }" placeholder="이메일*"> @
+                <input type="text" name="email2" id="email2" value="${ email[1] }" placeholder="naver.com"/>
+				<select id="emailDomainSelect">
+		            <option value="">직접 입력</option>
+		            <option value="naver.com">naver.com</option>
+		            <option value="gmail.com">gmail.com</option>
+		            <option value="daum.net">daum.net</option>
+		            <option value="hanmail.net">hanmail.net</option>
+		        </select>
               </td>
             </tr>
+            <script>
+			    document.getElementById("emailDomainSelect").addEventListener("change", function() {
+			        var email2 = document.getElementById("email2");
+			        var selectedValue = this.value;
+			
+			        if (selectedValue === "") {
+			            email2.value = "";
+			            email2.readOnly = false;
+			            email2.placeholder = "직접 입력";
+			        } else {
+			            email2.value = selectedValue;
+			            email2.readOnly = true;
+			        }
+			    }); 
+			</script>
+            <tr>
+              <td class="left">주소</td>
+              <td>
+                <input type="text" name="address" value="${ loginUserInfo.address }" placeholder="주소* ex) 서울특별시">
+              </td>
+            </tr>
+            
+	        <div class="btn_wrap">
+	          <input type="submit" value="수정하기" />
+	        </div>
           </table>    
-          <div class="btn_wrap">
-            <button type="button">회원탈퇴</button>
-            <button type="submit">회원정보 변경/button>
-          </div>
         </form>
       </div>
     </div>

@@ -27,7 +27,7 @@ function validateForm(form) {
 	    <div class="content_inner">
 	      <div class="login_wrap">
 	        <h2>회원 인증</h2>
-	        <p>로그인 한 회원의 비밀번호를 입력해주세요.</p>
+	        <p>로그인한 회원의 비밀번호를 입력해주세요.</p>
           	<!-- 회원인증 실패 시 메시지 -->
 	        <c:if test="${ not empty checkMemberFaild }">
 				<!-- css 변경필요 -->
