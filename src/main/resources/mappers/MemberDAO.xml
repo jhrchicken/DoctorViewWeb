@@ -64,6 +64,7 @@
         UPDATE member SET password = #{param1} WHERE id = #{param2} AND email = #{param3}
     </update>
     
+    <!-- 회원정보 수정 user -->
 	<update id="userEdit"
 		parameterType="com.edu.springboot.member.MemberDTO">
 		UPDATE member SET password=#{password}, name=#{name}, nickname=#{nickname}, tel=#{tel}, email=#{email}, address=#{address} 
@@ -71,7 +72,12 @@
 	</update>
 
 	
-	
+    <!-- 병원정보 찾기 hosp -->
+	<select id="hospHours" 
+    	parameterType="com.edu.springboot.member.MemberDTO"
+    	resultType="com.edu.springboot.member.HoursDTO">
+        SELECT * FROM hours WHERE hosp_ref = #{id}
+    </select>
 	
 	
 	

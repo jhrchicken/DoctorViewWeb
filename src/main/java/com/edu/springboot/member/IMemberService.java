@@ -1,5 +1,7 @@
 package com.edu.springboot.member;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -32,5 +34,10 @@ public interface IMemberService {
 	
 //	회원정보수정: user
 	public int userEdit(MemberDTO memberDTO);
+	
+//	회원정보선택: hosp - hours
+	public List<HoursDTO> hospHours(MemberDTO memberDTO);
+
+	
 	
 }
