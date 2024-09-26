@@ -48,7 +48,7 @@
 	      </div>
         </form>
         <div class="other_wrap">
-          <p>아이디가 기억나지 않는다면?<a href="#">아이디 찾기</a></p>
+          <p>아이디가 기억나지 않는다면?<a href="/member/findId.do">아이디 찾기</a></p>
         </div>
       </div>
     </div>
