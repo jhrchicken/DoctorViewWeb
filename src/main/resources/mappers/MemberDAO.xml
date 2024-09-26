@@ -70,6 +70,13 @@
 		UPDATE member SET password=#{password}, name=#{name}, nickname=#{nickname}, tel=#{tel}, email=#{email}, address=#{address} 
 		WHERE id=#{id}
 	</update>
+	
+	<!-- 회원정보 수정 hosp -->
+	<update id="hospEdit"
+		parameterType="com.edu.springboot.member.MemberDTO">
+		UPDATE member SET password=#{password}, name=#{name}, nickname=#{name}, tel=#{tel}, address=#{address}, department=#{department}
+		WHERE id=#{id}
+	</update>
 
 	
     <!-- 병원정보 찾기 hosp -->
