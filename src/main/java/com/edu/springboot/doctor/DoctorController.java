@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -107,6 +109,17 @@ public class DoctorController {
 	}
 	
 	// *************** 여기 의사 정보 수정 만들어야 함
+	@GetMapping("/doctor/editDoctor.do")
+	public String editDoctorGet(Model model, DoctorDTO doctorDTO) {
+		// 의사 정보 조회
+		doctorDTO = doctorDAO.viewDoctor(doctorDTO);
+		// 병원명
+		String hospname = doctorDAO.selectHospName(doctorDTO);
+		doctorDTO.setHospname(hospname);
+		model.addAttribute("doctorDTO", doctorDTO);
+		
+		return "/doctor/edit";
+	}
 	
 	
 	

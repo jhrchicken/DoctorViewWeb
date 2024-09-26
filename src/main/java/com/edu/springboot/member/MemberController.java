@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.print.Doc;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.BeanDefinitionValidationException;
 import org.springframework.stereotype.Controller;
@@ -411,10 +413,20 @@ public class MemberController {
 		}
 	} 
 	
-	
-	
-	
-	
+//	의료진 관리 (의사정보)
+	@GetMapping("/member/doctorInfo.do")
+	public String doctorInfoGet(MemberDTO memberDTO, HttpSession session, Model model) {
+		
+//		로그인한 병원의 의료진 목록 가져오기
+		memberDTO.setId((String) session.getAttribute("userId"));
+		List<DoctorDTO> doctorDTO = memberDAO.selectHospDoctor(memberDTO);
+		
+//		모델 저장
+		model.addAttribute("doctorDTO", doctorDTO);
+		model.addAttribute("hospname", memberDTO.getName());
+		
+		return "member/doctorList";
+	}
 	
 	
 	

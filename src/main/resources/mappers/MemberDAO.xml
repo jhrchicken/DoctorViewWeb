@@ -109,5 +109,12 @@
 		WHERE hosp_ref=#{hosp_ref}
 	</update>
 	
+	<!-- 병원 의료진 정보 가져오기 -->
+	 <select id="selectHospDoctor" 
+    	parameterType="com.edu.springboot.member.MemberDTO"
+    	resultType="com.edu.springboot.member.DoctorDTO">
+        SELECT * FROM doctor WHERE hosp_ref = #{id}
+    </select>
+	
 	
 </mapper>

@@ -45,12 +45,13 @@
 					<a href="#">마이페이지</a>
 					<div class="depth2">
 						<ul>
-							<li><a href="${pageContext.request.contextPath}/member/checkMember.do">개인정보 수정</a></li>
+							<li><a href="/member/checkMember.do">개인정보 수정</a></li>
 							<li><a href="#">예약 정보 관리</a></li>
 							<li><a href="#">좋아요한 병원</a></li>
 							<li><a href="#">좋아요한 의사</a></li>
 							<li><a href="#">작성한 리뷰</a></li>
 							<li><a href="#">출석체크</a></li>
+							<li><a href="/member/doctorInfo.do">의료진정보</a></li>
 						</ul>
 					</div>
 				</li>

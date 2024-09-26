@@ -49,6 +49,8 @@ public interface IMemberService {
 //	회원정보선택: hosp - detail
 	public DetailDTO selectHospDatail(MemberDTO memberDTO);
 	
+//	회원정보선택: hosp - doctor
+	public List<DoctorDTO> selectHospDoctor(MemberDTO memberDTO);
 	
 	
 //	로그인한 병원의 영업시간정보 삭제

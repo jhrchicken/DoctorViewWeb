@@ -213,11 +213,11 @@ function validateForm(form) {
 	    </tr>
 	    
 	    <!-- 의료진 추가 -->
-<!-- 	    <tr> -->
-<!-- 	      <th>의료진</th> -->
-<!-- 	      의료진 관리 - 수정 페이지로 이동  -->
-<!-- 	      <td><a href="">의료진 관리</a></td> -->
-<!-- 	    </tr> -->
+	    <tr>
+	      <th>의료진</th>
+	      <!-- 의료진 관리 - 수정 페이지로 이동 --> 
+	      <td><a href="#">의료진 관리</a></td>
+	    </tr>
 	</table>
 	<input type="submit" value="수정하기" />
 	</form>
