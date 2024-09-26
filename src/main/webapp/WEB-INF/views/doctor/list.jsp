@@ -24,6 +24,7 @@
 					<form class="searchForm" name="searchForm">
 						<select class="searchField" name="searchField">
 							<option value="name">이름</option>
+							<option value="major">전공</option>
 						</select>
 						<input name="searchWord" class="searchKeyword" type="text" placeholder="검색어를 입력하세요">
 						<input type="submit" class="search_btn" value="">
