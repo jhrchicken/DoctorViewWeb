@@ -126,7 +126,7 @@
 		                $("#idCheckResult").css("color", "green").text("사용가능한 아이디");
 		                $('input[name="idCheck"]').val("check");
 		            } else {
-		                $("#idCheckResult").css("color", "red").text("사용할 수 없는 아이디");
+		                $("#idCheckResult").css("color", "red").text("사용불가한 아이디");
 		                $('input[name="idCheck"]').val("unCheck");
 		            }
 		        },
@@ -233,7 +233,7 @@
               <tr>
                 <td class="left">아이디</td>
                 <td class="id">
-                  <input type="text" name="id" value="" maxlength="15" placeholder="아이디* (영문+숫자, 6~15자)" />
+                  <input type="text" name="id" value="" maxlength="15" placeholder="아이디* (영문/숫자, 6~15자)" />
                   <button class="id_check" type="button" name="idCheckBtn" id="idCheckBtn"><span class="blind">중복 확인</span></button>
                   <span id="idCheckResult" class="notice_ok"></span>
             	  <input type="hidden" name="idCheck" value="unCheck" />
