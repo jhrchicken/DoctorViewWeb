@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.BeanDefinitionValidationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -310,7 +311,7 @@ public class MemberController {
 
 //	회원정보 수정: hosp
 	@GetMapping("/member/editHosp.do")
-	public String editHospGet(MemberDTO memberDTO, HttpSession session, Model model) {
+	public String editHospGet(MemberDTO memberDTO, DetailDTO detailDTO, HttpSession session, Model model) {
 		memberDTO.setId((String) session.getAttribute("userId"));
 		memberDTO.setPassword((String) session.getAttribute("userPassword"));
 		
@@ -354,11 +355,15 @@ public class MemberController {
 		model.addAttribute("endbreak", endbreak);
 		model.addAttribute("deadline", deadline);
 		
+		// detail
+		DetailDTO hospDatilInfo = memberDAO.selectHospDatail(memberDTO);
+		model.addAttribute("hospDatilInfo", hospDatilInfo);
+		
 		return "member/editHosp";
 	}
 	
 	@PostMapping("/member/editHosp.do")
-	public String editHospPost(MemberDTO memberDTO, HoursDTO hoursDTO, HttpServletRequest req, HttpSession session, Model model) {
+	public String editHospPost(MemberDTO memberDTO, HoursDTO hoursDTO, DetailDTO detailDTO, HttpServletRequest req, HttpSession session, Model model) {
 		// member
 		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
 		String taxid = req.getParameter("taxid1") + "-" + req.getParameter("taxid2") + "-" + req.getParameter("taxid3");
@@ -372,6 +377,7 @@ public class MemberController {
 		// 현재 선택된 병원의 기존 영업시간 데이터 삭제
 		memberDAO.deleteHospHours(memberDTO);
 		
+		// 새로 수정된 영업시간 데이터 삽입
 	    String[] weeks = req.getParameterValues("weeks");
 	    hoursDTO.setHosp_ref(memberDTO.getId());
 	    int hospHoursResult = 0;
@@ -379,9 +385,23 @@ public class MemberController {
 	    	hoursDTO.setWeek(weeks[i]);
 	    	hospHoursResult = memberDAO.joinHours(hoursDTO);
 	    }
+	    
+	    // detail
+	    detailDTO.setHosp_ref(memberDTO.getId());
+	    int hospDatailResult;
+//	    detail이 있던 경우 없던 경우 분리 필요
+	    
+	    // detail 데이터가 있으면
+	    if(memberDAO.selectHospDatail(memberDTO) != null ) {
+//	    	update 쿼리
+	    	hospDatailResult = memberDAO.updateHospDetail(detailDTO);
+	    }
+	    else {
+//	    	insert 쿼리
+	    	hospDatailResult = memberDAO.insertHospDetail(detailDTO);
+	    }
 		
-//		멤버/시간 모두 1이면 성공
-		if (hospMemberResult == 1 && hospHoursResult == 1) {
+		if (hospMemberResult == 1 && hospHoursResult == 1 && hospDatailResult == 1) {
 			session.setAttribute("userPassword", memberDAO.loginMember(memberDTO).getPassword());
 			return "redirect:/member/editHosp.do";
 		}

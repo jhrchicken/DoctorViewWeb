@@ -108,8 +108,6 @@ function validateForm(form) {
 	    <script>
 	        $(document).ready(function() {
 	            var weeks = ["${fn:join(weeks, '","')}" ];
-	            var idxs = ["${fn:join(idxs, '","')}" ];
-	            
 	            
 	            if (weeks.includes("월요일")) {
 	                $('#monday').prop('checked', true);
@@ -173,7 +171,7 @@ function validateForm(form) {
        <input type="time" name="endtime" value="${ endtime }" />
      </td>
    <tr>
-<tr>
+	<tr>
      <td>
        휴게 시간: 
        <input type="time" name="startbreak" value="${ startbreak }" />
@@ -189,30 +187,31 @@ function validateForm(form) {
 	    
 	    
 	    <!-- 추가사항 -->
-<!-- 	    <tr> -->
-<!-- 	    	<th>병원 소개</th> -->
-<!-- 	    	<td><input type="text" name="" value="" placeholder="" /></td> -->
-<!-- 	    </tr> -->
-<!-- 	    <tr> -->
-<!-- 	    	<th>오시는 길</th> -->
-<!-- 	    	<td><input type="text" name="" value="" placeholder="" /></td> -->
-<!-- 	    </tr> -->
-<!-- 	    <tr> -->
-<!-- 	    	<th>주차 여부</th> -->
-<!-- 	    	<td><input type="text" name="" value="" placeholder="" /></td> -->
-<!-- 	    </tr> -->
-<!-- 	    <tr> -->
-<!-- 	    	<th>코로나 검사</th> -->
-<!-- 	    	<td><input type="text" name="" value="" placeholder="" /></td> -->
-<!-- 	    </tr> -->
-<!-- 	    <tr> -->
-<!-- 	    	<th>입원 가능 여부</th> -->
-<!-- 	    	<td><input type="text" name="" value="" placeholder="" /></td> -->
-<!-- 	    </tr> -->
-<!-- 	    <tr> -->
-<!-- 	    	<th>예약제 여부</th> -->
-<!-- 	    	<td><input type="text" name="" value="" placeholder="" /></td> -->
-<!-- 	    </tr> -->
+	    <tr>
+	    	<th>병원 소개</th>
+	    	<td><input type="text" name="introduce" value="${ hospDatilInfo.introduce }" placeholder="" /></td>
+	    </tr>
+	    <tr>
+	    	<th>오시는 길</th>
+	    	<td><input type="text" name="traffic" value="${ hospDatilInfo.traffic }" placeholder="" /></td>
+	    </tr>
+	    <tr>
+	    	<th>주차 여부</th>
+	    	<td><input type="text" name="parking" value="${ hospDatilInfo.parking }" placeholder="" /></td>
+	    </tr>
+	    <tr>
+	    	<th>코로나 검사</th>
+	    	<td><input type="text" name="pcr" value="${ hospDatilInfo.pcr }" placeholder="" /></td>
+	    </tr>
+	    <tr>
+	    	<th>입원 가능 여부</th>
+	    	<td><input type="text" name="hospitalize" value="${ hospDatilInfo.hospitalize }" placeholder="" /></td>
+	    </tr>
+	    <tr>
+	    	<th>예약제 여부</th>
+	    	<td><input type="text" name="system" value="${ hospDatilInfo.system }" placeholder="" /></td>
+	    </tr>
+	    
 	    <!-- 의료진 추가 -->
 <!-- 	    <tr> -->
 <!-- 	      <th>의료진</th> -->

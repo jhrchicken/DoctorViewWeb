@@ -2,6 +2,8 @@ package com.edu.springboot.member;
 
 import java.util.List;
 
+import javax.xml.crypto.Data;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -44,8 +46,19 @@ public interface IMemberService {
 //	회원정보선택: hosp - hours
 	public List<HoursDTO> hospHours(MemberDTO memberDTO);
 	
+//	회원정보선택: hosp - detail
+	public DetailDTO selectHospDatail(MemberDTO memberDTO);
+	
+	
+	
 //	로그인한 병원의 영업시간정보 삭제
 	public int deleteHospHours(MemberDTO memberDTO);
+	
+//	병원 상세정보 추가
+	public int insertHospDetail(DetailDTO detailDTO);
+	
+//	병원 상세정보 수정
+	public int updateHospDetail(DetailDTO detailDTO);
 
 	
 	
