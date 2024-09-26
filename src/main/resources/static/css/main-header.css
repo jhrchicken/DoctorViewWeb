@@ -1,0 +1,180 @@
+/* 컬러 변수 */
+:root {
+  --point-color1: #ffce32;
+  --point-color2: #005ad5;
+  --gray-400: #999;
+  --gray-500: #666;
+  --gray-600: #292929;
+}
+
+#header {
+  border-top: 5px solid var(--point-color2);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  width: 100%;
+  background: #fff;
+}
+#header::after {
+  content: '';
+  position: absolute;
+  background-color: #e5e5e5;
+  left: 0;
+  top: 164px;
+  z-index: 99;
+  width: 100%;
+  height: 1px;
+}
+#header .inner {
+  max-width: 1170px;
+  height: 165px;
+  margin: 0 auto;
+  align-items: center;
+  position: relative;
+}
+#header .logo {
+  position: absolute;
+  left: 50%;
+  top: 35px;
+  margin-left: -55px;
+}
+#header .logo a {
+  display: block;
+  background: url(../images/logo.png) no-repeat 0 0 / 100%;
+  width: 110px;
+  height: 46px;
+}
+/*** 헤더 ***/
+#header .gnb_wrap {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 98px;
+  text-align: center;
+}
+#header .gnb {
+  display: flex;
+  justify-content: space-between;
+}
+#header .gnb>li {
+  width: 100%;
+  position: relative;
+}
+#header .gnb>li:hover>a {
+  color: var(--point-color2);
+  transition: all 0.2s;
+}
+#header .gnb>li>a {
+  font-size: 18px;
+  color: var(--gray-600);
+  font-weight: 700;
+  position: relative;
+  padding-top: 20px;
+  display: block;
+  z-index: 3;
+}
+
+/*** 헤더 드롭다운 ***/
+#header .depth2 {
+  overflow: hidden;
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: -20px;
+  width: 100%;
+  padding-top: 87px;
+  z-index: 2;
+  transition: all 0.4s;
+  pointer-events: none;
+}
+#header.on .depth2 {
+  opacity: 1;
+  pointer-events: auto;
+}
+#header .depth2 li>a {
+  display: block;
+  padding: 8px 0 9px;
+  font-size: 15px;
+  color: var(--gray-500);
+}
+#header .depth2 li:hover>a {
+  color: var(--point-color2);
+  text-decoration: underline;
+}
+#header .depth2 li:first-child {
+  margin-top: 20px;
+}
+#header .depth2 li:last-child {
+  margin-bottom: 20px;
+}
+#header .depth2_color {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 165px;
+  width: 100%;
+  height: 0;
+  background: #fff;
+  transition: all 0.3s;
+}
+#header.on .depth2_color {
+  opacity: 1;
+  height: 262px;
+  transition: all 0.3s;
+}
+
+
+/*** 로그인 ***/
+#header .login_wrap {
+  position: absolute;
+  right: 25px;
+  top: 40px;
+}
+#header .login_wrap ul {
+  display: flex;
+}
+#header .login_wrap li {
+  position: relative;
+}
+#header .login_wrap li>a {
+  display: block;
+  color: var(--gray-500);
+  font-size: 13px;
+  line-height: 30px;
+  height: 30px;
+}
+#header .login_wrap>ul>li + li {
+  margin-left: 30px;
+}
+#header .login_wrap>ul>li + li::before {
+  background-color: #ddd;
+  content: '';
+  display: block;
+  border-radius: 50px;
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  margin-top: -2px;
+  height: 3px;
+  width: 3px;
+}
+/*** 로그인 상태일 때 나타나는 버튼 ***/
+#header .btn_wrap {
+  display: flex;
+  margin-left: 20px;
+  gap: 0 15px;
+  align-items: center;
+}
+#header .btn_wrap .chat_btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: url(../images/chat.svg) no-repeat 0 0 / 100%;
+}
+#header .btn_wrap .my_btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: url(../images/user.svg) no-repeat 0 0 / 100%;
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu.springboot.member.IMemberService">
+	
+	<!-- user 회원가입 -->
+	<insert id="userJoin"
+		parameterType="com.edu.springboot.member.MemberDTO">
+		INSERT INTO member (id, password, name, nickname, tel, email, address, rrn, enable, auth, approve)
+		VALUES (#{id}, #{password}, #{name}, #{nickname}, #{tel}, #{email}, #{address}, #{rrn}, 1, 'ROLE_USER', 'T')
+	</insert>
+	
+	<!-- hosp 회원가입 -->
+	<insert id="joinMember"
+		parameterType="com.edu.springboot.member.MemberDTO">
+		INSERT INTO member (id, password, name, nickname, tel, address, taxid, department, enable, auth)
+    	VALUES (#{id}, #{password}, #{name}, #{name}, #{tel}, #{address}, #{taxid}, #{department}, 1, 'ROLE_HOSP')
+	</insert>
+	<insert id="joinDoctor"
+		parameterType="com.edu.springboot.member.DoctorDTO">
+    	INSERT INTO doctor (doc_idx, name, major, career, hours, hosp_ref) 
+    	VALUES (seq_doctor_idx.nextval, #{doctorname}, #{major}, #{career}, #{hours}, #{hosp_ref})
+	</insert>
+	<insert id="joinHours"
+		parameterType="com.edu.springboot.member.HoursDTO">
+    	INSERT INTO hours 
+    	VALUES (seq_hours_idx.nextval, #{week}, #{starttime}, #{endtime}, #{startbreak}, #{endbreak}, #{deadline}, #{hosp_ref})
+	</insert>
+
+	
+	
+    
+    <!-- 로그인 -->
+    <select id="loginMember" 
+    	parameterType="com.edu.springboot.member.MemberDTO"
+    	resultType="com.edu.springboot.member.MemberDTO">
+        SELECT * FROM member WHERE id = #{id} and password=#{password}
+    </select>
+	
+ 	<!-- 아이디 중복 체크 -->
+    <select id="checkId" 
+    	parameterType="String"
+    	resultType="int">
+        SELECT COUNT(*) FROM member WHERE id = #{id}
+    </select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findIdMember" 
+    	parameterType="com.edu.springboot.member.MemberDTO"
+    	resultType="com.edu.springboot.member.MemberDTO">
+        SELECT * FROM member WHERE email = #{email} and password=#{password}
+    </select>
+    <!-- 비밀번호 찾기 -->
+	<select id="findPassMember" 
+    	parameterType="com.edu.springboot.member.MemberDTO"
+    	resultType="com.edu.springboot.member.MemberDTO">
+        SELECT * FROM member WHERE id = #{id} and email = #{email}
+    </select>
+    <update id="newPassword" 
+    	parameterType="String">
+        UPDATE member SET password = #{param1} WHERE id = #{param2} AND email = #{param3}
+    </update>
+    
+    <!-- 회원정보 수정 user -->
+	<update id="userEdit"
+		parameterType="com.edu.springboot.member.MemberDTO">
+		UPDATE member SET password=#{password}, name=#{name}, nickname=#{nickname}, tel=#{tel}, email=#{email}, address=#{address} 
+		WHERE id=#{id}
+	</update>
+
+	
+    <!-- 병원정보 찾기 hosp -->
+	<select id="hospHours" 
+    	parameterType="com.edu.springboot.member.MemberDTO"
+    	resultType="com.edu.springboot.member.HoursDTO">
+        SELECT * FROM hours WHERE hosp_ref = #{id}
+    </select>
+	
+	
+	
+</mapper>
