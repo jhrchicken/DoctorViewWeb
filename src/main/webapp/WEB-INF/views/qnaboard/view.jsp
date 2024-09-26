@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>닥터뷰 | 상담게시판</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -54,15 +54,15 @@ function validateCommentForm(form) {
 	
 	<main id="container">
 		<div class="content">
-			<!-- 게시글 -->
-			<h2>게시글 상세보기</h2>	
-			<div class="board_inner">
+			<div class="content_inner">
+				<!-- 게시글 -->
+				<h2>게시글 상세보기</h2>	
+			
 				<form name="deletePostForm">
 					<input type="hidden" name="board_idx" value="${ boardDTO.board_idx }" />
 				</form>
-				
+				<!-- 게시글 정보 -->
 				<table class="board">
-					<!-- 게시글 정보 -->
 					<tr>
 						<td class="left">제목</td>
 						<td colspan="3">${ boardDTO.title }</td>
@@ -79,8 +79,8 @@ function validateCommentForm(form) {
 						<td class="left">내용</td>
 						<td class="board_content" colspan="3">${ boardDTO.content }</td>
 					</tr>
-					<!-- 하단 메뉴(버튼) -->
 				</table>
+				<!-- 하단 메뉴(버튼) -->
 				<div class="board_btn">
 					<button type="button" onclick="location.href='../qnaboard.do';">뒤로가기</button>
 					<!-- 로그인 사용자와 글 작성자가 일치하는 경우 수정 삭제 버튼 -->
@@ -89,7 +89,6 @@ function validateCommentForm(form) {
 						<button type="button" onclick="deletePost(${ param.board_idx });">삭제하기</button>
 					</c:if>
 				</div>
-				
 				<div class="like_btn">
 					<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
 					<c:if test="${ likecheck == 0 }">
@@ -120,6 +119,7 @@ function validateCommentForm(form) {
 						</button>
 					</c:if>
 				</div>
+			
 			
 				<form name="deleteCommentForm" method="post">
 				    <input type="hidden" name="board_ref" value="" />
@@ -176,6 +176,7 @@ function validateCommentForm(form) {
 						</c:choose>
 					</tbody>
 				</table>
+				
 			</div>
 		</div>		
 	</main>

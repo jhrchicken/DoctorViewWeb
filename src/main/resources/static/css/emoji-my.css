@@ -1,0 +1,127 @@
+#container .content {
+  padding: 250px 0 80px;
+  background: #eee;
+}
+#container .content_inner {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 50px 0 100px;
+    background: #fff;
+    border-radius: 30px;
+}
+
+#container h2 {
+  text-align: center;
+  font-size: 40px;
+  color: var(--gray-600);
+  font-weight: 700;
+  padding: 50px 0 80px;
+  /* 서브웨이처럼 서브헤더 넣게되면 아래와 같이 패딩 값 수정하기 */
+  /* padding: 134px 0 80px; */
+}
+
+#container .emoji {
+  width: 100%;
+}
+#container .emoji_inner {
+  display: flex;
+  gap: 20px 15px;
+  max-width: 1170px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+#container .emoji_inner>li {
+  width: calc((100% / 3) - 30px / 3);
+  height: 300px;
+  text-align: center;
+  padding: 50px 40px;
+  background: #fff;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+/*** 유저 정보 칸 ***/
+#container .emoji_inner .user_name {
+  font-size: 25px;
+  font-weight: 700;
+}
+#container .emoji_inner .user_name::after {
+  content: '님';
+  margin-left: 3px;
+  font-size: 20px;
+}
+#container .emoji_inner .emoji_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+#container .emoji_inner .emoji_wrap h4 {
+  font-size: 50px;
+  display: block;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #666;
+  color: #666;
+  border-radius: 50%;
+  padding: 15px 10px;
+  transition: all 0.3s ease;
+}
+#container .emoji_inner .a_btn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 40px;
+}
+#container .emoji_inner .a_btn a {
+  display: block;
+  width: 170px;
+  height: 44px;
+  padding: 10px;
+  background: var(--point-color2);
+  border-radius: 30px;
+  color: #fff;
+  font-size: 20px;
+  transition: all 0.2s ease;
+}
+#container .emoji_inner>li:hover .a_btn a {
+  background: #fff;
+  border: 1px solid #005ad5;
+  color: var(--point-color2);
+}
+/*** 이모지 칸 ***/
+#container .emoji .have>.emoji_wrap {
+  margin-top: 0;
+}
+#container .emoji .have>p {
+  display: block;
+  margin-top: 20px;
+  font-size: 20px;
+}
+  
+#container .emoji .your_emoji>button {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 40px;
+  width: 130px;
+  height: 44px;
+  background: var(--point-color2);
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 20px;
+  transition: all 0.2s ease;
+}
+#container .emoji_inner>li:hover .emoji_wrap h4 {
+  background: var(--point-color1);
+}
+#container .emoji_inner>li:hover>button {
+  background: none;
+  border: 1px solid #005ad5;
+  color: var(--point-color2);
+}

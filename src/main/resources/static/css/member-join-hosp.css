@@ -5,7 +5,7 @@
   padding-bottom: 130px;
 }
 #container .content {
-  padding: 200px 0 80px;
+  padding: 170px 0 80px;
 }
 #container .content_inner {
   max-width: 1170px;
@@ -79,19 +79,15 @@
   height: 40px;
   padding: 0 10px;
 }
-/* 전화번호 select로 구현하면 주석 해제 */
-/* #container .regist .mobile>input {
-  width: 30%;
+#container .regist .id {
+  display: flex;
+  gap: 0 5px;
+  align-items: center;
 }
-#container .regist .mobile>select {
-  width: 26%;
-  height: 40px;
-  padding: 0 10px;
-  border: 1px solid #ddd;
-  background: url(/images/drop_down_arrow.svg) no-repeat right 5px top 50%;
-  cursor: pointer;
-} */
-
+#container .regist .mobile>input,
+#container .regist .regi>input {
+  width: 28.7%;
+}
 #container .regist button {
   border: 1px solid #ddd;
   width: 40px;
@@ -99,19 +95,13 @@
   background: none;
   padding: 2px;
 }
-/* 실시간 검증 가능하면 삭제할 것 */
 #container .regist .id_check {
   background: url(/images/id_check.svg) no-repeat 1.5px 1.5px / 90%;
 }
-#container .regist .notice_no {
-  font-size: 13px;
-  color: red;
-  margin: 2px;
-}
 #container .regist .notice_ok {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--point-color2);
-  margin: 2px;
+  margin: 3px 2px 2px;
 }
 /*** 영업시간 - 시간 선택 ***/
 #container .regist .time>td>input {
@@ -125,13 +115,15 @@
   margin-bottom: 5px;
 }
 /*** 의료진 추가 버튼 ***/
-#container .regist .doc .plus {
-  border-left: 1px solid #ddd;
-}
-#container .regist .doc .plus {
+#container .regist .doc {
   width: 50px;
   height: 50px;
+}
+#container .regist .doc .plus {
   background: url(/images/plus.svg) no-repeat 0 0 / 100%;
+}
+#container .regist .doc .delete {
+  background: url(/images/delete.svg) no-repeat 0 0 / 100%;
 }
 
 /*** 완료 버튼 ***/
