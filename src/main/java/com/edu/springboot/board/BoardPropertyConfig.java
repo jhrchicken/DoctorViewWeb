@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
-public class PropertyConfig {
+public class BoardPropertyConfig {
 	@Bean(name="boardprops")
 	public PropertiesFactoryBean propertiesFactoryBean() {
 		PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();

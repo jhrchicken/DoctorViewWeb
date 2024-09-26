@@ -54,7 +54,7 @@
 	
 	<!-- 게시글 수정 -->
 	<update id="editPost"
-		parameterType="com.edu.springboot.board.ParameterDTO">
+		parameterType="com.edu.springboot.board.BoardDTO">
 		UPDATE board SET title=#{title}, content=#{content}
 		WHERE board_idx=#{board_idx}
 	</update>

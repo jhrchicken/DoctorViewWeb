@@ -32,6 +32,12 @@ public interface IFreeboardService {
 	// 댓글: 댓글 수 조회
 	public int countComment(BoardDTO boardDTO);
 	
+	
+	/***********   답변도 추가해야 함 *************/
+	
+	
+	
+	
 	// 닉네임 인출: 게시글 작성자 닉네임 인출
 	public String selectBoardNickname(BoardDTO boardDTO);
 	// 닉네임 인출: 댓글 작성자 닉네임 인출
