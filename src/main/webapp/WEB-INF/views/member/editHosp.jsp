@@ -24,8 +24,6 @@ function validateForm(form) {
 		form.passwordCheck.focus();
 		return false;
 	}
-	
-
 	return true;
 }
 
@@ -115,8 +113,31 @@ function validateForm(form) {
         	</label> 
       </td>
     </tr>
+    <tr>
+		<th>진료 시간</th>
+		<td>
+        진료 시간: 
+        <input type="time" name="starttime" value="" />
+         ~ 
+        <input type="time" name="endtime" value="" />
+      </td>
+    <tr>
+	<tr class="time">
+      <td>
+        휴게 시간: 
+        <input type="time" name="startbreak" value="" />
+         ~ 
+        <input type="time" name="endbreak" value="" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        접수 마감: <input type="time" name="deadline" value="" />
+      </td>
+    </tr>
 </table>
 <input type="submit" value="수정하기" />
+
 
 
 
