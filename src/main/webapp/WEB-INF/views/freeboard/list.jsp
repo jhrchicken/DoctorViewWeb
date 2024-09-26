@@ -89,7 +89,7 @@
 			</div>
 		</div>
 	</main>
-	<%-- <%@include file="../common/main_footer.jsp" %> --%>
+	<%@include file="../common/main_footer.jsp" %>
 </body>
 </html>
 

@@ -88,7 +88,7 @@
   height: 40px;
   padding: 0 10px;
   border: 1px solid #ddd;
-  background: url(../images/drop_down_arrow.svg) no-repeat right 5px top 50%;
+  background: url(/images/drop_down_arrow.svg) no-repeat right 5px top 50%;
   cursor: pointer;
 } */
 
@@ -131,7 +131,7 @@
 #container .regist .doc .plus {
   width: 50px;
   height: 50px;
-  background: url(../images/plus.svg) no-repeat 0 0 / 100%;
+  background: url(/images/plus.svg) no-repeat 0 0 / 100%;
 }
 
 /*** 완료 버튼 ***/

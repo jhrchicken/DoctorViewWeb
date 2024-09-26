@@ -90,7 +90,7 @@
   height: 40px;
   padding: 0 10px;
   border: 1px solid #ddd;
-  background: url(../images/drop_down_arrow.svg) no-repeat right 5px top 50%;
+  background: url(/images/drop_down_arrow.svg) no-repeat right 5px top 50%;
   cursor: pointer;
 }
 #container .regist .resi>input {
@@ -107,15 +107,12 @@
   padding: 2px;
 }
 #container .regist .random {
-  background: url(../images/random.svg) no-repeat 1px 1px / 90%;
+  background: url(/images/random.svg) no-repeat 1px 1px / 90%;
 }
 /* 실시간 검증 가능하면 삭제할 것 */
 /* #container .regist .id_check {
-  background: url(../images/id_check.svg) no-repeat 1.5px 1.5px / 90%;
+  background: url(/images/id_check.svg) no-repeat 1.5px 1.5px / 90%;
 }
-#container .regist .pass_check {
-  background: url(../images/pass_check.svg) no-repeat 2px 0 / 90%;
-} */
 #container .regist .notice_no {
   font-size: 13px;
   color: red;
