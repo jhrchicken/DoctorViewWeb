@@ -35,6 +35,9 @@ public interface IMemberService {
 //	회원정보수정: user
 	public int userEdit(MemberDTO memberDTO);
 	
+//	회원정보수정: hosp
+	public int hospEdit(MemberDTO memberDTO);
+	
 //	회원정보선택: hosp - hours
 	public List<HoursDTO> hospHours(MemberDTO memberDTO);
 

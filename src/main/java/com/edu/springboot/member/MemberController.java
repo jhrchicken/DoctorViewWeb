@@ -1,5 +1,8 @@
 package com.edu.springboot.member;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import oracle.jdbc.proxy.annotation.Post;
 import utils.CookieManager;
 
 @Controller
@@ -329,33 +333,60 @@ public class MemberController {
 		
 		// hours
 		List<HoursDTO> hoursDTO = memberDAO.hospHours(memberDTO); 
-//		for (HoursDTO dto : hoursDTO) {
-//		    System.out.println("week: " + dto.getWeek());
-//		    System.out.println("Starttime: " + dto.getStarttime());
-//		    System.out.println("End Time: " + dto.getEndtime());
-//		    System.out.println("Break Time Start: " + dto.getStartbreak());
-//		    System.out.println("Break Time End: " + dto.getEndbreak());
-//		    System.out.println("데드라인: " + dto.getDeadline());
-//		    System.out.println("병원: " + dto.getHosp_ref());
-//		    System.out.println("-------------------------");
-//		}
+		ArrayList<String> weekList = new ArrayList<>();
+		for (int i = 0; i < hoursDTO.size(); i++) {
+			weekList.add(hoursDTO.get(i).getWeek());
+		}
 		
-		model.addAttribute("hoursDTO", hoursDTO);
+		String[] weeks = new String[weekList.size()];
+		// weekList의 내용을 weeks 배열에 복사
+		for (int i = 0; i < weekList.size(); i++) {
+		    weeks[i] = weekList.get(i);
+		}
 		
+		HoursDTO hoursInfo = hoursDTO.get(0);
+		LocalTime starttime = LocalTime.parse(hoursInfo.getStarttime(), DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime endtime = LocalTime.parse(hoursInfo.getEndtime(), DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime startbreak = LocalTime.parse(hoursInfo.getStartbreak(), DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime endbreak = LocalTime.parse(hoursInfo.getEndbreak(), DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime deadline = LocalTime.parse(hoursInfo.getDeadline(), DateTimeFormatter.ofPattern("HH:mm"));
 		
+		model.addAttribute("weeks", weeks);
+		model.addAttribute("starttime", starttime);
+		model.addAttribute("endtime", endtime);
+		model.addAttribute("startbreak", startbreak);
+		model.addAttribute("endbreak", endbreak);
+		model.addAttribute("deadline", deadline);
 		
 		return "member/editHosp";
 	}
 	
-//	@PostMapping("/member/editHosp.do")
-//	public String editHospPost(MemberDTO memberDTO, DoctorDTO doctorDTO, HoursDTO hoursDTO, HttpServletRequest req, HttpSession session, Model model) {
-//		
-//		
-//		return
-//	}
-//	
-//	
-//	
+	@PostMapping("/member/editHosp.do")
+	public String editHospPost(MemberDTO memberDTO, HttpServletRequest req, HttpSession session, Model model) {
+		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
+		String taxid = req.getParameter("taxid1") + "-" + req.getParameter("taxid2") + "-" + req.getParameter("taxid3");
+		
+		memberDTO.setTel(tel);
+		memberDTO.setTaxid(taxid);
+		
+		System.out.println(memberDTO.getId());
+		System.out.println(memberDTO.getName());
+		System.out.println(memberDTO.getPassword());
+		System.out.println(memberDTO.getTel());
+		System.out.println(memberDTO.getAddress());
+		System.out.println(memberDTO.getTaxid());
+		
+		memberDAO.hospEdit(memberDTO);
+		
+		if (memberDAO.hospEdit(memberDTO) == 1) {
+			session.setAttribute("userPassword", memberDAO.loginMember(memberDTO).getPassword());
+			return "redirect:/member/editHosp.do";
+		}
+		else {
+			model.addAttribute("editUserFaild", "회원정보 수정에 실패했습니다.");
+			return "member/editHosp";
+		}
+	}
 	
 	
 	
