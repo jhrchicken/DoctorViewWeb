@@ -6,7 +6,7 @@
     <div class="content_inner">
       <div class="login_wrap">
         <h2>일반 회원가입</h2>
-        <form>
+        <form name="joinFrm" method="post" action="../../member/join/user.do" onsubmit="return validateForm(this);">
           <div class="agree_wrap">
             <div class="agree">
               <p class="agree_title">개인정보 수집 및 이용 동의</p>     
@@ -35,8 +35,8 @@
                 본인은 위 내용을 충분히 이해하였으며, 이에 동의합니다.</p>
               </div>
               <label class="checkbox_wrap">
-                <input id="checkAgree" name="checkAgree" type="checkbox">
-                <label for="checkAgree">개인정보 수집 및 이용에 동의합니다. <span class="must">(필수)</span></label>
+                <input id="terms1" name="terms1" type="checkbox" value="yes" />
+                <label for="terms1">개인정보 수집 및 이용에 동의합니다. <span class="must">(필수)</span></label>
               </label>
             </div>
             <div class="agree">
@@ -65,8 +65,8 @@
                 본인은 위 내용을 충분히 이해하였으며, 이에 동의합니다.</p>
               </div>
               <label class="checkbox_wrap">
-                <input id="checkAgree" name="checkAgree" type="checkbox">
-                <label for="checkAgree">개인정보 위탁에 동의합니다. <span class="must">(필수)</span></label>
+                <input id="terms2" name="terms2" type="checkbox" value="yes" />
+                <label for="terms2">개인정보 위탁에 동의합니다. <span class="must">(필수)</span></label>
               </label>
             </div>
           </div>
@@ -77,78 +77,83 @@
               <tr>
                 <td class="left">아이디</td>
                 <td>
-                  <input type="text" name="userId" placeholder="아이디* (영문+숫자, 6~15자)" />
-                  <!-- 실시간 중복 확인 가능하게 되면 삭제할 것 -->
-                  <!-- <button class="id_check" type="button"><span class="blind">중복 확인</span></button> -->
-                  <br>
-                  <span class="notice_no">아이디를 입력해주세요.</span>
-                  <!-- <span class="notice_no">영어로만 또는 숫자로만 이루어진 아이디는 사용할 수 없습니다.</span> -->
-                  <!-- <span class="notice_ok">사용 가능한 아이디 입니다.</span> -->
+                  <input type="text" name="id" value="" maxlength="15" placeholder="아이디* (영문+숫자, 6~15자)" />
+                  <button class="id_check" type="button" name="idCheckBtn" id="idCheckBtn"><span class="blind">중복 확인</span></button>
+                  <span id="idCheckResult" class="notice_ok"></span>
+            	  <input type="hidden" name="idCheck" value="unCheck" />
                 </td>
               </tr>
               <tr class="pass">
                 <td rowspan="2" class="left">비밀번호</td>
-                <td><input type="password" name="userPass" placeholder="비밀번호* (영문+숫자, 특수문자(선택), 8~20자)" /></td>
+                <td><input type="password" name="password" value="" maxlength="20" placeholder="비밀번호* (영문+숫자, 특수문자(선택), 8~20자)" /></td>
               </tr>
               <tr>
                 <td>
-                  <input type="password" name="userPass" placeholder="비밀번호 확인*">
-                  <!-- <button class="pass_check" type="button"><span class="blind">비밀번호 확인</span></button> -->
-                   <br>
-                   <span class="notice_no">비밀번호를 입력해주세요.</span>
-                   <!-- <span class="notice_no">비밀번호가 일치하지 않습니다.</span> -->
-                   <!-- <span class="notice_ok">사용 가능한 비밀번호 입니다.</span> -->
-                </td>
-              </tr>
-              <tr>
-                <td class="left">닉네임</td>
-                <td>
-                  <input type="text" name="userName" placeholder="닉네임*" />
-                  <button class="random" type="button"><span class="blind">랜덤 추천</span></button>
+                  <input type="password" name="passwordCheck" value="" maxlength="20" placeholder="비밀번호 확인*">
                 </td>
               </tr>
               <tr>
                 <td class="left">이름</td>
-                <td><input type="text" name="userName" placeholder="이름*" /></td>
+                <td><input type="text" name="name" value="" placeholder="이름*" /></td>
+              </tr>
+              <tr>
+                <td class="left">닉네임</td>
+                <td>
+                  <input type="text" name="nickname" value="" placeholder="닉네임*" />
+                  <button class="random" type="button" name="randomNickname" id="randomNickname"><span class="blind">랜덤 추천</span></button>
+                </td>
               </tr>
               <tr>
                 <td class="left">전화번호</td>
                 <td class="mobile">
-                  <select name="userNumber">
-                    <option value="010">010</option>
-                    <option value="011">011</option>
-                    <option value="016">016</option>
-                    <option value="017">017</option>
-                    <option value="018">018</option>
-                    <option value="019">019</option>
-                  </select>
-                  <span>-</span>
-                  <input type="text" name="userNumber" placeholder="전화번호*">
-                  <span>-</span>
-                  <input type="text" name="userNumber">
+                  <input type="tel" name="tel1" maxlength="3" value="" placeholder="010" /> -
+				  <input type="tel" name="tel2" maxlength="4" value="" placeholder="0000" /> -
+				  <input type="tel" name="tel3" maxlength="4" value="" placeholder="0000" />
                 </td>
               </tr>
               <tr>
                 <td class="left">이메일</td>
-                <td><input type="text" name="userMail" placeholder="이메일*"></td>
+                <td>
+                	<input type="text" name="email1" value="" placeholder="이메일*" /> @ 
+                	<input type="text" name="email2" id="email2" value="" placeholder="naver.com" />
+					<select id="emailDomainSelect">
+			            <option value="">직접 입력</option>
+			            <option value="naver.com">naver.com</option>
+			            <option value="gmail.com">gmail.com</option>
+			            <option value="daum.net">daum.net</option>
+			            <option value="hanmail.net">hanmail.net</option>
+			        </select>
+                </td>
               </tr>
+              <script>
+				    document.getElementById("emailDomainSelect").addEventListener("change", function() {
+				        var email2 = document.getElementById("email2");
+				        var selectedValue = this.value;
+				
+				        if (selectedValue === "") {
+				            email2.value = "";
+				            email2.readOnly = false;
+				            email2.placeholder = "직접 입력";
+				        } else {
+				            email2.value = selectedValue;
+				            email2.readOnly = true;
+				        }
+				    }); 
+			  </script>
               <tr>
                 <td class="left">주소</td>
-                <td><input type="text" name="userAdd" placeholder="주소*"></td>
+                <td><input type="text" name="address" value="" placeholder="주소* ex) 서울특별시" /></td>
               </tr>
               <tr>
                 <td class="left">주민등록번호</td>
                 <td class="resi">
-                  <!-- type="number"로 변경하면 javascript로 maxlength 처리하기 -->
-                  <input type="text" name="userResi" placeholder="주민등록번호*" maxlength="6">
-                  <span>-</span>
-                  <input type="text" name="userResi" maxlength="7">
+                  <input type="text" name="rrn1" value="" maxlength="6" placeholder="주민등록번호*" /> - 
+                  <input type="text" name="rrn2" value="" maxlength="1" />
                 </td>
               </tr>
             </table>    
             <div class="btn_wrap">
-              <button type="button">취소</button>
-              <button type="submit">완료</button>
+              <input type="submit" value="회원가입" />
             </div>
           </form>
       </div>
