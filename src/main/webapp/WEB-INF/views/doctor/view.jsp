@@ -257,7 +257,7 @@ function validateReplyForm(form) {
 			</div>
 		</div>		
 	</main>
-    <%-- <%@include file="../common/main_footer.jsp" %> --%>
+    <%@include file="../common/main_footer.jsp" %>
     
     <!-- 리뷰 작성 모달창 -->
 	<form method="post" action="../doctor/writeReview.do" onsubmit="return validateReviewForm(this);">

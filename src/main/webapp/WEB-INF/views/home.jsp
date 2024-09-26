@@ -24,6 +24,6 @@ function chat(user_id, hosp_id) {
 	
 	
 	 
-	<%-- <%@include file="common/main_footer.jsp" %> --%>
+	<%@include file="common/main_footer.jsp" %>
 </body>
 </html>

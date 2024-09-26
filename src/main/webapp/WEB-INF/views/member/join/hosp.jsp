@@ -409,7 +409,6 @@
   </div>
 </main>
 	
-	<%-- <%@include file="../../common/main_footer.jsp" %> --%>
->>>>>>> branch 'main' of https://github.com/jhrchicken/DoctorViewWeb.git
+	<%@include file="../../common/main_footer.jsp" %>
 </body>
 </html>
