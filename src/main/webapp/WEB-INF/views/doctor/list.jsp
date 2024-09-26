@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/doc-search.css" />
+<link rel="stylesheet" href="/css/doc-list.css" />
 </head>
 <body>
 	<%@include file="../common/main_header.jsp" %>
