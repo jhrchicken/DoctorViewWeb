@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>닥터뷰 | 상담게시판</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/board-list.css" />
 </head>
@@ -14,8 +14,9 @@
 	<%@include file="../common/main_header.jsp" %>
 	<main id="container">
 		<div class="content">
-			<h2>자유게시판</h2>
-			<div class="board_inner">
+			<div class="content_inner">
+		
+				<h2>상담게시판</h2>
 				<div class="board_top">
 					<p class="board_total">
 						총 <strong>${ maps.total }</strong>건의 게시글이 있습니다.
@@ -83,7 +84,10 @@
 				<!-- 페이지네이션 -->
 				<div class="pagination">
 					${ pagingImg }
-				</div>		
+				</div>	
+				
+				
+					
 			</div>
 		</div>
 	</main>
