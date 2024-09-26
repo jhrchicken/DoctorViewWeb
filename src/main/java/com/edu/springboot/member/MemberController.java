@@ -307,6 +307,35 @@ public class MemberController {
 		}
 	}
 
+//	회원정보 수정: hosp
+	@GetMapping("/member/editHosp.do")
+	public String editHospGet(MemberDTO memberDTO, HttpSession session, Model model) {
+		memberDTO.setId((String) session.getAttribute("userId"));
+		memberDTO.setPassword((String) session.getAttribute("userPassword"));
+		
+		
+		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
+		String[] tel =  loginUser.getTel().split("-");
+		
+		model.addAttribute("loginUserInfo", loginUser);
+		model.addAttribute("tel", tel);
+		
+		return "member/editHosp";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
