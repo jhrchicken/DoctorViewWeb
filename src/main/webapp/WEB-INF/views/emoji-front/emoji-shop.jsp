@@ -3,7 +3,7 @@
 
 <main id="container">
   <div class="content">
-    <ul class="content_inner">
+    <div class="content_inner">
       <h2>이모지 상점</h2>
       
       <div class="emoji">
@@ -28,5 +28,6 @@
 
       </div>
       
+    </div>
   </div>
 </main>

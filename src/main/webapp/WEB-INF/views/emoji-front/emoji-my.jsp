@@ -3,7 +3,7 @@
 
 <main id="container">
   <div class="content">
-    <ul class="content_inner">
+    <div class="content_inner">
       <h2>이모지 변경</h2>
       
       <div class="emoji">
