@@ -16,6 +16,7 @@
 #footer .footer_inner {
   max-width: 1170px;
   margin: 0 auto;
+  padding: 0 80px;
 }
 #footer .team_wrap {
   display: flex;
