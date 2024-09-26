@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호찾기</title>
+<title>닥터뷰 | 로그인</title>
 <script>
 	function validateForm(form) {
 		if (!form.id.value) {
