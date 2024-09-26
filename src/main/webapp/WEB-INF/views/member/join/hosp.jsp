@@ -232,17 +232,11 @@
             <table class="regist">
               <tr>
                 <td class="left">아이디</td>
-                <td>
+                <td class="id">
                   <input type="text" name="id" value="" placeholder="아이디* (영문+숫자, 6~15자)" />
-                  <!-- 실시간 중복 확인 가능하게 되면 삭제할 것 -->
                   <button id="idCheckBtn" name="idCheckBtn" class="id_check" type="button"><span class="blind">중복 확인</span></button>
-                  <span id="idCheckResult"></span> 
+                  <span id="idCheckResult" class="notice_ok"></span> 
                   <input type="hidden" name="idCheck" value="unCheck" />
-                  <!-- 실시간 중복 확인 가능하게 되면 주석 해제 -->
-                  <!-- <br />
-                  <span class="notice_no">아이디를 입력해주세요.</span> -->
-                  <!-- <span class="notice_no">영어로만 또는 숫자로만 이루어진 아이디는 사용할 수 없습니다.</span> -->
-                  <!-- <span class="notice_ok">사용 가능한 아이디 입니다.</span> -->
                 </td>
               </tr>
               <!-- 비밀번호 폼 시작 -->
@@ -253,11 +247,6 @@
               <tr>
                 <td>
                   <input type="password" name="passwordCheck" placeholder="비밀번호 확인*" />
-                  <!-- 실시간 검증 가능하게 되면 주석 해제 -->
-                  <!-- <br />
-                  <span class="notice_no">비밀번호를 입력해주세요.</span> -->
-                  <!-- <span class="notice_no">비밀번호가 일치하지 않습니다.</span> -->
-                  <!-- <span class="notice_ok">사용 가능한 비밀번호 입니다.</span> -->
                 </td>
               </tr>
               <!-- 비밀번호 폼 끝 -->
@@ -268,26 +257,10 @@
               <tr>
                 <td class="left">전화번호</td>
                 <td class="mobile">
-                  <!-- select로 구현하면 주석 해제 -->
-                  <!-- <select name="tel">
-                    <option value="015">015</option>
-                    <option value="070">070</option>
-                    <option value="080">080</option>
-                    <option value="02">02</option>
-                    <option value="031">031</option>
-                  </select>
-                  <span>-</span>
-                  <input type="text" name="tel" placeholder="전화번호*" />
-                  <span>-</span>
-                  <input type="text" name="tel" /> -->
-                  
-                  
-<!-- 전화번호 input 길이 조정 필요 -->
-<input type="tel" name="tel1" value="" placeholder="전화번호*" /> -
-<input type="tel" name="tel2" value="" placeholder="전화번호*" /> -
-<input type="tel" name="tel3" value="" placeholder="전화번호*" />
-                  
-                  
+					<!-- 전화번호 input 길이 조정 필요 -->
+					<input type="tel" name="tel1" value="" placeholder="전화번호*" /> -
+					<input type="tel" name="tel2" value="" placeholder="전화번호*" /> -
+					<input type="tel" name="tel3" value="" placeholder="전화번호*" />
                 </td>
               </tr>
               <tr>
@@ -302,11 +275,9 @@
               <tr>
                 <td class="left">사업자 번호</td>
                 <td class="regi">
-                
-<!-- 사업자번호 input 길이 조정 필요 -->
-<input type="text" name="taxid1" value="" placeholder="사업자번호*" /> -
-<input type="text" name="taxid2" value="" placeholder="사업자번호*" /> -
-<input type="text" name="taxid3" value="" placeholder="사업자번호*" />
+					<input type="text" name="taxid1" value="" placeholder="사업자번호*" /> -
+					<input type="text" name="taxid2" value="" placeholder="사업자번호*" /> -
+					<input type="text" name="taxid3" value="" placeholder="사업자번호*" />
 	            </td>
               </tr>
               <!-- 영업시간 폼 시작 -->
@@ -388,8 +359,10 @@
                 			<td><input type="text" name="hoursz" value="" class="doc_time" placeholder="진료시간*" /></td>
                 		</tr>
                 	</table>
-					<button id="addDoctor" class="plus" type="button"><span class="blind">의료진 추가</span></button>
-					<button id="addDoctor" class="" type="button"><span class="blind">의료진 삭제</span></button>
+                	<div class="add">
+						<button id="addDoctor" class="plus" type="button"><span class="blind">의료진 추가</span></button>
+						<button id="addDoctor" class="delete" type="button"><span class="blind">의료진 삭제</span></button>
+                	</div>
                 </td>
               </tr>
               
@@ -428,7 +401,6 @@
 
             
             <div class="btn_wrap">
-              
               <input type="submit" value="완료" />
             </div>
           </form>
