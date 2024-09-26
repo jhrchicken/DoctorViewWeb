@@ -9,91 +9,107 @@
 <%@ include file="../../common/head.jsp" %>
 <link rel="stylesheet" href="/css/member-join-hosp.css" />
 <script>
-//    폼값 검증
+	// 폼값 검증
    function validateForm(form) {
-    const fieldsToValidate = [
-        { field: form.id, message: "아이디를 입력하세요." },
-        { field: form.password, message: "비밀번호를 입력하세요." },
-        { field: form.passwordCheck, message: "비밀번호 확인을 입력하세요." },
-        { field: form.name, message: "병원명을 입력하세요." },
-        { field: form.tel1, message: "전화번호를 입력하세요." },
-        { field: form.tel2, message: "전화번호를 입력하세요." },
-        { field: form.tel3, message: "전화번호를 입력하세요." },
-        { field: form.address, message: "주소를 입력하세요." },
-        { field: form.department, message: "진료과목을 입력하세요." },
-        { field: form.taxid1, message: "사업자 번호를 입력하세요." },
-        { field: form.taxid2, message: "사업자 번호를 입력하세요." },
-        { field: form.taxid3, message: "사업자 번호를 입력하세요." },
-        { field: form.starttime, message: "진료 시작 시간을 입력하세요." },
-        { field: form.endtime, message: "진료 종료 시간을 입력하세요." },
-        { field: form.startbreak, message: "휴게 시작 시간을 입력하세요." },
-        { field: form.endbreak, message: "휴게 종료 시간을 입력하세요." },
-        { field: form.deadline, message: "접수 마감 시간을 입력하세요." },
-        { field: form.doctornamez, message: "의료진 이름을 입력하세요." },
-        { field: form.majorz, message: "전공을 입력하세요." },
-        { field: form.careerz, message: "경력을 입력하세요." },
-        { field: form.hoursz, message: "진료 시간을 입력하세요." }
-    ];
+	   const fieldsToValidate = [
+	        { field: form.id, message: "아이디를 입력하세요." },
+	        { field: form.password, message: "비밀번호를 입력하세요." },
+	        { field: form.passwordCheck, message: "비밀번호 확인을 입력하세요." },
+	        { field: form.name, message: "병원명을 입력하세요." },
+	        { field: form.tel1, message: "전화번호를 입력하세요." },
+	        { field: form.tel2, message: "전화번호를 입력하세요." },
+	        { field: form.tel3, message: "전화번호를 입력하세요." },
+	        { field: form.address, message: "주소를 입력하세요." },
+	        { field: form.department, message: "진료과목을 입력하세요." },
+	        { field: form.taxid1, message: "사업자 번호를 입력하세요." },
+	        { field: form.taxid2, message: "사업자 번호를 입력하세요." },
+	        { field: form.taxid3, message: "사업자 번호를 입력하세요." },
+	        { field: form.starttime, message: "진료 시작 시간을 입력하세요." },
+	        { field: form.endtime, message: "진료 종료 시간을 입력하세요." },
+	        { field: form.startbreak, message: "휴게 시작 시간을 입력하세요." },
+	        { field: form.endbreak, message: "휴게 종료 시간을 입력하세요." },
+	        { field: form.deadline, message: "접수 마감 시간을 입력하세요." }
+	    ];
+	
+	    // 일반 필드 검증
+	    for (let i = 0; i < fieldsToValidate.length; i++) {
+	        const { field, message } = fieldsToValidate[i];
+	        if (field.value.trim() === '') {
+	            alert(message);
+	            field.focus();
+	            return false;
+	        }
+	    }
+	    
+	 	// 의사정보 검증
+	    const arrayFields = [
+	        { field: form.doctornamez, message: "의료진 이름을 입력하세요." },
+	        { field: form.majorz, message: "전공을 입력하세요." },
+	        { field: form.careerz, message: "경력을 입력하세요." },
+	        { field: form.hoursz, message: "진료 시간을 입력하세요." }
+	    ];
 
-    for (let i = 0; i < fieldsToValidate.length; i++) {
-        const { field, message } = fieldsToValidate[i];
-        if (field.value.trim() === '') {
-            alert(message);
-            field.focus();
-            return false;
-        }
-    }
+	    for (let i = 0; i < arrayFields.length; i++) {
+	        const { field, message } = arrayFields[i];
+	        for (let j = 0; j < field.length; j++) {
+	            if (field[j].value.trim() === '') {
+	                alert(message);
+	                field[j].focus();
+	                return false;
+	            }
+	        }
+	    }
 
-    // 아이디 중복 체크 여부
-    if (form.idCheck.value !== "check") {
-        alert("아이디 중복체크를 진행하세요.");
-        form.idCheckBtn.focus();
-        return false;
-    }
-
-    // 비밀번호 확인
-    if (form.password.value !== form.passwordCheck.value) {
-        alert("비밀번호가 일치하지 않습니다.");
-        form.passwordCheck.focus();
-        return false;
-    }
-
-    // 비밀번호 패턴 체크
-    const passwordPattern = /^[a-zA-Z0-9]{8,20}$/;
-    if (!passwordPattern.test(form.password.value)) {
-        alert("비밀번호는 영문자와 숫자가 포함되어야 하며, 8~20자여야 합니다.");
-        form.password.focus();
-        return false;
-    }
-
-    // 비밀번호와 아이디 일치 체크
-    if (form.password.value === form.id.value) {
-        alert("비밀번호와 아이디는 일치할 수 없습니다.");
-        form.password.focus();
-        return false;
-    }
-
-    // 요일 체크 여부
-    const weeksCheckboxes = form.querySelectorAll('input[name="weeks"]');
-    const isWeekChecked = Array.from(weeksCheckboxes).some(checkbox => checkbox.checked);
-    if (!isWeekChecked) {
-        alert("요일 중 하나를 반드시 선택하세요.");
-        return false;
-    }
-
-    // 약관 동의 여부 확인
-    if (!form.terms1.checked) {
-        alert("약관1에 동의해야 합니다.");
-        return false;
-    }
-
-    if (!form.terms2.checked) {
-        alert("약관2에 동의해야 합니다.");
-        return false;
-    }
-
-    return true;
-}
+	    // 아이디 중복 체크 여부
+	    if (form.idCheck.value !== "check") {
+	        alert("아이디 중복체크를 진행하세요.");
+	        form.idCheckBtn.focus();
+	        return false;
+	    }
+	
+	    // 비밀번호 확인
+	    if (form.password.value !== form.passwordCheck.value) {
+	        alert("비밀번호가 일치하지 않습니다.");
+	        form.passwordCheck.focus();
+	        return false;
+	    }
+	
+	    // 비밀번호 패턴 체크
+	    const passwordPattern = /^[a-zA-Z0-9]{8,20}$/;
+	    if (!passwordPattern.test(form.password.value)) {
+	        alert("비밀번호는 영문자와 숫자가 포함되어야 하며, 8~20자여야 합니다.");
+	        form.password.focus();
+	        return false;
+	    }
+	
+	    // 비밀번호와 아이디 일치 체크
+	    if (form.password.value === form.id.value) {
+	        alert("비밀번호와 아이디는 일치할 수 없습니다.");
+	        form.password.focus();
+	        return false;
+	    }
+	
+	    // 요일 체크 여부
+	    const weeksCheckboxes = form.querySelectorAll('input[name="weeks"]');
+	    const isWeekChecked = Array.from(weeksCheckboxes).some(checkbox => checkbox.checked);
+	    if (!isWeekChecked) {
+	        alert("요일 중 하나를 반드시 선택하세요.");
+	        return false;
+	    }
+	
+	    // 약관 동의 여부 확인
+	    if (!form.terms1.checked) {
+	        alert("약관1에 동의해야 합니다.");
+	        return false;
+	    }
+	
+	    if (!form.terms2.checked) {
+	        alert("약관2에 동의해야 합니다.");
+	        return false;
+	    }
+	
+	    return true;
+	}
 
    
    
@@ -264,7 +280,14 @@
                   <input type="text" name="tel" placeholder="전화번호*" />
                   <span>-</span>
                   <input type="text" name="tel" /> -->
-                  <input type="tel" name="tel" value="" placeholder="전화번호* (ex. 010-0000-0000)" />
+                  
+                  
+<!-- 전화번호 input 길이 조정 필요 -->
+<input type="tel" name="tel1" value="" placeholder="전화번호*" /> -
+<input type="tel" name="tel2" value="" placeholder="전화번호*" /> -
+<input type="tel" name="tel3" value="" placeholder="전화번호*" />
+                  
+                  
                 </td>
               </tr>
               <tr>
@@ -279,7 +302,11 @@
               <tr>
                 <td class="left">사업자 번호</td>
                 <td class="regi">
-	              <input type="text" name="taxid" value="" placeholder="사업자번호*" />
+                
+<!-- 사업자번호 input 길이 조정 필요 -->
+<input type="text" name="taxid1" value="" placeholder="사업자번호*" /> -
+<input type="text" name="taxid2" value="" placeholder="사업자번호*" /> -
+<input type="text" name="taxid3" value="" placeholder="사업자번호*" />
 	            </td>
               </tr>
               <!-- 영업시간 폼 시작 -->
@@ -342,7 +369,7 @@
               <!-- 의료진 폼 시작 -->
               <tr class="doc">
                 <td rowspan="4" class="left">의료진</td>
-                <td id="doctorContainer"\>
+                <td id="doctorContainer">
                 	<table class="doctor-info">
                 		<tr>
                 			<td class="left">이름: </td>
@@ -362,6 +389,7 @@
                 		</tr>
                 	</table>
 					<button id="addDoctor" class="plus" type="button"><span class="blind">의료진 추가</span></button>
+					<button id="addDoctor" class="" type="button"><span class="blind">의료진 삭제</span></button>
                 </td>
               </tr>
               

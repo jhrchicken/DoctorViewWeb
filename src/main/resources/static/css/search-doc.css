@@ -53,7 +53,7 @@
 }
 #container .search_city .search_btn {
   border: 2px solid #ddd;
-  background: url(//search.svg) no-repeat 50% 50% / 80%;
+  background: url(/images/search.svg) no-repeat 50% 50% / 80%;
   width: 60px;
   height: 60px;
   color: var(--gray-400);
@@ -126,28 +126,17 @@
   width: 200px;
   height: 200px;
   border: 2px solid #ddd;
-  background: url(/images/doctor.svg) no-repeat 0 0 / 100%;
+  background: url(/images/hospital.svg) no-repeat 0 0 / 100%;
 }
 /*** 병원 정보 ***/
 #container .hospital .info {
   padding: 5px 0 5px 50px;
 }
-/*** 병원 이름, 인증마크 ***/
-#container .hospital .hosp_name {
-  display: flex;
-  gap: 0 10px;
-}
-#container .hospital .hosp_name h3 {
+/*** 병원 이름, 주소 등 ***/
+#container .hospital .info_top h3 {
   font-size: 35px;
   font-weight: 700;
 }
-#container .hospital .approve {
-  display: block;
-  width: 40px;
-  height: 40px;
-  background: url(/images/approve.svg) no-repeat 0 0 / 100%;
-}
-/*** 병원 추가 정보 ***/
 #container .hospital .detail {
   margin-top: 20px;
   font-size: 25px;
