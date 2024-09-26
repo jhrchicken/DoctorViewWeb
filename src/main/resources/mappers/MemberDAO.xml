@@ -24,6 +24,7 @@
     	INSERT INTO doctor (doc_idx, name, major, career, hours, hosp_ref) 
     	VALUES (seq_doctor_idx.nextval, #{doctorname}, #{major}, #{career}, #{hours}, #{hosp_ref})
 	</insert>
+	<!-- hosp 영업시간 insert -->
 	<insert id="joinHours"
 		parameterType="com.edu.springboot.member.HoursDTO">
     	INSERT INTO hours 
@@ -71,13 +72,12 @@
 		WHERE id=#{id}
 	</update>
 	
-	<!-- 회원정보 수정 hosp -->
-	<update id="hospEdit"
+	<!-- 회원정보 수정 hosp - member -->
+	<update id="editHospMember"
 		parameterType="com.edu.springboot.member.MemberDTO">
 		UPDATE member SET password=#{password}, name=#{name}, nickname=#{name}, tel=#{tel}, address=#{address}, department=#{department}
 		WHERE id=#{id}
 	</update>
-
 	
     <!-- 병원정보 찾기 hosp -->
 	<select id="hospHours" 
@@ -85,6 +85,13 @@
     	resultType="com.edu.springboot.member.HoursDTO">
         SELECT * FROM hours WHERE hosp_ref = #{id}
     </select>
+    
+    <!-- 병원 영업시간 삭제  -->
+	<delete id="deleteHospHours" 
+	    parameterType="com.edu.springboot.member.MemberDTO">
+	    DELETE FROM hours WHERE hosp_ref = #{id}
+	</delete>
+
 	
 	
 	

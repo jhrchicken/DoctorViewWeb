@@ -35,11 +35,17 @@ public interface IMemberService {
 //	회원정보수정: user
 	public int userEdit(MemberDTO memberDTO);
 	
-//	회원정보수정: hosp
-	public int hospEdit(MemberDTO memberDTO);
+//	회원정보수정: hosp - member
+	public int editHospMember(MemberDTO memberDTO);
+	
+//	회원정보수정: hosp - hours
+	public int editHours(HoursDTO hoursDTO);
 	
 //	회원정보선택: hosp - hours
 	public List<HoursDTO> hospHours(MemberDTO memberDTO);
+	
+//	로그인한 병원의 영업시간정보 삭제
+	public int deleteHospHours(MemberDTO memberDTO);
 
 	
 	

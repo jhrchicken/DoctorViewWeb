@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class HoursDTO {
+	private String hours_idx;
 	private String week;
 	private String starttime;
 	private String endtime;
