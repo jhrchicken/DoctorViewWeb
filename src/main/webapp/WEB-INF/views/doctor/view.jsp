@@ -214,22 +214,18 @@ function validateReplyForm(form) {
 								            </div>
 								        </td>
 								        <td>
-								            <div class="comm_like_btn">
-								                <!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
-								                <c:if test="${ reviewlikecheck == 0 }">
-								                	<div class="like_wrap">
-									                    <button type="button" onclick="location.href='../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }';"></button>
-								                        <p class="like">${ row.likecount }</p>
-								                	</div>
-								                </c:if>
-								                <!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
-								                <c:if test="${ reviewlikecheck == 1 }">
-								                    <div class="like_wrap">
-									                    <button class="push" type="button" onclick="location.href='../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }';"></button>
-								                        <p class="like">${ row.likecount }</p>
-								                    </div>
-								                </c:if>
-								            </div>
+							                <!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
+							                <c:if test="${ reviewlikecheck == 0 }">
+							                    <button class="comm_like_btn" type="button" onclick="location.href='../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }';">
+							                    	<img src="/images/heart.svg" style="width: 24px; height: 24px;" /> ${ row.likecount }
+							                	</button>
+							                </c:if>
+							                <!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
+							                <c:if test="${ reviewlikecheck == 1 }">
+							                    <button class="comm_like_btn" type="button" onclick="location.href='../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }';">
+							                    	<img src="/images/heart_full.svg" style="width: 24px; height: 24px;" /> ${ row.likecount }
+						                        </button>
+							                </c:if>
 								        </td>
 							    	</tr>
 							    </c:if>
