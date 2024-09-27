@@ -89,13 +89,18 @@
 														</div>
 													</div>
 													<!-- 해시태그 -->
-													<div class="info_bottom">
-														<div class="hash">
-															<p>#해시태그</p>
-														</div>
-													</div>
+													<c:if test="${ not empty hashtagList }">
+														<ul class="info_bottom">
+															<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
+																<c:if test="${ hashrow.hosp_ref == row.id }">
+																	<li class="hash">
+																		<p>${ hashrow.tag }</p>
+																	</li>
+																</c:if>
+															</c:forEach>
+														</ul>
+													</c:if>
 												</c:if>
-											
 											</div>
 										</div>
 									</div>	

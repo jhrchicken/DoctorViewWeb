@@ -30,7 +30,6 @@
 						<input type="submit" class="search_btn" value="">
 					</form>
 				</div>
-				
 				<div class="list">
 					<c:choose>
 						<c:when test="${ empty doctorsList }">
@@ -41,48 +40,45 @@
 						<c:otherwise>
 							<ul class="doctor">
 								<c:forEach items="${ doctorsList }" var="row" varStatus="loop">
-										<li>
-											<span class="img">
-												<c:if test="${ row.photo == 'NULL' }">
-													<img src="/images/doctor.png" alt=""></img>
-												</c:if>
-												<c:if test="${ row.photo != 'NULL' }">
-													<img src="/uploads/${ row.photo }"><br/>
-												</c:if>
-											</span>
-											<div class="info">
-												<div class="info_top">
-													<!-- 소속병원 -->
-													<p>${ row.hospname }</p>
-													<h3>${ row.name }</h3>
-													<div class="detail">
-														<!--  색상 다르게 (파랑 - 검정) -->
-														<div class="details">
-															<p class="blue">전공</p>
-															<p>${ row.major }</p>
-														</div>
-														<div class="details">
-															<p class="blue">경력</p>
-															<p>${ row.career }</p>
-														</div>
-														<div class="details">
-															<p class="blue">근무시간</p>
-															<p>${ row.hours }</p>
-														</div>
-													</div>
-													<div class="info_right">
-														<p class="like">${ row.likecount }</p>
-														<p class="star">${ row.score } (${ row.reviewcount })</p>
-													</div>
- 													<a href="./doctor/viewDoctor.do?doc_idx=${ row.doc_idx }"><span class="blind">의사 바로가기</span></a>
+									<li>
+										<span class="img">
+											<c:if test="${ row.photo == 'NULL' }">
+												<img src="/images/doctor.png" alt=""></img>
+											</c:if>
+											<c:if test="${ row.photo != 'NULL' }">
+												<img src="/uploads/${ row.photo }"><br/>
+											</c:if>
+										</span>
+										<div class="info">
+											<div class="info_top">
+												<p>${ row.hospname }</p>
+												<h3>${ row.name }</h3>
+											<div class="detail">
+												<div class="details">
+													<p class="blue">전공</p>
+													<p>${ row.major }</p>
+												</div>
+												<div class="details">
+													<p class="blue">경력</p>
+													<p>${ row.career }</p>
+												</div>
+												<div class="details">
+													<p class="blue">근무시간</p>
+													<p>${ row.hours }</p>
 												</div>
 											</div>
-										</li>
-								</c:forEach>
-							</ul>
-						</c:otherwise>
-					</c:choose>
-				</div>
+											<div class="info_right">
+												<p class="like">${ row.likecount }</p>
+												<p class="star">${ row.score } (${ row.reviewcount })</p>
+											</div>
+											<a href="./doctor/viewDoctor.do?doc_idx=${ row.doc_idx }"><span class="blind">의사 바로가기</span></a>
+										</div>
+									</div>
+								</li>
+							</c:forEach>
+						</ul>
+					</c:otherwise>
+				</c:choose>
 				
 				<!-- 로그인 한 경우에만 글쓰기 버튼 -->
 				<!-- 추후 의사의 마이페이지로 옮길 예정 테스트용 버튼이니 CSS 작업 안하셔도 됩니다! -->

@@ -53,6 +53,7 @@ public class HospitalController {
 			// 입점
 			if (id != null) {
 				hospital.setEnter("T");
+				hospital.setId(id);
 				hospital = hospitalDAO.viewHosp(hospital);
 				int hosplikecount = hospitalDAO.countHospLike(id);
 				int reviewcount = hospitalDAO.countReview(id);
@@ -65,8 +66,9 @@ public class HospitalController {
 				}
 				hospital.setLikecount(hosplikecount);
 				hospital.setReviewcount(reviewcount);
-
-				// 여기서 여러가지 처리 추가 정보 있는지 등
+				
+				// 여기서 여러가지 처리 추가 정보 있는지 등 해시태그
+				
 			}
 			// 미입점
 			if (id != null) {
@@ -75,6 +77,9 @@ public class HospitalController {
 		
 		}
 		model.addAttribute("hospList", hospList);
+		// 해시태그
+		ArrayList<HashtagDTO> hashtagList = hospitalDAO.listHashtag();
+		model.addAttribute("hashtagList", hashtagList);
 		// 목록 하단에 출력할 페이지 번호를 String으로 저장한 후 Model에 저장
 		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/hospital.do?");
 		model.addAttribute("pagingImg", pagingImg);
