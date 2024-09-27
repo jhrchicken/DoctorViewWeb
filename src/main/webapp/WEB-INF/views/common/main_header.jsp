@@ -13,8 +13,8 @@
 					<a href="#">병원/의사 찾기</a>
 					<div class="depth2">
 						<ul>
-							<li><a href="#">병원 찾기</a></li>
-							<li><a href="../doctor.do">의사 찾기</a></li>
+							<li><a href="${pageContext.request.contextPath}/hospital.do">병원 찾기</a></li>
+							<li><a href="${pageContext.request.contextPath}/doctor.do">의사 찾기</a></li>
 							<li><a href="#">지도로 찾기</a></li>
 						</ul>
 					</div>
