@@ -18,6 +18,8 @@ public interface IHospitalService {
 	// 병원 조회
 	public HospitalDTO viewHosp(HospitalDTO hospitalDTO);
 	
+	// 해시태그 목록: 병원 해시태그 목록
+	public ArrayList<HashtagDTO> listHashtag();
 	
 	
 	

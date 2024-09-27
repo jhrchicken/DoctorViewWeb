@@ -209,7 +209,7 @@
   background: url(/images/comment.svg) no-repeat 50% 50% / 110%;
 }
 /*** 해시태그 ***/
-#container .hospital .hash {
+#container .hospital .info_bottom {
   display: flex;
   gap: 0 20px;
   margin-top: 20px;

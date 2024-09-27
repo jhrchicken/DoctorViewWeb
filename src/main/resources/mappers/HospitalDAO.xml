@@ -44,6 +44,16 @@
 		SELECT * FROM member WHERE id=#{id}
 	</select>
 	
+	<!-- 해시태그 목록: 병원 해시태그 목록 -->
+	<select id="listHashtag"
+		resultType="com.edu.springboot.hospital.HashtagDTO">
+		SELECT * FROM hashtag
+	</select>
+	
+	
+	
+	
+	
 	
 	
 	

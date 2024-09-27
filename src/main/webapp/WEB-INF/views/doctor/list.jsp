@@ -38,40 +38,40 @@
 						</tr>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items="${ doctorsList }" var="row" varStatus="loop">
-							<ul class="hospital">
-								<li>
-									<span class="img">
-										<c:if test="${ row.photo == 'NULL' }">
-											<img src="/images/doctor.png" alt=""></img>
-										</c:if>
-										<c:if test="${ row.photo != 'NULL' }">
-											<img src="/uploads/${ row.photo }"><br/>
-										</c:if>
-									</span>
-									<div class="info">
-										<div class="info_top">
-											<!-- 소속병원 -->
-											<p>${ row.hospname }</p>
-											<h3>${ row.name }</h3>
-											<div class="detail">
-												<!--  색상 다르게 (파랑 - 검정) -->
-												<p>전공</p><p>${ row.major }</p><br/>
-												<p>경력</p><p>${ row.career }</p><br/>
-												<p>근무시간</p><p>${ row.hours }</p>
-											</div>
-											<div class="info_right">
-												<div class="right_down">
-													<p class="like">(하트) ${ row.likecount }</p>
-													<p class="comm">(리뷰) ${ row.score } ${ row.reviewcount }</p>
+						<ul class="hospital">
+							<c:forEach items="${ doctorsList }" var="row" varStatus="loop">
+									<li>
+										<span class="img">
+											<c:if test="${ row.photo == 'NULL' }">
+												<img src="/images/doctor.png" alt=""></img>
+											</c:if>
+											<c:if test="${ row.photo != 'NULL' }">
+												<img src="/uploads/${ row.photo }"><br/>
+											</c:if>
+										</span>
+										<div class="info">
+											<div class="info_top">
+												<!-- 소속병원 -->
+												<p>${ row.hospname }</p>
+												<h3>${ row.name }</h3>
+												<div class="detail">
+													<!--  색상 다르게 (파랑 - 검정) -->
+													<p>전공</p><p>${ row.major }</p><br/>
+													<p>경력</p><p>${ row.career }</p><br/>
+													<p>근무시간</p><p>${ row.hours }</p>
 												</div>
+												<div class="info_right">
+													<div class="right_down">
+														<p class="like">(하트) ${ row.likecount }</p>
+														<p class="comm">(리뷰) ${ row.score } ${ row.reviewcount }</p>
+													</div>
+												</div>
+												<a href="./doctor/viewDoctor.do?doc_idx=${ row.doc_idx }"><span class="blind">의사 바로가기</span></a>
 											</div>
-											<a href="./doctor/viewDoctor.do?doc_idx=${ row.doc_idx }"><span class="blind">의사 바로가기</span></a>
 										</div>
-									</div>
-								</li>
-							</ul>
-						</c:forEach>
+									</li>
+							</c:forEach>
+						</ul>
 					</c:otherwise>
 				</c:choose>
 				
