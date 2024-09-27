@@ -5,8 +5,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.edu.springboot.doctor.IDoctorService">
-	
-	
+
 	<!-- 의사 목록: 의사의 게시글 개수를 카운트 -->
 	<select id="countDoctor"
 		resultType="int"
@@ -43,9 +42,14 @@
 	
 	<!-- 의사 정보 작성 -->
 	<insert id="writeDoctor">
-		INSERT INTO doctor (doc_idx, name, major, career, hours, hosp_ref)
-		VALUES (seq_doctor_idx.nextval, #{param1}, #{param2}, #{param3}, #{param5}, #{param6})
+		INSERT INTO doctor (doc_idx, name, major, career, photo, hours, hosp_ref)
+		VALUES (seq_doctor_idx.nextval, #{name}, #{major}, #{career}, #{photo}, #{hours}, #{hosp_ref})
 	</insert>
+	
+	<!-- 의사 사진 작성 -->
+	<update id="writePhoto">
+		UPDATE doctor SET photo=#{param2} WHERE doc_idx=#{param1}
+	</update>
 	
 	<!-- 의사 정보 수정 -->
 	<update id="editDoctor"
@@ -184,7 +188,7 @@
 	<!-- 별점 합계 조회 -->
 	<select id="sumScore" resultType="int">
 	    SELECT COALESCE(SUM(score), 0)
-	    FROM dreview WHERE doc_ref = #{param1}
+	    FROM dreview WHERE doc_ref=#{param1}
 	</select>
 
 </mapper>

@@ -13,8 +13,8 @@
 					<a href="#">병원/의사 찾기</a>
 					<div class="depth2">
 						<ul>
-							<li><a href="#">병원 찾기</a></li>
-							<li><a href="../doctor.do">의사 찾기</a></li>
+							<li><a href="${pageContext.request.contextPath}/hospital.do">병원 찾기</a></li>
+							<li><a href="${pageContext.request.contextPath}/doctor.do">의사 찾기</a></li>
 							<li><a href="#">지도로 찾기</a></li>
 						</ul>
 					</div>
@@ -56,7 +56,7 @@
 							
 							<!-- 병원 회원이 로그인한 경우 -->
 							<li><a href="#">개인정보 수정</a></li>
-							<li><a href="#">의사 관리</a></li>
+							<li><a href="/member/doctorInfo.do">의사 관리</a></li>
 							<li><a href="#">예약 관리</a></li>
 							<!-- 병원 회원이 로그인한 경우 -->
 						</ul>

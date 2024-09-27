@@ -97,121 +97,126 @@ function validateForm(form) {
 	<input type="text" name="taxid3" value="${taxid[2]  }" placeholder="사업자번호*" readonly/>
 			</td>
 		</tr>
-		<!-- 영업시간 폼 시작 -->
-	    <tr class="time">
-	      <th rowspan="5" class="left">영업시간</th>
-	      <td>
-	        요일:  
-			<c:if test="${not empty weeks}">
-			    <script>
-			        $(document).ready(function() {
-			            var weeks = ["${fn:join(weeks, '","')}" ];
-			            
-			            if (weeks.includes("월요일")) {
-			                $('#monday').prop('checked', true);
-			            }
-			            if (weeks.includes("화요일")) {
-			                $('#tuesday').prop('checked', true);
-			            }
-			            if (weeks.includes("수요일")) {
-			                $('#wednesday').prop('checked', true);
-			            }
-			            if (weeks.includes("목요일")) {
-			                $('#thursday').prop('checked', true);
-			            }
-			            if (weeks.includes("금요일")) {
-			                $('#friday').prop('checked', true);
-			            }
-			            if (weeks.includes("토요일")) {
-			                $('#saturday').prop('checked', true);
-			            }
-			            if (weeks.includes("일요일")) {
-			                $('#sunday').prop('checked', true);
-			            }
-			        });
-			    </script>
-			</c:if>
-			<label class="checkbox_wrap">
-	          	<input id="monday" type="checkbox" name="weeks" value="월요일" />
-	          	<label for="monday">월</label>
-			</label>
-	       	<label class="checkbox_wrap">
-		        <input id="tuesday" type="checkbox" name="weeks" value="화요일" />
-		        <label for="tuesday">화</label>
-	       	</label>
-	         <label class="checkbox_wrap">
-		      	<input id="wednesday" type="checkbox" name="weeks" value="수요일" />
-		      	<label for="wednesday">수</label>
-	       	</label>
-	         <label class="checkbox_wrap">
-	         	<input id="thursday" type="checkbox" name="weeks" value="목요일" />
-	         	<label for="thursday">목</label>
-	       	</label>
-	         <label class="checkbox_wrap">
-	         	<input id="friday" type="checkbox" name="weeks" value="금요일" />
-	         	<label for="friday">금</label>
-	       	</label>
-	         <label class="checkbox_wrap">
-	         	<input id="saturday" type="checkbox" name="weeks" value="토요일" />
-	         	<label for="saturday">토</label>
-	       	</label>
-	         <label class="checkbox_wrap">
-	         	<input id="sunday" type="checkbox" name="weeks" value="일요일" />
-	         	<label for="sunday">일</label>
-	       	</label>
-	      </td>
-	    </tr>
-	    <tr>
-		  <td>
-	        진료 시간: 
-	        <input type="time" name="starttime" value="${ starttime }" />
-	         ~ 
-	        <input type="time" name="endtime" value="${ endtime }" />
-	      </td>
-	    <tr>
-		<tr>
-	      <td>
-	        휴게 시간: 
-	        <input type="time" name="startbreak" value="${ startbreak }" />
-	         ~ 
-	        <input type="time" name="endbreak" value="${ endbreak }" />
-	      </td>
-	    </tr>
-	    <tr>
-	      <td>
-	        접수 마감: <input type="time" name="deadline" value="${ deadline }" />
-	      </td>
-	    </tr>
+		
+		
+<!-- 영업시간 폼 시작 -->
+   <tr class="time">
+     <th rowspan="5" class="left">영업시간</th>
+     <td>
+       요일:  
+	<c:if test="${not empty weeks}">
+	    <script>
+	        $(document).ready(function() {
+	            var weeks = ["${fn:join(weeks, '","')}" ];
+	            
+	            if (weeks.includes("월요일")) {
+	                $('#monday').prop('checked', true);
+	            }
+	            if (weeks.includes("화요일")) {
+	                $('#tuesday').prop('checked', true);
+	            }
+	            if (weeks.includes("수요일")) {
+	                $('#wednesday').prop('checked', true);
+	            }
+	            if (weeks.includes("목요일")) {
+	                $('#thursday').prop('checked', true);
+	            }
+	            if (weeks.includes("금요일")) {
+	                $('#friday').prop('checked', true);
+	            }
+	            if (weeks.includes("토요일")) {
+	                $('#saturday').prop('checked', true);
+	            }
+	            if (weeks.includes("일요일")) {
+	                $('#sunday').prop('checked', true);
+	            }
+	        });
+	    </script>
+	</c:if>
+	<label class="checkbox_wrap">
+         	<input id="monday" type="checkbox" name="weeks" value="월요일" />
+         	<label for="monday">월</label>
+	</label>
+      	<label class="checkbox_wrap">
+        <input id="tuesday" type="checkbox" name="weeks" value="화요일" />
+        <label for="tuesday">화</label>
+      	</label>
+        <label class="checkbox_wrap">
+      	<input id="wednesday" type="checkbox" name="weeks" value="수요일" />
+      	<label for="wednesday">수</label>
+      	</label>
+        <label class="checkbox_wrap">
+        	<input id="thursday" type="checkbox" name="weeks" value="목요일" />
+        	<label for="thursday">목</label>
+      	</label>
+        <label class="checkbox_wrap">
+        	<input id="friday" type="checkbox" name="weeks" value="금요일" />
+        	<label for="friday">금</label>
+      	</label>
+        <label class="checkbox_wrap">
+        	<input id="saturday" type="checkbox" name="weeks" value="토요일" />
+        	<label for="saturday">토</label>
+      	</label>
+        <label class="checkbox_wrap">
+        	<input id="sunday" type="checkbox" name="weeks" value="일요일" />
+        	<label for="sunday">일</label>
+      	</label>
+     </td>
+   </tr>
+   <tr>
+  <td>
+       진료 시간: 
+       <input type="time" name="starttime" value="${ starttime }" />
+        ~ 
+       <input type="time" name="endtime" value="${ endtime }" />
+     </td>
+   <tr>
+	<tr>
+     <td>
+       휴게 시간: 
+       <input type="time" name="startbreak" value="${ startbreak }" />
+        ~ 
+       <input type="time" name="endbreak" value="${ endbreak }" />
+     </td>
+   </tr>
+   <tr>
+     <td>
+       접수 마감: <input type="time" name="deadline" value="${ deadline }" />
+     </td>
+   </tr>
+	    
+	    
 	    <!-- 추가사항 -->
 	    <tr>
 	    	<th>병원 소개</th>
-	    	<td><input type="text" name="" value="" placeholder="" /></td>
+	    	<td><input type="text" name="introduce" value="${ hospDatilInfo.introduce }" placeholder="" /></td>
 	    </tr>
 	    <tr>
 	    	<th>오시는 길</th>
-	    	<td><input type="text" name="" value="" placeholder="" /></td>
+	    	<td><input type="text" name="traffic" value="${ hospDatilInfo.traffic }" placeholder="" /></td>
 	    </tr>
 	    <tr>
 	    	<th>주차 여부</th>
-	    	<td><input type="text" name="" value="" placeholder="" /></td>
+	    	<td><input type="text" name="parking" value="${ hospDatilInfo.parking }" placeholder="" /></td>
 	    </tr>
 	    <tr>
 	    	<th>코로나 검사</th>
-	    	<td><input type="text" name="" value="" placeholder="" /></td>
+	    	<td><input type="text" name="pcr" value="${ hospDatilInfo.pcr }" placeholder="" /></td>
 	    </tr>
 	    <tr>
 	    	<th>입원 가능 여부</th>
-	    	<td><input type="text" name="" value="" placeholder="" /></td>
+	    	<td><input type="text" name="hospitalize" value="${ hospDatilInfo.hospitalize }" placeholder="" /></td>
 	    </tr>
 	    <tr>
 	    	<th>예약제 여부</th>
-	    	<td><input type="text" name="" value="" placeholder="" /></td>
+	    	<td><input type="text" name="system" value="${ hospDatilInfo.system }" placeholder="" /></td>
 	    </tr>
+	    
 	    <!-- 의료진 추가 -->
 	    <tr>
 	      <th>의료진</th>
-	      <!-- 의료진 관리 - 수정 페이지로 이동  -->
-	      <td><a href="">의료진 관리</a></td>
+	      <!-- 의료진 관리 - 수정 페이지로 이동 --> 
+	      <td><a href="#">의료진 관리</a></td>
 	    </tr>
 	</table>
 	<input type="submit" value="수정하기" />

@@ -16,7 +16,7 @@ public interface IDoctorService {
 	// 의사 조회
 	public DoctorDTO viewDoctor(DoctorDTO doctorDTO);
 	// 의사 정보 작성
-	public int writeDoctor(String name, String major, String career, String photo, String hours, String id);
+	public int writeDoctor(DoctorDTO doctorDTO);
 	// 의사 정보 수정
 	public int editDoctor(DoctorDTO doctorDTO);
 	// 의사 정보 삭제

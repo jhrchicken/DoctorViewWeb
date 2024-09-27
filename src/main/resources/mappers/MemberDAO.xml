@@ -24,6 +24,7 @@
     	INSERT INTO doctor (doc_idx, name, major, career, hours, hosp_ref) 
     	VALUES (seq_doctor_idx.nextval, #{doctorname}, #{major}, #{career}, #{hours}, #{hosp_ref})
 	</insert>
+	<!-- hosp 영업시간 insert -->
 	<insert id="joinHours"
 		parameterType="com.edu.springboot.member.HoursDTO">
     	INSERT INTO hours 
@@ -71,13 +72,12 @@
 		WHERE id=#{id}
 	</update>
 	
-	<!-- 회원정보 수정 hosp -->
-	<update id="hospEdit"
+	<!-- 회원정보 수정 hosp - member -->
+	<update id="editHospMember"
 		parameterType="com.edu.springboot.member.MemberDTO">
 		UPDATE member SET password=#{password}, name=#{name}, nickname=#{name}, tel=#{tel}, address=#{address}, department=#{department}
 		WHERE id=#{id}
 	</update>
-
 	
     <!-- 병원정보 찾기 hosp -->
 	<select id="hospHours" 
@@ -85,7 +85,36 @@
     	resultType="com.edu.springboot.member.HoursDTO">
         SELECT * FROM hours WHERE hosp_ref = #{id}
     </select>
+    <select id="selectHospDatail" 
+    	parameterType="com.edu.springboot.member.MemberDTO"
+    	resultType="com.edu.springboot.member.DetailDTO">
+        SELECT * FROM detail WHERE hosp_ref = #{id}
+    </select>
+    
+    <!-- 병원 영업시간 삭제  -->
+	<delete id="deleteHospHours" 
+	    parameterType="com.edu.springboot.member.MemberDTO">
+	    DELETE FROM hours WHERE hosp_ref = #{id}
+	</delete>
+
+	<!-- 병원 detail 삽입 -->
+	<insert id="insertHospDetail"
+		parameterType="com.edu.springboot.member.DetailDTO">
+		INSERT INTO detail 
+		VALUES (seq_detail_idx.nextval, #{introduce}, #{traffic}, #{parking}, #{pcr}, #{hospitalize}, #{system}, #{hosp_ref})
+	</insert>
+	<update id="updateHospDetail"
+		parameterType="com.edu.springboot.member.DetailDTO">
+		UPDATE detail SET introduce=#{introduce}, traffic=#{traffic}, parking=#{parking}, pcr=#{pcr}, hospitalize=#{hospitalize}, system=#{system}
+		WHERE hosp_ref=#{hosp_ref}
+	</update>
 	
+	<!-- 병원 의료진 정보 가져오기 -->
+	 <select id="selectHospDoctor" 
+    	parameterType="com.edu.springboot.member.MemberDTO"
+    	resultType="com.edu.springboot.member.DoctorDTO">
+        SELECT * FROM doctor WHERE hosp_ref = #{id}
+    </select>
 	
 	
 </mapper>

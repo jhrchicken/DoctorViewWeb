@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu.springboot.hospital.IHospitalService">
+	
+	<!-- 병원 API 목록: 병원 API의 레코드 개수를 카운트 -->
+	<select id="countHospApi"
+		resultType="int"
+		parameterType="com.edu.springboot.hospital.ParameterDTO">
+		SELECT COUNT(*) FROM api
+		<if test="searchWord!=null and !searchWord.equals('')">
+			WHERE name LIKE '%'||#{searchWord}||'%'
+		</if>
+	</select>
+	
+	<!-- 병원 API 목록: 병원 API에서 한 페이지에 출력할 레코드를 인출 -->
+	<select id="listHospApi"
+		resultType="com.edu.springboot.hospital.HospitalDTO"
+		parameterType="com.edu.springboot.hospital.ParameterDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM api
+					<if test="searchWord!=null and !searchWord.equals('')">
+						WHERE name LIKE '%'||#{searchWord}||'%'
+					</if>
+				ORDER BY api_idx DESC
+			) Tb
+		)
+		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}
+	</select>
+	
+	<!-- 병원 입점 여부 확인 -->
+	<select id="checkEnter">
+		SELECT id FROM member WHERE name=#{param1}
+	</select>
+	
+	<!-- 병원 정보 조회: 병원의 의사정보를 DTO를 통해 받은 후 조회하고 결과를 다시 DTO에 저장 -->
+	<select id="viewHosp"
+		resultType="com.edu.springboot.hospital.HospitalDTO"
+		parameterType="com.edu.springboot.hospital.HospitalDTO">
+		SELECT * FROM member WHERE id=#{id}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	<!-- 병원 좋아요: 병원 좋아요 수 조회 -->
+	<select id="countHospLike">
+		SELECT COUNT(*) FROM likes WHERE tablename='hospital' and recodenum=#{param1}
+	</select>
+	
+	
+
+	
+	
+	
+	
+	
+	<!-- 리뷰 수 조회 -->
+	<select id="countReview">
+		SELECT COUNT(*) FROM hreview WHERE review_idx=original_idx AND hosp_ref=#{param1}
+	</select>
+	
+	<!-- 별점 합계 조회 -->
+	<select id="sumScore" resultType="int">
+		SELECT COALESCE(SUM(score), 0)
+		FROM hreview WHERE hosp_ref=#{param1}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
