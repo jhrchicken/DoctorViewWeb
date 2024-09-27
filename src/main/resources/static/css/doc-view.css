@@ -5,108 +5,88 @@
     max-width: 1170px;
     margin: 0 auto;
     position: relative;
+    padding-top: 80px;
 }
-#container .info_top {
+
+
+/*** 의사 정보 ***/
+#container .doc_info {
+  width: 100%;
+  height: 250px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  position: relative;
   display: flex;
+  margin-bottom: 50px;
 }
 /*** 의사 사진 ***/
 #container .img {
   display: block;
-  width: 360px;
-  height: 360px;
-  background: url(/images/doctor.png) no-repeat 0 0 / contain;
+  width: 190px;
+  height: 190px;
   border: 2px solid #ddd;
 }
 /*** 의사 정보 ***/
-#container .doc {
-  width: calc(100% - 400px);
-  padding: 0 50px;
+#container .info {
+  padding: 0 30px;
 }
-/*** 의사 이름, 병원 ***/
-#container .doc h2 {
-  font-size: 80px;
-  font-weight: 700;
-  display: block;
-  margin-top: 20px;
-}
-#container .doc h2::after {
-  content: '의사';
-  margin-left: 25px;
-  font-size: 55px;
-}
-#container .doc>p {
-  display: block;
-  margin-top: 35px;
-  font-size: 40px;
-  font-weight: 700;
+#container .info_top>p {
+  font-size: 20px;
   color: var(--gray-400);
+  font-weight: 500;
+  display: block;
 }
-/*** 진료과목 ***/
-#container .doc_hosp {
+#container .info_top h3 {
+  font-size: 32px;
+  font-weight: 700;
+}
+#container .detail {
+  margin-top: 20px;
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 1.5em;
+}
+#container .details {
   display: flex;
   gap: 0 10px;
-  margin-top: 20px;
-  font-size: 35px;
 }
-#container .doc_hosp p {
-  display: block;
-  padding: 10px 15px;
-  background: #eee;
-  border-radius: 10px;
-}
-/*** 진료시간 ***/
-#container .doc_time {
-  display: flex;
-  gap: 0 20px;
-  margin-top: 30px;
-  font-size: 35px;
-}
-#container .doc_time .time_tit {
-  font-weight: 700;
-}
-/*** 내용 ***/
-#container .info_bottom {
-  margin-top: 30px;
-}
-#container .info_bottom>p {
-  font-size: 30px;
-}
-#container .info_bottom .none {
-  display: block;
-  text-align: center;
-  margin-top: 100px;
-}
-#container .info_content {
-  border: 2px solid #ddd;
-  margin-top: 10px;
-  padding: 20px;
-  font-size: 22px;
-  line-height: 1.7em;
-  min-height: 300px;
+#container .blue {
+  color: var(--point-color2);
 }
 /*** 좋아요 버튼 ***/
-#container .like_btn {
+#container .doc_like {
   position: absolute;
-  right: 100px;
-  top: 100px;
+  right: 30px;
+  top: 30px;
+  min-width: 80px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 0 10px
 }
-#container .like_btn>button {
-  width: 100px;
-  height: 100px;
+#container .like_wrap {
+  display: flex;
+  gap: 0 10px;
+  align-items: center;
+  font-size: 25px;
+}
+#container .like_wrap>button {
+  width: 30px;
+  height: 30px;
   border: none;
   background: url(/images/heart.svg) no-repeat 50% / 100%;
 }
-/*** 좋아요 버튼 눌렀을 때 ***/
-#container .like_btn>button.push {
+#container .like_wrap>button.push {
   background-image: url(/images/heart_full.svg);
 }
 /*** 뒤로가기, 수정하기, 삭제하기 버튼 ***/
 #container .board_btn {
-  width: 100%;
-  margin-top: 30px;
   display: flex;
-  justify-content: center;
   gap: 0 20px;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
 }
 #container .board_btn button {
   background: var(--point-color2);
@@ -114,7 +94,102 @@
   border: none;
   border-radius: 5px;
   width: 100px;
-  height: 50px;
+  height: 40px;
   padding: 0 10px;
   font-size: 20px;
+}
+/*** 댓글 작성 버튼 ***/
+#container .comment_inner {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+#container .comment_btn {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: right;
+}
+#container .comment_btn button {
+  background: #bbb;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: 110px;
+  height: 41px;
+  padding: 0 10px;
+  margin-right: 20px;
+}
+/*** 댓글 ***/
+#container .comment {
+  border-top: 4px solid #ddd;
+  border-bottom: 4px solid #ddd;
+  margin-top: 10px;
+}
+#container .comment tr {
+  height: 70px;
+  border-bottom: 1px solid #ddd;
+  color: var(--gray-600);
+  font-size: 16px;
+}
+#container .comment th,
+#container .comment td {
+  padding: 0 20px;
+}
+#container .comment .writer {
+  font-weight: 700;
+}
+/*** 댓글 - 수정, 삭제 버튼 ***/
+#container .comment .comm_btn {
+  display: flex;
+  gap: 0 10px;
+  justify-content: center;
+  padding: 15px 0;
+}
+#container .comment .comm_btn button {
+  background: #bbb;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: 50px;
+  height: 41px;
+  padding: 0 10px;
+}
+/*** 댓글 - 좋아요 버튼 ***/
+#container .comm_like_btn {
+  width: 80px;
+  height: 41px;
+  background: #bbb;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+
+
+
+
+#container .comm_like_btn .like_wrap {
+  display: flex;
+  gap: 0 10px;
+  align-items: center;
+  font-size: 16px;
+}
+#container .comm_like_btn .like_wrap>button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: url(/images/heart.svg) no-repeat 50% / 100%;
+}
+#container .comm_like_btn .like_wrap>button.push {
+  background-image: url(/images/heart_full.svg);
+}
+
+/*** 댓글 - 작성하기 버튼 ***/
+#container .comment .comm_write_btn button {
+  background: #bbb;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: 110px;
+  height: 41px;
+  padding: 0 10px;
 }
