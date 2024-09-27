@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -110,7 +112,7 @@ public class DoctorController {
 
 		return "doctor/view";
 	}
-	
+
 	@GetMapping("/doctor/writeDoctor.do")
 	public String writeDoctorGet(Model model) {
 		return "doctor/write";

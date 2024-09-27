@@ -32,9 +32,11 @@
 		return true;
 	}
 </script>
+<link rel="stylesheet" href="/css/board-view.css" />
 </head>
 <body>
 	<%@include file="../common/main_header.jsp" %>
+
 	<main id="container">
 		<div class="content">
 			<h2>글쓰기</h2>
@@ -72,5 +74,5 @@
 		</div>
 	</main>
 	<%@include file="../common/main_footer.jsp" %>
-</body>
+</body> 
 </html>

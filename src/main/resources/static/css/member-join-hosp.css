@@ -84,6 +84,9 @@
   gap: 0 5px;
   align-items: center;
 }
+#container .regist .id>input {
+  width: 50%;
+}
 #container .regist .mobile>input,
 #container .regist .regi>input {
   width: 28.7%;

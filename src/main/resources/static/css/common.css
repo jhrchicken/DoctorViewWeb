@@ -231,7 +231,8 @@
   input[type='text'],
   input[type='search'],
   input[type='password'],
-  input[type='number'] {
+  input[type='number'],
+  input[type='email'] {
     border: 1px solid #333;
     height: 40px;
     padding: 0 10px;

@@ -1,9 +1,15 @@
 package com.edu.springboot.member;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.print.Doc;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.BeanDefinitionValidationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -86,10 +92,6 @@ public class MemberController {
 	        doctorDTO.setCareer(careerz[i]);
 	        doctorDTO.setHours(hoursz[i]);
 	        doctorDTO.setHosp_ref(memberDTO.getId());
-	        System.out.println(doctornamez[i]);
-	        System.out.println(majorz[i]);
-	        System.out.println(careerz[i]);
-	        System.out.println(hoursz[i]);
 	        doctorResult = memberDAO.joinDoctor(doctorDTO);
 	    }
 
@@ -97,13 +99,10 @@ public class MemberController {
 	    String[] weeks = req.getParameterValues("weeks");
 	    hoursDTO.setHosp_ref(memberDTO.getId());
 	    int hoursResult = 0;
-	    if (weeks != null) {
-	        for (String week : weeks) {
-	        	hoursDTO.setWeek(week);
-	        	hoursResult = memberDAO.joinHours(hoursDTO);
-	        }
-	    } else {
-	        System.out.println("선택된 요일이 없습니다.");
+//	    월,화,수 ... 순서로 입력
+	    for(int i=0 ; i<weeks.length ; i++) {
+	    	hoursDTO.setWeek(weeks[i]);
+	    	hoursResult = memberDAO.joinHours(hoursDTO);
 	    }
 	    
 	    
@@ -314,7 +313,7 @@ public class MemberController {
 
 //	회원정보 수정: hosp
 	@GetMapping("/member/editHosp.do")
-	public String editHospGet(MemberDTO memberDTO, HttpSession session, Model model) {
+	public String editHospGet(MemberDTO memberDTO, DetailDTO detailDTO, HttpSession session, Model model) {
 		memberDTO.setId((String) session.getAttribute("userId"));
 		memberDTO.setPassword((String) session.getAttribute("userPassword"));
 		
@@ -329,39 +328,105 @@ public class MemberController {
 		
 		// hours
 		List<HoursDTO> hoursDTO = memberDAO.hospHours(memberDTO); 
-//		for (HoursDTO dto : hoursDTO) {
-//		    System.out.println("week: " + dto.getWeek());
-//		    System.out.println("Starttime: " + dto.getStarttime());
-//		    System.out.println("End Time: " + dto.getEndtime());
-//		    System.out.println("Break Time Start: " + dto.getStartbreak());
-//		    System.out.println("Break Time End: " + dto.getEndbreak());
-//		    System.out.println("데드라인: " + dto.getDeadline());
-//		    System.out.println("병원: " + dto.getHosp_ref());
-//		    System.out.println("-------------------------");
-//		}
 		
-		model.addAttribute("hoursDTO", hoursDTO);
+		// 요일
+		ArrayList<String> weekList = new ArrayList<>();
+		for (int i = 0; i < hoursDTO.size(); i++) {
+			weekList.add(hoursDTO.get(i).getWeek());
+		}
 		
+		// view에서 weeks를 js배열로 변경하기위해 ArrayList에서 일반배열로 변경
+		String[] weeks = new String[weekList.size()];
+		// weekList의 내용을 weeks 배열에 복사
+		for (int i = 0; i < weekList.size(); i++) {
+		    weeks[i] = weekList.get(i);
+		}
 		
+		HoursDTO hoursInfo = hoursDTO.get(0);
+		LocalTime starttime = LocalTime.parse(hoursInfo.getStarttime(), DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime endtime = LocalTime.parse(hoursInfo.getEndtime(), DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime startbreak = LocalTime.parse(hoursInfo.getStartbreak(), DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime endbreak = LocalTime.parse(hoursInfo.getEndbreak(), DateTimeFormatter.ofPattern("HH:mm"));
+		LocalTime deadline = LocalTime.parse(hoursInfo.getDeadline(), DateTimeFormatter.ofPattern("HH:mm"));
+		
+		model.addAttribute("weeks", weeks);
+		model.addAttribute("hoursInfo", hoursInfo);
+		model.addAttribute("starttime", starttime);
+		model.addAttribute("endtime", endtime);
+		model.addAttribute("startbreak", startbreak);
+		model.addAttribute("endbreak", endbreak);
+		model.addAttribute("deadline", deadline);
+		
+		// detail
+		DetailDTO hospDatilInfo = memberDAO.selectHospDatail(memberDTO);
+		model.addAttribute("hospDatilInfo", hospDatilInfo);
 		
 		return "member/editHosp";
 	}
 	
-//	@PostMapping("/member/editHosp.do")
-//	public String editHospPost(MemberDTO memberDTO, DoctorDTO doctorDTO, HoursDTO hoursDTO, HttpServletRequest req, HttpSession session, Model model) {
-//		
-//		
-//		return
-//	}
-//	
-//	
-//	
+	@PostMapping("/member/editHosp.do")
+	public String editHospPost(MemberDTO memberDTO, HoursDTO hoursDTO, DetailDTO detailDTO, HttpServletRequest req, HttpSession session, Model model) {
+		// member
+		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
+		String taxid = req.getParameter("taxid1") + "-" + req.getParameter("taxid2") + "-" + req.getParameter("taxid3");
+		
+		memberDTO.setTel(tel);
+		memberDTO.setTaxid(taxid);
+		
+		int hospMemberResult = memberDAO.editHospMember(memberDTO);
+		
+		// hours
+		// 현재 선택된 병원의 기존 영업시간 데이터 삭제
+		memberDAO.deleteHospHours(memberDTO);
+		
+		// 새로 수정된 영업시간 데이터 삽입
+	    String[] weeks = req.getParameterValues("weeks");
+	    hoursDTO.setHosp_ref(memberDTO.getId());
+	    int hospHoursResult = 0;
+	    for(int i=0 ; i<weeks.length ; i++) {
+	    	hoursDTO.setWeek(weeks[i]);
+	    	hospHoursResult = memberDAO.joinHours(hoursDTO);
+	    }
+	    
+	    // detail
+	    detailDTO.setHosp_ref(memberDTO.getId());
+	    int hospDatailResult;
+//	    detail이 있던 경우 없던 경우 분리 필요
+	    
+	    // detail 데이터가 있으면
+	    if(memberDAO.selectHospDatail(memberDTO) != null ) {
+//	    	update 쿼리
+	    	hospDatailResult = memberDAO.updateHospDetail(detailDTO);
+	    }
+	    else {
+//	    	insert 쿼리
+	    	hospDatailResult = memberDAO.insertHospDetail(detailDTO);
+	    }
+		
+		if (hospMemberResult == 1 && hospHoursResult == 1 && hospDatailResult == 1) {
+			session.setAttribute("userPassword", memberDAO.loginMember(memberDTO).getPassword());
+			return "redirect:/member/editHosp.do";
+		}
+		else {
+			model.addAttribute("editUserFaild", "회원정보 수정에 실패했습니다.");
+			return "member/editHosp";
+		}
+	} 
 	
-	
-	
-	
-	
-	
+//	의료진 관리 (의사정보)
+	@GetMapping("/member/doctorInfo.do")
+	public String doctorInfoGet(MemberDTO memberDTO, HttpSession session, Model model) {
+		
+//		로그인한 병원의 의료진 목록 가져오기
+		memberDTO.setId((String) session.getAttribute("userId"));
+		List<DoctorDTO> doctorDTO = memberDAO.selectHospDoctor(memberDTO);
+		
+//		모델 저장
+		model.addAttribute("doctorDTO", doctorDTO);
+		model.addAttribute("hospname", memberDTO.getName());
+		
+		return "member/doctorList";
+	}
 	
 	
 	

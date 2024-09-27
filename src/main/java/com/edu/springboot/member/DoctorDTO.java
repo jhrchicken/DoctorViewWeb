@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class DoctorDTO {
+	private String doc_idx;
 	private String doctorname;
 	private String major;
 	private String career;

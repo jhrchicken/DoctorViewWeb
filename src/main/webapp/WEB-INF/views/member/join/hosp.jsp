@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입 - 병원</title>
+<title>닥터뷰 | 회원가입</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <%@ include file="../../common/head.jsp" %>
 <link rel="stylesheet" href="/css/member-join-hosp.css" />
@@ -233,7 +233,7 @@
               <tr>
                 <td class="left">아이디</td>
                 <td class="id">
-                  <input type="text" name="id" value="" placeholder="아이디* (영문+숫자, 6~15자)" />
+                  <input type="text" name="id" value="" maxlength="15" placeholder="아이디* (영문+숫자, 6~15자)" />
                   <button id="idCheckBtn" name="idCheckBtn" class="id_check" type="button"><span class="blind">중복 확인</span></button>
                   <span id="idCheckResult" class="notice_ok"></span> 
                   <input type="hidden" name="idCheck" value="unCheck" />
@@ -242,17 +242,17 @@
               <!-- 비밀번호 폼 시작 -->
               <tr class="pass">
                 <td rowspan="2" class="left">비밀번호</td>
-                <td><input type="password" name="password" placeholder="비밀번호* (영문+숫자, 특수문자(선택), 8~20자)" /></td>
+                <td><input type="password" name="password" value="" maxlength="20" placeholder="비밀번호* (영문+숫자, 특수문자(선택), 8~20자)" /></td>
               </tr>
               <tr>
                 <td>
-                  <input type="password" name="passwordCheck" placeholder="비밀번호 확인*" />
+                  <input type="password" name="passwordCheck" value="" maxlength="20" placeholder="비밀번호 확인*" />
                 </td>
               </tr>
               <!-- 비밀번호 폼 끝 -->
               <tr>
                 <td class="left">이름</td>
-                <td><input type="text" name="name" placeholder="병원명*" /></td>
+                <td><input type="text" name="name" value="" placeholder="병원명*" /></td>
               </tr>
               <tr>
                 <td class="left">전화번호</td>
@@ -409,6 +409,6 @@
   </div>
 </main>
 	
-	<%@include file="../../common/main_footer.jsp" %>
+<%@include file="../../common/main_footer.jsp" %>
 </body>
 </html>
