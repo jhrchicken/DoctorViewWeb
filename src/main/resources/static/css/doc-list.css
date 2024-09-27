@@ -4,12 +4,11 @@
 #container .content_inner {
   max-width: 1170px;
   margin: 0 auto;
-  padding: 50px;
 }
 
 #container .list_title {
   text-align: center;
-  padding: 50px 0;
+  padding: 80px 0 50px;
 }
 #container h2 {
   font-size: 40px;
@@ -119,13 +118,6 @@
 }
 #container .doctor .blue {
   color: var(--point-color2);
-}
-#container .doctor .detail p {
-  display: block;
-}
-#container .doctor .depart {
-  color: var(--gray-400);
-  margin-bottom: 10px;
 }
 /*** 별점, 좋아요/댓글 수 ***/
 #container .doctor .info_right {

@@ -309,7 +309,7 @@
               </tr>
             </table>    
             <div class="btn_wrap">
-              <input type="submit" value="회원가입" />
+              <input type="submit" value="완료" />
             </div>
           </form>
       </div>
