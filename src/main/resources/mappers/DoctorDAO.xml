@@ -137,12 +137,12 @@
 	
 	<!-- 의사 좋아요: 의사 좋아요 수 조회 -->
 	<select id="countDocLike">
-		SELECT COUNT(*) FROM likes WHERE tablename='doctor' and recodenum=#{param1}
+		SELECT COUNT(*) FROM likes WHERE tablename='doctor' AND recodenum=#{param1}
 	</select>
 	
 	<!-- 의사 좋아요: 의사 좋아요 레코드 존재 여부 확인 -->
 	<select id="checkDocLike">
-		SELECT COUNT(*) FROM likes WHERE tablename='doctor' and member_ref=#{param1} and recodenum=#{param2}
+		SELECT COUNT(*) FROM likes WHERE tablename='doctor' AND member_ref=#{param1} AND recodenum=#{param2}
 	</select>
 	
 	<!-- 의사 좋아요: 의사 좋아요 수 증가 -->
@@ -154,6 +154,8 @@
 	<delete id="minusDocLike">
 		DELETE FROM likes WHERE tablename='doctor' and member_ref=#{param1} and recodenum=#{param2}
 	</delete>
+	
+	
 	
 	<!-- 리뷰 좋아요: 리뷰 좋아요 수 조회 -->
 	<select id="countReviewLike">
@@ -175,10 +177,7 @@
 		DELETE FROM likes WHERE tablename='dreview' and member_ref=#{param1} and recodenum=#{param2}
 	</delete>
 	
-	
-	
-	
-	
+
 	
 	<!-- 리뷰 수 조회 -->
 	<select id="countReview">

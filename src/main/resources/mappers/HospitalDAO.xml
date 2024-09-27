@@ -32,15 +32,14 @@
 		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}
 	</select>
 	
-	<!-- 병원 입점 여부 확인 -->
-	<select id="checkEnter">
+	<!-- 병원 입점 여부 확인: 병원이름으로 입점 여부를 확인하여 아이디 추출 -->
+	<select id="selectHospId">
 		SELECT id FROM member WHERE name=#{param1}
 	</select>
 	
-	<!-- 병원 정보 조회: 병원의 의사정보를 DTO를 통해 받은 후 조회하고 결과를 다시 DTO에 저장 -->
+	<!-- 입점 병원 기본정보 조회 -->
 	<select id="viewHosp"
-		resultType="com.edu.springboot.hospital.HospitalDTO"
-		parameterType="com.edu.springboot.hospital.HospitalDTO">
+		resultType="com.edu.springboot.hospital.BasicDTO">
 		SELECT * FROM member WHERE id=#{id}
 	</select>
 	
@@ -48,6 +47,12 @@
 	<select id="listHashtag"
 		resultType="com.edu.springboot.hospital.HashtagDTO">
 		SELECT * FROM hashtag
+	</select>
+	
+	<!-- 입점 병원 상세정보 조회 -->
+	<select id="selectDetail"
+		resultType="com.edu.springboot.hospital.DetailDTO">
+		SELECT * FROM detail WHERE hosp_ref=#{id}
 	</select>
 	
 	
@@ -62,13 +67,45 @@
 	
 	<!-- 병원 좋아요: 병원 좋아요 수 조회 -->
 	<select id="countHospLike">
-		SELECT COUNT(*) FROM likes WHERE tablename='hospital' and recodenum=#{param1}
+		SELECT COUNT(*) FROM likes WHERE tablename='hospital' AND recodenum=#{param1}
 	</select>
 	
+	<!-- 병원 좋아요: 병원 졸아요 레코드 존재 여부 확인 -->
+	<select id="checkHospLike">
+		SELECT COUNT(*) FROM likes WHERE tablename='hospital' AND member_ref=#{param1} AND recodenum=#{param2}
+	</select>
 	
-
+	<!-- 병원 좋아요: 병원 좋아요 수 증가 -->
+	<insert id="plusHospLike">
+		INSERT INTO likes VALUES (seq_likes_idx.nextval, #{param1}, 'hospital', #{param2})
+	</insert>
+	
+	<!-- 병원 좋아요: 병원 좋아요 수 감소 -->
+	<delete id="minusHospLike">
+		DELETE FROM likes WHERE tablename='hospital' AND member_ref=#{param1} AND recodenum=#{param2}
+	</delete>
 	
 	
+	
+	<!-- 리뷰 좋아요: 리뷰 좋아요 수 조회 -->
+	<select id="countReviewLike">
+		SELECT COUNT(*) FROM likes WHERE tablename='hreview' AND recodenum=#{param1}
+	</select>
+	
+	<!-- 리뷰 좋아요: 리뷰 좋아요 레코드 존재 여부 확인 -->
+	<select id="checkReviewLike">
+		SELECT COUNT(*) FROM likes WHERE tablename='hreview' AND member_ref=#{param1} AND recodenum=#{param2}
+	</select>
+	
+	<!-- 리뷰 좋아요: 리뷰 좋아요 수 증가 -->
+	<insert id="plusReviewLike">
+		INSERT INTO likes VALUES (seq_likes_idx.nextval, #{param1}, 'hreview', #{param2})
+	</insert>
+	
+	<!-- 리뷰 좋아요: 리뷰 좋아요 수 감소 -->
+	<delete id="minusReviewLike">
+		DELETE FROM likes WHERE tablename='hreview' AND member_ref=#{param1} AND recodenum=#{param2}
+	</delete>
 	
 	
 	

@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.edu.springboot.board.ParameterDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import utils.PagingUtil;
 
 @Controller
@@ -48,13 +50,27 @@ public class HospitalController {
 		model.addAttribute("maps", maps);
 		// 의사 API 목록 저장
 		ArrayList<HospitalDTO> hospList = hospitalDAO.listHospApi(parameterDTO);
-		for (HospitalDTO hospital : hospList) {
-			String id = hospitalDAO.checkEnter(hospital.getName());
+			for (HospitalDTO hospital : hospList) {
+			String id = hospitalDAO.selectHospId(hospital.getName());
 			// 입점
 			if (id != null) {
 				hospital.setEnter("T");
 				hospital.setId(id);
-				hospital = hospitalDAO.viewHosp(hospital);
+				// 입점 병원 기본 정보
+				BasicDTO basicDTO = hospitalDAO.viewHosp(id);
+				hospital.setNickname(basicDTO.getNickname());
+				hospital.setPassword(basicDTO.getPassword());
+				hospital.setNickname(basicDTO.getNickname());
+				hospital.setTaxid(basicDTO.getTaxid());
+				hospital.setPhoto(basicDTO.getPhoto());
+				// 입점 병원 상세 정보
+				DetailDTO detailDTO = hospitalDAO.selectDetail(id);
+				hospital.setIntroduce(detailDTO.getIntroduce());
+				hospital.setParking(detailDTO.getParking());
+				hospital.setPcr(detailDTO.getPcr());
+				hospital.setHospitalize(detailDTO.getHospitalize());
+				hospital.setSystem(detailDTO.getSystem());
+				// 기능과 관련된 정보
 				int hosplikecount = hospitalDAO.countHospLike(id);
 				int reviewcount = hospitalDAO.countReview(id);
 				int scoresum = hospitalDAO.sumScore(id);
@@ -67,14 +83,11 @@ public class HospitalController {
 				hospital.setLikecount(hosplikecount);
 				hospital.setReviewcount(reviewcount);
 				
-				// 여기서 여러가지 처리 추가 정보 있는지 등 해시태그
-				
 			}
 			// 미입점
-			if (id != null) {
+			else {
 				hospital.setEnter("F");
 			}
-		
 		}
 		model.addAttribute("hospList", hospList);
 		// 해시태그
@@ -85,6 +98,44 @@ public class HospitalController {
 		model.addAttribute("pagingImg", pagingImg);
 		return "hospital/list";
 	}
+	
+	@RequestMapping("/hospital/viewHosp.do")
+	public String viewHospReq(Model model, HttpSession session, HttpServletRequest req, HospitalDTO hospitalDTO) {
+		String loginId = (String) session.getAttribute("userId");
+		String hospId = hospitalDAO.selectHospId(hospitalDTO.getName());
+		// 입점 병원 기본 정보
+		BasicDTO basicDTO = hospitalDAO.viewHosp(hospId);
+		hospitalDTO.setNickname(basicDTO.getNickname());
+		hospitalDTO.setPassword(basicDTO.getPassword());
+		hospitalDTO.setNickname(basicDTO.getNickname());
+		hospitalDTO.setTaxid(basicDTO.getTaxid());
+		hospitalDTO.setPhoto(basicDTO.getPhoto());
+		// 입점 병원 상세 정보
+		DetailDTO detailDTO = hospitalDAO.selectDetail(hospId);
+		hospitalDTO.setIntroduce(detailDTO.getIntroduce());
+		hospitalDTO.setParking(detailDTO.getParking());
+		hospitalDTO.setPcr(detailDTO.getPcr());
+		hospitalDTO.setHospitalize(detailDTO.getHospitalize());
+		hospitalDTO.setSystem(detailDTO.getSystem());
+		// 병원 좋아요 수
+		int likecount = hospitalDAO.countHospLike(hospId);
+		hospitalDTO.setLikecount(likecount);
+		model.addAttribute("hospitalDTO", hospitalDTO);
+		// 병원 좋아요 클릭 여부
+		int hosplikecheck = hospitalDAO.checkHospLike(loginId, hospId);
+		model.addAttribute("hosplikecheck", hosplikecheck);
+		
+		
+		
+		
+		
+		
+		
+		return "hospital/view";
+	}
+	
+	
+	
 	
 	
 	
