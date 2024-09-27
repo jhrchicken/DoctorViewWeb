@@ -39,10 +39,10 @@
 
 	<main id="container">
 		<div class="content">
-			<h2>글쓰기</h2>
+			<h2>의사 수정</h2>
 			<div class="board_inner">
 				<form name="writeFrm" method="post" enctype="multipart/form-data"
-					action="../doctor/writeDoctor.do" onsubmit="return validateWriteForm(this);">
+					action="../doctor/editDoctor.do" onsubmit="return validateWriteForm(this);">
 					<table class="board">
 						<tr>
 							<td class="left">이름</td>
