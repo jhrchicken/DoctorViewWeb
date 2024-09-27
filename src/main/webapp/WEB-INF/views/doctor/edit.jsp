@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>닥터뷰</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/doc-edit.css" />
 <script>
