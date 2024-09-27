@@ -45,12 +45,20 @@
 					<a href="#">마이페이지</a>
 					<div class="depth2">
 						<ul>
+							<!-- 일반 회원이 로그인한 경우 -->
 							<li><a href="${pageContext.request.contextPath}/member/checkMember.do">개인정보 수정</a></li>
-							<li><a href="#">예약 정보 관리</a></li>
+							<li><a href="#">예약 관리</a></li>
 							<li><a href="#">좋아요한 병원</a></li>
 							<li><a href="#">좋아요한 의사</a></li>
 							<li><a href="#">작성한 리뷰</a></li>
 							<li><a href="#">출석체크</a></li>
+							<!-- 일반 회원이 로그인한 경우 -->
+							
+							<!-- 병원 회원이 로그인한 경우 -->
+							<li><a href="#">개인정보 수정</a></li>
+							<li><a href="#">의사 관리</a></li>
+							<li><a href="#">예약 관리</a></li>
+							<!-- 병원 회원이 로그인한 경우 -->
 						</ul>
 					</div>
 				</li>
