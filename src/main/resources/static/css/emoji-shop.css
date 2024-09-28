@@ -1,13 +1,18 @@
 #container .content {
-  padding: 170px 0 80px;
-  background: #eee;
+  margin-top: 170px;
+  padding: 100px 0;
+  min-height: 100vh;
+  background: #f6f6f6;
 }
 #container .content_inner {
-    max-width: 1170px;
-    margin: 0 auto;
-    padding: 50px 0 100px;
-    background: #fff;
-    border-radius: 30px;
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+#container .emoji {
+  background: #fff;
+  padding: 80px;
+  border-radius: 30px;
 }
 
 #container h2 {
@@ -15,19 +20,12 @@
   font-size: 40px;
   color: var(--gray-600);
   font-weight: 700;
-  padding: 50px 0 80px;
-  /* 서브웨이처럼 서브헤더 넣게되면 아래와 같이 패딩 값 수정하기 */
-  /* padding: 134px 0 80px; */
+  padding-bottom: 50px;
 }
 
-#container .emoji {
-  width: 100%;
-}
 #container .emoji_inner {
   display: flex;
   gap: 20px 15px;
-  max-width: 1170px;
-  margin: 0 auto;
   flex-wrap: wrap;
 }
 

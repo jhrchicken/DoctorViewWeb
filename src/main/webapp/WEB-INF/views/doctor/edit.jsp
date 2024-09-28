@@ -40,11 +40,11 @@
 	<div class="content">
 		<div class="content_inner">
 		
-			<h2>정보 수정</h2>
+			<h2>의사 수정</h2>
 			<form name="writeFrm" method="post" enctype="multipart/form-data"
 				action="../doctor/editDoctor.do" onsubmit="return validateWriteForm(this);">
+				
 				<div class="doc_info">
-					
 					<div class="doc_img">
 						<!-- 사진 있을 때 없을 때 처리해야 함! -->
 						<span class="img">
@@ -52,7 +52,6 @@
 						</span>
 						<input type="file" name="file" value="${ doctorDTO.photo }" />
 					</div>
-					
 					
 					<table class="info">
 						<tr>
@@ -72,7 +71,6 @@
 							<td><input type="text" name="hours" value="${ doctorDTO.hours }" placeholder="필수*" /></td>
 						</tr>
 					</table>
-					
 				</div> 
 
 				<div class="board_btn">
@@ -80,7 +78,6 @@
 					<button type="submit">완료</button>
 				</div>
 			</form>
-			
 			
 		</div>
 	</div>
