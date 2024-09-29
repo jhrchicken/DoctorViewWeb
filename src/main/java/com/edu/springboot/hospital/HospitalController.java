@@ -34,7 +34,7 @@ public class HospitalController {
 
 	@GetMapping("/hospital.do")
 	public String hospital(Model model, HttpServletRequest req, ParameterDTO parameterDTO) {
-		// 의사 API 레코드 개수
+		// 병원 API 레코드 개수
 		int total = hospitalDAO.countHospApi(parameterDTO);
 		// 현재 페이지
 		int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
@@ -50,7 +50,7 @@ public class HospitalController {
 		maps.put("postsPerPage", postsPerPage);
 		maps.put("pageNum", pageNum);
 		model.addAttribute("maps", maps);
-		// 의사 API 목록 저장
+		// 병원 API 목록 저장
 		ArrayList<HospitalDTO> hospList = hospitalDAO.listHospApi(parameterDTO);
 			for (HospitalDTO hospital : hospList) {
 			String id = hospitalDAO.selectHospId(hospital.getName());
@@ -58,32 +58,11 @@ public class HospitalController {
 			if (id != null) {
 				hospital.setEnter("T");
 				hospital.setId(id);
-				// 입점 병원 기본 정보
-				BasicDTO basicDTO = hospitalDAO.viewHosp(id);
-				hospital.setNickname(basicDTO.getNickname());
-				hospital.setPassword(basicDTO.getPassword());
-				hospital.setNickname(basicDTO.getNickname());
-				hospital.setTaxid(basicDTO.getTaxid());
 				// 입점 병원 상세 정보
 				DetailDTO detailDTO = hospitalDAO.selectDetail(id);
 				if (detailDTO != null) {
 					if (detailDTO.getPhoto() != null) {
 						hospital.setPhoto(detailDTO.getPhoto());
-					}
-					if (detailDTO.getIntroduce() != null) {
-						hospital.setIntroduce(detailDTO.getIntroduce());
-					}
-					if (detailDTO.getParking() != null) {
-						hospital.setParking(detailDTO.getParking());
-					}
-					if (detailDTO.getPcr() != null) {
-						hospital.setPcr(detailDTO.getPcr());
-					}
-					if (detailDTO.getHospitalize() != null) {
-						hospital.setHospitalize(detailDTO.getHospitalize());
-					}
-					if (detailDTO.getSystem() != null) {
-						hospital.setSystem(detailDTO.getSystem());
 					}
 				}
 			}
@@ -153,7 +132,6 @@ public class HospitalController {
 			}
 			ArrayList<DoctorDTO> doctorList = hospitalDAO.listDoctor(hospitalDTO);
 			model.addAttribute("doctorList", doctorList);
-			System.out.println(doctorList);
 		}
 		// 병원 좋아요 수
 		int likecount = hospitalDAO.countHospLike(hospitalDTO.getApi_idx());
