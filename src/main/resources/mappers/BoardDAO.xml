@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.edu.springboot.board.IBoardService">
+	
+	<!-- 게시글 목록: 로그인 사용자가 작성한 게시글의 개수를 카운트 -->
+	<select id="countMyPost">
+		SELECT COUNT(*) FROM board WHERE writer_ref=#{param1}
+	</select>
+	
+	<!-- 게시글 목록: 로그인 한 사용자가 작성한 게시글에서 한 페이지에 출력할 게시글을 인출 -->
+	<select id="listMyPost"
+		resultType="com.edu.springboot.board.BoardDTO"
+		parameterType="com.edu.springboot.board.ParameterDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM board WHERE writer_ref=#{param1}
+				ORDER BY board_idx DESC
+			) Tb
+		)
+		WHERE rNum<![CDATA[>=]]>#{param2} AND rNum<![CDATA[<=]]>#{param3}
+	</select>
+	
+	
+	
+	
+	<!-- 닉네임 인출: 게시글 작성자 닉네임 인출 -->
+	<select id="selectBoardNickname"
+		parameterType="com.edu.springboot.board.BoardDTO">
+		SELECT nickname FROM member WHERE id=#{writer_ref}	
+	</select>
+
+	<!-- 좋아요: 좋아요 수 조회 -->
+	<select id="countLike">
+		SELECT COUNt(*) FROM likes WHERE tablename='board' AND recodenum=#{param1}
+	</select>
+	
+	<!-- 댓글: 댓글 수 조회 -->
+	<select id="countComment">
+		SELECT COUNT(*) FROM comments WHERE board_ref=#{board_idx}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+
+
+</mapper>

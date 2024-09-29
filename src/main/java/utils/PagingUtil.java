@@ -41,12 +41,12 @@ public class PagingUtil {
         // 5. 다음페이지블럭 & 마지막페이지 바로가기
         if (intTemp <= totalPage) {
             pagingStr += "<a href='" + page + "pageNum=" + intTemp + "'>" +
-                         "<img src='./images/paging3.svg'></a>";
+                         "<img src='/images/paging3.svg'></a>";
             pagingStr += "<a href='" + page + "pageNum=" + totalPage + "'>" +
-                         "<img src='./images/paging4.svg'></a>";
+                         "<img src='/images/paging4.svg'></a>";
         } else {
-            pagingStr += "<img src='./images/paging3.svg'>"; // 이미지만 보이기
-            pagingStr += "<img src='./images/paging4.svg'>"; // 이미지만 보이기
+            pagingStr += "<img src='/images/paging3.svg'>"; // 이미지만 보이기
+            pagingStr += "<img src='/images/paging4.svg'>"; // 이미지만 보이기
         }
         
         return pagingStr;
