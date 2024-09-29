@@ -57,7 +57,7 @@
 											<img src="/images/doctor.png" alt="" />
 										</c:if>
 										<c:if test="${ row.photo != 'NULL' }">
-											<img src="/uploads/${ row.photo }"><br/>
+											<img src="/uploads/${ row.photo }" />
 										</c:if>
 									</span>
 									<div class="info">
@@ -93,11 +93,11 @@
 			</div>
 			
 			<!-- 페이지네이션 -->
-				<div class="pagination">
-					<div class="pagination_inner">
-						${ pagingImg }
-					</div>
-				</div>	
+			<div class="pagination">
+				<div class="pagination_inner">
+					${ pagingImg }
+				</div>
+			</div>	
 		</div>
 	</div>
 </main>
