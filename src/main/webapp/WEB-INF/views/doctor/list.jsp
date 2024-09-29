@@ -32,6 +32,15 @@
 				</form>
 			</div>
 			
+			<!-- !!!!!!!!!!!!나중에 지우기!!!!!!!!!!!!  -->
+			<!-- 로그인 한 경우에만 글쓰기 버튼 -->
+		    <div class="write_btn">
+		        <button type="button" onclick="location.href='../doctor/writeDoctor.do';">의사 등록하기</button>
+		    </div>
+		    <!-- !!!!!!!!!!!!나중에 지우기!!!!!!!!!!!!  -->
+			
+			
+			
 			<div class="list">
 				<c:choose>
 					<c:when test="${ empty doctorsList }">
@@ -81,17 +90,13 @@
 						</ul>
 					</c:otherwise>
 				</c:choose>
-			
-				<!-- 로그인 한 경우에만 글쓰기 버튼 -->
-				<!-- 추후 의사의 마이페이지로 옮길 예정 테스트용 버튼이니 CSS 작업 안하셔도 됩니다! -->
-			    <div class="write_btn">
-			        <button type="button" onclick="location.href='../doctor/writeDoctor.do';">의사 등록하기</button>
-			    </div>
 			    
 			    <!-- 페이지네이션 -->
 				<div class="pagination">
-					${ pagingImg }
-				</div>
+					<div class="pagination_inner">
+						${ pagingImg }
+					</div>
+				</div>	
 
 			</div>
 		</div>

@@ -1,10 +1,8 @@
-#container {
-  margin-top: 170px;
-  position: relative;
-  background: #f6f6f6;
-}
 #container .content {
-  padding: 170px 0 80px;
+  margin-top: 170px;
+  padding: 100px 0;
+  min-height: 100vh;
+  background: #f6f6f6;
 }
 #container .content_inner {
   max-width: 1170px;
