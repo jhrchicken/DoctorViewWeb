@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.edu.springboot.board.ParameterDTO;
+import com.edu.springboot.doctor.DoctorDTO;
 
 @Mapper
 public interface IHospitalService {
@@ -27,7 +28,8 @@ public interface IHospitalService {
 	// 병원 상세정보 조회
 	public DetailDTO selectDetail(String id);
 	
-	
+	// 의사 조회
+	public ArrayList<DoctorDTO> listDoctor(HospitalDTO hospitalDTO);
 	
 	
 	
@@ -76,19 +78,6 @@ public interface IHospitalService {
 	public int countReview(int api_idx);
 	// 별점 합계 조회
 	public int sumScore(int api_idx);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.edu.springboot.board.ParameterDTO;
+import com.edu.springboot.doctor.DoctorDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -150,6 +151,9 @@ public class HospitalController {
 					hospitalDTO.setSystem(detailDTO.getSystem());
 				}
 			}
+			ArrayList<DoctorDTO> doctorList = hospitalDAO.listDoctor(hospitalDTO);
+			model.addAttribute("doctorList", doctorList);
+			System.out.println(doctorList);
 		}
 		// 병원 좋아요 수
 		int likecount = hospitalDAO.countHospLike(hospitalDTO.getApi_idx());

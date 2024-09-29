@@ -46,6 +46,7 @@
 	
 	
 	
+	
 	<!-- 병원 입점 여부 확인: 병원이름으로 입점 여부를 확인하여 아이디 추출 -->
 	<select id="selectHospId">
 		SELECT id FROM member WHERE name=#{param1}
@@ -70,6 +71,10 @@
 	</select>
 	
 	
+	<select id="listDoctor"
+		resultType="com.edu.springboot.doctor.DoctorDTO">
+		SELECT * FROM doctor WHERE hosp_ref=#{id}
+	</select>
 	
 	
 	

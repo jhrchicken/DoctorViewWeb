@@ -144,6 +144,57 @@ function validateReplyForm(form) {
 				</div>
 			</div>
 		</div>
+
+		<!-- 의사 정보 -->
+		<div class="list">
+				<c:choose>
+					<c:when test="${ empty doctorList }">
+						<tr>
+							<p>등록된 의사가 없습니다</p>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<ul class="doctor">
+							<c:forEach items="${ doctorList }" var="row" varStatus="loop">
+								<li>
+									<span class="img">
+										<c:if test="${ row.photo == 'NULL' }">
+											<img src="/images/doctor.png" alt="" />
+										</c:if>
+										<c:if test="${ row.photo != 'NULL' }">
+											<img src="/uploads/${ row.photo }" />
+										</c:if>
+									</span>
+									<div class="info">
+										<div class="info_top">
+											<h3>${ row.name }</h3>
+										</div>
+										<div class="detail">
+											<div class="details">
+												<p class="blue">전공</p>
+												<p>${ row.major }</p>
+											</div>
+											<div class="details">
+												<p class="blue">경력</p>
+												<p>${ row.career }</p>
+											</div>
+											<div class="details">
+												<p class="blue">근무시간</p>
+												<p>${ row.hours }</p>
+											</div>
+										</div>
+										<a href="../doctor/viewDoctor.do?doc_idx=${ row.doc_idx }"><span class="blind">의사 바로가기</span></a>
+									</div>
+								</li>
+							</c:forEach>
+						</ul>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		
+		
+		
+		
 		
 		<div class="comment_inner">
 			<!-- 댓글 -->
