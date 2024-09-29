@@ -75,7 +75,7 @@
 	<!-- 회원정보 수정 hosp - member -->
 	<update id="editHospMember"
 		parameterType="com.edu.springboot.member.MemberDTO">
-		UPDATE member SET password=#{password}, name=#{name}, nickname=#{name}, tel=#{tel}, address=#{address}, department=#{department}
+		UPDATE member SET password=#{password}, name=#{name}, nickname=#{name}, tel=#{tel}, address=#{address}, department=#{department}, photo=#{photo}
 		WHERE id=#{id}
 	</update>
 	

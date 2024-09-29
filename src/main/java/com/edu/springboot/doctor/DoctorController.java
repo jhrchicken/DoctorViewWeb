@@ -182,7 +182,8 @@ public class DoctorController {
 	public String deleteDoctorPost(HttpServletRequest req) {
 		doctorDAO.deleteDoctor(req.getParameter("doc_idx"));
 		/********************  요청명 마이페이지로 수정 필요 **************************/
-		return "redirect:../doctor.do";
+//		return "redirect:../doctor.do";
+		return "redirect:/member/doctorInfo.do";
 	}
 	
 	@PostMapping("/doctor/writeReview.do")

@@ -1,17 +1,16 @@
 package com.edu.springboot.member;
 
+import java.io.File;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.print.Doc;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.BeanDefinitionValidationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import utils.CookieManager;
+import utils.FileUtil;
 
 @Controller
 public class MemberController {
@@ -363,6 +364,8 @@ public class MemberController {
 		DetailDTO hospDatilInfo = memberDAO.selectHospDatail(memberDTO);
 		model.addAttribute("hospDatilInfo", hospDatilInfo);
 		
+		
+		
 		return "member/editHosp";
 	}
 	
@@ -374,6 +377,27 @@ public class MemberController {
 		
 		memberDTO.setTel(tel);
 		memberDTO.setTaxid(taxid);
+		
+		// 파일업로드
+		try {
+			String uploadDir = ResourceUtils.getFile("classpath:static/uploads/").toPath().toString();
+			Part part = req.getPart("file");
+			String partHeader = part.getHeader("content-disposition");
+			String[] phArr = partHeader.split("filename=");
+			String filename = phArr[1].trim().replace("\"", "");
+			if (!filename.isEmpty()) {
+				part.write(uploadDir + File.separator + filename);
+				String photo = FileUtil.renameFile(uploadDir, filename);
+				memberDTO.setPhoto(photo);
+			}
+			else {
+				memberDTO.setPhoto("NULL");
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		memberDAO.editHospMember(memberDTO);
 		
 		int hospMemberResult = memberDAO.editHospMember(memberDTO);
 		
@@ -393,7 +417,7 @@ public class MemberController {
 	    // detail
 	    detailDTO.setHosp_ref(memberDTO.getId());
 	    int hospDatailResult;
-//	    detail이 있던 경우 없던 경우 분리 필요
+	 
 	    
 	    // detail 데이터가 있으면
 	    if(memberDAO.selectHospDatail(memberDTO) != null ) {
@@ -425,7 +449,6 @@ public class MemberController {
 		
 //		모델 저장
 		model.addAttribute("doctorDTO", doctorDTO);
-		model.addAttribute("hospname", memberDTO.getName());
 		
 		return "member/doctorList";
 	}

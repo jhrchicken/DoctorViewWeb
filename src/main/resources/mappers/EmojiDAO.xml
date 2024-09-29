@@ -17,8 +17,7 @@
 	
 	
 	<!-- 이모지 비활성화 -->
-	<update id="deactivateEmoji"
-		parameterType="com.edu.springboot.emoji.EmojiDTO">
+	<update id="deactivateEmoji">
 		UPDATE emoji SET use_emoji='F' WHERE use_emoji='T'
 	</update>
 	

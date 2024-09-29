@@ -18,12 +18,12 @@ function validateForm(form) {
 		form.password.focus();
 		return false;
 	}
-	var password_pattern =  /^[a-zA-Z0-9]{8,20}$/;
-	if (!password_pattern.test(form.password.value)) {
-	    alert("비밀번호는 영문자와 숫자가 포함되어야 하며, 8~20자여야 합니다.");
-	    form.password.focus();
-	    return false;
-	}
+// 	var password_pattern =  /^[a-zA-Z0-9]{8,20}$/;
+// 	if (!password_pattern.test(form.password.value)) {
+// 	    alert("비밀번호는 영문자와 숫자가 포함되어야 하며, 8~20자여야 합니다.");
+// 	    form.password.focus();
+// 	    return false;
+// 	}
 	if (form.passwordCheck.value == '') {
 		alert("비밀번호가 일치하지않습니다.");
 		form.passwordCheck.focus();
@@ -52,7 +52,8 @@ function validateForm(form) {
      </c:if>
 	        
 	        
-	<form name="joinFrm" method="post" action="../../member/editHosp.do" onsubmit="return validateForm(this);">
+	<form name="joinFrm" method="post" enctype="multipart/form-data"
+		action="../../member/editHosp.do" onsubmit="return validateForm(this);">
 	<table border="1">
 		<tr>
 			<th>아이디</th>
@@ -187,6 +188,21 @@ function validateForm(form) {
 	    
 	    
 	    <!-- 추가사항 -->
+	    <!-- ********* 병원 이미지 추가 필요 ********* -->
+	    
+	    <tr>
+	    	<th>병원 이미지</th>
+	    	<td>
+	    		<c:if test="${ loginUserInfo.photo == null || loginUserInfo.photo == '' }">
+	    			<!-- 병원.. 병원 기본 이미지 이거 맞나..?? -->
+				    <img src="/images/hospital.png" alt="" />
+				</c:if>
+				<c:if test="${ loginUserInfo.photo != null && loginUserInfo.photo != '' }">
+				    <img src="/uploads/${ loginUserInfo.photo }"  />
+				</c:if>
+	    		<input type="file" name="file" value="${ loginUserInfo.photo }" />
+	    	</td>
+	    </tr>
 	    <tr>
 	    	<th>병원 소개</th>
 	    	<td><input type="text" name="introduce" value="${ hospDatilInfo.introduce }" placeholder="" /></td>
@@ -216,7 +232,7 @@ function validateForm(form) {
 	    <tr>
 	      <th>의료진</th>
 	      <!-- 의료진 관리 - 수정 페이지로 이동 --> 
-	      <td><a href="#">의료진 관리</a></td>
+	      <td><a href="/member/doctorInfo.do">의료진 관리 페이지로 이동</a></td>
 	    </tr>
 	</table>
 	<input type="submit" value="수정하기" />

@@ -7,9 +7,21 @@
 <title>닥터뷰 | 마이페이지</title>
 <%@ include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/my-doctor-list.css" />
+<script>
+function deleteDoctor(doc_idx) {
+	if (confirm("정말로 삭제하시겠습니까?")) {
+		var form = document.forms["deleteDoctorForm_" + doc_idx];
+		form.method = "post";
+		form.action = "/doctor/deleteDoctor.do";
+		form.submit();
+	}
+}
 
+</script>
 </head>
 <body>
+
+<!-- ************** form/button 추가로 css 작업 필요 *******************  -->
 <%@include file="../common/main_header.jsp" %>
 	<main id="container">
 		<div class="content">
@@ -25,18 +37,24 @@
 					<c:otherwise>
 						<ul class="doctor">
 							<c:forEach items="${ doctorDTO }" var="row" varStatus="loop">
+								<!-- 의사 정보 -->
+								<form name="deleteDoctorForm_${row.doc_idx}">
+									<input type="hidden" name="doc_idx" value="${ row.doc_idx }" />
+								</form>
+								
 								<li>
 									<span class="img">
-										<c:if test="${ row.photo == 'null' }">
+										<!-- ****************** DB 업데이트 후 결과 확인 필요 *****************  -->
+										<c:if test="${ row.photo == 'NULL' }">
 											<img src="/images/doctor.png" alt="" />
 										</c:if>
-										<c:if test="${ row.photo != 'null' }">
+										<c:if test="${ row.photo != 'NULL' }">
 											<img src="/uploads/${ row.photo }" alt="" />
 										</c:if>
 									</span>
 									<div class="info">
 										<div class="info_top">
-											<h3>${ row.doctorname }</h3>
+											<h3>${ row.name }</h3>
 											<div class="detail">
 												<div class="details">
 													<p class="blue">전공</p>
@@ -59,14 +77,17 @@
 									
 									<!-- 하단 메뉴(버튼) -->
 									<div class="board_btn">
-										<button type="button">수정</button>
-										<button type="button">삭제</button>
+										<button type="button" onclick="location.href='/doctor/editDoctor.do?doc_idx=${ row.doc_idx }';">수정</button>
+										<button type="button" onclick="deleteDoctor(${ row.doc_idx });">삭제</button>
 									</div>
 								</li>
 							</c:forEach>
 						</ul>
 					</c:otherwise>
 				</c:choose>
+				
+				<button type="button" onclick="location.href='/doctor/writeDoctor.do'">의료진 추가하기</button>
+				
 				
 			</div>
 		</div>
