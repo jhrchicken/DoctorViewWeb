@@ -102,19 +102,12 @@
 																		<p>${ hashrow.tag }</p>
 																		<p>해시태그</p>
 																	</li>
-																	<li class="hash">
-																		<p>해시태그</p>
-																	</li>
-																	<li class="hash">
-																		<p>해시태그</p>
-																	</li>
 																</c:if>
 															</c:forEach>
 														</ul>
 													</div>
 												</c:if>
 											</c:if>
-											
 											<div class="info_right">
 												<p class="like">${ row.likecount }</p>
 												<p class="star">${ row.score } (${ row.reviewcount })</p>
