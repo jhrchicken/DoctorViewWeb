@@ -47,17 +47,18 @@
 						</tr>
 					</c:when>
 					<c:otherwise>
-						<ul class="hospital">
-							<c:forEach items="${ hospList }" var="row" varStatus="loop">
-									<li>
-										<span class="img">
-											<c:if test="${ row.photo == 'NULL' }">
-												<img src="/images/hospital.png" alt=""></img>
-											</c:if>
-											<c:if test="${ row.photo != 'NULL' }">
-												<img src="/uploads/${ row.photo }">
-											</c:if>
-										</span>
+						<c:forEach items="${ hospList }" var="row" varStatus="loop">
+							<ul class="hospital">
+								<li>
+									<span class="img">
+										<c:if test="${ row.photo == null }">
+											<img src="/images/doctor.png" alt=""></img>
+										</c:if>
+										<c:if test="${ row.photo != null }">
+											<img src="/uploads/${ row.photo }">
+										</c:if>
+									</span>
+									<div class="info">
 										<div class="info">
 											<div class="info_top">
 												<div class="hosp_name">
@@ -101,30 +102,24 @@
 																		<p>${ hashrow.tag }</p>
 																		<p>해시태그</p>
 																	</li>
-																	<li class="hash">
-																		<p>해시태그</p>
-																	</li>
-																	<li class="hash">
-																		<p>해시태그</p>
-																	</li>
 																</c:if>
 															</c:forEach>
 														</ul>
 													</div>
 												</c:if>
 											</c:if>
-											
 											<div class="info_right">
 												<p class="like">${ row.likecount }</p>
 												<p class="star">${ row.score } (${ row.reviewcount })</p>
 											</div>
 											
 										</div>
-										<!-- 이거 요청명 수정해야 함 -->
-										<a href="./hospital/viewHosp.do"><span class="blind">병원 바로가기</span></a>
-									</li>
-							</c:forEach>
-						</ul>
+									</div>	
+									<!-- 이거 요청명 수정해야 함 -->
+									<a href="./hospital/viewHosp.do?api_idx=${ row.api_idx }"><span class="blind">병원 바로가기</span></a>
+								</li>
+							</ul>
+						</c:forEach>
 					</c:otherwise>
 				</c:choose>
 			</div>

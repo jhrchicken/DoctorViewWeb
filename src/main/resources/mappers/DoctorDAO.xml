@@ -129,7 +129,7 @@
 	</select>
 	
 	<!-- 닉네임 인출: 리뷰 작성자 닉네임 인출 -->
-		<select id="selectReviewNickname"
+	<select id="selectReviewNickname"
 		parameterType="com.edu.springboot.doctor.DreviewDTO">
 		SELECT nickname FROM member WHERE id=#{writer_ref}
 	</select>
