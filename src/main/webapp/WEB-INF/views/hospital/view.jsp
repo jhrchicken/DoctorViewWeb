@@ -84,7 +84,7 @@ function validateReplyForm(form) {
 				<!-- 병원 사진 -->
 				<c:if test="${ hospitalDTO.photo == null }">
 					<span class="img">
-						<img src="/images/doctor.png" alt="" />
+						<img src="/images/hospital.png" alt="" />
 					</span>
 				</c:if>
 				<c:if test="${ hospitalDTO.photo != null }">
