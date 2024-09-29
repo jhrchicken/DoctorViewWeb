@@ -26,7 +26,7 @@
 	        <h2>나의 이모지</h2>
 	        
 	        <h2>이모지 상점</h2>
-	        <p>이모지를 구매해보세욧</p>
+	        <p>이모지를 구매해보세욧</p> 
 	        <c:if test="${ not empty userId }">
 		        <p>${ userEmoji }${ userId }님의 보유 포인트: ${ memberDTO.point }p</p>
 	        </c:if>
