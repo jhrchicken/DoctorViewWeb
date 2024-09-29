@@ -6,12 +6,45 @@
 	
 <mapper namespace="com.edu.springboot.board.IBoardService">
 	
-	<!-- 게시글 목록: 로그인 사용자가 작성한 게시글의 개수를 카운트 -->
+	<!-- 베스트 게시판: 베스트 게시판의 게시글 개수를 카운트 -->
+	<select id="countBestPost">
+		SELECT COUNT(*)
+	    FROM (
+	        SELECT recodenum 
+	        FROM likes
+	        WHERE tablename = 'board'
+	        GROUP BY recodenum
+	        HAVING COUNT(*) >= 1
+	    )
+	</select>
+	
+	<!-- 베스트 게시판: 베스트 게시판에서 한 페이지에 출력할 게시글을 인출 -->
+	<select id="listBestPost"
+		resultType="com.edu.springboot.board.BoardDTO"
+		parameterType="com.edu.springboot.board.ParameterDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM board
+				WHERE board_idx IN (
+					SELECT recodenum FROM likes
+					WHERE tablename = 'board'
+					GROUP BY recodenum
+					HAVING COUNT(*) >= 1
+				)
+				ORDER BY board_idx DESC
+			) Tb
+		)
+		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}
+	</select>
+
+
+	
+	<!-- 내가 쓴 글: 로그인 사용자가 작성한 게시글의 개수를 카운트 -->
 	<select id="countMyPost">
 		SELECT COUNT(*) FROM board WHERE writer_ref=#{param1}
 	</select>
 	
-	<!-- 게시글 목록: 로그인 한 사용자가 작성한 게시글에서 한 페이지에 출력할 게시글을 인출 -->
+	<!-- 내가 쓴 글: 로그인 한 사용자가 작성한 게시글에서 한 페이지에 출력할 게시글을 인출 -->
 	<select id="listMyPost"
 		resultType="com.edu.springboot.board.BoardDTO"
 		parameterType="com.edu.springboot.board.ParameterDTO">

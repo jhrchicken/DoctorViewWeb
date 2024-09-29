@@ -6,9 +6,16 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface IBoardService {
-	// 게시글 목록: 로그인 사용자가 작성한 게시글의 개수를 카운트
+	
+	// 베스트 게시판: 베스트 게시판의 게시글 개수를 카운트
+	public int countBestPost();
+	// 베스트 게시판: 베스트 게시판에서 한 페이지에 출력할 게시글을 인출
+	public ArrayList<BoardDTO> listBestPost(ParameterDTO parameterDTO);
+	
+	
+	// 내가 쓴 글: 로그인 사용자가 작성한 게시글의 개수를 카운트
 	public int countMyPost(String id);
-	// 게시글 목록: 로그인 한 사용자가 작성한 게시글에서 한 페이지에 출력할 게시글을 인출
+	// 내가 쓴 글: 로그인 한 사용자가 작성한 게시글에서 한 페이지에 출력할 게시글을 인출
 	public ArrayList<BoardDTO> listMyPost(String id, int start, int end);
 	
 	
