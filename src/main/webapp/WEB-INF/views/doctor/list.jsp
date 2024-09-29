@@ -62,8 +62,9 @@
 									</span>
 									<div class="info">
 										<div class="info_top">
-											<p>${ row.hospname }</p>
 											<h3>${ row.name }</h3>
+											<p>${ row.hospname }</p>
+										</div>
 										<div class="detail">
 											<div class="details">
 												<p class="blue">전공</p>
@@ -84,21 +85,19 @@
 										</div>
 										<a href="./doctor/viewDoctor.do?doc_idx=${ row.doc_idx }"><span class="blind">의사 바로가기</span></a>
 									</div>
-								</div>
-							</li>
+								</li>
 							</c:forEach>
 						</ul>
 					</c:otherwise>
 				</c:choose>
-			    
-			    <!-- 페이지네이션 -->
+			</div>
+			
+			<!-- 페이지네이션 -->
 				<div class="pagination">
 					<div class="pagination_inner">
 						${ pagingImg }
 					</div>
 				</div>	
-
-			</div>
 		</div>
 	</div>
 </main>
