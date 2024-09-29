@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰 | 병원 찾기</title>
+<title>닥터뷰 | 찜한 병원</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/hosp-list.css" />
 </head>
@@ -16,27 +16,8 @@
 	<div class="content">
 		<div class="content_inner">
 			<div class="list_title">
-				<h2>병원 찾기</h2>
+				<h2>찜한 병원</h2>
 				<p>병원명, 지역명, 해시태그 등으로 검색해보세요</p>
-			</div>
-			
-			<!-- 이거 다 수정 필요 -->
-			<div class="list_search">
-				<form class="searchForm" name="searchForm">
-					<div class="search_city">
-						<!-- 광역시도 선택 (필수) -->
-						<!-- <select name="searchSido" class="searchField">
-							<option value="sido">-- 광역시도 선택 --</option>
-							<option value="seoul">서울특별시</option>
-							<option value="busan">부산광역시</option>
-							<option value="incheon">인천광역시</option>
-						</select> -->
-						
-						
-						<input name="searchWord" class="searchKeyword" type="text" placeholder="병원명을 검색하세요">
-						<input type="submit" class="search_btn" value="">
-					</div>
-				</form>
 			</div>
 			
 			<div class="list">
@@ -113,9 +94,8 @@
 											</div>
 											
 										</div>
-									</div>	
-									<!-- 이거 요청명 수정해야 함 -->
-									<a href="./hospital/viewHosp.do?api_idx=${ row.api_idx }"><span class="blind">병원 바로가기</span></a>
+									</div>
+									<a href="../hospital/viewHosp.do?api_idx=${ row.api_idx }"><span class="blind">병원 바로가기</span></a>
 								</li>
 							</c:forEach>
 						</ul>

@@ -14,8 +14,9 @@ public class HreviewDTO {
 	private int cost;
 	private String treat;
 	private String doctor;
+	private String rewrite;
 	private String writer_ref;
-	private String hosp_ref;
+	private String api_ref;
 	
 	private String nickname;
 	private int likecount;
