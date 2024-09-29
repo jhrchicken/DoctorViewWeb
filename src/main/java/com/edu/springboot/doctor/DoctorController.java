@@ -183,23 +183,6 @@ public class DoctorController {
 		return "redirect:../doctor.do";
 	}
 	
-	@GetMapping("/doctor/clickDocLike.do")
-	public String clickLikeGet(HttpServletRequest req, HttpSession session) {
-		// 좋아요 여부 확인
-		String id = (String) session.getAttribute("userId");
-		String doc_idx = req.getParameter("doc_idx");
-		int likecheck = doctorDAO.checkDocLike(id, doc_idx);
-		if (likecheck == 0) {
-			// 좋아요 증가
-			doctorDAO.plusDocLike(id, doc_idx);
-		}
-		else {
-			// 좋아요 취소
-			doctorDAO.minusDocLike(id, doc_idx);
-		}
-		return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_idx;
-	}
-	
 	@PostMapping("/doctor/writeReview.do")
 	public String writeReviewPost(HttpServletRequest req, HttpSession session) {
 		// 폼값
@@ -232,6 +215,58 @@ public class DoctorController {
 		return "redirect:../doctor/viewDoctor.do?doc_idx=" + req.getParameter("doc_ref");
 	}
 	
+
+	
+	@PostMapping("/doctor/writeReply.do")
+	public String writeReplyPost(HttpServletRequest req, HttpSession session) {
+		// 폼값
+		int doc_ref = Integer.parseInt(req.getParameter("doc_ref"));
+		int review_idx = Integer.parseInt(req.getParameter("review_idx"));
+		String content = req.getParameter("content");
+		// 세션에 저장된 로그인 아이디
+		String id = (String) session.getAttribute("userId");
+		// 답변 작성
+		doctorDAO.writeReply(review_idx, content, id, doc_ref);
+		return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_ref;
+	}
+	
+	@PostMapping("/doctor/editReply.do")
+	public String editReplyPost(HttpServletRequest req) {
+		// 폼값
+		int doc_ref = Integer.parseInt(req.getParameter("doc_ref"));
+		int review_idx = Integer.parseInt(req.getParameter("review_idx"));
+		String content = req.getParameter("content");
+		// 답변 수정
+		doctorDAO.editReply(review_idx, content);
+		return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_ref;
+	}
+	
+	@PostMapping("/doctor/deleteReply.do")
+	public String deleteReplyGet(HttpServletRequest req) {
+		doctorDAO.deleteReply(Integer.parseInt(req.getParameter("review_idx")));
+		return "redirect:../doctor/viewDoctor.do?doc_idx=" + req.getParameter("doc_ref");
+	}
+
+	
+	
+	
+	@GetMapping("/doctor/clickDocLike.do")
+	public String clickLikeGet(HttpServletRequest req, HttpSession session) {
+		// 좋아요 여부 확인
+		String id = (String) session.getAttribute("userId");
+		String doc_idx = req.getParameter("doc_idx");
+		int likecheck = doctorDAO.checkDocLike(id, doc_idx);
+		if (likecheck == 0) {
+			// 좋아요 증가
+			doctorDAO.plusDocLike(id, doc_idx);
+		}
+		else {
+			// 좋아요 취소
+			doctorDAO.minusDocLike(id, doc_idx);
+		}
+		return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_idx;
+	}
+	
 	@GetMapping("/doctor/clickReviewLike.do")
 	public String clickReviewGet(HttpServletRequest req, HttpSession session) {
 		// 좋아요 여부 확인
@@ -249,35 +284,4 @@ public class DoctorController {
 		}
 		return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_ref;
 	}
-	
-	@PostMapping("/doctor/writeReply.do")
-	public String writeReplyPost(HttpServletRequest req, HttpSession session) {
-		// 폼값
-		int doc_ref = Integer.parseInt(req.getParameter("doc_ref"));
-		int review_idx = Integer.parseInt(req.getParameter("review_idx"));
-		String content = req.getParameter("content");
-		// 세션에 저장된 로그인 아이디
-		String id = (String) session.getAttribute("userId");
-		// 리뷰 작성
-		doctorDAO.writeReply(review_idx, content, id, doc_ref);
-		return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_ref;
-	}
-	
-	@PostMapping("/doctor/editReply.do")
-	public String editReplyPost(HttpServletRequest req) {
-		// 폼값
-		int doc_ref = Integer.parseInt(req.getParameter("doc_ref"));
-		int review_idx = Integer.parseInt(req.getParameter("review_idx"));
-		String content = req.getParameter("content");
-		// 댓글 수정
-		doctorDAO.editReply(review_idx, content);
-		return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_ref;
-	}
-	
-	@PostMapping("/doctor/deleteReply.do")
-	public String deleteReplyGet(HttpServletRequest req) {
-		doctorDAO.deleteReply(Integer.parseInt(req.getParameter("review_idx")));
-		return "redirect:../doctor/viewDoctor.do?doc_idx=" + req.getParameter("doc_ref");
-	}
-
 }

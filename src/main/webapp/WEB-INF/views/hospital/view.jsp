@@ -13,44 +13,47 @@
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/doc-view.css" />
 <script>
-function deleteReview(doc_ref, review_idx) {
+function deleteReview(api_ref, review_idx) {
 	if (confirm("댓글을 삭제하시겠습니까?")) {
 		var form = document.deleteReviewForm;
 		// hidden 필드에 값을 동적으로 설정
-        form.doc_ref.value = doc_ref;
+        form.api_ref.value = api_ref;
         form.review_idx.value = review_idx;
 		form.method = "post";
-		form.action = "/doctor/deleteReview.do";
+		form.action = "/hospital/deleteReview.do";
 		form.submit();
 	}
 }
-function deleteReply(doc_ref, review_idx) {
+function deleteReply(api_ref, review_idx) {
 	if (confirm("답변을 삭제하시겠습니까?")) {
 		var form = document.deleteReplyForm;
 		// hidden 필드에 값을 동적으로 설정
-        form.doc_ref.value = doc_ref;
+        form.api_ref.value = api_ref;
         form.review_idx.value = review_idx;
 		form.method = "post";
-		form.action = "/doctor/deleteReply.do";
+		form.action = "/hospital/deleteReply.do";
 		form.submit();
 	}
 }
 
-function openReviewWriteModal(doc_idx) {
-	document.getElementById("doc_idx").value = doc_idx;
+function openReviewWriteModal(api_idx) {
+	document.getElementById("review_write_api_idx").value = api_idx;
 }
-function openReviewEditModal(doc_ref, review_idx, score, content) {
-	document.getElementById("doc_ref").value = doc_ref;
-    document.getElementById("score").value = score;
-    document.getElementById("content").value = content;
-    document.getElementById("review_idx").value = review_idx;
+function openReviewEditModal(api_ref, review_idx, score, content, cost, treat, doctor) {
+	document.getElementById("review_edit_api_ref").value = api_ref;
+    document.getElementById("review_edit_score").value = score;
+    document.getElementById("review_edit_content").value = content;
+    document.getElementById("review_edit_cost").value = cost;
+    document.getElementById("review_edit_treat").value = treat;
+    document.getElementById("review_edit_doctor").value = doctor;
+    document.getElementById("review_edit_review_idx").value = review_idx;
 }
-function openReplyWriteModal(doc_ref, review_idx) {
-	document.getElementById("reply_doc_ref").value = doc_ref;
-    document.getElementById("reply_review_idx").value = review_idx;
+function openReplyWriteModal(api_ref, review_idx) {
+	document.getElementById("reply_write_api_ref").value = api_ref;
+    document.getElementById("reply_write_review_idx").value = review_idx;
 }
-function openReplyEditModal(doc_ref, review_idx, content) {
-	document.getElementById("reply_edit_doc_ref").value = doc_ref;
+function openReplyEditModal(api_ref, review_idx, content) {
+	document.getElementById("reply_edit_api_ref").value = api_ref
     document.getElementById("reply_edit_content").value = content;
     document.getElementById("reply_edit_review_idx").value = review_idx;
 }
@@ -126,23 +129,17 @@ function validateReplyForm(form) {
 						<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
 						<c:if test="${ hosplikecheck == 0 }">
 							<div class="like_wrap">
-								<button type="button" onclick="location.href='../hospital/clickHospLike.do?hospId=${ param.id }';"></button>
+								<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';"></button>
 								<p class="like">${ hospitalDTO.likecount }</p>
 							</div>
 						</c:if>
 						<!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
 						<c:if test="${ hosplikecheck == 1 }">
 							<div class="like_wrap">
-								<button class="push" type="button" onclick="location.href='../hospital/clickHospLike.do?hospId=${ param.id }';"></button>
+								<button class="push" type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';"></button>
 								<p class="like">${ hospitalDTO.likecount }</p>
 							</div>
 						</c:if>
-					</div>
-					
-					<!-- 하단 메뉴(버튼) -->
-					<div class="board_btn">
-						<button type="button" onclick="location.href='../doctor/editDoctor.do?doc_idx=${ param.doc_idx }';">수정하기</button>
-						<button type="button" onclick="deleteDoctor(${ param.doc_idx });">삭제하기</button>
 					</div>
 				</div>
 			</div>
@@ -151,18 +148,18 @@ function validateReplyForm(form) {
 		<div class="comment_inner">
 			<!-- 댓글 -->
 			<form name="deleteReviewForm" method="post">
-			    <input type="hidden" name="doc_ref" value="" />
+			    <input type="hidden" name="api_ref" value="" />
 			    <input type="hidden" name="review_idx" value="" />
 			</form>
 			<form name="deleteReplyForm" method="post">
-			    <input type="hidden" name="doc_ref" value="" />
+			    <input type="hidden" name="api_ref" value="" />
 			    <input type="hidden" name="review_idx" value="" />
 			</form>
 			<!-- 로그인 한 경우 리뷰 작성 버튼 -->
 	  		<c:if test="${ not empty sessionScope.userId }">
 		  		<div class="comment_btn">
 			  		<button type="button" data-bs-toggle="modal" data-bs-target="#writeReviewModal"
-			  			onclick="openReviewWriteModal(${ param.doc_idx })">
+			  			onclick="openReviewWriteModal(${ param.api_idx })">
 		                리뷰 작성하기
 		            </button>
 	  			</div>
@@ -181,7 +178,7 @@ function validateReplyForm(form) {
 				</thead>
 				<tbody>
 					<c:choose>
-						<c:when test="${ empty reviewsList }">
+						<c:when test="${ empty reviewList }">
 							<tr>
 								<td colspan="8" align="center">
 									댓글을 남겨보세요
@@ -189,7 +186,7 @@ function validateReplyForm(form) {
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach items="${ reviewsList }" var="row" varStatus="loop">
+							<c:forEach items="${ reviewList }" var="row" varStatus="loop">
 								<c:if test="${ row.original_idx == row.review_idx }">
 									
 								    <!-- 리뷰 출력 -->
@@ -203,10 +200,10 @@ function validateReplyForm(form) {
 								            <!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->
 								            <c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
 								                <button type="button" data-bs-toggle="modal" data-bs-target="#editReviewModal"
-								                        onclick="openReviewEditModal(${ row.doc_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }')">
+								                        onclick="openReviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', ${ row.cost }, '${ row.treat }', '${ row.doctor }'">
 								                    수정
 								                </button>
-								                <button type="button" onclick="deleteReview(${ row.doc_ref }, ${ row.review_idx });">
+								                <button type="button" onclick="deleteReview(${ row.api_ref }, ${ row.review_idx });">
 								                    삭제
 								                </button>
 								            </c:if>
@@ -214,24 +211,24 @@ function validateReplyForm(form) {
 								        <td>
 								            <div class="comm_write_btn">
 								                <button type="button" data-bs-toggle="modal" data-bs-target="#writeReplyModal"
-								                        onclick="openReplyWriteModal(${ row.doc_ref }, ${ row.review_idx })">
+								                        onclick="openReplyWriteModal(${ row.api_ref }, ${ row.review_idx })">
 								                    답변 작성하기
 								                </button>
 								            </div>
 								        </td>
 								        <td>
-								            <div class="comm_like_btn">
+								        	<div class="comm_like_btn">
 								                <!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
 								                <c:if test="${ reviewlikecheck == 0 }">
 								                	<div class="like_wrap">
-									                    <button type="button" onclick="location.href='../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }';"></button>
+									                    <button type="button" onclick="location.href='../hospital/clickReviewLike.do?api_ref=${ row.api_ref }&review_idx=${ row.review_idx }';"></button>
 								                        <p class="like">${ row.likecount }</p>
 								                	</div>
 								                </c:if>
 								                <!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
 								                <c:if test="${ reviewlikecheck == 1 }">
 								                    <div class="like_wrap">
-									                    <button class="push" type="button" onclick="location.href='../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }';"></button>
+									                    <button class="push" type="button" onclick="location.href='../hospital/clickReviewLike.do?api_ref=${ row.api_ref }&review_idx=${ row.review_idx }';"></button>
 								                        <p class="like">${ row.likecount }</p>
 								                    </div>
 								                </c:if>
@@ -241,10 +238,10 @@ function validateReplyForm(form) {
 							    </c:if>
 							
 							    <!-- 리뷰에 대한 답변 출력 -->
-							    <c:forEach items="${ reviewsList }" var="replyRow">
+							    <c:forEach items="${ reviewList }" var="replyRow">
 							        <c:if test="${ replyRow.original_idx == row.review_idx and replyRow.review_idx != replyRow.original_idx }">
 							            <tr class="replyRow" align="center">
-							                <td class="writer reply">하하${ replyRow.nickname }</td>
+							                <td class="writer reply">-> ${ replyRow.nickname }</td>
 							                <td class="content reply" align="left">${ replyRow.content }</td>
 							                <td class="score"></td>
 							                <td class="postdate">${ replyRow.postdate }</td>
@@ -253,10 +250,10 @@ function validateReplyForm(form) {
 							                    <!-- 로그인 사용자와 답변 작성자가 일치하는 경우 수정 삭제 버튼 -->
 							                    <c:if test="${ replyRow.writer_ref.equals(sessionScope.userId) }">
 							                        <button type="button" data-bs-toggle="modal" data-bs-target="#editReplyModal"
-							                                onclick="openReplyEditModal(${ replyRow.doc_ref }, ${ replyRow.review_idx }, '${ replyRow.content }')">
+							                                onclick="openReplyEditModal(${ replyRow.api_ref }, ${ replyRow.review_idx }, '${ replyRow.content }')">
 							                            수정
 							                        </button>
-							                        <button type="button" onclick="deleteReply(${ replyRow.doc_ref }, ${ replyRow.review_idx });">
+							                        <button type="button" onclick="deleteReply(${ replyRow.api_ref }, ${ replyRow.review_idx });">
 							                            삭제
 							                        </button>
 							                    </c:if>
@@ -275,8 +272,8 @@ function validateReplyForm(form) {
 <%@include file="../common/main_footer.jsp" %>
    
 <!-- 리뷰 작성 모달창 -->
-<form method="post" action="../doctor/writeReview.do" onsubmit="return validateReviewForm(this);">
-	<input type="hidden" id="doc_idx" name="doc_idx" value="" />
+<form method="post" action="../hospital/writeReview.do" onsubmit="return validateReviewForm(this);">
+	<input type="hidden" id="review_write_api_idx" name="api_idx" value="" />
 	<div class="modal" id="writeReviewModal" >
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -287,9 +284,11 @@ function validateReplyForm(form) {
 				</div>
 				<!-- Modal Body -->
 				<div class="modal-body">
-	
-					<textarea class="form-control mb-3" name="score" style="height: 20px;" placeholder="점수를 입력하세요 (1~5)"></textarea>
-					<textarea class="form-control" name="content" style="height: 100px;" placeholder="내용을 입력하세요"></textarea>
+					<textarea class="form-control mb-3" name="score" style="height: 20px;" placeholder="점수(1-5) *"></textarea>
+					<textarea class="form-control mb-3" name="content" style="height: 100px;" placeholder="내용 *"></textarea>
+					<textarea class="form-control mb-3" name="cost" style="height: 20px;" placeholder="비용"></textarea>
+					<textarea class="form-control mb-3" name="treat" style="height: 20px;" placeholder="치료 내용"></textarea>
+					<textarea class="form-control mb-3" name="doctor" style="height: 20px;" placeholder="의사"></textarea>
 				</div>
 				<!-- Modal Footer -->
 				<div class="modal-footer">
@@ -302,21 +301,24 @@ function validateReplyForm(form) {
 </form>
 
 <!-- 리뷰 수정 모달창 -->
-<form method="post" action="../doctor/editReview.do" onsubmit="return validateReviewForm(this);">
-	<input type="hidden" id="doc_ref" name="doc_ref" value="" />
+<form method="post" action="../hospital/editReview.do" onsubmit="return validateReviewForm(this);">
+	<input type="hidden" id="review_edit_api_ref" name="api_ref" value="" />
 	<div class="modal" id="editReviewModal" >
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<!-- Modal Header -->
 				<div class="modal-header">
-					<h4 class="modal-title">의사 리뷰 수정</h4>
+					<h4 class="modal-title">병원 리뷰 수정</h4>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<!-- Modal Body -->
 				<div class="modal-body">
-					<input type="hidden" id="review_idx" name="review_idx" value="">
-					<textarea class="form-control mb-3" id="score" name="score" style="height: 20px;"></textarea>
-					<textarea class="form-control" id="content" name="content" style="height: 100px;"></textarea>
+					<input type="hidden" id="review_edit_review_idx" name="review_idx" value="">
+					<textarea class="form-control mb-3" id="review_edit_score" name="score" style="height: 20px;"></textarea>
+					<textarea class="form-control mb-3" id="review_edit_content" name="content" style="height: 100px;"></textarea>
+					<textarea class="form-control mb-3" id="review_edit_cost" name="cost" style="height: 20px;"></textarea>
+					<textarea class="form-control mb-3" id="review_edit_treat" name="treat" style="height: 20px;"></textarea>
+					<textarea class="form-control mb-3" id="review_edit_doctor" name="doctor" style="height: 20px;"></textarea>
 				</div>
 				<!-- Modal Footer -->
 				<div class="modal-footer">
@@ -329,9 +331,9 @@ function validateReplyForm(form) {
 </form>
 
 <!-- 답변 작성 모달창 -->
-<form method="post" action="../doctor/writeReply.do" onsubmit="return validateReplyForm(this);">
-	<input type="hidden" id="reply_doc_ref" name="doc_ref" value="" />
-	<input type="hidden" id="reply_review_idx" name="review_idx" value="" />
+<form method="post" action="../hospital/writeReply.do" onsubmit="return validateReplyForm(this);">
+	<input type="hidden" id="reply_write_api_ref" name="api_ref" value="" />
+	<input type="hidden" id="reply_write_review_idx" name="review_idx" value="" />
 	<div class="modal" id="writeReplyModal" >
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -355,14 +357,14 @@ function validateReplyForm(form) {
 </form>
 
 <!-- 답변 수정 모달창 -->
-<form method="post" action="../doctor/editReply.do" onsubmit="return validateReplyForm(this);">
-	<input type="hidden" id="reply_edit_doc_ref" name="doc_ref" value="" />
+<form method="post" action="../hospital/editReply.do" onsubmit="return validateReplyForm(this);">
+	<input type="hidden" id="reply_edit_api_ref" name="api_ref" value="" />
 	<div class="modal" id="editReplyModal" >
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<!-- Modal Header -->
 				<div class="modal-header">
-					<h4 class="modal-title">의사 답변 수정</h4>
+					<h4 class="modal-title">병원 답변 수정</h4>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<!-- Modal Body -->
