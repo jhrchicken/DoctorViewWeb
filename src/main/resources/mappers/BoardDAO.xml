@@ -46,8 +46,7 @@
 	
 	<!-- 내가 쓴 글: 로그인 한 사용자가 작성한 게시글에서 한 페이지에 출력할 게시글을 인출 -->
 	<select id="listMyPost"
-		resultType="com.edu.springboot.board.BoardDTO"
-		parameterType="com.edu.springboot.board.ParameterDTO">
+		resultType="com.edu.springboot.board.BoardDTO">
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
 				SELECT * FROM board WHERE writer_ref=#{param1}
@@ -56,6 +55,41 @@
 		)
 		WHERE rNum<![CDATA[>=]]>#{param2} AND rNum<![CDATA[<=]]>#{param3}
 	</select>
+	
+	
+	<!-- 댓글 단 글: 로그인 사용자가 댓글을 작성한 게시물의 개수를 카운트 -->
+	<select id="countMyComment">
+		SELECT COUNT(*)
+	    FROM (
+	        SELECT board_ref 
+	        FROM comments
+	        WHERE writer_ref=#{param1}
+	        GROUP BY board_ref
+	    )
+	</select>
+	
+	<!-- 댓글 단 글: 로그인 사용자가 댓글을 작성한 게시글에서 한 페이지에 출력할 게시글을 인출 -->
+	<select id="listMyComment"
+		resultType="com.edu.springboot.board.BoardDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM board
+				WHERE board_idx IN (
+					SELECT board_ref 
+			        FROM comments
+			        WHERE writer_ref=#{param1}
+			        GROUP BY board_ref
+				)
+				ORDER BY board_idx DESC
+			) Tb
+		)
+		WHERE rNum<![CDATA[>=]]>#{param2} AND rNum<![CDATA[<=]]>#{param3}
+	</select>
+	
+	
+	
+	
+	
 	
 	
 	

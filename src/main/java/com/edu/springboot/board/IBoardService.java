@@ -15,8 +15,20 @@ public interface IBoardService {
 	
 	// 내가 쓴 글: 로그인 사용자가 작성한 게시글의 개수를 카운트
 	public int countMyPost(String id);
-	// 내가 쓴 글: 로그인 한 사용자가 작성한 게시글에서 한 페이지에 출력할 게시글을 인출
+	// 내가 쓴 글: 로그인 사용자가 작성한 게시글에서 한 페이지에 출력할 게시글을 인출
 	public ArrayList<BoardDTO> listMyPost(String id, int start, int end);
+	
+	// 댓글 단 글: 로그인 사용자가 댓글을 작성한 게시물의 개수를 카운트
+	public int countMyComment(String id);
+	// 댓글 단 글: 로그인 사용자가 댓글을 작성한 게시글에서 한 페이지에 출력할 게시글을 인출
+	public ArrayList<BoardDTO> listMyComment(String id, int start, int end);
+
+	
+	
+	
+	
+	
+	
 	
 	
 	// 닉네임 인출: 게시글 작성자 닉네임 인출
