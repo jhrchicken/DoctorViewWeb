@@ -19,6 +19,12 @@
 	        <!-- user 정보 및 상점이동 -->
 	        <div class="btn_wrap">
 			    <p>${ userEmoji } ${ userId }님</p>
+				<c:if test="${ not empty memberDTO.point }">
+				    <p>보유 포인트: ${ memberDTO.point }p</p>
+				</c:if>
+				<c:if test="${ empty memberDTO.point }">
+				    <p>보유 포인트: 0 p</p>
+				</c:if>
 			    <a href="/store.do">상점으로 이동</a>
 		    </div>
 		    

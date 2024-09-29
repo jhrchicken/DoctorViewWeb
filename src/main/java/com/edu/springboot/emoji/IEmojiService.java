@@ -19,6 +19,10 @@ public interface IEmojiService {
 	// 회원의 활성화된 이모지 정보 업데이트
 	public int userEmojiUpdate(EmojiDTO emojiDTO);
 	
+	// 회원 이모지 구매
+	public int userBuyEmoji(EmojiDTO emojiDTO);
+
+	
 	
 	
 }

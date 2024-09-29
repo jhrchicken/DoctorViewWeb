@@ -115,6 +115,18 @@
     	resultType="com.edu.springboot.member.DoctorDTO">
         SELECT * FROM doctor WHERE hosp_ref = #{id}
     </select>
-	
+    
+    <!-- user 포인트 정보 가져오기 -->
+	<select id="userPoint" 
+    	parameterType="String"
+    	resultType="com.edu.springboot.member.MemberDTO">
+        SELECT * FROM member WHERE id = #{id}
+    </select>
+    
+   	<!-- 유저 포인트 감소 -->
+	<update id="decreaseUserPoint"
+		parameterType="com.edu.springboot.member.MemberDTO">
+		UPDATE member SET point=#{point} WHERE id = #{id}
+	</update>
 	
 </mapper>

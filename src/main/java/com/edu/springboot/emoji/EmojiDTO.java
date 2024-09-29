@@ -11,4 +11,5 @@ public class EmojiDTO {
 	
 	// 추가 컬럼
 	private String title;
+	
 }

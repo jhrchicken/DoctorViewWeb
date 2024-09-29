@@ -13,6 +13,7 @@ public class BoardDTO {
 	private String content;
 	private int visitcount;
 	private String writer_ref;
+	
 	private String nickname;
 	private int likecount;
 	private int commentcount;

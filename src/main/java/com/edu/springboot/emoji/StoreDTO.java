@@ -1,4 +1,4 @@
-package com.edu.springboot.store;
+package com.edu.springboot.emoji;
 
 import lombok.Data;
 

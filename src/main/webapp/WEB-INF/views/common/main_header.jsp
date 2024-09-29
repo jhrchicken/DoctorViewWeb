@@ -25,10 +25,10 @@
 						<ul>
 							<li><a href="${pageContext.request.contextPath}/freeboard.do">자유게시판</a></li>
 							<li><a href="${pageContext.request.contextPath}/qnaboard.do">상담게시판</a></li>
-							<li><a href="#">베스트 글</a></li>
-							<li><a href="#">내가 쓴 글</a></li>
-							<li><a href="#">댓글 단 글</a></li>
-							<li><a href="#">답변을 기다리는 글</a></li>
+							<li><a href="${pageContext.request.contextPath}/board/bestPost.do">베스트게시판</a></li>
+							<li><a href="${pageContext.request.contextPath}/board/myPost.do">내가 쓴 글</a></li>
+							<li><a href="${pageContext.request.contextPath}/board/myComment.do">댓글 단 글</a></li>
+							<li><a href="${pageContext.request.contextPath}/board/waitComment.do">댓글을 기다리는 글</a></li>
 						</ul>
 					</div>
 				</li>

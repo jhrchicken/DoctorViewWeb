@@ -66,7 +66,7 @@ $(function() {
           <table class="regist">
             <tr>
               <td class="left">아이디</td>
-              <td>
+              <td class="id">
 			  	<input type="text" name="id" value="${ loginUserInfo.id }" maxlength="15" readonly/>
 			  </td>
             </tr>
@@ -85,7 +85,7 @@ $(function() {
             </tr>
             <tr>
               <td class="left">닉네임</td>
-              <td>
+              <td class="nick">
                 <input type="text" name="nickname" value="${ loginUserInfo.nickname }" placeholder="닉네임*" />
                 <button class="random" type="button" name="randomNickname" id="randimNickname"><span class="blind">랜덤 추천</span></button>
               </td>
@@ -100,7 +100,7 @@ $(function() {
             </tr>
             <tr>
               <td class="left">이메일</td>
-              <td>
+              <td class="mail">
                 <input type="text" name="email1" value="${ email[0] }" placeholder="이메일*"> @
                 <input type="text" name="email2" id="email2" value="${ email[1] }" placeholder="naver.com"/>
 				<select id="emailDomainSelect">
@@ -134,10 +134,10 @@ $(function() {
               </td>
             </tr>
             
-	        <div class="btn_wrap">
-	          <input type="submit" value="수정하기" />
-	        </div>
           </table>    
+          <div class="btn_wrap">
+            <input type="submit" value="수정하기" />
+          </div>
         </form>
       </div>
     </div>

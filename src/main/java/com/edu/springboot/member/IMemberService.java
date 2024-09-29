@@ -1,11 +1,10 @@
 package com.edu.springboot.member;
 
-import java.lang.reflect.Member;
 import java.util.List;
 
-import javax.xml.crypto.Data;
-
 import org.apache.ibatis.annotations.Mapper;
+
+import com.edu.springboot.emoji.EmojiDTO;
 
 @Mapper
 public interface IMemberService {
@@ -63,7 +62,12 @@ public interface IMemberService {
 //	병원 상세정보 수정
 	public int updateHospDetail(DetailDTO detailDTO);
 
-	public int updateEmoji(MemberDTO memberDTO, String emoji_idx);
+//	보유한 포인트 정보 가져옴
+	public MemberDTO userPoint(String id);
+	
+//  회원 포인트 정보 감소
+	public int decreaseUserPoint(MemberDTO memberDTO);
+	
 	
 	
 }

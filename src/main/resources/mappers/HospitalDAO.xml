@@ -32,45 +32,162 @@
 		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}
 	</select>
 	
-	<!-- 병원 입점 여부 확인 -->
-	<select id="checkEnter">
+	<!-- 병원 API 조회 -->
+	<select id="viewHospApi"
+		resultType="com.edu.springboot.hospital.HospitalDTO"
+		parameterType="com.edu.springboot.hospital.HospitalDTO">
+		SELECT * FROM api WHERE api_idx=#{api_idx}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 병원 입점 여부 확인: 병원이름으로 입점 여부를 확인하여 아이디 추출 -->
+	<select id="selectHospId">
 		SELECT id FROM member WHERE name=#{param1}
 	</select>
 	
-	<!-- 병원 정보 조회: 병원의 의사정보를 DTO를 통해 받은 후 조회하고 결과를 다시 DTO에 저장 -->
+	<!-- 입점 병원 기본정보 조회 -->
 	<select id="viewHosp"
-		resultType="com.edu.springboot.hospital.HospitalDTO"
-		parameterType="com.edu.springboot.hospital.HospitalDTO">
+		resultType="com.edu.springboot.hospital.BasicDTO">
 		SELECT * FROM member WHERE id=#{id}
+	</select>
+	
+	<!-- 해시태그 목록: 병원 해시태그 목록 -->
+	<select id="listHashtag"
+		resultType="com.edu.springboot.hospital.HashtagDTO">
+		SELECT * FROM hashtag
+	</select>
+	
+	<!-- 입점 병원 상세정보 조회 -->
+	<select id="selectDetail"
+		resultType="com.edu.springboot.hospital.DetailDTO">
+		SELECT * FROM detail WHERE hosp_ref=#{id}
 	</select>
 	
 	
 	
 	
+	
+	
+	
+	<!-- 리뷰 목록: 병원에 해당하는 리뷰를 인출 -->
+	<select id="listReview"
+		resultType="com.edu.springboot.hospital.HreviewDTO"
+		parameterType="com.edu.springboot.hospital.HospitalDTO">
+		SELECT * FROM hreview WHERE api_ref=#{id}
+		ORDER BY review_idx DESC
+	</select>
+	
+	<!-- 리뷰 작성 -->
+	<insert id="writeReview">
+		INSERT INTO hreview (review_idx, original_idx, score, content, cost, treat, purpose, doctor, writer_ref, api_ref)
+		VALUES (seq_hreview_idx.nextval, seq_hreview_idx.nextval, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8})
+	</insert>
+	
+	<!-- 리뷰 수정 -->
+	<update id="editReview"
+		parameterType="com.edu.springboot.hospital.HreviewDTO">
+		UPDATE dereview SET score=#{param1}, content=#{param2}, cost=#{param3}, treat=#{param4}, purpose=#{param5}, doctor=#{param6}, rewrite='T'
+		WHERE review_idx=#{param1}
+	</update>
+	
+	<!-- 리뷰 삭제 -->
+	<delete id="deleteReview">
+		DELETE FROM dreview WHERE review_idx=#{param1}
+	</delete>
+	
+	
+	
+	<!-- 답변 작성 -->
+	<insert id="writeReply">
+		INSERT INTO hreview (review_idx, original_idx, content, writer_ref, doc_ref)
+		VALUES (seq_hreview_idx.nextval, #{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+	
+	<!-- 답변 수정 -->
+	<update id="editReply">
+		UPDATE hreview SET content=#{param2}, rewrite='T'
+		WHERE review_idx=#{param1}
+	</update>
+	
+	<!-- 답변 삭제 -->
+	<delete id="deleteReply">
+		DELETE FROM hreview WHERE review_idx=#{param1}
+	</delete>
+	
+	<!-- 리뷰 삭제에 대한 답변 삭제 -->
+	<select id="deleteAllReply">
+		DELETE FROM hreview WHERE original_idx=#{param1}
+	</select>
+	
+	
+	
+	<!-- 닉네임 인출: 리뷰 작성자 닉네임 인출 -->
+	<select id="selectReviewNickname"
+		parameterType="com.edu.springboot.hospital.HreviewDTO">
+		SELECT nickname FROM member WHERE id=#{writer_ref}
+	</select>
 	
 	
 	
 	<!-- 병원 좋아요: 병원 좋아요 수 조회 -->
 	<select id="countHospLike">
-		SELECT COUNT(*) FROM likes WHERE tablename='hospital' and recodenum=#{param1}
+		SELECT COUNT(*) FROM likes WHERE tablename='hospital' AND recodenum=#{param1}
 	</select>
 	
+	<!-- 병원 좋아요: 병원 졸아요 레코드 존재 여부 확인 -->
+	<select id="checkHospLike">
+		SELECT COUNT(*) FROM likes WHERE tablename='hospital' AND member_ref=#{param1} AND recodenum=#{param2}
+	</select>
 	
-
+	<!-- 병원 좋아요: 병원 좋아요 수 증가 -->
+	<insert id="plusHospLike">
+		INSERT INTO likes VALUES (seq_likes_idx.nextval, #{param1}, 'hospital', #{param2})
+	</insert>
+	
+	<!-- 병원 좋아요: 병원 좋아요 수 감소 -->
+	<delete id="minusHospLike">
+		DELETE FROM likes WHERE tablename='hospital' AND member_ref=#{param1} AND recodenum=#{param2}
+	</delete>
 	
 	
+	
+	<!-- 리뷰 좋아요: 리뷰 좋아요 수 조회 -->
+	<select id="countReviewLike">
+		SELECT COUNT(*) FROM likes WHERE tablename='hreview' AND recodenum=#{param1}
+	</select>
+	
+	<!-- 리뷰 좋아요: 리뷰 좋아요 레코드 존재 여부 확인 -->
+	<select id="checkReviewLike">
+		SELECT COUNT(*) FROM likes WHERE tablename='hreview' AND member_ref=#{param1} AND recodenum=#{param2}
+	</select>
+	
+	<!-- 리뷰 좋아요: 리뷰 좋아요 수 증가 -->
+	<insert id="plusReviewLike">
+		INSERT INTO likes VALUES (seq_likes_idx.nextval, #{param1}, 'hreview', #{param2})
+	</insert>
+	
+	<!-- 리뷰 좋아요: 리뷰 좋아요 수 감소 -->
+	<delete id="minusReviewLike">
+		DELETE FROM likes WHERE tablename='hreview' AND member_ref=#{param1} AND recodenum=#{param2}
+	</delete>
 	
 	
 	
 	<!-- 리뷰 수 조회 -->
 	<select id="countReview">
-		SELECT COUNT(*) FROM hreview WHERE review_idx=original_idx AND hosp_ref=#{param1}
+		SELECT COUNT(*) FROM hreview WHERE review_idx=original_idx AND api_ref=#{param1}
 	</select>
 	
 	<!-- 별점 합계 조회 -->
 	<select id="sumScore" resultType="int">
 		SELECT COALESCE(SUM(score), 0)
-		FROM hreview WHERE hosp_ref=#{param1}
+		FROM hreview WHERE api_ref=#{param1}
 	</select>
 	
 	

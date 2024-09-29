@@ -10,6 +10,14 @@
 @font-face {
   font-family: 'Pretendard';
   font-style: normal;
+  font-weight: 500;
+  src: url(/fonts/Pretendard-SemiBold.eot?#iefix) format('embedded-opentype'),
+    url(/fonts/Pretendard-SemiBold.woff) format('woff'),
+    url(/fonts/Pretendard-SemiBold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-style: normal;
   font-weight: 700;
   src: url(/fonts/Pretendard-Bold.eot?#iefix) format('embedded-opentype'),
     url(/fonts/Pretendard-Bold.woff) format('woff'),

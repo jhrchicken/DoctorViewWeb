@@ -37,7 +37,7 @@ public interface IDoctorService {
 	public int editReply(int review_idx, String content);
 	// 답변 삭제
 	public int deleteReply(int review_idx);
-	// 리뷰 삭제에 대한 답변 일괄 삭제
+	// 리뷰 삭제에 따른 답변 일괄 삭제
 	public int deleteAllReply(int original_idx);
 	
 	// 병원명 인출: 소속된 병원의 이름 인출
