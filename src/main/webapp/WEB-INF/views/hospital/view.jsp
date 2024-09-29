@@ -79,12 +79,12 @@ function validateReplyForm(form) {
 
 			<div class="doc_info">
 				<!-- 병원 사진 -->
-				<c:if test="${ hospitalDTO.photo == 'NULL' }">
+				<c:if test="${ hospitalDTO.photo == null }">
 					<span class="img">
 						<img src="/images/doctor.png" alt="" />
 					</span>
 				</c:if>
-				<c:if test="${ hospitalDTO.photo != 'NULL' }">
+				<c:if test="${ hospitalDTO.photo != null }">
 					<span class="img">
 						<img src="/uploads/${ row.photo }"><br/>
 					</span>
@@ -183,7 +183,7 @@ function validateReplyForm(form) {
 					<c:choose>
 						<c:when test="${ empty reviewsList }">
 							<tr>
-								<td colspan="4" align="center">
+								<td colspan="8" align="center">
 									댓글을 남겨보세요
 								</td>
 							</tr>

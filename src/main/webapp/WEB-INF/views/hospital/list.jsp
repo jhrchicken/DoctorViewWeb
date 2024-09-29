@@ -53,10 +53,10 @@
 							<ul class="hospital">
 								<li>
 									<span class="img">
-										<c:if test="${ row.photo == 'NULL' }">
+										<c:if test="${ row.photo == null }">
 											<img src="/images/doctor.png" alt=""></img>
 										</c:if>
-										<c:if test="${ row.photo != 'NULL' }">
+										<c:if test="${ row.photo != null }">
 											<img src="/uploads/${ row.photo }">
 										</c:if>
 									</span>
@@ -105,7 +105,7 @@
 										</div>
 									</div>	
 									<!-- 이거 요청명 수정해야 함 -->
-									<a href="./hospital/viewHosp.do"><span class="blind">병원 바로가기</span></a>
+									<a href="./hospital/viewHosp.do?api_idx=${ row.api_idx }"><span class="blind">병원 바로가기</span></a>
 								</li>
 							</ul>
 						</c:forEach>

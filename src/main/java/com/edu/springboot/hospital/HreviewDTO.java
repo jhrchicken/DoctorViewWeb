@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class HreviewDTO {
-	private String review_idx;
-	private String original_idx;
+	private int review_idx;
+	private int original_idx;
 	private Date postdate;
 	private int score;
 	private String content;
@@ -16,4 +16,7 @@ public class HreviewDTO {
 	private String doctor;
 	private String writer_ref;
 	private String hosp_ref;
+	
+	private String nickname;
+	private int likecount;
 }
