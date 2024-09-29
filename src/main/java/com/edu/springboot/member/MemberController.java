@@ -165,6 +165,8 @@ public class MemberController {
 		    session.setAttribute("userId", loginUser.getId()); 
 		    session.setAttribute("userPassword", loginUser.getPassword()); 
 		    session.setAttribute("userName", loginUser.getName()); 
+		    session.setAttribute("userEmoji", loginUser.getEmoji()); 
+		    
 		    
 		    // 아이디 저장버튼이 눌렸다면 로그아웃을 해도 다음 로그인 시 아이디가 표시됨
             if(req.getParameter("saveId") != null) {
@@ -427,6 +429,12 @@ public class MemberController {
 		
 		return "member/doctorList";
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

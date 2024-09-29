@@ -66,7 +66,7 @@
 													<p class="comm">(리뷰) ${ row.score } ${ row.reviewcount }</p>
 												</div>
 											</div>
-											<a href="./doctor/viewDoctor.do?doc_idx=${ row.doc_idx }"><span class="blind">의사 바로가기</span></a>
+											<a href="./doctor/viewDoctor.do?doc_idx=${ row.doc_idx }"><span class="">의사 바로가기</span></a>
 										</div>
 									</div>
 								</li>

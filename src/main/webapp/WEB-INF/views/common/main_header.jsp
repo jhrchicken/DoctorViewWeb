@@ -36,8 +36,8 @@
 					<a href="#">이모지</a>
 					<div class="depth2">
 						<ul>
-							<li><a href="#">나의 이모지</a></li>
-							<li><a href="#">이모지 상점</a></li>  
+							<li><a href="/myEmoji.do">나의 이모지</a></li>
+							<li><a href="/store.do">이모지 상점</a></li>  
 						</ul>
 					</div>
 				</li>

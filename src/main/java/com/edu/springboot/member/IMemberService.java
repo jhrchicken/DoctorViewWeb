@@ -1,5 +1,6 @@
 package com.edu.springboot.member;
 
+import java.lang.reflect.Member;
 import java.util.List;
 
 import javax.xml.crypto.Data;
@@ -62,6 +63,7 @@ public interface IMemberService {
 //	병원 상세정보 수정
 	public int updateHospDetail(DetailDTO detailDTO);
 
+	public int updateEmoji(MemberDTO memberDTO, String emoji_idx);
 	
 	
 }

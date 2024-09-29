@@ -147,12 +147,14 @@ public class DoctorController {
 	
 	@GetMapping("/doctor/editDoctor.do")
 	public String editDoctorGet(HttpServletRequest req, Model model, DoctorDTO doctorDTO) {
+		System.out.println("edit get");
 		doctorDTO = doctorDAO.viewDoctor(doctorDTO);
 		model.addAttribute("doctorDTO", doctorDTO);
 		return "doctor/edit";
 	}
 	@PostMapping("/doctor/editDoctor.do")
 	public String editDoctorPost(HttpServletRequest req, DoctorDTO doctorDTO) {
+		System.out.println("edit doctor");
 		// 파일업로드
 		try {
 			String uploadDir = ResourceUtils.getFile("classpath:static/uploads/").toPath().toString();
