@@ -22,6 +22,11 @@ public interface IBoardService {
 	public int countMyComment(String id);
 	// 댓글 단 글: 로그인 사용자가 댓글을 작성한 게시글에서 한 페이지에 출력할 게시글을 인출
 	public ArrayList<BoardDTO> listMyComment(String id, int start, int end);
+	
+	// 댓글을 기다리는 글: 댓글이 없는 게시물의 개수를 카운트
+	public int countNoComment();
+	// 댓글을 기다리는 글: 댓글이 없는 게시글에서 한 페이지에 출력할 게시글을 인출
+	public ArrayList<BoardDTO> listNoComment(ParameterDTO parameterDTO);
 
 	
 	

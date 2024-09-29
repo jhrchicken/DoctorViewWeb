@@ -14,7 +14,7 @@
 	        FROM likes
 	        WHERE tablename = 'board'
 	        GROUP BY recodenum
-	        HAVING COUNT(*) >= 1
+	        HAVING COUNT(*) >= 3
 	    )
 	</select>
 	
@@ -29,7 +29,7 @@
 					SELECT recodenum FROM likes
 					WHERE tablename = 'board'
 					GROUP BY recodenum
-					HAVING COUNT(*) >= 1
+					HAVING COUNT(*) >= 3
 				)
 				ORDER BY board_idx DESC
 			) Tb
@@ -86,14 +86,30 @@
 		WHERE rNum<![CDATA[>=]]>#{param2} AND rNum<![CDATA[<=]]>#{param3}
 	</select>
 	
+	<!-- 댓글을 기다리는 글: 댓글이 없는 게시물의 개수를 카운트 -->
+	<select id="countNoComment">
+		SELECT COUNT(*)
+	    FROM board b
+	    LEFT JOIN comments c ON b.board_idx = c.board_ref
+	    WHERE c.board_ref IS NULL AND b.boardname = 'qnaboard'
+	</select>
+	<!-- 댓글을 기다리는 글: 댓글이 없는 게시글에서 한 페이지에 출력할 게시글을 인출 -->
+	<select id="listNoComment"
+		resultType="com.edu.springboot.board.BoardDTO"
+		parameterType="com.edu.springboot.board.ParameterDTO">
+		SELECT * FROM (
+	        SELECT Tb.*, rownum rNum FROM (
+	            SELECT b.*
+	            FROM board b
+	            LEFT JOIN comments c ON b.board_idx = c.board_ref
+	            WHERE c.board_ref IS NULL AND b.boardname = 'qnaboard'
+	            ORDER BY b.board_idx DESC
+	        ) Tb
+	    )
+	    WHERE rNum <![CDATA[>=]]> #{start} AND rNum <![CDATA[<=]]> #{end}
+	</select>
 	
-	
-	
-	
-	
-	
-	
-	
+
 	<!-- 닉네임 인출: 게시글 작성자 닉네임 인출 -->
 	<select id="selectBoardNickname"
 		parameterType="com.edu.springboot.board.BoardDTO">

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰 | 베스트게시판</title>
+<title>닥터뷰 | 댓글을 기다리는 글</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/board-list.css" />
 </head>
