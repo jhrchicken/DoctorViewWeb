@@ -100,7 +100,6 @@
 																<c:if test="${ hashrow.hosp_ref == row.id }">
 																	<li class="hash">
 																		<p>${ hashrow.tag }</p>
-																		<p>해시태그</p>
 																	</li>
 																</c:if>
 															</c:forEach>
