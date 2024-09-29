@@ -62,9 +62,9 @@ public class HospitalController {
 				hospital.setPassword(basicDTO.getPassword());
 				hospital.setNickname(basicDTO.getNickname());
 				hospital.setTaxid(basicDTO.getTaxid());
-				hospital.setPhoto(basicDTO.getPhoto());
 				// 입점 병원 상세 정보
 				DetailDTO detailDTO = hospitalDAO.selectDetail(id);
+				hospital.setPhoto(detailDTO.getPhoto());
 				hospital.setIntroduce(detailDTO.getIntroduce());
 				hospital.setParking(detailDTO.getParking());
 				hospital.setPcr(detailDTO.getPcr());
@@ -82,7 +82,6 @@ public class HospitalController {
 				}
 				hospital.setLikecount(hosplikecount);
 				hospital.setReviewcount(reviewcount);
-				
 			}
 			// 미입점
 			else {
@@ -109,9 +108,9 @@ public class HospitalController {
 		hospitalDTO.setPassword(basicDTO.getPassword());
 		hospitalDTO.setNickname(basicDTO.getNickname());
 		hospitalDTO.setTaxid(basicDTO.getTaxid());
-		hospitalDTO.setPhoto(basicDTO.getPhoto());
 		// 입점 병원 상세 정보
 		DetailDTO detailDTO = hospitalDAO.selectDetail(hospId);
+		hospitalDTO.setPhoto(detailDTO.getPhoto());
 		hospitalDTO.setIntroduce(detailDTO.getIntroduce());
 		hospitalDTO.setParking(detailDTO.getParking());
 		hospitalDTO.setPcr(detailDTO.getPcr());
@@ -124,11 +123,8 @@ public class HospitalController {
 		// 병원 좋아요 클릭 여부
 		int hosplikecheck = hospitalDAO.checkHospLike(loginId, hospId);
 		model.addAttribute("hosplikecheck", hosplikecheck);
-		
-		
-		
-		
-		
+		// 리뷰 처리
+		ArrayList<HreviewDTO> reviewList = hospitalDAO.listReview(hospitalDTO);
 		
 		
 		return "hospital/view";

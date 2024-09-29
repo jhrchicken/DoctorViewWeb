@@ -90,6 +90,8 @@
 		DELETE FROM dreview WHERE review_idx=#{param1}
 	</delete>
 	
+	
+	
 	<!-- 답변 작성 -->
 	<insert id="writeReply">
 		INSERT INTO dreview (review_idx, original_idx, content, writer_ref, doc_ref)

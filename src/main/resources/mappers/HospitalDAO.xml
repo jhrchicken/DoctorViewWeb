@@ -61,6 +61,29 @@
 	
 	
 	
+	<!-- 리뷰 목록: 병원에 해당하는 리뷰를 인출 -->
+	<select id="listReview"
+		resultType="com.edu.springboot.hospital.HreviewDTO"
+		parameterType="com.edu.springboot.hospital.HospitalDTO">
+		SELECT * FROM hreview WHERE hosp_ref=#{hosp_ref}
+		ORDER BY review_idx DESC
+	</select>
+	
+	<!-- 리뷰 작성 -->
+	<insert id="writeReview">
+		INSERT INTO hreview (review_idx, original_idx, score, content, cost, treat, purpose, doctor, writer_ref, hosp_ref)
+		VALUES (seq_hreview_idx.nextval, )
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

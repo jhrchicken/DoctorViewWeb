@@ -30,6 +30,28 @@ public interface IHospitalService {
 	
 	
 	
+	// 리뷰 조회
+	public ArrayList<HreviewDTO> listReview(HospitalDTO hospitalDTO);
+	// 리뷰 작성
+	public int writeReview(int score, String content, int cost, String treat, String purpose, String doctor, String userId, String hospId);
+	// 리뷰 수정
+	public int editReview(int review_idx, int cost, String treat, String purpose, String doctor);
+	// 리뷰 삭제
+	public int deleteReview(int review_idx);
+	
+	// 답변 작성
+	public int writeReply(int review_idx, String content, String userId, String hospId);
+	// 답변 수정
+	public int editReply(int review_idx, String content);
+	// 답변 삭제
+	public int deleteReply(int review_idx);
+	// 리뷰 삭제에 따른 답변 일괄 삭제
+	public int deleteAllReply(int original_idx);
+	
+	
+	
+	
+	
 	
 	
 	
