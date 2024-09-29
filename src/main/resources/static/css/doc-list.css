@@ -102,16 +102,16 @@
   padding: 0 30px;
 }
 /*** 병원 이름, 주소 등 ***/
+#container .doctor .info_top h3 {
+  font-size: 32px;
+  font-weight: 700;
+}
 #container .doctor .info_top>p {
   font-size: 20px;
   color: var(--gray-400);
   font-weight: 500;
   display: block;
   margin-top: 5px;
-}
-#container .doctor .info_top h3 {
-  font-size: 32px;
-  font-weight: 700;
 }
 #container .doctor .detail {
   margin-top: 20px;
