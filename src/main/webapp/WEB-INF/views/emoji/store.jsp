@@ -23,8 +23,6 @@
 	  <div class="content">
 	    <div class="content_inner">
 	      <div class="login_wrap">
-	        <h2>나의 이모지</h2>
-	        
 	        <h2>이모지 상점</h2>
 	        <p>이모지를 구매해보세욧</p> 
 	        <c:if test="${ not empty userId }">

@@ -68,6 +68,9 @@ public interface IMemberService {
 //  회원 포인트 정보 감소
 	public int decreaseUserPoint(MemberDTO memberDTO);
 	
+//	회원 출석체크 
+	public int userAttend(MemberDTO memberDTO);
+	
 	
 	
 }

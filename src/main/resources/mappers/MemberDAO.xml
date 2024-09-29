@@ -129,4 +129,10 @@
 		UPDATE member SET point=#{point} WHERE id = #{id}
 	</update>
 	
+	<!-- 유저 출석체크 -->
+	<update id="userAttend"
+		parameterType="com.edu.springboot.member.MemberDTO">
+		UPDATE member SET point=#{point}, attend=${attend} WHERE id = #{id}
+	</update>
+	
 </mapper>

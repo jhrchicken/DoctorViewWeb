@@ -21,5 +21,6 @@ public class MemberDTO {
 	private String auth;
 	private String email;
 	private String approve;
+	private String attend;
 	
 }

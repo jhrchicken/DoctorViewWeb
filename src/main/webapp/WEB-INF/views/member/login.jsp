@@ -36,9 +36,9 @@ function validateForm(form) {
 	          다양한 서비스를 이용할 수 있습니다.</p>
 	          
 	        <!-- 로그인 실패 시 메시지 -->
-	        <c:if test="${ not empty loginFaild }">
+	        <c:if test="${ not empty loginFailed }">
 				<!-- 글자색 css 변경필요 -->
-		   		<p><b>${ loginFaild }</b></p>
+		   		<p><b>${ loginFailed }</b></p>
 	        </c:if>
 		
 	        <form name="loginFrm" method="post" action="../member/login.do" onsubmit="return validateForm(this);">
@@ -62,6 +62,7 @@ function validateForm(form) {
 	            <li><a href="../member/findPass.do">비밀번호 찾기</a></li>
 	            <li>|</li>
 	            <li><a href="../member/join.do">회원가입</a></li>
+	            <li><a href="/mypage/attend.do">출석체크</a></li>
 	          </ul>
 	        </div>
 	      </div>

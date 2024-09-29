@@ -1,6 +1,7 @@
 package com.edu.springboot.member;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -160,7 +161,7 @@ public class MemberController {
 		if(loginUser != null) {
 			if(loginUser.getApprove().equals("F")) {
 				// 회원가입 승인 대기 처리 추가
-				model.addAttribute("loginFaild", "회원승인 대기 상태입니다.");
+				model.addAttribute("loginFailed", "회원승인 대기 상태입니다.");
 				return "member/login";
 			}
 		    session.setAttribute("userId", loginUser.getId()); 
@@ -453,8 +454,47 @@ public class MemberController {
 		return "member/doctorList";
 	}
 	
+//	출석체크
+	@GetMapping("/mypage/attend.do")
+	public String attendGet(MemberDTO memberDTO, HttpSession session, Model model) {
+		
+		// 현재 날짜 가져오기
+        LocalDate today = LocalDate.now();
+        // 날짜 포맷팅
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String todayDate = today.format(formatter);
+        // 출력
+        model.addAttribute("todayDate", todayDate);
+        
+		memberDTO.setId((String) session.getAttribute("userId"));
+		memberDTO.setPassword((String) session.getAttribute("userPassword"));
+		memberDTO= memberDAO.loginMember(memberDTO);
+		model.addAttribute("memberDTO", memberDTO);
+		
+		return "mypage/attend";
+	}
 	
-	
+	@PostMapping("/mypage/attend.do")
+	public String attendPost(MemberDTO memberDTO, HttpSession session, Model model, HttpServletRequest req) {
+		
+		// 현재 로그인한 유저 정보 가져옴 (수정예정)
+		memberDTO.setId((String) session.getAttribute("userId"));
+		memberDTO.setPassword((String) session.getAttribute("userPassword"));
+		memberDTO= memberDAO.loginMember(memberDTO);
+		
+		String attend = req.getParameter("attendDate");
+		// 오늘날짜로 attend 컬럼 설정
+		memberDTO.setAttend(attend);
+		System.out.println(attend);
+		// 500포인트 추가
+		memberDTO.setPoint(memberDTO.getPoint()+500);
+		System.out.println(memberDTO.getPoint());
+		
+		/********************** attend 값 질문 & 수정 필요 *****************/
+		memberDAO.userAttend(memberDTO);
+		
+		return "mypage/attend";
+	}
 	
 	
 	
