@@ -169,9 +169,6 @@ public class DoctorController {
 				String photo = FileUtil.renameFile(uploadDir, filename);
 				doctorDTO.setPhoto(photo);
 			}
-			else {
-				doctorDTO.setPhoto("NULL");
-			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();

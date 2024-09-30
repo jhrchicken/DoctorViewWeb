@@ -221,11 +221,17 @@ document.addEventListener('DOMContentLoaded', function () {
 				<input type="hidden" name="doc_idx" value="${ doctorDTO.doc_idx }" />
 			</form>
 			<div class="doc_info">
-				<!-- 사진 있을 때 없을 때 처리해야 함! -->
-				<span class="img">
-					<img src="/images/doctor.png" alt="" />
-				</span>
-				
+				<!-- 의사 사진 -->
+				<c:if test="${ doctorDTO.photo == null }">
+					<span class="img">
+						<img src="/images/doctor.png" alt="" />
+					</span>
+				</c:if>
+				<c:if test="${ doctorDTO.photo != null }">
+					<span class="img">
+						<img src="/uploads/${ row.photo }" />
+					</span>
+				</c:if>
 				
 				<div class="info">
 					<div class="info_top">
