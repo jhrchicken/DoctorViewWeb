@@ -14,6 +14,22 @@
   text-align: center;
   padding: 80px 0 50px;
 }
+
+/*** 의사 추가하기 ***/
+#container .add_doctor {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 20px;
+}
+#container .add_doctor button {
+  background: var(--point-color2);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 20px;
+}
+
 /*** 의사 컬럼 ***/
 #container .doctor {
   display: flex;

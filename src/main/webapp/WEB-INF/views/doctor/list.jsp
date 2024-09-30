@@ -32,12 +32,6 @@
 				</form>
 			</div>
 			
-			<!-- !!!!!!!!!!!!나중에 지우기!!!!!!!!!!!!  -->
-		    <div class="write_btn">
-		        <button type="button" onclick="location.href='../doctor/writeDoctor.do';">의사 등록하기</button>
-		    </div>
-		    <!-- !!!!!!!!!!!!나중에 지우기!!!!!!!!!!!!  -->
-			
 			<div class="list">
 				<c:choose>
 					<c:when test="${ empty doctorsList }">
