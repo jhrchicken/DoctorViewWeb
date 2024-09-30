@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰 | 찜한 의사</title>
+<title>닥터뷰 | 출석체크</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/doc-list.css" />
 
@@ -185,8 +185,7 @@
 		    </table>
 			   
 		    <form name="attend" method="post" action="/mypage/attend.do">
-               <input type="hi-dden" name="attendDate" id="attendDate" value="${ todayDate }" />
-               <p>현재 회원의 출석체크: ${ memberDTO.attend }</p>
+               <input type="hidden" name="attendDate" id="attendDate" value="${ todayDate }" />
 				<c:if test="${ memberDTO.attend != todayDate }">
 				    <button type="submit" id="attendButton">출석체크 하기</button>
 				</c:if>

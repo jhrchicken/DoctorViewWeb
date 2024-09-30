@@ -75,6 +75,7 @@
 								<li><a href="/mypage/myDoctor.do">찜한 의사</a></li>
 								<li><a href="#">작성한 리뷰</a></li>
 								<li><a href="/mypage/attend.do">출석체크</a></li>
+								<li><a href="/reserve/proceed.do">병원 예약하기</a></li>
 							</c:if>
 						</ul>
 					</div>
