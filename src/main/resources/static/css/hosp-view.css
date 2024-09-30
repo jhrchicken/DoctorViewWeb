@@ -10,8 +10,8 @@
 }
 
 
-/*** 의사 정보 ***/
-#container .doc_info {
+/*** 병원 ***/
+#container .hosp_info {
   width: 100%;
   height: 250px;
   padding: 30px;
@@ -22,14 +22,14 @@
   display: flex;
   margin-bottom: 50px;
 }
-/*** 의사 사진 ***/
+/*** 병원 사진 ***/
 #container .img {
   display: block;
   width: 190px;
   height: 190px;
   border: 2px solid #ddd;
 }
-/*** 의사 정보 ***/
+/*** 병원 정보 ***/
 #container .info {
   padding: 0 30px;
 }
@@ -61,32 +61,41 @@
   color: var(--point-color2);
 }
 /*** 좋아요 버튼 ***/
-#container .doc_like {
+#container .like_wrap>button {
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  background: none;
+  padding: 5px 10px;
+  font-size: 23px;
+  font-weight: 500;
   position: absolute;
   right: 30px;
   top: 30px;
-  min-width: 80px;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  padding: 0 10px
-}
-#container .like_wrap {
   display: flex;
   gap: 0 10px;
   align-items: center;
-  font-size: 25px;
+  min-width: 80px;
 }
-#container .like_wrap>button {
-  width: 30px;
-  height: 30px;
+/*** 예약하기, 채팅하기 버튼 ***/
+#container .btn_wrap {
+  display: flex;
+  gap: 0 20px;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+}
+#container .btn_wrap button {
+  background: var(--point-color2);
+  color: #fff;
   border: none;
-  background: url(/images/heart.svg) no-repeat 50% / 100%;
-}
-#container .like_wrap>button.push {
-  background-image: url(/images/heart_full.svg);
+  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  padding: 0 10px;
+  font-size: 20px;
 }
 /*** 뒤로가기, 수정하기, 삭제하기 버튼 ***/
-#container .board_btn {
+/* #container .board_btn {
   display: flex;
   gap: 0 20px;
   position: absolute;
@@ -102,7 +111,7 @@
   height: 40px;
   padding: 0 10px;
   font-size: 20px;
-}
+} */
 /*** 댓글 작성 버튼 ***/
 #container .comment_inner {
   max-width: 1500px;
@@ -124,15 +133,60 @@
   margin-right: 20px;
 }
 
+/*** 의사 리스트 ***/
+#container .doctor {
+  display: flex;
+  gap: 0 20px;
+}
+#container .doctor>li {
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  padding: 20px;  
+  width: calc(25% - 60px / 4);
+}
+#container .doctor .doc_wrap {
+  display: flex;
+}
+#container .doctor .doc_img {
+  border: 2px solid #ddd;
+  display: block;
+  
+}
+#container .doctor .doc_img img {
+  width: 100px;
+  height: 100px;
+}
+#container .doctor .doc_title {
+  padding: 0 20px;
+}
+#container .doctor .doc_title h3 {
+  font-size: 20px;
+  font-weight: 500;
+}
+#container .doctor .doc_title p {
+  font-size: 18px;
+  color: var(--gray-500);
+}
+#container .doctor .doc_content {
+  margin-top: 10px;
+}
+#container .doctor .doc_detail {
+  display: flex;
+  gap: 0 5px;
+}
+#container .doctor .doc_detail>.blue {
+  color: var(--point-color2);
+  font-weight: 500;
+}
 
 
+/*** 리뷰 ***/
 #container .review_wrapper {
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
 }
-/*** 리뷰 ***/
 #container .review_wrap {
   display: flex;
   border: 2px solid #bbb;

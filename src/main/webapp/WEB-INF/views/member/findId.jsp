@@ -33,15 +33,21 @@
     <div class="content_inner">
       <div class="login_wrap">
       	
-      	<%-- <div class="alertId">
-	      	<p>회원님의 아이디는<br /><strong>'${ foundId }'</strong>입니다.</p>
-			<p>${ notfountId }</p>
-      	</div> --%>
+      	<!-- 아이디 찾기 후 알림 -->
+        <c:if test="${ not empty foundId or not empty notfountId }">
+        	<c:if test="${ not empty foundId }">
+	        <div class="alertId">
+		      	<p>회원님의 아이디는<br /><strong>'${ foundId }'</strong>입니다.</p>
+				<p>${ notfountId }</p>
+	      	</div>
+        	</c:if>
+			<c:if test="${ not empty notfountId }">
+	        <div class="alertId">
+				<p>${ notfountId }</p>
+	      	</div>
+        	</c:if>
+        </c:if>
       	
-      	${ foundId }
-      	${ notfountId }
-      	
-      	      	
         <h2>아이디 찾기</h2>
         <form name="findIdFrm" method="post" action="../member/findId.do" onsubmit="return validateForm(this);">
           <div class="login">
@@ -51,9 +57,22 @@
             <p>비밀번호</p>
             <input type="password" name="password" value="" placeholder="이메일 입력">
           </div>
+          
+          <!-- a 태그 css 적용 필요 -->
 	      <div class="login_btn">
-	        <input type="submit" value="회원인증"/>
-	      </div>
+		    <c:if test="${empty foundId and empty notfountId}">
+		        <input type="submit" value="회원인증"/>
+		    </c:if>
+		    
+		    <c:if test="${not empty foundId}">
+		        <a href="/member/login.do">로그인</a>
+		    </c:if>
+		    
+		    <c:if test="${not empty notfountId}">
+		        <a href="/member/join.do">회원가입</a>
+		    </c:if>
+		</div>
+		
         </form>
       </div>
     </div>

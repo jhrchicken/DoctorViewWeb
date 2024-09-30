@@ -193,14 +193,14 @@ function validateForm(form) {
 	    <tr>
 	    	<th>병원 이미지</th>
 	    	<td>
-	    		<c:if test="${ loginUserInfo.photo == null || loginUserInfo.photo == '' }">
+	    		<c:if test="${ hospDatilInfo.photo == null || hospDatilInfo.photo == '' }">
 	    			<!-- 병원.. 병원 기본 이미지 이거 맞나..?? -->
 				    <img src="/images/hospital.png" alt="" />
 				</c:if>
-				<c:if test="${ loginUserInfo.photo != null && loginUserInfo.photo != '' }">
-				    <img src="/uploads/${ loginUserInfo.photo }"  />
+				<c:if test="${ hospDatilInfo.photo != null && hospDatilInfo.photo != '' }">
+				    <img src="/uploads/${ hospDatilInfo.photo }"  />
 				</c:if>
-	    		<input type="file" name="file" value="${ loginUserInfo.photo }" />
+	    		<input type="file" name="file" value="${ hospDatilInfo.photo }" />
 	    	</td>
 	    </tr>
 	    <tr>

@@ -12,4 +12,5 @@ public class DetailDTO {
 	private String hospitalize;
 	private String system;
 	private String hosp_ref;
+	private String photo;
 }
