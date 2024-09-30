@@ -360,7 +360,6 @@ function chat(userId, hospId) {
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
->>>>>>> branch 'main' of https://github.com/jhrchicken/DoctorViewWeb.git
 		</div>
 	</div>	
 </main>
