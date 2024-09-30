@@ -196,10 +196,10 @@ function chat(userId, hospId) {
 								<li>
 									<div class="doc_wrap">
 										<span class="doc_img">
-											<c:if test="${ row.photo == 'NULL' }">
+											<c:if test="${ row.photo == null }">
 												<img src="/images/doctor.png" alt="" />
 											</c:if>
-											<c:if test="${ row.photo != 'NULL' }">
+											<c:if test="${ row.photo != null }">
 												<img src="/uploads/${ row.photo }" />
 											</c:if>
 										</span>
@@ -253,13 +253,12 @@ function chat(userId, hospId) {
 		            </button>
 	  			</div>
 	  		</c:if>
-	  		
 	  		<c:choose>
-				<c:when test="${ empty reviewsList }">
+				<c:when test="${ empty reviewList }">
 					<p>리뷰를 남겨보세요.</p>
 				</c:when>
 				<c:otherwise>
-					<c:forEach items="${ reviewsList }" var="row" varStatus="loop">
+					<c:forEach items="${ reviewList }" var="row" varStatus="loop">
 						<c:if test="${ row.original_idx == row.review_idx }">
 							<div class="review_wrapper">
 								<div class="review_wrap">
@@ -293,18 +292,18 @@ function chat(userId, hospId) {
 										<div class="review_other">
 											<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
 							                <c:if test="${ reviewlikecheck == 0 }">
-							                    <button class="comm_like_btn" type="button" onclick="location.href='../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }';">
+							                    <button class="comm_like_btn" type="button" onclick="location.href='../hospital/clickReviewLike.do?api_ref=${ row.api_ref }&review_idx=${ row.review_idx }';">
 							                    	<img src="/images/heart.svg" style="width: 24px; height: 24px;" /> ${ row.likecount }
 							                	</button>
 							                </c:if>
 							                <!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
 							                <c:if test="${ reviewlikecheck == 1 }">
-							                    <button class="comm_like_btn" type="button" onclick="location.href='../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }';">
+							                    <button class="comm_like_btn" type="button" onclick="location.href='../hospital/clickReviewLike.do?api_ref=${ row.api_ref }&review_idx=${ row.review_idx }';">
 							                    	<img src="/images/heart_full.svg" style="width: 24px; height: 24px;" /> ${ row.likecount }
 						                        </button>
 							                </c:if>
 											<button class="re_btn" type="button" data-bs-toggle="modal" data-bs-target="#writeReplyModal"
-						                        	onclick="openReplyWriteModal(${ row.doc_ref }, ${ row.review_idx })">
+						                        	onclick="openReplyWriteModal(${ row.api_ref }, ${ row.review_idx })">
 						                        댓글 달기
 					                        </button>
 										</div>
@@ -313,10 +312,10 @@ function chat(userId, hospId) {
 						            <c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
 										<div class="manage">
 											<button type="button" data-bs-toggle="modal" data-bs-target="#editReviewModal"
-						                        	onclick="openReviewEditModal(${ row.doc_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }')">
-						                        수정하기
-					                        </button>
-											<button type="button" onclick="deleteReview(${ row.doc_ref }, ${ row.review_idx });">
+												    onclick="openReviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', '${ row.cost }', '${ row.treat }', '${ row.doctor }')">
+												    수정
+											</button>
+											<button type="button" onclick="deleteReview(${ row.api_ref }, ${ row.review_idx });">
 												삭제하기
 											</button>
 										</div>
@@ -324,7 +323,7 @@ function chat(userId, hospId) {
 								</div>
 								
 								<!-- 리뷰에 대한 답변 출력 -->
-							    <c:forEach items="${ reviewsList }" var="replyRow">
+							    <c:forEach items="${ reviewList }" var="replyRow">
 							    	<c:if test="${ replyRow.original_idx == row.review_idx and replyRow.review_idx != replyRow.original_idx }">
 										<div class="recomm">
 											<div class="recomm_wrap">
@@ -340,10 +339,10 @@ function chat(userId, hospId) {
 								                    <c:if test="${ replyRow.writer_ref.equals(sessionScope.userId) }">
 														<div class="recomm_btn">
 															<button type="button" data-bs-toggle="modal" data-bs-target="#editReplyModal"
-								                                	onclick="openReplyEditModal(${ replyRow.doc_ref }, ${ replyRow.review_idx }, '${ replyRow.content }')">
+								                                	onclick="openReplyEditModal(${ replyRow.api_ref }, ${ replyRow.review_idx }, '${ replyRow.content }')">
 							                                	수정
 						                                	</button>
-															<button type="button"  onclick="deleteReply(${ replyRow.doc_ref }, ${ replyRow.review_idx });">
+															<button type="button" onclick="deleteReply(${ replyRow.api_ref }, ${ replyRow.review_idx });">
 																삭제
 															</button>
 														</div>
@@ -361,6 +360,7 @@ function chat(userId, hospId) {
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
+>>>>>>> branch 'main' of https://github.com/jhrchicken/DoctorViewWeb.git
 		</div>
 	</div>	
 </main>

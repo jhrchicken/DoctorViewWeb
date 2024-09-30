@@ -76,6 +76,13 @@
 		SELECT * FROM doctor WHERE hosp_ref=#{id}
 	</select>
 	
+	<insert id="writeDoctor" parameterType="com.edu.springboot.member.DoctorDTO">
+	    INSERT INTO doctor (doc_idx, name, major, career, photo, hours, hosp_ref)
+	    VALUES (seq_doctor_idx.nextval, #{name}, #{major}, #{career}, 
+            <if test="photo != null">#{photo}</if>
+            <if test="photo == null">NULL</if>, 
+        #{hours}, #{hosp_ref})
+	</insert>
 	
 	
 	
@@ -90,14 +97,27 @@
 	
 	<!-- 리뷰 작성 -->
 	<insert id="writeReview">
-		INSERT INTO hreview (review_idx, original_idx, score, content, cost, treat, doctor, writer_ref, api_ref)
-		VALUES (seq_hreview_idx.nextval, seq_hreview_idx.nextval, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7})
+	    INSERT INTO hreview (review_idx, original_idx, score, content, cost, treat, doctor, writer_ref, api_ref)
+	    VALUES ( seq_hreview_idx.nextval, seq_hreview_idx.nextval, #{param1}, #{param2},
+	        <if test="#{param3} != null">#{param3}</if>
+	        <if test="#{param3} == null">NULL</if>,
+	        <if test="#{param4} != null">#{param4}</if>
+	        <if test="#{param4} == null">NULL</if>,
+	        <if test="#{param5} != null">#{param5}</if>
+	        <if test="#{param5} == null">NULL</if>,
+	        #{param6}, #{param7}
+	    )
 	</insert>
+
 	
 	<!-- 리뷰 수정 -->
 	<update id="editReview"
 		parameterType="com.edu.springboot.hospital.HreviewDTO">
-		UPDATE hreview SET score=#{param2}, content=#{param3}, cost=#{param4}, treat=#{param5}, doctor=#{param6}, rewrite='T'
+		UPDATE hreview SET score=#{param2}, content=#{param3}
+			<if test="#{param4} != null">, cost=#{param4}</if>
+			<if test="#{param5} != null">, treat=#{param5}</if>
+			<if test="#{param6} != null">, doctor=#{param6}</if>
+		, rewrite='T'
 		WHERE review_idx=#{param1}
 	</update>
 	
@@ -105,8 +125,6 @@
 	<delete id="deleteReview">
 		DELETE FROM dreview WHERE review_idx=#{param1}
 	</delete>
-	
-	
 	
 	<!-- 답변 작성 -->
 	<insert id="writeReply">
