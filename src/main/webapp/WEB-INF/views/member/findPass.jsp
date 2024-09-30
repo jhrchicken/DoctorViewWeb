@@ -31,8 +31,14 @@
     <div class="content_inner">
       <div class="login_wrap">
       	
+		<%-- <div class="alertPass">
+	      	<p>${ passInfo }</p>
+			<p>${ notfountPass }</p>
+      	</div> --%>
+
       	${ passInfo }
 		${ notfountPass }
+		
       
         <h2>비밀번호 찾기</h2>
         <form name="findPassFrm" method="post" action="../member/findPass.do" onsubmit="return validateForm(this);">
