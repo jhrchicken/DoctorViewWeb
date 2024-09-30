@@ -133,6 +133,7 @@
 }
 #header .login_wrap ul {
   display: flex;
+  align-items: center;
 }
 #header .login_wrap li {
   position: relative;
@@ -143,6 +144,19 @@
   font-size: 13px;
   line-height: 30px;
   height: 30px;
+}
+#header .login_wrap li>p {
+  display: block;
+  color: var(--gray-500);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 30px;
+  height: 30px;
+}
+#header .login_wrap li>p::after {
+  content: '님';
+  margin-left: 5px;
+  font-size: 12px;
 }
 #header .login_wrap>ul>li + li {
   margin-left: 30px;

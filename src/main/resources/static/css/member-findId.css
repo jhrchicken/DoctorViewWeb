@@ -61,6 +61,17 @@
   color: #fff;
   font-size: 18px;
 }
+#container .login_btn a {
+  display: block;
+  height: 56px;
+  border: none;
+  border-radius: 5px;
+  background: var(--point-color2);
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  padding: 15px 0;
+}
 /*** 아이디 알림 ***/
 #container .alertId {
   position: absolute;

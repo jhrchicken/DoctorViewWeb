@@ -57,29 +57,20 @@
   color: var(--point-color2);
 }
 /*** 좋아요 버튼 ***/
-#container .doc_like {
+#container .like_wrap>button {
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  background: none;
+  padding: 5px 10px;
+  font-size: 23px;
+  font-weight: 500;
   position: absolute;
   right: 30px;
   top: 30px;
-  min-width: 80px;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  padding: 0 10px
-}
-#container .like_wrap {
   display: flex;
   gap: 0 10px;
   align-items: center;
-  font-size: 25px;
-}
-#container .like_wrap>button {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background: url(/images/heart.svg) no-repeat 50% / 100%;
-}
-#container .like_wrap>button.push {
-  background-image: url(/images/heart_full.svg);
+  min-width: 80px;
 }
 /*** 뒤로가기, 수정하기, 삭제하기 버튼 ***/
 #container .board_btn {

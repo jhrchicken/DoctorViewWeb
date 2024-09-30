@@ -91,9 +91,8 @@
 				</c:if>
 				<!-- 로그인 한 상태 -->
 				<c:if test="${ not empty sessionScope.userId }">
-				
 					<!-- user name 정보 추가했더염 -->
-					<li><p>${ userEmoji }${ userId } 님</p></li>
+					<li><p>${ userEmoji } ${ userId }</p></li>
 					<li><a href="/member/logout.do">로그아웃</a></li>
 					<li><a href="#">나의 예약</a></li>
 				</c:if>

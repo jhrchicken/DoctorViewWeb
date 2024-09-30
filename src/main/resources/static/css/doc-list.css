@@ -143,7 +143,7 @@
   top: 2px;
 }
 #container .doctor .info_right p.like::before {
-  background: url(/images/heart_full.svg) no-repeat 50% 50% / 100%;
+  background: url(/images/mark_full.svg) no-repeat 50% 50% / 100%;
 }
 #container .doctor .info_right p.star::before {
   background: url(/images/star.svg) no-repeat 50% 50% / 100%;
