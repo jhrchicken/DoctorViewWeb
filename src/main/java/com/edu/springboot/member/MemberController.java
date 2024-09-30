@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.ResponseBody;import ch.qos.logback.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -376,29 +375,8 @@ public class MemberController {
 		// member
 		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
 		String taxid = req.getParameter("taxid1") + "-" + req.getParameter("taxid2") + "-" + req.getParameter("taxid3");
-		
 		memberDTO.setTel(tel);
 		memberDTO.setTaxid(taxid);
-		
-		// 파일업로드
-		try {
-			String uploadDir = ResourceUtils.getFile("classpath:static/uploads/").toPath().toString();
-			Part part = req.getPart("file");
-			String partHeader = part.getHeader("content-disposition");
-			String[] phArr = partHeader.split("filename=");
-			String filename = phArr[1].trim().replace("\"", "");
-			if (!filename.isEmpty()) {
-				part.write(uploadDir + File.separator + filename);
-				String photo = FileUtil.renameFile(uploadDir, filename);
-				memberDTO.setPhoto(photo);
-			}
-			else {
-				memberDTO.setPhoto("NULL");
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
 		memberDAO.editHospMember(memberDTO);
 		
 		int hospMemberResult = memberDAO.editHospMember(memberDTO);
@@ -417,8 +395,28 @@ public class MemberController {
 	    }
 	    
 	    // detail
+	    // 파일업로드
+ 		try {
+ 			String uploadDir = ResourceUtils.getFile("classpath:static/uploads/").toPath().toString();
+ 			Part part = req.getPart("file");
+ 			String partHeader = part.getHeader("content-disposition");
+ 			String[] phArr = partHeader.split("filename=");
+ 			String filename = phArr[1].trim().replace("\"", "");
+ 			if (!filename.isEmpty()) {
+ 				part.write(uploadDir + File.separator + filename);
+ 				String photo = FileUtil.renameFile(uploadDir, filename);
+ 				detailDTO.setPhoto(photo);
+ 			}
+ 			else {
+ 				System.out.println("파일 비었음!!");
+ 			}
+ 		}
+ 		catch (Exception e) {
+ 			e.printStackTrace();
+ 		}
 	    detailDTO.setHosp_ref(memberDTO.getId());
 	    int hospDatailResult;
+	    System.out.println(detailDTO);
 	 
 	    
 	    // detail 데이터가 있으면
@@ -427,6 +425,13 @@ public class MemberController {
 	    	hospDatailResult = memberDAO.updateHospDetail(detailDTO);
 	    }
 	    else {
+//	    	insert 쿼리
+	    	System.out.println("insert 쿼리");
+	    	if(detailDTO.getPhoto() != null	) {
+	    		System.out.println("null 아님");
+	    	} else {
+	    		System.out.println("null임");
+	    	}
 //	    	insert 쿼리
 	    	hospDatailResult = memberDAO.insertHospDetail(detailDTO);
 	    }

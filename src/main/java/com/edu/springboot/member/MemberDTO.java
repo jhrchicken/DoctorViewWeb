@@ -16,7 +16,7 @@ public class MemberDTO {
 	private String taxid;
 	private String department;
 	private int visitcount;
-	private String photo;
+	
 	private int enable;
 	private String auth;
 	private String email;
