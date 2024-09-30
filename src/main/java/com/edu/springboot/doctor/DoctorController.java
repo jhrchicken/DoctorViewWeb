@@ -119,6 +119,7 @@ public class DoctorController {
 	}
 	@PostMapping("/doctor/writeDoctor.do")
 	public String writeDoctorPost(HttpSession session, HttpServletRequest req, DoctorDTO doctorDTO) {
+		String photo = null;
 		// 파일업로드
 		try {
 			String uploadDir = ResourceUtils.getFile("classpath:static/uploads/").toPath().toString();
@@ -128,16 +129,13 @@ public class DoctorController {
 			String filename = phArr[1].trim().replace("\"", "");
 			if (!filename.isEmpty()) {
 				part.write(uploadDir + File.separator + filename);
-				String photo = FileUtil.renameFile(uploadDir, filename);
-				doctorDTO.setPhoto(photo);
-			}
-			else {
-				doctorDTO.setPhoto("NULL");
+				photo = FileUtil.renameFile(uploadDir, filename);
 			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		doctorDTO.setPhoto(photo);
 		// 세션에 저장된 로그인 아이디
 		String id = (String) session.getAttribute("userId");
 		doctorDTO.setHosp_ref(id);

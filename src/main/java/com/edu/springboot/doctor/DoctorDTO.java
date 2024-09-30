@@ -11,6 +11,7 @@ public class DoctorDTO {
 	private String photo;
 	private String hours;
 	private String hosp_ref;
+	
 	// 추가 컬럼
 	private String hospname;
 	private int likecount;
