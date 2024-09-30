@@ -157,49 +157,35 @@ public class HospitalController {
 		return "hospital/view";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	@PostMapping("/hospital/writeReview.do")
 	public String writeReviewPost(HttpServletRequest req, HttpSession session) {
 		// 폼값
 		int api_idx = Integer.parseInt(req.getParameter("api_idx"));
 		int score = Integer.parseInt(req.getParameter("score"));
 		String content = req.getParameter("content");
-		int cost = 0;
-		if (req.getParameter("cost") != null) {
-			cost = Integer.parseInt(req.getParameter("cost"));
-		}
+		String cost = req.getParameter("cost");
 		String treat = req.getParameter("treat");
 		String doctor = req.getParameter("doctor");
 		// 세션에 저장된 로그인 아이디
 		String loginId = (String) session.getAttribute("userId");
-		// 리뷰 작성
 		hospitalDAO.writeReview(score, content, cost, treat, doctor, loginId, api_idx);
 		return "redirect:../hospital/viewHosp.do?api_idx=" + api_idx;
 	}
 	
 	@PostMapping("/hospital/editReview.do")
-	public String editReviewPost(HttpServletRequest req) {
+	public String editReviewPost(HttpServletRequest req, HttpSession session) {
 		// 폼값
 		int api_ref = Integer.parseInt(req.getParameter("api_ref"));
 		int review_idx = Integer.parseInt(req.getParameter("review_idx"));
 		int score = Integer.parseInt(req.getParameter("score"));
 		String content = req.getParameter("content");
-		int cost = 0;
-		if (req.getParameter("cost") != null) {
-			cost = Integer.parseInt(req.getParameter("cost"));
-		}
+		String cost = req.getParameter("cost");
 		String treat = req.getParameter("treat");
 		String doctor = req.getParameter("doctor");
 		// 댓글 수정
 		hospitalDAO.editReview(review_idx, score, content, cost, treat, doctor);
 		return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
+		
 	}
 	
 	@PostMapping("/hospital/deleteReview.do")
