@@ -28,7 +28,9 @@
 							<li><a href="${pageContext.request.contextPath}/board/bestPost.do">베스트게시판</a></li>
 							<li><a href="${pageContext.request.contextPath}/board/myPost.do">내가 쓴 글</a></li>
 							<li><a href="${pageContext.request.contextPath}/board/myComment.do">댓글 단 글</a></li>
-							<li><a href="${pageContext.request.contextPath}/board/waitComment.do">댓글을 기다리는 글</a></li>
+							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
+								<li><a href="${pageContext.request.contextPath}/board/waitComment.do">댓글을 기다리는 글</a></li>
+							</c:if>
 						</ul>
 					</div>
 				</li>
@@ -45,20 +47,36 @@
 					<a href="#">마이페이지</a>
 					<div class="depth2">
 						<ul>
-							<!-- 일반 회원이 로그인한 경우 -->
-							<li><a href="${pageContext.request.contextPath}/member/checkMember.do">개인정보 수정</a></li>
-							<li><a href="#">예약 관리</a></li>
-							<li><a href="${pageContext.request.contextPath}/mypage/myHosp.do">찜한 병원</a></li>
-							<li><a href="${pageContext.request.contextPath}/mypage/myDoctor.do">찜한 의사</a></li>
-							<li><a href="#">작성한 리뷰</a></li>
-							<li><a href="#">출석체크</a></li>
-							<!-- 일반 회원이 로그인한 경우 -->
+							<!-- 병원 권한: 내 병원보기 -->
+							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
+								<li><a href="#">내 병원 보기</a>
+							</c:if>
+							<!-- 공통: 개인정보 수정 -->
+							<c:if test="${ sessionScope.userAuth == 'ROLE_USER' }">
+								<li><a href="${pageContext.request.contextPath}/member/checkMember.do">개인정보 수정</a></li>
+							</c:if>
+							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
+								<li><a href="#">개인정보 수정</a></li>
+							</c:if>
+							<!-- 병원 권한: 의사 관리 -->
+							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
+								<li><a href="/member/doctorInfo.do">의사 관리</a></li>
+							</c:if>
+							<!-- 공통: 예약 관리 -->
+							<c:if test="${ sessionScope.userAuth == 'ROLE_USER' }">
+								<li><a href="#">예약 관리</a></li>
+							</c:if>
+							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
+								<li><a href="#">예약 관리</a></li>
+							</c:if>
+							<!-- 일반 사용자 권한: 찜한 병원 및 찜한 의사 / 작성한 리뷰 / 출석체크 -->
+							<c:if test="${ sessionScope.userAuth == 'ROLE_USER' }">
+								<li><a href="${pageContext.request.contextPath}/mypage/myHosp.do">찜한 병원</a></li>
+								<li><a href="${pageContext.request.contextPath}/mypage/myDoctor.do">찜한 의사</a></li>
+								<li><a href="#">작성한 리뷰</a></li>
+								<li><a href="#">출석체크</a></li>
+							</c:if>
 							
-							<!-- 병원 회원이 로그인한 경우 -->
-							<li><a href="#">개인정보 수정</a></li>
-							<li><a href="/member/doctorInfo.do">의사 관리</a></li>
-							<li><a href="#">예약 관리</a></li>
-							<!-- 병원 회원이 로그인한 경우 -->
 						</ul>
 					</div>
 				</li>
