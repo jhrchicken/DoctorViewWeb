@@ -157,6 +157,17 @@
 		DELETE FROM likes WHERE tablename='doctor' and member_ref=#{param1} and recodenum=#{param2}
 	</delete>
 	
+	<!-- 의사 좋아요: 의사 삭제에 의한 의사 좋아요 일괄 삭제 -->
+	<delete id="deleteAllDocLike">
+		DELETE FROM likes WHERE tablename='doctor' AND recodenum=#{param1}
+	</delete>
+	
+	<delete id="deleteAllDocReviewLike">
+		DELETE FROM likes WHERE tablename='dreview' AND recodenum IN (
+			SELECT review_idx FROM dreview WHERE doc_ref=#{param1}
+		)
+	</delete>
+	
 	
 	
 	<!-- 리뷰 좋아요: 리뷰 좋아요 수 조회 -->
@@ -177,6 +188,11 @@
 	<!-- 리뷰 좋아요: 리뷰 좋아요 수 감소 -->
 	<delete id="minusReviewLike">
 		DELETE FROM likes WHERE tablename='dreview' and member_ref=#{param1} and recodenum=#{param2}
+	</delete>
+	
+	<!-- 리뷰 좋아요: 리뷰 삭제에 의한 리뷰 좋아요 일괄 삭제 -->
+	<delete id="deleteAllReviewLike">
+		DELETE FROM likes WHERE tablename='dreview' AND recodenum=#{param1}
 	</delete>
 	
 

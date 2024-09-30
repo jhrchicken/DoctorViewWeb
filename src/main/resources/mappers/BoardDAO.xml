@@ -125,13 +125,5 @@
 	<select id="countComment">
 		SELECT COUNT(*) FROM comments WHERE board_ref=#{board_idx}
 	</select>
-	
-	
-	
-	
-	
-	
-	
-
 
 </mapper>

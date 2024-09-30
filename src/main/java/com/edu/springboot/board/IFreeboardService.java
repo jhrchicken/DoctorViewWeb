@@ -36,6 +36,7 @@ public interface IFreeboardService {
 	public String selectBoardNickname(BoardDTO boardDTO);
 	// 닉네임 인출: 댓글 작성자 닉네임 인출
 	public String selectCommNickname(CommentsDTO commentsDTO);
+	
 	// 좋아요: 좋아요 수 조회
 	public int countLike(String recodenum);
 	// 좋아요: 좋아요 레코드 존재 여부 확인
@@ -44,6 +45,9 @@ public interface IFreeboardService {
 	public int plusLike(String id, String board_idx);
 	// 좋아요: 좋아요 수 감소
 	public int minusLike(String id, String board_idx);
+	// 좋아요: 게시글 삭제에 의한 모든 게시글 좋아요 삭제
+	public int deleteAllLike(String board_idx);
+	
 	// 신고: 신고 수 조회
 	public int countReport(int board_idx);
 	// 신고: 신고 레코드 존재 여부 확인
@@ -52,4 +56,6 @@ public interface IFreeboardService {
 	public int plusReport(String id, String board_idx);
 	// 신고: 신고 수 감소
 	public int minusReport(String id, String board_idx);
+	// 신고: 게시글 삭제에 의한 모든 게시글 신고 삭제
+	public int deleteAllReport(String board_idx);
 }
