@@ -86,9 +86,9 @@
 	</insert>
 	
 	<!-- 리뷰 수정 -->
-	<update id="editReview">
-		UPDATE dreview SET score=#{param2}, content=#{param3}, rewrite='T'
-		WHERE review_idx=#{param1}
+	<update id="editReview" parameterType="map">
+		UPDATE dreview SET score=#{score}, content=#{content}, rewrite='T'
+		WHERE review_idx=#{review_idx}
 	</update>
 	
 	<!-- 리뷰 삭제 -->
@@ -227,8 +227,13 @@
 	
 	<!-- 리뷰 해시태그 입력 -->
 	<insert id="writeReviewHashtag">
-		INSERT INTO hashtag (tag_idx, review_ref, tag) VALUES (seq_hashtag_idx.nextval, #{param1}, #{param2})
+		INSERT INTO hashtag (tag_idx, dreview_ref, tag) VALUES (seq_hashtag_idx.nextval, #{param1}, #{param2})
 	</insert>
+	
+	<!-- 리뷰의 모든 해시태그 삭제 -->
+	<delete id="deleteAllReviewHashtag">
+		DELETE FROM hashtag WHERE dreview_ref=#{param1}
+	</delete>
 	
 
 </mapper>

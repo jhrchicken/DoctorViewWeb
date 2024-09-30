@@ -209,22 +209,39 @@ public class DoctorController {
 	    int review_idx = (int) params.get("review_idx");
 	    // 해시태그 처리
 	    String hashtags = req.getParameter("hashtags");
-	    String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
-	    for (String hashtag : hashtagArray) {
-	        doctorDAO.writeReviewHashtag(review_idx, hashtag.trim());
+	    System.err.println(review_idx);
+	    if (hashtags != null && !hashtags.isEmpty()) {
+	    	String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
+	    	for (String hashtag : hashtagArray) {
+	    		doctorDAO.writeReviewHashtag(review_idx, hashtag.trim());
+	    	}
 	    }
 	    return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_idx;
 	}
 	
 	@PostMapping("/doctor/editReview.do")
 	public String editReviewPost(HttpServletRequest req) {
+		System.err.println("진입");
 		// 폼값
 		int doc_ref = Integer.parseInt(req.getParameter("doc_ref"));
 		int review_idx = Integer.parseInt(req.getParameter("review_idx"));
 		int score = Integer.parseInt(req.getParameter("score"));
 		String content = req.getParameter("content");
 		// 댓글 수정
-		doctorDAO.editReview(review_idx, score, content);
+		Map<String, Object> params = new HashMap<>();
+		params.put("score", score);
+		params.put("content", content);
+		params.put("review_idx", review_idx);
+		doctorDAO.editReview(params);
+		// 해시태그 처리
+	    String hashtags = req.getParameter("hashtags");
+	    if (hashtags != null && !hashtags.isEmpty()) {
+	    	String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
+	    	doctorDAO.deleteAllReviewHashtag(review_idx);
+	    	for (String hashtag : hashtagArray) {
+	    		doctorDAO.writeReviewHashtag(review_idx, hashtag.trim());
+	    	}
+	    }
 		return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_ref;
 	}
 	

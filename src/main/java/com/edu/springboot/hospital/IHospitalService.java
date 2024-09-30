@@ -23,16 +23,6 @@ public interface IHospitalService {
 	// 병원 조회
 	public BasicDTO viewHosp(String id);
 	
-	// 해시태그 목록
-	public ArrayList<HashtagDTO> listHashtag();
-	// 병원 해시태그: 특정 병원 해시태그 목록
-	public ArrayList<HashtagDTO> selectHospHashtag(String id);
-	
-	
-	// 리뷰 해시태그 작성
-	public int writeReviewHashtag(int review_idx, String tag);
-	// 리뷰의 모든 해시태그 삭제
-	public int deleteAllReviewHashtag(int review_idx);
 
 	
 	// 병원 상세정보 조회
@@ -40,10 +30,6 @@ public interface IHospitalService {
 	
 	// 의사 조회
 	public ArrayList<DoctorDTO> listDoctor(HospitalDTO hospitalDTO);
-	
-	
-	
-	
 	
 	// 리뷰 조회
 	public ArrayList<HreviewDTO> listReview(HospitalDTO hospitalDTO);
@@ -90,4 +76,13 @@ public interface IHospitalService {
 	public int countReview(int api_idx);
 	// 별점 합계 조회
 	public int sumScore(int api_idx);
+	
+	// 해시태그 목록
+	public ArrayList<HashtagDTO> listHashtag();
+	// 병원 해시태그 목록 조회
+	public ArrayList<HashtagDTO> selectHospHashtag(String id);
+	// 리뷰 해시태그 작성
+	public int writeReviewHashtag(int review_idx, String tag);
+	// 리뷰의 모든 해시태그 삭제
+	public int deleteAllReviewHashtag(int review_idx);
 }

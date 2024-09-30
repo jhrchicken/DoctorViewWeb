@@ -51,6 +51,7 @@ function openReviewEditModal(api_ref, review_idx, score, content, cost, treat, d
         }
     });
 }
+
 // 리뷰 삭제
 function deleteReview(api_ref, review_idx) {
 	if (confirm("댓글을 삭제하시겠습니까?")) {
@@ -69,11 +70,28 @@ function openReplyWriteModal(api_ref, review_idx) {
 	document.getElementById("reply_write_api_ref").value = api_ref;
     document.getElementById("reply_write_review_idx").value = review_idx;
 }
+
+// 답변 수정 모달창 열기
 function openReplyEditModal(api_ref, review_idx, content) {
 	document.getElementById("reply_edit_api_ref").value = api_ref
     document.getElementById("reply_edit_content").value = content;
     document.getElementById("reply_edit_review_idx").value = review_idx;
 }
+
+//답변 삭제
+function deleteReply(api_ref, review_idx) {
+	if (confirm("답변을 삭제하시겠습니까?")) {
+		var form = document.deleteReplyForm;
+		// hidden 필드에 값을 동적으로 설정
+        form.api_ref.value = api_ref;
+        form.review_idx.value = review_idx;
+		form.method = "post";
+		form.action = "/hospital/deleteReply.do";
+		form.submit();
+	}
+}
+
+// 폼값 검증
 function validateReviewForm(form) {
 	if (form.content.value == "") {
 		alert("내용을 입력하세요.");
@@ -86,18 +104,6 @@ function validateReplyForm(form) {
 		alert("내용을 입력하세요.");
 		form.content.focus();
 		return false;
-	}
-}
-// 답변 삭제
-function deleteReply(api_ref, review_idx) {
-	if (confirm("답변을 삭제하시겠습니까?")) {
-		var form = document.deleteReplyForm;
-		// hidden 필드에 값을 동적으로 설정
-        form.api_ref.value = api_ref;
-        form.review_idx.value = review_idx;
-		form.method = "post";
-		form.action = "/hospital/deleteReply.do";
-		form.submit();
 	}
 }
 
@@ -413,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function () {
 											<div class="review_hash">
 												<ul>
 													<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
-														<c:if test="${ hashrow.review_ref == row.review_idx }">
+														<c:if test="${ hashrow.hreview_ref == row.review_idx }">
 															<li class="hash">
 																<p>${ hashrow.tag }</p>
 															</li>
@@ -507,9 +513,8 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- 리뷰 작성 모달창 -->
 <form method="post" action="../hospital/writeReview.do" onsubmit="return validateReviewForm(this);">
     <input type="hidden" id="review_write_api_idx" name="api_idx" value="" />
-    <input type="hidden" name="hashtags" id="review_write_hashtags" />
+    <input type="hidden" id="review_write_hashtags" name="hashtags" />
     <input type="hidden" id="review_write_score" name="score" value="" />
-    
     <div class="modal" id="writeReviewModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -520,7 +525,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <!-- 해시태그 선택 영역 -->
+                    <!-- 해시태그 선택 -->
                     <div class="form-group mb-3">
                         <label>해시태그 선택:</label>
                         <div id="hashtag-list">
@@ -531,8 +536,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <button type="button" class="btn btn-secondary m-1">#신속해요</button>
                         </div>
                     </div>
-                    
-                    <!-- 별 점수 선택 영역 -->
+                    <!-- 별 점수 선택 -->
                     <div class="form-group mb-3">
                         <label>점수 선택:</label>
                         <div id="star-rating" style="cursor: pointer;">

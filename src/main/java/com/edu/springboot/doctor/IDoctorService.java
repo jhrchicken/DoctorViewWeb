@@ -29,7 +29,7 @@ public interface IDoctorService {
 	// 리뷰 작성
     public int writeReview(Map<String, Object> params);
 	// 리뷰 수정
-	public int editReview(int review_idx, int score, String content);
+    public int editReview(Map<String, Object> params);
 	// 리뷰 삭제
 	public int deleteReview(int review_idx);
 
@@ -80,4 +80,6 @@ public interface IDoctorService {
 	public ArrayList<HashtagDTO> listHashtag();
 	// 리뷰 해시태그 작성
 	public int writeReviewHashtag(int review_idx, String tag);
+	// 리뷰의 모든 해시태그 삭제
+	public int deleteAllReviewHashtag(int review_idx);
 }
