@@ -11,12 +11,12 @@ public class HreviewDTO {
 	private Date postdate;
 	private int score;
 	private String content;
-	private int cost;
+	private String cost;
 	private String treat;
 	private String doctor;
 	private String rewrite;
 	private String writer_ref;
-	private String api_ref;
+	private int api_ref;
 	
 	private String nickname;
 	private int likecount;

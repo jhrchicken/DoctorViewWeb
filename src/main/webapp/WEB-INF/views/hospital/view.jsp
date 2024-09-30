@@ -198,10 +198,10 @@ function chat(userId, hospId) {
 							<c:forEach items="${ doctorList }" var="row" varStatus="loop">
 								<li>
 									<span class="img">
-										<c:if test="${ row.photo == 'NULL' }">
+										<c:if test="${ row.photo == null }">
 											<img src="/images/doctor.png" alt="" />
 										</c:if>
-										<c:if test="${ row.photo != 'NULL' }">
+										<c:if test="${ row.photo != null }">
 											<img src="/uploads/${ row.photo }" />
 										</c:if>
 									</span>
@@ -297,7 +297,7 @@ function chat(userId, hospId) {
 								            <!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->
 								            <c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
 								                <button type="button" data-bs-toggle="modal" data-bs-target="#editReviewModal"
-												    onclick="openReviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', ${ row.cost }, '${ row.treat }', '${ row.doctor }')">
+												    onclick="openReviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', '${ row.cost }', '${ row.treat }', '${ row.doctor }')">
 												    수정
 												</button>
 								                <button type="button" onclick="deleteReview(${ row.api_ref }, ${ row.review_idx });">
