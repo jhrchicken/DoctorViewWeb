@@ -408,11 +408,11 @@ function chat(userId, hospId) {
 				<!-- Modal Body -->
 				<div class="modal-body">
 					<input type="hidden" id="review_edit_review_idx" name="review_idx" value="">
-					<textarea class="form-control mb-3" id="review_edit_score" name="score" style="height: 20px;"></textarea>
-					<textarea class="form-control mb-3" id="review_edit_content" name="content" style="height: 100px;"></textarea>
-					<textarea class="form-control mb-3" id="review_edit_cost" name="cost" style="height: 20px;"></textarea>
-					<textarea class="form-control mb-3" id="review_edit_treat" name="treat" style="height: 20px;"></textarea>
-					<textarea class="form-control mb-3" id="review_edit_doctor" name="doctor" style="height: 20px;"></textarea>
+					<textarea class="form-control mb-3" id="review_edit_score" name="score" style="height: 20px;" placeholder="점수(1-5) *"></textarea>
+					<textarea class="form-control mb-3" id="review_edit_content" name="content" style="height: 100px;" placeholder="내용 *"></textarea>
+					<textarea class="form-control mb-3" id="review_edit_cost" name="cost" style="height: 20px;" placeholder="비용"></textarea>
+					<textarea class="form-control mb-3" id="review_edit_treat" name="treat" style="height: 20px;" placeholder="치료 내용"></textarea>
+					<textarea class="form-control mb-3" id="review_edit_doctor" name="doctor" style="height: 20px;" placeholder="의사"></textarea>
 				</div>
 				<!-- Modal Footer -->
 				<div class="modal-footer">
