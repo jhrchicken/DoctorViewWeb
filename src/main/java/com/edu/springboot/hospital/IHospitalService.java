@@ -1,6 +1,7 @@
 package com.edu.springboot.hospital;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,8 +23,14 @@ public interface IHospitalService {
 	// 병원 조회
 	public BasicDTO viewHosp(String id);
 	
-	// 해시태그 목록: 병원 해시태그 목록
+	// 병원 해시태그 목록: 병원 해시태그 목록
 	public ArrayList<HashtagDTO> listHashtag();
+	// 병원 해시태그: 특정 병원 해시태그 목록
+	public ArrayList<HashtagDTO> selectHospHashtag(String id);
+	
+	// 리뷰 해시태그 작성
+	public int writeReviewHashtag(int review_idx, String tag);
+
 	
 	// 병원 상세정보 조회
 	public DetailDTO selectDetail(String id);
@@ -37,8 +44,8 @@ public interface IHospitalService {
 	
 	// 리뷰 조회
 	public ArrayList<HreviewDTO> listReview(HospitalDTO hospitalDTO);
-	// 리뷰 작성
-	public int writeReview(int score, String content, String cost, String treat, String doctor, String loginId, int api_idx);
+	// 리뷰 작성 메서드
+    public int writeReview(Map<String, Object> params);
 	// 리뷰 수정
 	public int editReview(int review_idx, int score, String content, String cost, String treat, String doctor);
 	// 리뷰 삭제
