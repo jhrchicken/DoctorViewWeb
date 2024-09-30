@@ -79,7 +79,6 @@ function chat(userId, hospId) {
 // 해시태그
 document.addEventListener('DOMContentLoaded', function () {
     const hashtagButtons = document.querySelectorAll('#hashtag-list button');
-    const selectedHashtagsContainer = document.getElementById('selected-hashtags');
     const hashtagsHiddenInput = document.getElementById('hashtags-hidden');
 
     let selectedHashtags = [];
@@ -89,43 +88,48 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             const tag = button.textContent.trim();
 
-            // 이미 선택된 해시태그는 추가하지 않음
-            if (!selectedHashtags.includes(tag)) {
+            // 이미 선택된 해시태그인 경우 색상 원래대로 되돌리기
+            if (selectedHashtags.includes(tag)) {
+                selectedHashtags = selectedHashtags.filter(h => h !== tag);
+                button.style.backgroundColor = ''; // 원래 색상으로 변경
+                button.style.color = ''; // 원래 텍스트 색상으로 변경
+            } else {
+                // 선택되지 않은 해시태그인 경우 추가
                 selectedHashtags.push(tag);
-                addTagToContainer(tag);
-                updateHiddenInput();
+                button.style.backgroundColor = '#005ad5'; // 선택된 색상으로 변경
+                button.style.color = '#fff'; // 텍스트 색상 변경
             }
-        });
-    });
 
-    // 선택된 해시태그를 UI에 추가
-    function addTagToContainer(tag) {
-        const span = document.createElement('span');
-        span.className = 'badge bg-secondary me-2';
-        span.textContent = tag;
-
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = ' ';
-        removeBtn.className = 'ms-1 btn-close btn-sm';
-        removeBtn.style.backgroundColor = 'transparent';
-        removeBtn.style.border = 'none';
-        removeBtn.style.cursor = 'pointer';
-
-        span.appendChild(removeBtn);
-        selectedHashtagsContainer.appendChild(span);
-
-        // 해시태그 삭제 처리
-        removeBtn.addEventListener('click', function () {
-            selectedHashtagsContainer.removeChild(span);
-            selectedHashtags = selectedHashtags.filter(h => h !== tag);
+            // 히든 필드에 선택된 해시태그 값을 저장
             updateHiddenInput();
         });
-    }
+    });
 
     // 히든 필드에 선택된 해시태그 값을 저장
     function updateHiddenInput() {
         hashtagsHiddenInput.value = selectedHashtags.join(',');
     }
+});
+// 별점
+document.addEventListener('DOMContentLoaded', function () {
+    const stars = document.querySelectorAll('#star-rating .star');
+    const scoreInput = document.getElementById('score');
+
+    stars.forEach(star => {
+        star.addEventListener('click', function () {
+            const rating = this.getAttribute('data-value');
+            scoreInput.value = rating; // 히든 필드에 점수 저장
+            
+            // 선택된 별의 색상 변경
+            stars.forEach(s => {
+                if (s.getAttribute('data-value') <= rating) {
+                    s.src = '/images/star.svg'; // 선택된 별의 색상
+                } else {
+                    s.src = '/images/star_empty.svg'; // 선택되지 않은 별의 색상
+                }
+            });
+        });
+    });
 });
 
 </script>
@@ -305,6 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	  		</c:if>
 	  		<c:choose>
 				<c:when test="${ empty reviewList }">
+					<!-- ********** 입점한 병원 이거 안뜸 ********* -->
 					<p>리뷰를 남겨보세요.</p>
 				</c:when>
 				<c:otherwise>
@@ -434,6 +439,8 @@ document.addEventListener('DOMContentLoaded', function () {
 <form method="post" action="../hospital/writeReview.do" onsubmit="return validateReviewForm(this);">
     <input type="hidden" id="review_write_api_idx" name="api_idx" value="" />
     <input type="hidden" name="hashtags" id="hashtags-hidden" />
+    <input type="hidden" id="score" name="score" value="" /> <!-- 점수를 저장할 히든 필드 추가 -->
+    
     <div class="modal" id="writeReviewModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -444,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
-                <!-- 해시태그 선택 영역 -->
+                    <!-- 해시태그 선택 영역 -->
                     <div class="form-group mb-3">
                         <label>해시태그 선택:</label>
                         <div id="hashtag-list">
@@ -455,19 +462,24 @@ document.addEventListener('DOMContentLoaded', function () {
                             <button type="button" class="btn btn-secondary m-1">신속해요</button>
                         </div>
                     </div>
-
-                    <!-- 선택된 해시태그가 표시될 영역 -->
-                    <div class="form-group mb-3">
-                        <label>선택된 해시태그:</label>
-                        <div id="selected-hashtags" class="d-flex flex-wrap"></div>
-                    </div>
                     
-                    <textarea class="form-control mb-3" name="score" style="height: 20px;" placeholder="점수(1-5) *"></textarea>
+                    <!-- 별 점수 선택 영역 -->
+                    <div class="form-group mb-3">
+                        <label>점수 선택:</label>
+                        <div id="star-rating" style="cursor: pointer;">
+                            <!-- 별 아이콘 -->
+                            <img src="/images/star_empty.svg" class="star" data-value="1" alt="Star" />
+                            <img src="/images/star_empty.svg" class="star" data-value="2" alt="Star" />
+                            <img src="/images/star_empty.svg" class="star" data-value="3" alt="Star" />
+                            <img src="/images/star_empty.svg" class="star" data-value="4" alt="Star" />
+                            <img src="/images/star_empty.svg" class="star" data-value="5" alt="Star" />
+                        </div>
+                    </div>
+
                     <textarea class="form-control mb-3" name="content" style="height: 100px;" placeholder="내용 *"></textarea>
                     <textarea class="form-control mb-3" name="cost" style="height: 20px;" placeholder="비용"></textarea>
                     <textarea class="form-control mb-3" name="treat" style="height: 20px;" placeholder="치료 내용"></textarea>
                     <textarea class="form-control mb-3" name="doctor" style="height: 20px;" placeholder="의사"></textarea>
-
                 </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer">

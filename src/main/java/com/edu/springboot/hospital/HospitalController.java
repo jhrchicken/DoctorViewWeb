@@ -188,9 +188,11 @@ public class HospitalController {
 	    int review_idx = (int) params.get("review_idx");  
 	    // 해시태그 처리
 	    String hashtags = req.getParameter("hashtags");
-	    String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
-	    for (String hashtag : hashtagArray) {
-	        hospitalDAO.writeReviewHashtag(review_idx, hashtag.trim());
+	    if (hashtags != "") {
+	    	String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
+	    	for (String hashtag : hashtagArray) {
+	    		hospitalDAO.writeReviewHashtag(review_idx, hashtag.trim());
+	    	}
 	    }
 	    return "redirect:../hospital/viewHosp.do?api_idx=" + api_idx;
 	}
