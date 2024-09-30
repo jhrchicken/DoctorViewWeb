@@ -108,7 +108,6 @@
   width: 100%;
   margin-bottom: 10px;
   display: flex;
-  justify-content: right;
 }
 #container .comment_btn button {
   background: #bbb;
@@ -120,6 +119,11 @@
   padding: 0 10px;
   margin-right: 20px;
 }
+
+
+
+
+
 /*** 댓글 ***/
 #container .comment {
   border-top: 4px solid #ddd;
@@ -178,4 +182,165 @@
   width: 110px;
   height: 41px;
   padding: 0 10px;
+}
+
+
+
+
+/*** 리뷰 ***/
+#container .review_wrap {
+  display: flex;
+  border: 2px solid #bbb;
+  border-radius: 10px;
+  padding: 20px;
+  width: 80%;
+  position: relative;
+}
+#container .review_wrap img {
+  width: 160px;
+  height: 160px;
+}
+#container .review {
+  padding-left: 20px;
+  width: 100%;
+  height: 210px;
+}
+/*** 별점, 이름, 날짜, 수정여부 ***/
+#container .review_score {
+  display: flex;
+  gap: 0 10px;
+}
+#contaienr .review_score .star {
+  display: flex;
+}
+#container .star img {
+  width: 25px;
+  height: 25px;
+  margin-top: 2px;
+}
+#container .review_score>p {
+  font-weight: 500;
+  font-size: 20px;
+}
+#container .review_title {
+  display: flex;
+  gap: 0 10px;
+  align-items: center;
+  margin-top: 5px;
+  color: var(--gray-500);
+  padding-left: 2px;
+}
+#container .review_title .edit {
+  color: var(--gray-400);
+}
+/*** 해시태그 ***/
+#container .review_hash {
+  display: flex;
+  gap: 0 5px;
+  margin-top: 5px;
+}
+#container .review_hash>p {
+  display: block;
+  padding: 5px 10px;
+  background: #bbb;
+  border-radius: 5px;
+  color: #fff;
+}
+#container .review_hash>p::before {
+  content: '#';
+  margin-right: 5px;
+}
+/*** 댓글 내용 ***/
+#container .review_content {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+  color: var(--gray-500);
+}
+/*** 좋아요, 답글달기 ***/
+#container .review_other {
+  display: flex;
+  gap: 0 10px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+#container .review_other button {
+  border: 2px solid #bbb;
+  border-radius: 5px;
+  background: none;
+  padding: 5px 10px;
+  font-weight: 500;
+}
+#container .review_other button.re_btn {
+  background: #bbb;
+  color: #fff;
+}
+/*** 수정, 삭제 버튼 ***/
+#container .manage {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+}
+#container .manage button {
+  border: 2px solid #bbb;
+  border-radius: 5px;
+  background: none;
+  padding: 5px 10px;
+  font-weight: 500;
+  color: #bbb;
+}
+
+/*** 리뷰 답글 ***/
+#container .recomm {
+  display: flex;
+  justify-content: right;
+}
+#container .recomm_wrap {
+  border: 2px solid #bbb;
+  border-radius: 10px;
+  background: #eee;
+  margin-top: 10px;
+  width: 60%;
+  padding: 20px;
+}
+#container .recomm_title {
+  display: flex;
+  gap: 0 10px;
+  padding-left: 5px;
+  color: var(--gray-500);
+}
+#container .recomm_title .edit {
+  color: var(--gray-400);
+}
+#container .recomm_content {
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+  background: #fff;
+  color: var(--gray-500);
+}
+#container .recomm_btn {
+  margin-top: 10px;
+  display: flex;
+  gap: 0 10px;
+  justify-content: right;
+}
+#container .recomm_btn button {
+  border: none;
+  border-radius: 5px;
+  background: var(--gray-500);
+  padding: 5px 10px;
+  color: #fff;
+}
+/*** 리뷰 없을 때 처리 ***/
+#container .comment_inner>p {
+  display: block;
+  border: 2px solid #bbb;
+  border-radius: 10px;
+  padding: 50px 20px;
+  text-align: center;
+  color: var(--gray-500);
 }

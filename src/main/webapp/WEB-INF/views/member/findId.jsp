@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>닥터뷰 | 로그인</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <%@ include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/member-findId.css" />
 <script>
@@ -31,9 +33,15 @@
     <div class="content_inner">
       <div class="login_wrap">
       	
-      	${ foundId }
-		${ notfountId }
+      	<%-- <div class="alertId">
+	      	<p>회원님의 아이디는<br /><strong>'${ foundId }'</strong>입니다.</p>
+			<p>${ notfountId }</p>
+      	</div> --%>
       	
+      	${ foundId }
+      	${ notfountId }
+      	
+      	      	
         <h2>아이디 찾기</h2>
         <form name="findIdFrm" method="post" action="../member/findId.do" onsubmit="return validateForm(this);">
           <div class="login">

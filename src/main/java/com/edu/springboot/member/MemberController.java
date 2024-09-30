@@ -239,7 +239,7 @@ public class MemberController {
 			email.myEmailSender(infoDTO);
 			
 			
-			model.addAttribute("passInfo", "임시비밀번호가 발급되었습니다. 메일함을 확인하세요");
+			model.addAttribute("passInfo", "임시 비밀번호가 발급되었습니다.<br/>메일함을 확인하세요.");
 			return "member/findPass";
 		}
 		else {
