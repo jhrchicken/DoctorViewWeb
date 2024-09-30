@@ -28,8 +28,11 @@ public interface IHospitalService {
 	// 병원 해시태그: 특정 병원 해시태그 목록
 	public ArrayList<HashtagDTO> selectHospHashtag(String id);
 	
+	
 	// 리뷰 해시태그 작성
 	public int writeReviewHashtag(int review_idx, String tag);
+	// 리뷰의 모든 해시태그 삭제
+	public int deleteAllReviewHashtag(int review_idx);
 
 	
 	// 병원 상세정보 조회
@@ -47,7 +50,7 @@ public interface IHospitalService {
 	// 리뷰 작성
     public int writeReview(Map<String, Object> params);
 	// 리뷰 수정
-	public int editReview(int review_idx, int score, String content, String cost, String treat, String doctor);
+	public int editReview(Map<String, Object> params);
 	// 리뷰 삭제
 	public int deleteReview(int review_idx);
 	

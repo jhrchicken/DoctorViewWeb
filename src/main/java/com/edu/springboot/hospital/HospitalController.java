@@ -188,7 +188,7 @@ public class HospitalController {
 	    int review_idx = (int) params.get("review_idx");  
 	    // 해시태그 처리
 	    String hashtags = req.getParameter("hashtags");
-	    if (hashtags != "") {
+	    if (hashtags != null && !hashtags.isEmpty()) {
 	    	String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
 	    	for (String hashtag : hashtagArray) {
 	    		hospitalDAO.writeReviewHashtag(review_idx, hashtag.trim());
@@ -197,11 +197,6 @@ public class HospitalController {
 	    return "redirect:../hospital/viewHosp.do?api_idx=" + api_idx;
 	}
 
-	
-	
-
-
-	
 	@PostMapping("/hospital/editReview.do")
 	public String editReviewPost(HttpServletRequest req, HttpSession session) {
 		// 폼값
@@ -212,10 +207,25 @@ public class HospitalController {
 		String cost = req.getParameter("cost");
 		String treat = req.getParameter("treat");
 		String doctor = req.getParameter("doctor");
-		// 댓글 수정
-		hospitalDAO.editReview(review_idx, score, content, cost, treat, doctor);
+		// 리뷰 수정
+		Map<String, Object> params = new HashMap<>();
+	    params.put("score", score);
+	    params.put("content", content);
+	    params.put("cost", cost);
+	    params.put("treat", treat);
+	    params.put("doctor", doctor);
+	    params.put("review_idx", review_idx);
+	    hospitalDAO.editReview(params);
+		// 해시태그 처리
+	    String hashtags = req.getParameter("hashtags");
+	    if (hashtags != null && !hashtags.isEmpty()) {
+	    	String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
+	    	hospitalDAO.deleteAllReviewHashtag(review_idx);
+	    	for (String hashtag : hashtagArray) {
+	    		hospitalDAO.writeReviewHashtag(review_idx, hashtag.trim());
+	    	}
+	    }
 		return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
-		
 	}
 	
 	@PostMapping("/hospital/deleteReview.do")
@@ -291,37 +301,4 @@ public class HospitalController {
 		}
 		return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

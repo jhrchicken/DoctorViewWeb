@@ -118,22 +118,29 @@
 	</insert>
 
 
-	<!-- 리뷰 해시태그 입력 -->
+	<!-- 리뷰 해시태그 작성 -->
 	<insert id="writeReviewHashtag">
 		INSERT INTO hashtag (tag_idx, review_ref, tag) VALUES (seq_hashtag_idx.nextval, #{param1}, #{param2})
 	</insert>
+	
+	<!-- 리뷰의 모든 해시태그 삭제 -->
+	<delete id="deleteAllReviewHashtag">
+		DELETE FROM hashtag WHERE review_ref=#{param1}
+	</delete>
+	
+	
+	
 
 
 	
 	<!-- 리뷰 수정 -->
-	<update id="editReview"
-		parameterType="com.edu.springboot.hospital.HreviewDTO">
-		UPDATE hreview SET score=#{param2}, content=#{param3}
-			<if test="#{param4} != null">, cost=#{param4}</if>
-			<if test="#{param5} != null">, treat=#{param5}</if>
-			<if test="#{param6} != null">, doctor=#{param6}</if>
+	<update id="editReview" parameterType="map" >
+		UPDATE hreview SET score=#{score}, content=#{content}
+			<if test="cost != null">, cost=#{cost}</if>
+			<if test="treat != null">, treat=#{treat}</if>
+			<if test="doctor != null">, doctor=#{doctor}</if>
 		, rewrite='T'
-		WHERE review_idx=#{param1}
+		WHERE review_idx=#{review_idx}
 	</update>
 	
 	<!-- 리뷰 삭제 -->
