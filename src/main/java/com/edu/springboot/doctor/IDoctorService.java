@@ -20,7 +20,7 @@ public interface IDoctorService {
 	// 의사 정보 수정
 	public int editDoctor(DoctorDTO doctorDTO);
 	// 의사 정보 삭제
-	public int deleteDoctor(String doc_idx);
+	public int deleteDoctor(int doc_idx);
 	
 	// 리뷰 조회
 	public ArrayList<DreviewDTO> listReview(DoctorDTO doctorDTO);
@@ -53,6 +53,10 @@ public interface IDoctorService {
 	public int plusDocLike(String id, String doc_idx);
 	// 의사 좋아요: 의사 좋아요 수 감소
 	public int minusDocLike(String id, String doc_idx);
+	// 의사 좋아요: 의사 삭제에 의한 의사 좋아요 일괄 삭제
+	public int deleteAllDocLike(int doc_idx);
+	// 의사 좋아요: 의사 삭제에 의한 의사에 해당하는 리뷰 좋아요 일괄 삭제
+	public int deleteAllDocReviewLike(int doc_idx);
 	
 	// 리뷰 좋아요: 리뷰 좋아요 수 조회
 	public int countReviewLike(String recodenum);
@@ -62,6 +66,8 @@ public interface IDoctorService {
 	public int plusReviewLike(String id, String review_idx);
 	// 리뷰 좋아요: 리뷰 좋아요 수 감소
 	public int minusReviewLike(String id, String review_idx);
+	// 리뷰 좋아요: 리뷰 삭제에 의한 리뷰 좋아요 일괄 삭제
+	public int deleteAllReviewLike(int review_idx);
 	
 	// 리뷰 수 조회
 	public int countReview(String doc_idx);

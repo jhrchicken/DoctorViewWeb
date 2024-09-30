@@ -180,9 +180,11 @@ public class DoctorController {
 	
 	@PostMapping("/doctor/deleteDoctor.do")
 	public String deleteDoctorPost(HttpServletRequest req) {
-		doctorDAO.deleteDoctor(req.getParameter("doc_idx"));
-		/********************  요청명 마이페이지로 수정 필요 **************************/
-//		return "redirect:../doctor.do";
+		int doc_idx = Integer.parseInt(req.getParameter("doc_idx"));
+		doctorDAO.deleteDoctor(doc_idx);
+		// 의사 삭제에 의한 의사 좋아요 그리고 의사에 해당하는 리뷰 좋아요 일괄 삭제
+		doctorDAO.deleteAllDocLike(doc_idx);
+		doctorDAO.deleteAllDocReviewLike(doc_idx);
 		return "redirect:/member/doctorInfo.do";
 	}
 	
@@ -213,8 +215,10 @@ public class DoctorController {
 	
 	@PostMapping("/doctor/deleteReview.do")
 	public String deleteReviewGet(HttpServletRequest req) {
-		doctorDAO.deleteReview(Integer.parseInt(req.getParameter("review_idx")));
-		doctorDAO.deleteAllReply(Integer.parseInt(req.getParameter("review_idx")));
+		int review_idx = Integer.parseInt(req.getParameter("review_idx"));
+		doctorDAO.deleteReview(review_idx);
+		doctorDAO.deleteAllReply(review_idx);
+		doctorDAO.deleteAllReviewLike(review_idx);
 		return "redirect:../doctor/viewDoctor.do?doc_idx=" + req.getParameter("doc_ref");
 	}
 	

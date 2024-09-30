@@ -166,7 +166,8 @@ public class MemberController {
 			}
 		    session.setAttribute("userId", loginUser.getId()); 
 		    session.setAttribute("userPassword", loginUser.getPassword()); 
-		    session.setAttribute("userName", loginUser.getName()); 
+		    session.setAttribute("userName", loginUser.getName());
+		    session.setAttribute("userAuth", loginUser.getAuth());
 		    session.setAttribute("userEmoji", loginUser.getEmoji()); 
 		    
 		    

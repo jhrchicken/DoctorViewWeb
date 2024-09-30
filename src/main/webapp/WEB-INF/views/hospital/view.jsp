@@ -71,6 +71,11 @@ function validateReplyForm(form) {
 		return false;
 	}
 }
+// 채팅
+function chat(userId, hospId) {
+	window.open('/chat/index.html#/chat/talk?room=' + hospId + ' - ' + userId + '&user=' + userId,
+			hospId + '-' + userId, 'width=500, height=650')
+}
 </script>
 </head>
 <body>
@@ -124,6 +129,17 @@ function validateReplyForm(form) {
 							<p>${ doctorDTO.hospitalize }</p>
 						</div>
 					</div>
+					
+					<!-- 사용자가 로그인 했고 임점한 병원인 경우에만 채팅 가능 -->
+					<!-- ****************** 수정 필요 ****************** -->
+					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null }">
+						<button>예약하기</button>
+					</c:if>
+					
+					<!-- 사용자가 로그인 했고 입점한 병원인 경우에만 채팅 가능 -->
+					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null }">
+					    <button onclick="chat('${ sessionScope.userName }', '${ hospitalDTO.name }');">채팅하기</button>
+					</c:if>
 					
 					<div class="doc_like">
 						<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
@@ -222,6 +238,9 @@ function validateReplyForm(form) {
 					<th width="*">내용</th>
 					<th width="100px">별점</th>
 					<th width="150px">작성일</th>
+					<th width="150px">비용</th>
+					<th width="150px">치료</th>
+					<th width="150px">의사</th>
 					<th width="100px">수정 여부</th>
 					<th width="150px">수정 / 삭제</th>
 					<th width="150px">답변달기</th>
@@ -246,14 +265,17 @@ function validateReplyForm(form) {
 								        <td class="content" align="left">${ row.content }</td>
 								        <td class="score">${ row.score }</td>
 								        <td class="postdate">${ row.postdate }</td>
+								        <td class="postdate">${ row.cost }</td>
+								        <td class="postdate">${ row.treat }</td>
+								        <td class="postdate">${ row.doctor }</td>
 								        <td class="rewrite">${ row.rewrite }</td>
 								        <td class="comm_btn">
 								            <!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->
 								            <c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
 								                <button type="button" data-bs-toggle="modal" data-bs-target="#editReviewModal"
-								                        onclick="openReviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', ${ row.cost }, '${ row.treat }', '${ row.doctor }'">
-								                    수정
-								                </button>
+												    onclick="openReviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', ${ row.cost }, '${ row.treat }', '${ row.doctor }')">
+												    수정
+												</button>
 								                <button type="button" onclick="deleteReview(${ row.api_ref }, ${ row.review_idx });">
 								                    삭제
 								                </button>
