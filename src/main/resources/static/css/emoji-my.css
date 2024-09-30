@@ -2,125 +2,119 @@
   margin-top: 170px;
   padding: 100px 0;
   min-height: 100vh;
-  background: #f6f6f6;
 }
 #container .content_inner {
   max-width: 1170px;
   margin: 0 auto;
 }
 
-#container .emoji {
-  background: #fff;
-  padding: 80px;
-  border-radius: 30px;
-}
 
+/*** 사용자 정보 ***/
 #container h2 {
-  text-align: center;
   font-size: 40px;
-  color: var(--gray-600);
+  color: var(--point-color2);
   font-weight: 700;
-  padding-bottom: 50px;
+  padding: 30px 0 20px;
 }
-
-#container .emoji_inner {
-  display: flex;
-  gap: 20px 15px;
-  flex-wrap: wrap;
-}
-
-#container .emoji_inner>li {
-  width: calc((100% / 3) - 30px / 3);
-  height: 300px;
-  text-align: center;
-  padding: 50px 40px;
-  background: #fff;
+#container .user {
+  width: 50%;
+  padding: 30px 40px;
   border-radius: 10px;
-  position: relative;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
-/*** 유저 정보 칸 ***/
-#container .emoji_inner .user_name {
-  font-size: 25px;
-  font-weight: 700;
-}
-#container .emoji_inner .user_name::after {
-  content: '님';
-  margin-left: 3px;
-  font-size: 20px;
-}
-#container .emoji_inner .emoji_wrap {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 15px;
 }
-#container .emoji_inner .emoji_wrap h4 {
-  font-size: 50px;
+#container .user .user_emoji {
   display: block;
   width: 100px;
   height: 100px;
-  border: 1px solid #666;
-  color: #666;
-  border-radius: 50%;
-  padding: 15px 10px;
-  transition: all 0.3s ease;
+  font-size: 50px;
+  padding: 20px 0;
 }
-#container .emoji_inner .a_btn {
+#container .user .user_info {
+  padding: 20px 30px;
+  position: relative;
+  width: 100%;
+}
+#container .user_name {
+  font-size: 30px;
+}
+#container .user_point {
+  display: flex;
+  gap: 0 10px;
+  margin-top: 10px;
+  font-size: 20px;
+}
+#container .user_point .point {
+  color: var(--point-color2);
+  font-weight: 700;
+}
+#container .user_point .point::after {
+  content: 'P';
+  margin-left: 2px;
+  color: #000;
+  font-weight: 400;
+}
+#container .user_info a {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px;
+  height: 100px;
+  background: var(--point-color1);
+  border-radius: 50%;
+  color: #fff;
   display: flex;
   justify-content: center;
-  width: 100%;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 40px;
+  align-items: center;
+  text-align: center;
 }
-#container .emoji_inner .a_btn a {
-  display: block;
-  width: 170px;
-  height: 44px;
-  padding: 10px;
-  background: var(--point-color2);
-  border-radius: 30px;
-  color: #fff;
-  font-size: 20px;
-  transition: all 0.2s ease;
-}
-#container .emoji_inner>li:hover .a_btn a {
-  background: #fff;
-  border: 1px solid #005ad5;
+
+/*** 보유 이모티콘 ***/
+#container h3 {
+  font-size: 30px;
+  font-weight: 500;
   color: var(--point-color2);
+  padding: 50px 0 20px;
 }
-/*** 이모지 칸 ***/
-#container .emoji .have>.emoji_wrap {
-  margin-top: 0;
+#container .my_emoji {
+  display: flex;
+  gap: 0 20px;
+  flex-wrap: wrap;
 }
-#container .emoji .have>p {
-  display: block;
-  margin-top: 20px;
-  font-size: 20px;
+#container .have {
+  width: calc((100% / 3) - 40px / 3);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
-  
-#container .emoji .your_emoji>button {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 40px;
-  width: 130px;
-  height: 44px;
-  background: var(--point-color2);
-  border: none;
-  border-radius: 30px;
-  color: #fff;
-  font-size: 20px;
-  transition: all 0.2s ease;
-}
-#container .emoji_inner>li:hover .emoji_wrap h4 {
+#container .have:hover {
   background: var(--point-color1);
+  color: #fff;
 }
-#container .emoji_inner>li:hover>button {
-  background: none;
-  border: 1px solid #005ad5;
-  color: var(--point-color2);
+#container .have .emoji {
+  font-size: 40px;
+  font-weight: 500;
+}
+#container .have .emoji_name {
+  font-size: 25px;
+  margin: 30px 0 20px;
+}
+#container .have .emoji_btn button {
+  border: none;
+  border-radius: 10px;
+  background: var(--point-color1);
+  padding: 10px 20px;
+  font-size: 20px;
+  color: #fff;
+}
+#container .have:hover .emoji_btn button {
+  background: #fff;
+  color: var(--gray-500);
+}
+#container .have .emoji_btn button.used {
+  background: #ddd;
 }
