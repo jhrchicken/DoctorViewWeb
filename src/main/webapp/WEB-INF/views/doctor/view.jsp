@@ -226,11 +226,12 @@ document.addEventListener('DOMContentLoaded', function () {
 									<div class="review">
 										<div class="review_score">
 											<div class="star">
-												<img src="/images/star.svg" alt="" />
-												<img src="/images/star.svg" alt="" />
-												<img src="/images/star.svg" alt="" />
-												<img src="/images/star.svg" alt="" />
-												<img src="/images/star.svg" alt="" />
+												<c:forEach var="i" begin="0" end="${row.score - 1}">
+												    <img src="/images/star.svg" alt="Star" />
+												</c:forEach>
+												<c:forEach var="i" begin="${row.score}" end="4">
+												    <img src="/images/star_empty.svg" alt="Empty Star" />
+												</c:forEach>
 											</div>
 											<p>${ row.score }</p>
 										</div>
@@ -238,7 +239,10 @@ document.addEventListener('DOMContentLoaded', function () {
 											<p>${ row.nickname }</p>
 											<p>•</p>
 											<p>${ row.postdate }</p>
-											<p class="edit">(${ row.rewrite })</p>
+											<!-- 수정 여부 -->
+											<c:if test="${ row.rewrite == 'T' }">
+												<p class="edit">(수정됨)</p>
+											</c:if>
 										</div>
 										<!-- 해시태그 -->
 										<c:if test="${ not empty hashtagList }">
@@ -300,7 +304,10 @@ document.addEventListener('DOMContentLoaded', function () {
 														<p>${ replyRow.nickname }</p>
 														<p>•</p>
 														<p>${ replyRow.postdate }</p>
-														<p class="edit">(${ replyRow.rewrite })</p>
+														<!-- 수정 여부 -->
+														<c:if test="${ replyRow.rewrite == 'T' }">
+															<p class="edit">(수정됨)</p>
+														</c:if>
 													</div>
 													
 													<!-- 로그인 사용자와 답변 작성자가 일치하는 경우 수정 삭제 버튼 -->
