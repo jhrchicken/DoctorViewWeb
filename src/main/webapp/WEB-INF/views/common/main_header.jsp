@@ -52,7 +52,7 @@
 								<li><a href="#">내 병원 보기</a>
 							</c:if>
 							<!-- 공통: 개인정보 수정 -->
-							<c:if test="${ sessionScope.userAuth == 'ROLE_USER' }">
+							<c:if test="${ sessionScope.userAuth != 'ROLE_HOSP' }">
 								<li><a href="${pageContext.request.contextPath}/member/checkMember.do">개인정보 수정</a></li>
 							</c:if>
 							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
@@ -63,14 +63,14 @@
 								<li><a href="/member/doctorInfo.do">의사 관리</a></li>
 							</c:if>
 							<!-- 공통: 예약 관리 -->
-							<c:if test="${ sessionScope.userAuth == 'ROLE_USER' }">
+							<c:if test="${ sessionScope.userAuth != 'ROLE_HOSP' }">
 								<li><a href="#">예약 관리</a></li>
 							</c:if>
 							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
 								<li><a href="#">예약 관리</a></li>
 							</c:if>
 							<!-- 일반 사용자 권한: 찜한 병원 및 찜한 의사 / 작성한 리뷰 / 출석체크 -->
-							<c:if test="${ sessionScope.userAuth == 'ROLE_USER' }">
+							<c:if test="${ sessionScope.userAuth != 'ROLE_HOSP' }">
 								<li><a href="${pageContext.request.contextPath}/mypage/myHosp.do">찜한 병원</a></li>
 								<li><a href="${pageContext.request.contextPath}/mypage/myDoctor.do">찜한 의사</a></li>
 								<li><a href="#">작성한 리뷰</a></li>
