@@ -33,7 +33,6 @@
 			</div>
 			
 			<!-- !!!!!!!!!!!!나중에 지우기!!!!!!!!!!!!  -->
-			<!-- 로그인 한 경우에만 글쓰기 버튼 -->
 		    <div class="write_btn">
 		        <button type="button" onclick="location.href='../doctor/writeDoctor.do';">의사 등록하기</button>
 		    </div>
@@ -51,10 +50,10 @@
 							<c:forEach items="${ doctorsList }" var="row" varStatus="loop">
 								<li>
 									<span class="img">
-										<c:if test="${ row.photo == 'NULL' }">
+										<c:if test="${ row.photo == null }">
 											<img src="/images/doctor.png" alt="" />
 										</c:if>
-										<c:if test="${ row.photo != 'NULL' }">
+										<c:if test="${ row.photo != null }">
 											<img src="/uploads/${ row.photo }" />
 										</c:if>
 									</span>

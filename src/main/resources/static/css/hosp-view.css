@@ -53,6 +53,10 @@
   display: flex;
   gap: 0 10px;
 }
+#container .detail_flex {
+  display: flex;
+  gap: 0 10px;
+}
 #container .blue {
   color: var(--point-color2);
 }

@@ -13,6 +13,7 @@
   background: #fff;
   padding: 86px 100px 60px;
   border-radius: 30px;
+  position: relative;
 }
 
 #container h2 {
@@ -70,4 +71,21 @@
 #container .other_wrap a {
   margin-left: 10px;
   color: var(--point-color2);
+}
+/*** 비밀번호 알림 ***/
+#container .alertPass {
+  position: absolute;
+  left: 100px;
+  top: 209px;
+  width: 450px;
+  height: 207px;
+  background: #fff;
+  border: 2px solid #ddd;
+  padding: 70px 30px;
+  text-align: center;
+}
+#container .alertPass p {
+  font-size: 20px;
+  color: var(--gray-500);
+  line-height: 1.5em;
 }
