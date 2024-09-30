@@ -33,13 +33,13 @@
     <div class="content_inner">
       <div class="login_wrap">
       	
-      	<%-- <div class="alertId">
+      	<div class="alertId">
 	      	<p>회원님의 아이디는<br /><strong>'${ foundId }'</strong>입니다.</p>
 			<p>${ notfountId }</p>
-      	</div> --%>
+      	</div>
       	
-      	${ foundId }
-      	${ notfountId }
+      	<%-- ${ foundId }
+      	${ notfountId } --%>
       	
       	      	
         <h2>아이디 찾기</h2>
