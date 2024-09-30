@@ -75,7 +75,7 @@
 	<!-- 회원정보 수정 hosp - member -->
 	<update id="editHospMember"
 		parameterType="com.edu.springboot.member.MemberDTO">
-		UPDATE member SET password=#{password}, name=#{name}, nickname=#{name}, tel=#{tel}, address=#{address}, department=#{department}, photo=#{photo}
+		UPDATE member SET password=#{password}, name=#{name}, nickname=#{name}, tel=#{tel}, address=#{address}, department=#{department}
 		WHERE id=#{id}
 	</update>
 	
@@ -101,11 +101,17 @@
 	<insert id="insertHospDetail"
 		parameterType="com.edu.springboot.member.DetailDTO">
 		INSERT INTO detail 
-		VALUES (seq_detail_idx.nextval, #{introduce}, #{traffic}, #{parking}, #{pcr}, #{hospitalize}, #{system}, #{hosp_ref})
+		VALUES (seq_detail_idx.nextval,
+			<if test="photo != null">#{photo}</if>
+            <if test="photo == null">NULL</if>, 
+		 	#{introduce}, #{traffic}, #{parking}, #{pcr}, #{hospitalize}, #{system}, #{hosp_ref})
 	</insert>
+	
 	<update id="updateHospDetail"
 		parameterType="com.edu.springboot.member.DetailDTO">
-		UPDATE detail SET introduce=#{introduce}, traffic=#{traffic}, parking=#{parking}, pcr=#{pcr}, hospitalize=#{hospitalize}, system=#{system}
+		UPDATE detail SET introduce=#{introduce}, traffic=#{traffic}, parking=#{parking}, pcr=#{pcr}, hospitalize=#{hospitalize}, system=#{system}, photo=
+		<if test="photo != null">#{photo}</if>
+        <if test="photo == null">NULL</if>
 		WHERE hosp_ref=#{hosp_ref}
 	</update>
 	
