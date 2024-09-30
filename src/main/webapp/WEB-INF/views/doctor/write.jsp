@@ -46,7 +46,6 @@
 				
 				<div class="doc_info">
 					<div class="doc_img">
-						<!-- 사진 있을 때 없을 때 처리해야 함! -->
 						<span class="img">
 							<img src="/images/doctor.png" alt="" />
 						</span>

@@ -41,9 +41,12 @@
 	</select>
 	
 	<!-- 의사 정보 작성 -->
-	<insert id="writeDoctor">
-		INSERT INTO doctor (doc_idx, name, major, career, photo, hours, hosp_ref)
-		VALUES (seq_doctor_idx.nextval, #{name}, #{major}, #{career}, #{photo}, #{hours}, #{hosp_ref})
+	<insert id="writeDoctor" parameterType="com.edu.springboot.member.DoctorDTO">
+	    INSERT INTO doctor (doc_idx, name, major, career, photo, hours, hosp_ref)
+	    VALUES (seq_doctor_idx.nextval, #{name}, #{major}, #{career}, 
+            <if test="photo != null">#{photo}</if>
+            <if test="photo == null">NULL</if>, 
+            #{hours}, #{hosp_ref})
 	</insert>
 	
 	<!-- 의사 사진 작성 -->
