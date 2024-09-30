@@ -97,7 +97,7 @@
 	<!-- 리뷰 수정 -->
 	<update id="editReview"
 		parameterType="com.edu.springboot.hospital.HreviewDTO">
-		UPDATE dereview SET score=#{param2}, content=#{param3}, cost=#{param4}, treat=#{param5}, doctor=#{param6}, rewrite='T'
+		UPDATE hreview SET score=#{param2}, content=#{param3}, cost=#{param4}, treat=#{param5}, doctor=#{param6}, rewrite='T'
 		WHERE review_idx=#{param1}
 	</update>
 	
