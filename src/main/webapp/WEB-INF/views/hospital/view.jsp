@@ -6,12 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>닥터뷰 | 병원 찾기</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <%@include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/doc-view.css" />
+<link rel="stylesheet" href="/css/hosp-view.css" />
 <script>
 function deleteReview(api_ref, review_idx) {
 	if (confirm("댓글을 삭제하시겠습니까?")) {
@@ -105,30 +105,54 @@ function chat(userId, hospId) {
 					</div>
 					<div class="detail">
 						<div class="details">
-							<p class="blue">전화</p>
-							<p>${ hospitalDTO.tel }</p>
+							<div class="detail_flex">
+								<p class="blue">전화</p>
+								<p>${ hospitalDTO.tel }</p>
+							</div>
+							<div class="detail_flex">
+								<p class="blue">주소</p>
+								<p>${ hospitalDTO.address }</p>
+							</div>
 						</div>
 						<div class="details">
-							<p class="blue">교통편</p>
-							<p>${ doctorDTO.parking }</p>
+							<div class="detail_flex">
+								<p class="blue">교통편</p>
+								<p>${ doctorDTO.parking }</p>
+							</div>
+							<div class="detail_flex">
+								<p class="blue">주차</p>
+								<p>${ doctorDTO.parking }</p>
+							</div>
 						</div>
 						<div class="details">
-							<p class="blue">주차</p>
-							<p>${ doctorDTO.parking }</p>
-						</div>
-						<div class="details">
-							<p class="blue">PCR 검사 가능 여부</p>
-							<p>${ doctorDTO.pcr }</p>
-						</div>
-						<div class="details">
-							<p class="blue">예약제</p>
-							<p>${ doctorDTO.system }</p>
-						</div>
-						<div class="details">
-							<p class="blue">입원</p>
-							<p>${ doctorDTO.hospitalize }</p>
+							<div class="detail_flex">
+								<p class="blue">예약제</p>
+								<p>${ doctorDTO.system }</p>
+							</div>
+							<div class="detail_flex">
+								<p class="blue">입원</p>
+								<p>${ doctorDTO.hospitalize }</p>
+							</div>
+							<div class="detail_flex">
+								<p class="blue">PCR 검사</p>
+								<p>${ doctorDTO.pcr }</p>
+							</div>
 						</div>
 					</div>
+					<!-- 해시태그 -->
+					<%-- <c:if test="${ not empty hashtagList }">
+						<div class="hashtag">
+							<ul>
+								<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
+									<c:if test="${ hashrow.hosp_ref == row.id }">
+										<li class="hash">
+											<p>${ hashrow.tag }</p>
+										</li>
+									</c:if>
+								</c:forEach>
+							</ul>
+						</div>
+					</c:if> --%>
 					
 					<!-- 사용자가 로그인 했고 임점한 병원인 경우에만 채팅 가능 -->
 					<!-- ****************** 수정 필요 ****************** -->
