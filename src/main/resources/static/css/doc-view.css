@@ -335,6 +335,8 @@
   padding: 5px 10px;
   color: #fff;
 }
+
+
 /*** 리뷰 없을 때 처리 ***/
 #container .comment_inner>p {
   display: block;
