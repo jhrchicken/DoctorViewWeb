@@ -116,20 +116,20 @@ function validateReplyForm(form) {
 						</div>
 					</div>
 					
-					<div class="doc_like">
+					<div class="like_wrap">
 						<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
 						<c:if test="${ doclikecheck == 0 }">
-							<div class="like_wrap">
-								<button type="button" onclick="location.href='../doctor/clickDocLike.do?doc_idx=${ param.doc_idx }';"></button>
-								<p class="like">${ doctorDTO.likecount }</p>
-							</div>
+							<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';">
+								<img src="/images/mark.svg" alt="" style="width: 30px; height: 30px;" />
+								${ doctorDTO.likecount }
+							</button>
 						</c:if>
 						<!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
 						<c:if test="${ doclikecheck == 1 }">
-							<div class="like_wrap">
-								<button class="push" type="button" onclick="location.href='../doctor/clickDocLike.do?doc_idx=${ param.doc_idx }';"></button>
-								<p class="like">${ doctorDTO.likecount }</p>
-							</div>
+							<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';">
+								<img src="/images/mark_full.svg" alt="" style="width: 30px; height: 30px;" />
+								${ doctorDTO.likecount }
+							</button>
 						</c:if>
 					</div>
 					
