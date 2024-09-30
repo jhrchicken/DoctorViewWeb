@@ -62,7 +62,6 @@ function validateForm(form) {
 	            <li><a href="../member/findPass.do">비밀번호 찾기</a></li>
 	            <li>|</li>
 	            <li><a href="../member/join.do">회원가입</a></li>
-	            <li><a href="/mypage/attend.do">출석체크</a></li>
 	          </ul>
 	        </div>
 	      </div>

@@ -73,11 +73,11 @@ public interface IHospitalService {
 	public int plusReviewLike(String id, String review_idx);
 	// 리뷰 좋아요: 리뷰 좋아요 수 감소
 	public int minusReviewLike(String id, String review_idx);
+	// 리뷰 좋아요: 리뷰 삭제에 의한 리뷰 좋아요 일괄 삭제
+	public int deleteAllLike(int review_idx);
 	
 	// 리뷰 수 조회
 	public int countReview(int api_idx);
 	// 별점 합계 조회
 	public int sumScore(int api_idx);
-	
-
 }

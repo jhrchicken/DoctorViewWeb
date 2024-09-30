@@ -166,7 +166,8 @@ public class MemberController {
 			}
 		    session.setAttribute("userId", loginUser.getId()); 
 		    session.setAttribute("userPassword", loginUser.getPassword()); 
-		    session.setAttribute("userName", loginUser.getName()); 
+		    session.setAttribute("userName", loginUser.getName());
+		    session.setAttribute("userAuth", loginUser.getAuth());
 		    session.setAttribute("userEmoji", loginUser.getEmoji()); 
 		    
 		    
@@ -461,7 +462,7 @@ public class MemberController {
 		// 현재 날짜 가져오기
         LocalDate today = LocalDate.now();
         // 날짜 포맷팅
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         String todayDate = today.format(formatter);
         // 출력
         model.addAttribute("todayDate", todayDate);
@@ -485,12 +486,17 @@ public class MemberController {
 		String attend = req.getParameter("attendDate");
 		// 오늘날짜로 attend 컬럼 설정
 		memberDTO.setAttend(attend);
+		System.out.println(memberDTO);
+		
 		System.out.println(attend);
+		if (attend instanceof String) {
+		    System.out.println("String타입.");
+		} else {
+		    System.out.println("String타입 아님");
+		}
+		
 		// 500포인트 추가
 		memberDTO.setPoint(memberDTO.getPoint()+500);
-		System.out.println(memberDTO.getPoint());
-		
-		/********************** attend 값 질문 & 수정 필요 *****************/
 		memberDAO.userAttend(memberDTO);
 		
 		return "mypage/attend";

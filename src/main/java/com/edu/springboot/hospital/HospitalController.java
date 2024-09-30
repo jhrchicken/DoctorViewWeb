@@ -204,8 +204,10 @@ public class HospitalController {
 	
 	@PostMapping("/hospital/deleteReview.do")
 	public String deleteReviewGet(HttpServletRequest req) {
-		hospitalDAO.deleteReview(Integer.parseInt(req.getParameter("review_idx")));
-		hospitalDAO.deleteAllReply(Integer.parseInt(req.getParameter("review_idx")));
+		int review_idx = Integer.parseInt(req.getParameter("review_idx"));
+		hospitalDAO.deleteReview(review_idx);
+		hospitalDAO.deleteAllReply(review_idx);
+		hospitalDAO.deleteAllLike(review_idx);
 		return "redirect:../hospital/viewHosp.do?api_idx=" + req.getParameter("api_ref");
 	}
 	

@@ -97,7 +97,7 @@
 	<!-- 리뷰 수정 -->
 	<update id="editReview"
 		parameterType="com.edu.springboot.hospital.HreviewDTO">
-		UPDATE dereview SET score=#{param2}, content=#{param3}, cost=#{param4}, treat=#{param5}, doctor=#{param6}, rewrite='T'
+		UPDATE hreview SET score=#{param2}, content=#{param3}, cost=#{param4}, treat=#{param5}, doctor=#{param6}, rewrite='T'
 		WHERE review_idx=#{param1}
 	</update>
 	
@@ -162,6 +162,7 @@
 	
 	
 	
+	
 	<!-- 리뷰 좋아요: 리뷰 좋아요 수 조회 -->
 	<select id="countReviewLike">
 		SELECT COUNT(*) FROM likes WHERE tablename='hreview' AND recodenum=#{param1}
@@ -180,6 +181,11 @@
 	<!-- 리뷰 좋아요: 리뷰 좋아요 수 감소 -->
 	<delete id="minusReviewLike">
 		DELETE FROM likes WHERE tablename='hreview' AND member_ref=#{param1} AND recodenum=#{param2}
+	</delete>
+	
+	<!-- 리뷰 좋아요: 리뷰 삭제에 의한 리뷰 좋아요 일괄 삭제 -->
+	<delete id="deleteAllLike">
+		DELETE FROM likes WHERE tablename='hreview' AND recodenum=#{param1}
 	</delete>
 	
 	

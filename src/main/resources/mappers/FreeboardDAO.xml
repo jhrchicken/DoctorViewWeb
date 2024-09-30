@@ -121,6 +121,13 @@
 		DELETE FROM likes WHERE tablename='board' and member_ref=#{param1} and recodenum=#{param2}
 	</delete>
 	
+	<!-- 좋아요: 게시글 삭제에 의한 모든 게시글 좋아요 삭제 -->
+	<delete id="deleteAllLike">
+		DELETE FROM likes WHERE tablename='board' AND recodenum=#{param1}
+	</delete>
+
+
+
 	<!-- 신고: 신고 수 조회 -->
 	<select id="countReport">
 		SELECT COUNT(*) FROM report WHERE board_ref=#{param1}
@@ -140,6 +147,13 @@
 	<delete id="minusReport">
 		DELETE FROM report WHERE member_ref=#{param1} and board_ref=#{param2}
 	</delete>
+	
+	<!-- 신고: 게시글 삭제에 의한 모든 신고 삭제 -->
+	<delete id="deleteAllReport">
+		DELETE FROM report WHERE board_ref=#{param1}
+	</delete>
+	
+	
 	
 	<!-- 댓글 수 조회 -->
 	<select id="countComment">

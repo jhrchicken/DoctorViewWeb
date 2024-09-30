@@ -132,7 +132,11 @@ public class FreeboardController {
 	
 	@PostMapping("/freeboard/deletePost.do")
 	public String deletePostPost(HttpServletRequest req) {
-		boardDAO.deletePost(req.getParameter("board_idx"));
+		String board_idx = req.getParameter("board_idx");
+		boardDAO.deletePost(board_idx);
+		// 게시글 삭제에 의한 좋아요 및 신고 삭제
+		boardDAO.deleteAllLike(board_idx);
+		boardDAO.deleteAllReport(board_idx);
 		return "redirect:../freeboard.do";
 	}
 	

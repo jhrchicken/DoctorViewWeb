@@ -186,6 +186,7 @@
 			   
 		    <form name="attend" method="post" action="/mypage/attend.do">
                <input type="hi-dden" name="attendDate" id="attendDate" value="${ todayDate }" />
+               <p>현재 회원의 출석체크: ${ memberDTO.attend }</p>
 				<c:if test="${ memberDTO.attend != todayDate }">
 				    <button type="submit" id="attendButton">출석체크 하기</button>
 				</c:if>
