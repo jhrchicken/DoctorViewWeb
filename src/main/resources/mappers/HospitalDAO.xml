@@ -41,12 +41,6 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	<!-- 병원 입점 여부 확인: 병원이름으로 입점 여부를 확인하여 아이디 추출 -->
 	<select id="selectHospId">
 		SELECT id FROM member WHERE name=#{param1}
@@ -201,7 +195,6 @@
 	
 	
 	
-	
 	<!-- 리뷰 좋아요: 리뷰 좋아요 수 조회 -->
 	<select id="countReviewLike">
 		SELECT COUNT(*) FROM likes WHERE tablename='hreview' AND recodenum=#{param1}
@@ -240,27 +233,6 @@
 		FROM hreview WHERE api_ref=#{param1}
 	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

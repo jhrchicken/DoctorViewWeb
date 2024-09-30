@@ -76,6 +76,57 @@ function validateReplyForm(form) {
 		return false;
 	}
 }
+// 해시태그
+document.addEventListener('DOMContentLoaded', function () {
+    const hashtagButtons = document.querySelectorAll('#hashtag-list button');
+    const selectedHashtagsContainer = document.getElementById('selected-hashtags');
+    const hashtagsHiddenInput = document.getElementById('hashtags-hidden');
+
+    let selectedHashtags = [];
+
+    // 해시태그 버튼 클릭 시 처리
+    hashtagButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const tag = button.textContent.trim();
+
+            // 이미 선택된 해시태그는 추가하지 않음
+            if (!selectedHashtags.includes(tag)) {
+                selectedHashtags.push(tag);
+                addTagToContainer(tag);
+                updateHiddenInput();
+            }
+        });
+    });
+
+    // 선택된 해시태그를 UI에 추가
+    function addTagToContainer(tag) {
+        const span = document.createElement('span');
+        span.className = 'badge bg-secondary me-2';
+        span.textContent = tag;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = ' ';
+        removeBtn.className = 'ms-1 btn-close btn-sm';
+        removeBtn.style.backgroundColor = 'transparent';
+        removeBtn.style.border = 'none';
+        removeBtn.style.cursor = 'pointer';
+
+        span.appendChild(removeBtn);
+        selectedHashtagsContainer.appendChild(span);
+
+        // 해시태그 삭제 처리
+        removeBtn.addEventListener('click', function () {
+            selectedHashtagsContainer.removeChild(span);
+            selectedHashtags = selectedHashtags.filter(h => h !== tag);
+            updateHiddenInput();
+        });
+    }
+
+    // 히든 필드에 선택된 해시태그 값을 저장
+    function updateHiddenInput() {
+        hashtagsHiddenInput.value = selectedHashtags.join(',');
+    }
+});
 </script>
 </head>
 <body>
@@ -189,12 +240,20 @@ function validateReplyForm(form) {
 											<p>${ row.postdate }</p>
 											<p class="edit">(${ row.rewrite })</p>
 										</div>
-										<div class="review_hash">
-											<p>해시태그</p>
-											<p>해시태그</p>
-											<p>해시태그</p>
-											<p>해시태그</p>
-										</div>
+										<!-- 해시태그 -->
+										<c:if test="${ not empty hashtagList }">
+											<div class="review_hash">
+												<ul>
+													<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
+														<c:if test="${ hashrow.review_ref == row.review_idx }">
+															<li class="hash">
+																<p>${ hashrow.tag }</p>
+															</li>
+														</c:if>
+													</c:forEach>
+												</ul>
+											</div>
+										</c:if>
 										<div class="review_content">
 											<p>${ row.content }</p>					
 										</div>
@@ -277,6 +336,7 @@ function validateReplyForm(form) {
 <!-- 리뷰 작성 모달창 -->
 <form method="post" action="../doctor/writeReview.do" onsubmit="return validateReviewForm(this);">
 	<input type="hidden" id="doc_idx" name="doc_idx" value="" />
+	<input type="hidden" name="hashtags" id="hashtags-hidden" />
 	<div class="modal" id="writeReviewModal" >
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -287,7 +347,22 @@ function validateReplyForm(form) {
 				</div>
 				<!-- Modal Body -->
 				<div class="modal-body">
-	
+					<!-- 해시태그 선택 -->
+					<div class="form-group mb-3">
+                        <label>해시태그 선택:</label>
+                        <div id="hashtag-list">
+                            <!-- 해시태그 목록 -->
+                            <button type="button" class="btn btn-secondary m-1">친절해요</button>
+                            <button type="button" class="btn btn-secondary m-1">전문적이예요</button>
+                            <button type="button" class="btn btn-secondary m-1">청결해요</button>
+                            <button type="button" class="btn btn-secondary m-1">신속해요</button>
+                        </div>
+                    </div>
+                    <!-- 선택된 해시태그가 표시될 영역 -->
+                    <div class="form-group mb-3">
+                        <label>선택된 해시태그:</label>
+                        <div id="selected-hashtags" class="d-flex flex-wrap"></div>
+                    </div>
 					<textarea class="form-control mb-3" name="score" style="height: 20px;" placeholder="점수를 입력하세요 (1~5)"></textarea>
 					<textarea class="form-control" name="content" style="height: 100px;" placeholder="내용을 입력하세요"></textarea>
 				</div>

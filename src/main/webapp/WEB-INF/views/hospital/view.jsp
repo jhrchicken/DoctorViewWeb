@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
         span.textContent = tag;
 
         const removeBtn = document.createElement('button');
-        removeBtn.textContent = 'x';
+        removeBtn.textContent = ' ';
         removeBtn.className = 'ms-1 btn-close btn-sm';
         removeBtn.style.backgroundColor = 'transparent';
         removeBtn.style.border = 'none';
@@ -442,10 +442,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         <label>해시태그 선택:</label>
                         <div id="hashtag-list">
                             <!-- 해시태그 목록 -->
-                            <button type="button" class="btn btn-secondary m-1">친절함</button>
-                            <button type="button" class="btn btn-secondary m-1">전문적</button>
-                            <button type="button" class="btn btn-secondary m-1">청결함</button>
-                            <button type="button" class="btn btn-secondary m-1">신속함</button>
+                            <button type="button" class="btn btn-secondary m-1">친절해요</button>
+                            <button type="button" class="btn btn-secondary m-1">전문적이예요</button>
+                            <button type="button" class="btn btn-secondary m-1">청결해요</button>
+                            <button type="button" class="btn btn-secondary m-1">신속해요</button>
                         </div>
                     </div>
 

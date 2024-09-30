@@ -23,7 +23,7 @@ public interface IHospitalService {
 	// 병원 조회
 	public BasicDTO viewHosp(String id);
 	
-	// 병원 해시태그 목록: 병원 해시태그 목록
+	// 해시태그 목록
 	public ArrayList<HashtagDTO> listHashtag();
 	// 병원 해시태그: 특정 병원 해시태그 목록
 	public ArrayList<HashtagDTO> selectHospHashtag(String id);
@@ -44,7 +44,7 @@ public interface IHospitalService {
 	
 	// 리뷰 조회
 	public ArrayList<HreviewDTO> listReview(HospitalDTO hospitalDTO);
-	// 리뷰 작성 메서드
+	// 리뷰 작성
     public int writeReview(Map<String, Object> params);
 	// 리뷰 수정
 	public int editReview(int review_idx, int score, String content, String cost, String treat, String doctor);

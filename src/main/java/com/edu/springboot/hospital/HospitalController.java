@@ -163,27 +163,6 @@ public class HospitalController {
 		return "hospital/view";
 	}
 	
-//	@PostMapping("/hospital/writeReview.do")
-//	public String writeReviewPost(HttpServletRequest req, HttpSession session) {
-//		// 폼값
-//		int api_idx = Integer.parseInt(req.getParameter("api_idx"));
-//		int score = Integer.parseInt(req.getParameter("score"));
-//		String content = req.getParameter("content");
-//		String cost = req.getParameter("cost");
-//		String treat = req.getParameter("treat");
-//		String doctor = req.getParameter("doctor");
-//		// 해시태그 처리
-//	    String hashtags = req.getParameter("hashtags");
-//	    String[] hashtagArray = hashtags.split(",");
-//	    for (int i = 0; i < hashtagArray.length; i++) {
-//	    	hospitalDAO.writeReviewHashtag(hashtagArray[i]);
-//	    }
-//		// 세션에 저장된 로그인 아이디
-//		String loginId = (String) session.getAttribute("userId");
-//		hospitalDAO.writeReview(score, content, cost, treat, doctor, loginId, api_idx);
-//		return "redirect:../hospital/viewHosp.do?api_idx=" + api_idx;
-//	}
-	
 	@PostMapping("/hospital/writeReview.do")
 	public String writeReviewPost(HttpServletRequest req, HttpSession session) {
 	    // 폼값

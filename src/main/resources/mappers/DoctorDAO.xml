@@ -77,9 +77,12 @@
 	</select>
 	
 	<!-- 리뷰 작성 -->
-	<insert id="writeReview">
-		INSERT INTO dreview (review_idx, original_idx, score, content, writer_ref, doc_ref)
-		VALUES (seq_dreview_idx.nextval, seq_dreview_idx.nextval, #{param1}, #{param2}, #{param3}, #{param4})
+	<insert id="writeReview" parameterType="map" useGeneratedKeys="true" keyProperty="review_idx">
+	    <selectKey keyProperty="review_idx" resultType="int" order="BEFORE">
+	        SELECT seq_dreview_idx.nextval FROM dual
+	    </selectKey>
+	    INSERT INTO dreview (review_idx, original_idx, score, content, writer_ref, doc_ref)
+	    VALUES (#{review_idx}, #{review_idx}, #{score}, #{content}, #{loginId}, #{doc_idx})
 	</insert>
 	
 	<!-- 리뷰 수정 -->
@@ -173,6 +176,7 @@
 	
 	
 	
+	
 	<!-- 리뷰 좋아요: 리뷰 좋아요 수 조회 -->
 	<select id="countReviewLike">
 		SELECT COUNT(*) FROM likes WHERE tablename='dreview' and recodenum=#{param1}
@@ -200,6 +204,7 @@
 	
 
 	
+	
 	<!-- 리뷰 수 조회 -->
 	<select id="countReview">
 		SELECT COUNT(*) FROM dreview WHERE review_idx=original_idx AND doc_ref=#{param1}
@@ -210,5 +215,20 @@
 	    SELECT COALESCE(SUM(score), 0)
 	    FROM dreview WHERE doc_ref=#{param1}
 	</select>
+	
+	
+	
+	
+	<!-- 해시태그 목록 -->
+	<select id="listHashtag"
+		resultType="com.edu.springboot.doctor.HashtagDTO">
+		SELECT * FROM hashtag
+	</select>
+	
+	<!-- 리뷰 해시태그 입력 -->
+	<insert id="writeReviewHashtag">
+		INSERT INTO hashtag (tag_idx, review_ref, tag) VALUES (seq_hashtag_idx.nextval, #{param1}, #{param2})
+	</insert>
+	
 
 </mapper>
