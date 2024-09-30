@@ -33,8 +33,7 @@
     <div class="content_inner">
       <div class="login_wrap">
       	
-      	
-      	<!-- 로그인 실패 시 메시지 -->
+      	<!-- 아이디 찾기 후 알림 -->
         <c:if test="${ not empty foundId or not empty notfountId }">
         	<c:if test="${ not empty foundId }">
 	        <div class="alertId">
@@ -59,7 +58,7 @@
             <input type="password" name="password" value="" placeholder="이메일 입력">
           </div>
           
-          <!-- a태그 css 적용 필요 -->
+          <!-- a 태그 css 적용 필요 -->
 	      <div class="login_btn">
 		    <c:if test="${empty foundId and empty notfountId}">
 		        <input type="submit" value="회원인증"/>
