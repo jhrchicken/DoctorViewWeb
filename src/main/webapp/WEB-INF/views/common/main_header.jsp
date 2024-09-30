@@ -51,7 +51,7 @@
 							<li><a href="${pageContext.request.contextPath}/mypage/myHosp.do">찜한 병원</a></li>
 							<li><a href="${pageContext.request.contextPath}/mypage/myDoctor.do">찜한 의사</a></li>
 							<li><a href="#">작성한 리뷰</a></li>
-							<li><a href="#">출석체크</a></li>
+							<li><a href="/mypage/attend.do">출석체크</a></li>
 							<!-- 일반 회원이 로그인한 경우 -->
 							
 							<!-- 병원 회원이 로그인한 경우 -->
