@@ -6,4 +6,12 @@ $(function() {
   $('#header').on('mouseleave', function() {
     $('#header').removeClass('on');
   });
+  
+  // 스와이퍼
+  var swiper = new Swiper('.tag .swiper', {
+	loop: true,
+	slidesPerView: 6,  
+	spaceBetween: 20,
+	centeredSlides: false,
+  });
 });
