@@ -92,10 +92,22 @@
 	        SELECT Tb.*, rownum rNum FROM (
 	            SELECT * FROM api
 	            WHERE 1 = 1
-	            <!-- 검색어 -->
-				<if test="param5 != null and param5.trim() != ''">
-					AND ${param4} LIKE '%' || #{param5} || '%'
-				</if>
+				<!-- 검색어 -->
+			    <if test="param5 != null and param5.trim() != ''">
+			        <if test="param4 != 'hashtag'">
+			            AND ${param4} LIKE '%' || #{param5} || '%'
+			        </if>
+			        <if test="param4 == 'hashtag'">
+			            AND api_idx IN (
+			            	SELECT api.api_idx FROM member
+		            		INNER JOIN api on member.name = api.name
+		            		WHERE member.id IN (
+		            			SELECT hosp_ref FROM hashtag
+		            			WHERE tag LIKE '%' || #{param5} || '%'
+		            		)
+			            )
+			        </if>
+			    </if>
 				<!-- 시도 선택 -->
 				<if test="param1 != null and param1.trim() != ''">
 					AND address LIKE '%' || #{param1} || '%'

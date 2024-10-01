@@ -109,7 +109,7 @@ public class HospitalController {
             @RequestParam(name = "searchField", required = false) String searchField,
             @RequestParam(name = "searchWord", required = false) String searchWord,
             @RequestParam(name = "filters", required = false) String filters) {
-    	
+
     	List<String> filterArray = filters != null ? Arrays.asList(filters.split(",")) : new ArrayList<>();
     	// 병원 API 레코드 개수
     	parameterDTO.setSearchSido(searchSido);
