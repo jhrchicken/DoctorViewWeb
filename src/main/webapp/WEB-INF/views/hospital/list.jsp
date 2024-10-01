@@ -73,7 +73,72 @@ $(function() {
 		});
 	});
 });
+
+// 필터 버튼 클릭
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-button');
+    const filtersHiddenInput = document.getElementById('filters');
+    let selectedFilters = [];
+
+    // 버튼 클릭 시 처리
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filterValue = button.getAttribute('data-filter');
+            // 이미 선택된 조건인 경우 색상 원래대로 되돌리기
+            if (selectedFilters.includes(filterValue)) {
+                selectedFilters = selectedFilters.filter(h => h !== filterValue);
+                button.style.backgroundColor = ''; // 원래 색상으로 변경
+                button.style.color = ''; // 원래 텍스트 색상으로 변경
+            }
+            else {
+                // 선택되지 않은 조건인 경우 추가
+                selectedFilters.push(filterValue);
+                button.style.backgroundColor = '#005ad5'; // 선택된 색상으로 변경
+                button.style.color = '#fff'; // 텍스트 색상 변경
+            }
+            // 필터 값을 숨겨진 input에 저장
+            filtersHiddenInput.value = selectedFilters.join(',');
+            // 검색 함수 호출
+            searchHosp(); 
+        });
+    });
+});
+
+function searchHosp() {
+	// 기본 제출 동작 방지
+	event.preventDefault();
+    const form = document.forms['searchForm'];
+    const formData = new FormData(form);
+    // 필터 값을 추가
+    formData.append('filters', document.getElementById('filters').value);
+    // AJAX 요청
+    $.ajax({
+        url: "../hospital/searchHosp.do", // 검색 처리 URL
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "json", // JSON 형태로 응답받기
+        success: function(response) {
+            // 검색 결과를 업데이트할 위치에 응답 내용을 삽입
+            const listElement = document.querySelector('.list');
+            listElement.innerHTML = ''; // 기존 내용 제거
+            // 응답 데이터 처리
+            response.forEach(hospital => {
+                const hospitalElement = document.createElement('div');
+                hospitalElement.textContent = hospital.name; // 병원 이름만 표시
+                listElement.appendChild(hospitalElement);
+            });
+        },
+        error: function(e) {
+            alert("오류발생:" + e.status + ":" + e.statusText);
+        }
+    });
+}
+
+
 </script>
+  	
 </head>
 <body>
 <%@include file="../common/main_header.jsp" %>
@@ -88,13 +153,11 @@ $(function() {
 			<div class="list_search">
 				<form class="searchForm" name="searchForm">
 					<div class="search_city">
-						<!-- 광역시도 선택 (필수) -->
+						<!-- 주소 선택 -->
 						<select id="sido" name="searchSido" class="searchField">
-							<option value="sido">- 시/도 선택 -</option>
+							<option value="">- 시/도 선택 -</option>
 							<c:forEach items="${ sidoLists }" var="sidoRow">
-								<option value="${ sidoRow.sido }">
-									${ sidoRow.sido }
-								</option>
+								<option value="${ sidoRow.sido }">${ sidoRow.sido }</option>
 							</c:forEach>
 						</select>
 						<select id="gugun" name="searchGugun" class="searchField">
@@ -103,63 +166,24 @@ $(function() {
 						<select id="dong" name="searchDong" class="searchField">
 							<option value="">- 읍/면/동 선택 -</option>
 						</select>
-						<input name="searchWord" class="searchKeyword" type="text" placeholder="병원명을 검색하세요.">
-						<input type="submit" class="search_btn" value="">
+						<!-- 검색 -->
+						<select class="searchField" name="searchField">
+							<option value="name">병원명</option>
+							<option value="department">진료과목</option>
+							<option value="hashtag">해시태그</option>
+						</select>
+						<input name="searchWord" class="searchWord" type="text" placeholder="검색어를 입력하세요.">
+						<button type="submit" class="search_btn" onclick="searchHosp(event);">검색</button>
+						<div class="search-button">
+							<button type="button" class="filter-button" data-filter="parking" data-default-text="주차 가능">주차</button>
+							<button type="button" class="filter-button" data-filter="pcr" data-default-text="PCR 검사 가능">PCR 검사</button>
+							<button type="button" class="filter-button" data-filter="hospitalize" data-default-text="입원 가능">입원</button>
+							<button type="button" class="filter-button" data-filter="system" data-default-text="예약 가능">예약</button>
+						</div>
+						<input type="hidden" name="filters" id="filters" value="">
 					</div>
 				</form>
 			</div>
-			
-			
-			
-			
-			
-			<div class="list">
-        <div class="other_search">
-          <form class="searchForm" name="searchForm">
-            <select class="searchField" name="searchDepart">
-              <option value="department">-- 진료과목 선택 --</option>
-              <option value="in">내과</option>
-              <option value="out">외과</option>
-              <option value="bone">정형외과</option>
-              <option value="skin">피부과</option>
-              <option value="ear">이비인후과</option>
-              <option value="face">성형외과</option>
-              <option value="teeth">치과</option>
-            </select>
-            <select name="searchTag" class="searchField">
-              <option value="tag">-- 해시태그 선택 --</option>
-              <option value="cold">감기</option>
-              <option value="head">두통</option>
-              <option value="tooth">치통</option>
-              <option value="stomach">복통</option>
-            </select>
-            <select name="searchPark" class="searchField">
-              <option value="park">-- 주차 선택 --</option>
-              <option value="yesPark">주차 가능</option>
-              <option value="noPark">주차 불가능</option>
-            </select>
-            <select name="searchPcr" class="searchField">
-              <option value="pcr">-- PCR 검사 선택 --</option>
-              <option value="yesPcr">PCR 검사 가능</option>
-              <option value="noPcr">PCR 검사 불가능</option>
-            </select>
-            <select name="searchBed" class="searchField">
-              <option value="bed">-- 입원 선택 --</option>
-              <option value="yesBed">입원 가능</option>
-              <option value="noBed">입원 불가능</option>
-            </select>
-            <select name="searchReserv" class="searchField">
-              <option value="reserv">-- 예약 선택 --</option>
-              <option value="yesReserv">예약 가능</option>
-              <option value="noReserv">예약 불가능</option>
-            </select>
-            <!-- 검색 + 페이징 처리를 위한 hidden 박스인듯 -->
-            <!-- <input type="hidden" name="page" value="1"> -->
-            <input type="submit" class="search_btn" value="적용">
-          </form>
-        </div>
-			
-			
 			
 			<div class="list">
 				<c:choose>

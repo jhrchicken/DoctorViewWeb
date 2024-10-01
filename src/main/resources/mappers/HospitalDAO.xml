@@ -11,39 +11,72 @@
 		resultType="int"
 		parameterType="com.edu.springboot.hospital.ParameterDTO">
 		SELECT COUNT(*) FROM api
-		WHERE 1 = 1
-		<if test="searchWord!=null and !searchWord.equals('')">
-			AND name LIKE '%' || #{searchWord} || '%'
-		</if>
- 		<if test="searchSido!= null and !searchSido.equals('')">
-			AND address LIKE '%' || #{searchSido} || '%'
-		</if>
-		<if test="searchGugun != null and !searchGugun.equals('')">
-			AND address LIKE '%' || #{searchGugun} || '%'
-		</if>
 	</select>
-	
+
 	<!-- 병원 API 목록: 병원 API에서 한 페이지에 출력할 레코드를 인출 -->
 	<select id="listHospApi"
-		resultType="com.edu.springboot.hospital.HospitalDTO"
-		parameterType="com.edu.springboot.hospital.ParameterDTO">
+			resultType="com.edu.springboot.hospital.HospitalDTO"
+			parameterType="com.edu.springboot.hospital.ParameterDTO">
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
 				SELECT * FROM api
-					WHERE 1 = 1
-					<if test="searchWord!=null and !searchWord.equals('')">
-						AND name LIKE '%'||#{searchWord}||'%'
-					</if>
-					<if test="searchSido!= null and !searchSido.equals('')">
-						AND address LIKE '%' || #{searchSido} || '%'
-					</if>
-					<if test="searchGugun != null and !searchGugun.equals('')">
-						AND address LIKE '%' || #{searchGugun} || '%'
-					</if>
 				ORDER BY api_idx DESC
 			) Tb
 		)
-		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}
+		WHERE rNum <![CDATA[>=]]> #{start} AND rNum <![CDATA[<=]]> #{end}
+	</select>
+	
+	<!-- 병원 검색 -->
+	<select id="searchHosp"
+		parameterType="map"
+		resultType="com.edu.springboot.hospital.HospitalDTO">
+	    SELECT * FROM (
+	        SELECT Tb.*, rownum rNum FROM (
+	            SELECT * FROM api
+	            WHERE 1 = 1
+	            <!-- 검색어 -->
+				<if test="param5 != null and param5.trim() != ''">
+					AND ${param4} LIKE '%' || #{param5} || '%'
+				</if>
+				<!-- 시도 선택 -->
+				<if test="param1 != null and param1.trim() != ''">
+					AND address LIKE '%' || #{param1} || '%'
+				</if>
+				<!-- 시군구 선택 -->
+				<if test="param2 != null and param2.trim() != ''">
+					AND address LIKE '%' || #{param2} || '%'
+				</if>
+				<!-- 읍면동 선택 -->
+				<if test="param3 != null and param3.trim() != ''">
+					AND address LIKE '%' || #{param3} || '%'
+				</if>
+	            <!-- 필터 처리 -->
+	            <if test="param6 != null and param6.size() != 0">
+	            	AND api_idx IN (
+	            		SELECT api.api_idx FROM member
+	            		INNER JOIN api on member.name = api.name
+	            		WHERE member.id IN (
+	            			SELECT hosp_ref FROM DETAIL
+	            			WHERE 1 = 1
+	            			<if test="param6.contains('parking')">
+	            				AND parking = 'Y'
+	            			</if>
+	            			<if test="param6.contains('pcr')">
+	            				AND pcr = 'Y'
+	            			</if>
+	            			<if test="param6.contains('hospitalize')">
+	            				AND hospitalize = 'Y'
+	            			</if>
+	            			<if test="param6.contains('system')">
+	            				AND system = 'Y'
+	            			</if>
+	            		)
+	            	)
+	            </if>
+	            ORDER BY api_idx DESC
+	        ) Tb
+	    )
+	    <!-- WHERE rNum <![CDATA[>=]]> #{start} AND rNum <![CDATA[<=]]> #{end} -->
 	</select>
 	
 	<!-- 병원 API 조회 -->

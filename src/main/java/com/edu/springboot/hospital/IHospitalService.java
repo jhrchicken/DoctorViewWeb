@@ -23,8 +23,8 @@ public interface IHospitalService {
 	// 병원 조회
 	public BasicDTO viewHosp(String id);
 	
-
-	
+	// 병원 검색
+	public List<HospitalDTO> searchHosp(String searchSido, String searchGugun, String searchDong, String searchField, String searchWord, List<String> filterList);
 	// 병원 상세정보 조회
 	public DetailDTO selectDetail(String id);
 	

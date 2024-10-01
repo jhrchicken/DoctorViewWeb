@@ -8,12 +8,11 @@ public class ParameterDTO {
 	private String searchSido;
 	private String searchGugun;
 	private String searchDong;
+	
 	// 검색어
 	private String searchField;
 	private String searchWord;
-	
-	
-	
+
 	// 게시물 구간
 	private int start;
 	private int end;

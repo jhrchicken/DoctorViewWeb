@@ -1,18 +1,22 @@
 package com.edu.springboot.hospital;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.springboot.doctor.DoctorDTO;
 
@@ -96,6 +100,40 @@ public class HospitalController {
 		return "hospital/list";
 	}
 	
+	// 병원 검색 처리
+//    @PostMapping("/searchHosp.do")
+//    public ModelAndView searchHosp(
+//            @RequestParam(name = "searchSido", required = false) String searchSido,
+//            @RequestParam(name = "searchGugun", required = false) String searchGugun,
+//            @RequestParam(name = "searchDong", required = false) String searchDong,
+//            @RequestParam(name = "searchField", required = false) String searchField,
+//            @RequestParam(name = "searchWord", required = false) String searchWord,
+//            @RequestParam(name = "filters", required = false) String filters) {
+//        // 필터 처리
+//        String[] filterArray = filters != null ? filters.split(",") : new String[0];
+//        List<HospitalDTO> hospList = hospitalDAO.searchHosp(searchSido, searchGugun, searchDong, searchField, searchWord, filterArray);
+//        // ModelAndView 설정
+//        ModelAndView mav = new ModelAndView("hospital/list");
+//        mav.addObject("hospList", hospList);
+//        return mav;
+//    }
+	
+	@RequestMapping("/hospital/searchHosp.do") // 기본 URL 매핑
+	@ResponseBody
+	public List<HospitalDTO> searchHosp(
+			@RequestParam(name = "searchSido", required = false) String searchSido,
+			@RequestParam(name = "searchGugun", required = false) String searchGugun,
+			@RequestParam(name = "searchDong", required = false) String searchDong,
+			@RequestParam(name = "searchField", required = false) String searchField,
+			@RequestParam(name = "searchWord", required = false) String searchWord,
+			@RequestParam(name = "filters", required = false) String filters) {
+	    // 필터 처리
+		List<String> filterArray = filters != null ? Arrays.asList(filters.split(",")) : new ArrayList<>();
+	    List<HospitalDTO> hospList = hospitalDAO.searchHosp(searchSido, searchGugun, searchDong, searchField, searchWord, filterArray);
+	    // JSON 형태로 반환
+	    return hospList;
+	}
+
 	// 시구군 동적 셀렉트
 	@RequestMapping("/getGugun.do")
 	@ResponseBody
