@@ -101,38 +101,22 @@ public class HospitalController {
 	}
 	
 	// 병원 검색 처리
-//    @PostMapping("/searchHosp.do")
-//    public ModelAndView searchHosp(
-//            @RequestParam(name = "searchSido", required = false) String searchSido,
-//            @RequestParam(name = "searchGugun", required = false) String searchGugun,
-//            @RequestParam(name = "searchDong", required = false) String searchDong,
-//            @RequestParam(name = "searchField", required = false) String searchField,
-//            @RequestParam(name = "searchWord", required = false) String searchWord,
-//            @RequestParam(name = "filters", required = false) String filters) {
-//        // 필터 처리
-//        String[] filterArray = filters != null ? filters.split(",") : new String[0];
-//        List<HospitalDTO> hospList = hospitalDAO.searchHosp(searchSido, searchGugun, searchDong, searchField, searchWord, filterArray);
-//        // ModelAndView 설정
-//        ModelAndView mav = new ModelAndView("hospital/list");
-//        mav.addObject("hospList", hospList);
-//        return mav;
-//    }
-	
-	@RequestMapping("/hospital/searchHosp.do") // 기본 URL 매핑
-	@ResponseBody
-	public List<HospitalDTO> searchHosp(
-			@RequestParam(name = "searchSido", required = false) String searchSido,
-			@RequestParam(name = "searchGugun", required = false) String searchGugun,
-			@RequestParam(name = "searchDong", required = false) String searchDong,
-			@RequestParam(name = "searchField", required = false) String searchField,
-			@RequestParam(name = "searchWord", required = false) String searchWord,
-			@RequestParam(name = "filters", required = false) String filters) {
-	    // 필터 처리
-		List<String> filterArray = filters != null ? Arrays.asList(filters.split(",")) : new ArrayList<>();
-	    List<HospitalDTO> hospList = hospitalDAO.searchHosp(searchSido, searchGugun, searchDong, searchField, searchWord, filterArray);
-	    // JSON 형태로 반환
-	    return hospList;
-	}
+    @PostMapping("/hospital/searchHosp.do")
+    public ModelAndView searchHosp(
+            @RequestParam(name = "searchSido", required = false) String searchSido,
+            @RequestParam(name = "searchGugun", required = false) String searchGugun,
+            @RequestParam(name = "searchDong", required = false) String searchDong,
+            @RequestParam(name = "searchField", required = false) String searchField,
+            @RequestParam(name = "searchWord", required = false) String searchWord,
+            @RequestParam(name = "filters", required = false) String filters) {
+        // 필터 처리
+        List<String> filterArray = filters != null ? Arrays.asList(filters.split(",")) : new ArrayList<>();
+        List<HospitalDTO> hospList = hospitalDAO.searchHosp(searchSido, searchGugun, searchDong, searchField, searchWord, filterArray);
+        // ModelAndView 설정
+        ModelAndView mav = new ModelAndView("hospital/listPart");
+        mav.addObject("hospList", hospList);
+        return mav;
+    }
 
 	// 시구군 동적 셀렉트
 	@RequestMapping("/getGugun.do")

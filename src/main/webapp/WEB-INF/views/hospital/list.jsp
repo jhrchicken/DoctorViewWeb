@@ -99,43 +99,37 @@ document.addEventListener('DOMContentLoaded', function() {
             // 필터 값을 숨겨진 input에 저장
             filtersHiddenInput.value = selectedFilters.join(',');
             // 검색 함수 호출
-            searchHosp(); 
+            searchHosp();
         });
     });
 });
 
-function searchHosp() {
+// 검색
+function searchHosp(event) {
 	// 기본 제출 동작 방지
-	event.preventDefault();
+    /* event.preventDefault(); */
     const form = document.forms['searchForm'];
     const formData = new FormData(form);
-    // 필터 값을 추가
+ 	// 필터 값을 추가
     formData.append('filters', document.getElementById('filters').value);
     // AJAX 요청
     $.ajax({
-        url: "../hospital/searchHosp.do", // 검색 처리 URL
+        url: "../hospital/searchHosp.do",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
-        dataType: "json", // JSON 형태로 응답받기
+        dataType: "html", // HTML로 응답 받기
         success: function(response) {
-            // 검색 결과를 업데이트할 위치에 응답 내용을 삽입
             const listElement = document.querySelector('.list');
             listElement.innerHTML = ''; // 기존 내용 제거
-            // 응답 데이터 처리
-            response.forEach(hospital => {
-                const hospitalElement = document.createElement('div');
-                hospitalElement.textContent = hospital.name; // 병원 이름만 표시
-                listElement.appendChild(hospitalElement);
-            });
+            listElement.innerHTML = response; // 서버에서 받은 HTML 그대로 삽입
         },
         error: function(e) {
-            alert("오류발생:" + e.status + ":" + e.statusText);
+            alert("오류 발생: " + e.status + ": " + e.statusText);
         }
     });
 }
-
 
 </script>
   	
