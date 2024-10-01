@@ -29,6 +29,12 @@
 		INSERT INTO appointment (app_id, hospname, doctorname, username, tel, rrn, address, postdate, posttime, user_ref, hosp_ref)
     	VALUES (seq_appointment_idx.nextval, #{hospname}, #{doctorname}, #{username}, #{tel}, #{rrn}, #{address}, #{postdate}, #{posttime}, #{user_ref}, #{hosp_ref} )
 	</insert>
+	
+	<!-- 사용자가 예약정보 -->
+	<select id="getReservationInfo"
+		resultType="com.edu.springboot.reserve.ReserveDTO">
+		SELECT * FROM appointment WHERE user_ref = #{id}
+	</select>
 
 	
 	

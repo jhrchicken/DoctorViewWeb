@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰 | 예약성공</title>
+<title>닥터뷰 | 예약실패</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/reserve-hosp.css" />
 </head>
@@ -19,10 +19,11 @@
 <main id="container">
   <div class="content">
     <div class="content_inner">
-      <h2>병원 예약 성공</h2>
-      <p>예약성공했습니다</p>
+      <h2>병원 예약 실패</h2>
+      <p>예약에 실패했습니다.</p>
+      
+      <a href="../../hospital.do">예약할 병원찾기</a>
     
-		<a href="../../reserve/list.do">예약관리 페이지로 이동</a>
       
     </div>
   </div>

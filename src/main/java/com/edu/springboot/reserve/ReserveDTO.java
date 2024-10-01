@@ -20,6 +20,8 @@ public class ReserveDTO {
 	private String hide;
 	private String user_ref;
 	private String hosp_ref;
+	private String user_memo;
+	private String hosp_memo;
 	
 	
 	//추가컬럼

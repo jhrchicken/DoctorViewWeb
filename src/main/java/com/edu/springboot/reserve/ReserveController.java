@@ -3,7 +3,6 @@ package com.edu.springboot.reserve;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +53,7 @@ public class ReserveController {
 		// 예약할 병원: 의사정보 
 		List<DoctorDTO> doctorInfo = reserveDAO.getDoctor(hospitalInfo.getId());
 		model.addAttribute("doctorInfo", doctorInfo);
-		
+//		
 		// 예약하는 개인회원 정보
 		MemberDTO userInfo = memberDAO.userInfo((String)session.getAttribute("userId"));
 		model.addAttribute("userInfo", userInfo);
@@ -65,23 +64,28 @@ public class ReserveController {
 	// 예약하기
 	@PostMapping("/reserve/proceed.do")
 	public String proceedPost(ReserveDTO reserveDTO) {
-		
 		// 예약정보 저장
-		System.err.println(reserveDTO);
-		reserveDAO.saveReservationInfo(reserveDTO);
+		int reserveResult = reserveDAO.saveReservationInfo(reserveDTO);
 		
-		// 예약에 성공하면
-		return "redirect:/reserve/complete.do?user_ref";
-		// 예약에 실패하면
-//		return "redirect:/reserve/error.do";
+		if(reserveResult ==1) {
+			// 예약에 성공하면
+			return "reserve/complete";
+		} else {
+			// 예약에 실패하면
+			return "reserve/error";
+		}
 	}
-	
-	@GetMapping("/reserve/complete.do")
-	public String complete(Model model) {
-//		ReserveDTO reserveDTO
-//		reserveDAO.getReservationInfo()
+
+	// 예약 관리 페이지로 이동
+	@GetMapping("/reserve/list.do")
+	public String reserveListGet(Model model, HttpSession session) {
+		// 로그인 한 유저의 예약 정보 가져옴
+		List<ReserveDTO> reserveInfo = reserveDAO.getReservationInfo((String)session.getAttribute("userId"));
+		model.addAttribute("reserveInfo", reserveInfo);
 		
-		return "reserve/complete";
+		return "reserve/list"; 
 	}
+
 	
 }
+

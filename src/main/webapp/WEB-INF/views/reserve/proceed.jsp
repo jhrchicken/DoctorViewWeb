@@ -196,8 +196,8 @@
               <div class="info_top">
                 <h3>${ hospitalInfo.name }</h3>
                 <!-- 병원명/아이디 전달 -->
-                <input type="hi-dden" name="hosp_ref" value="${ hospitalInfo.id }" placeholder="" readonly/>
-                <input type="hi-dden" name="hospname" value="${ hospitalInfo.name }" placeholder="" readonly/>
+                <input type="hidden" name="hosp_ref" value="${ hospitalInfo.id }" placeholder="" readonly/>
+                <input type="hidden" name="hospname" value="${ hospitalInfo.name }" placeholder="" readonly/>
               </div>
               <div class="detail">
                 <div class="details">
@@ -226,7 +226,7 @@
 	      
 	      <li>
 			<label>
-				<input id="${ row.name }"  type="radio" name="doctorname" value="의사1" />
+				<input id="${ row.name }"  type="radio" name="doctorname" value="${ row.name }" />
 				<label for="${ row.name }">${ row.name }</label>
 			</label>
 	        <span class="img">
@@ -235,8 +235,8 @@
 	        <div class="info">
 	          <div class="info_top">
 	            <h3>${ row.name }</h3>
-	            <input type="hi-dden" name="doc_idx" value="의사idx1" />
-	            <input type="hi-dden" name="doctorname_doc1" value="의료진이름1" />
+	            <input type="hidden" name="doc_idx" value="의사idx1" />
+	            <input type="hidden" name="doctorname_doc1" value="의료진이름1" />
 	            <div class="detail">
 	              <div class="details">
 	                <p class="blue">전공</p>
@@ -363,7 +363,7 @@
                   <td class="left">이름</td>
                   <td>
                   	<input type="text" name="username" value="${ userInfo.name }" placeholder="방문자의 이름을 입력해주세요.">
-                  	유저 아이디(폼값 확인용): <input type="hi-dden" name="user_ref" value="${ userInfo.id }">
+                  	<input type="hidden" name="user_ref" value="${ userInfo.id }">
                   </td>
                 </tr>
                 <tr>
