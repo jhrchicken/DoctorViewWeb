@@ -11,8 +11,15 @@
 		resultType="int"
 		parameterType="com.edu.springboot.hospital.ParameterDTO">
 		SELECT COUNT(*) FROM api
+		WHERE 1 = 1
 		<if test="searchWord!=null and !searchWord.equals('')">
-			WHERE name LIKE '%'||#{searchWord}||'%'
+			AND name LIKE '%' || #{searchWord} || '%'
+		</if>
+ 		<if test="searchSido!= null and !searchSido.equals('')">
+			AND address LIKE '%' || #{searchSido} || '%'
+		</if>
+		<if test="searchGugun != null and !searchGugun.equals('')">
+			AND address LIKE '%' || #{searchGugun} || '%'
 		</if>
 	</select>
 	
@@ -23,8 +30,15 @@
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
 				SELECT * FROM api
+					WHERE 1 = 1
 					<if test="searchWord!=null and !searchWord.equals('')">
-						WHERE name LIKE '%'||#{searchWord}||'%'
+						AND name LIKE '%'||#{searchWord}||'%'
+					</if>
+					<if test="searchSido!= null and !searchSido.equals('')">
+						AND address LIKE '%' || #{searchSido} || '%'
+					</if>
+					<if test="searchGugun != null and !searchGugun.equals('')">
+						AND address LIKE '%' || #{searchGugun} || '%'
 					</if>
 				ORDER BY api_idx DESC
 			) Tb
@@ -240,7 +254,23 @@
 		FROM hreview WHERE api_ref=#{param1}
 	</select>
 	
+	
+	
+	
+	
 
-
+	<!-- 시도를 인출: 중복데이터를 그룹화하여 인출 -->
+	<select id="selectSido"
+		resultType="com.edu.springboot.hospital.AddressDTO">
+		SELECT sido FROM zipcode GROUP BY sido ORDER BY sido ASC	
+	</select>
+	
+	<!-- 선택한 시/도의 조건에 맞는 구/군을 인출 -->
+	<select id="selectGugun"
+		parameterType="com.edu.springboot.hospital.AddressDTO"
+		resultType="com.edu.springboot.hospital.AddressDTO">
+		SELECT DISTINCT gugun FROM zipcode
+		WHERE sido=#{sido} ORDER BY gugun DESC
+	</select>
 
 </mapper>

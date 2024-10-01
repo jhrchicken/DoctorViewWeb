@@ -1,11 +1,11 @@
 package com.edu.springboot.hospital;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.edu.springboot.board.ParameterDTO;
 import com.edu.springboot.doctor.DoctorDTO;
 
 @Mapper
@@ -85,4 +85,9 @@ public interface IHospitalService {
 	public int writeReviewHashtag(int review_idx, String tag);
 	// 리뷰의 모든 해시태그 삭제
 	public int deleteAllReviewHashtag(int review_idx);
+	
+	// 시도를 인출
+	public List<AddressDTO> selectSido();
+	// 시도에 해당하는 구군을 인출
+	public List<AddressDTO> selectGugun(AddressDTO addressDTO);
 }

@@ -56,7 +56,7 @@
   cursor: pointer;
 }
 /*** 추가 조건 ***/
-/* #container .other_search {
+#container .other_search {
   display: flex;
   gap: 0 5px;
   width: 100%;
@@ -79,7 +79,7 @@
   color: var(--gray-400);
   padding: 10px;
   cursor: pointer;
-} */
+}
 /*** 병원 목록 ***/
 #container .list>p {
   text-align: center;
