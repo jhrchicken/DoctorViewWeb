@@ -122,7 +122,13 @@
 
        $("#idCheckBtn").click(function() {
            var join_id = $('input[name="id"]').val();
-           var id_pattern =  /^[a-zA-Z0-9]{6,15}$/;
+           var id_pattern =  /^[a-zA-Z0-9]$/;
+           
+           if (join_id.length < 6) {
+		    	alert("6자 이상으로 입력해주세요.");
+		    	$('input[name="id"]').focus();
+		    	return false;
+		    }
            
             // 아이디가 패턴에 맞지않으면 반려
            if (!id_pattern.test(join_id)) {
@@ -130,6 +136,7 @@
               $('input[name="id"]').focus();
               return false;
            }
+            
 
            $.ajax({
                data: { join_id: join_id },

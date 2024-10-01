@@ -220,12 +220,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				<!-- 병원 사진 -->
 				<c:if test="${ hospitalDTO.photo == null }">
 					<span class="img">
-						<img src="/images/hospital.png" alt="" />
+						<img src="/images/hospital.png" alt="" style="width: 100%; height: 100%;" />
 					</span>
 				</c:if>
 				<c:if test="${ hospitalDTO.photo != null }">
 					<span class="img">
-						<img src="/uploads/${ row.photo }"><br/>
+						<img src="/uploads/${ row.photo }" style="width: 100%; height: 100%;" ><br/>
 					</span>
 				</c:if>
 				
