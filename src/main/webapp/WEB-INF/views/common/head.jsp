@@ -3,7 +3,6 @@
 
 <link rel="stylesheet" href="/css/jquery-ui.min.css">
 <link rel="stylesheet" href="/css/common.css">
-<link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/main-header.css">
 <link rel="stylesheet" href="/css/main-footer.css">
 

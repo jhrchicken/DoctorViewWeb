@@ -160,7 +160,7 @@ public class MemberController {
 		if(loginUser != null) {
 			if(loginUser.getApprove().equals("F")) {
 				// 회원가입 승인 대기 처리 추가
-				model.addAttribute("loginFailed", "회원승인 대기 상태입니다.");
+				model.addAttribute("loginFailed", "회원 승인 대기 상태입니다.");
 				return "member/login";
 			}
 		    session.setAttribute("userId", loginUser.getId()); 
