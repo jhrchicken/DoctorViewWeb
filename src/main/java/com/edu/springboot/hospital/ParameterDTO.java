@@ -4,11 +4,13 @@ import lombok.Data;
 
 @Data
 public class ParameterDTO {
+	// 지역 선택
+	private String searchSido;
+	private String searchGugun;
+	private String searchDong;
 	// 검색어
 	private String searchField;
 	private String searchWord;
-	private String searchSido;
-	private String searchGugun;
 	
 	
 	

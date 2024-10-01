@@ -10,6 +10,7 @@
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/hosp-list.css" />
 <script>
+// 시/구/군 동적 셀랙트
 $(function() {
 	$('#sido').change(function() {
 		$.ajax({
@@ -24,7 +25,7 @@ $(function() {
 			success : function(d) {
 				var optionStr = "";
 				optionStr += "<option value=''>";
-				optionStr += "- 구/군 선택 -";
+				optionStr += "- 시/구/군 선택 -";
 				optionStr += "</option>";
 				$.each(d.result, function(index, data) {
 					optionStr += '<option value="' + data.gugun + '">';
@@ -33,6 +34,38 @@ $(function() {
 				});
 				// 구군 <select> 태그에 삽입
 				$('#gugun').html(optionStr);
+			},
+			error : function(e) {
+				alert("오류발생:" + e.status + ":" + e.statusText); 
+			}
+		});
+	});
+});
+
+// 읍/면/동 동적 셀렉트
+$(function() {
+	$('#gugun').change(function() {
+		$.ajax({
+			url : "./getDong.do",
+			type : "get",
+			contentType : "text/html;charset:utf-8;",
+			// 파라미터: 선택한 시도를 전달
+			data : {
+				gugun : $('#gugun option:selected').val()
+			},
+			dataType : "json",
+			success : function(d) {
+				var optionStr = "";
+				optionStr += "<option value=''>";
+				optionStr += "- 읍/면/동 선택 -";
+				optionStr += "</option>";
+				$.each(d.result, function(index, data) {
+					optionStr += '<option value="' + data.dong + '">';
+					optionStr += data.dong;
+					optionStr += '</option>';
+				});
+				// 구군 <select> 태그에 삽입
+				$('#dong').html(optionStr);
 			},
 			error : function(e) {
 				alert("오류발생:" + e.status + ":" + e.statusText); 
@@ -65,9 +98,11 @@ $(function() {
 							</c:forEach>
 						</select>
 						<select id="gugun" name="searchGugun" class="searchField">
-							<option value="">- 구/군 선택 -</option>
+							<option value="">- 시/구/군 선택 -</option>
 						</select>
-										
+						<select id="dong" name="searchDong" class="searchField">
+							<option value="">- 읍/면/동 선택 -</option>
+						</select>
 						<input name="searchWord" class="searchKeyword" type="text" placeholder="병원명을 검색하세요.">
 						<input type="submit" class="search_btn" value="">
 					</div>

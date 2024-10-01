@@ -258,19 +258,31 @@
 	
 	
 	
-
-	<!-- 시도를 인출: 중복데이터를 그룹화하여 인출 -->
+	
+	
+	
+	<!-- 주소 동적 셀렉트: 시도를 인출 -->
 	<select id="selectSido"
 		resultType="com.edu.springboot.hospital.AddressDTO">
-		SELECT sido FROM zipcode GROUP BY sido ORDER BY sido ASC	
+		SELECT sido FROM address
+		GROUP BY sido ORDER BY sido ASC	
 	</select>
 	
-	<!-- 선택한 시/도의 조건에 맞는 구/군을 인출 -->
+	<!-- 주소 동적 셀렉트: 시도에 해당하는 시구군을 인출 -->
 	<select id="selectGugun"
 		parameterType="com.edu.springboot.hospital.AddressDTO"
 		resultType="com.edu.springboot.hospital.AddressDTO">
-		SELECT DISTINCT gugun FROM zipcode
-		WHERE sido=#{sido} ORDER BY gugun DESC
+		SELECT gugun FROM address
+		WHERE sido=#{sido}
+		GROUP BY gugun ORDER BY gugun DESC
+	</select>
+	
+	<!-- 주소 동적 셀렉트: 시구군에 해당하는 읍면동을 인출 -->
+	<select id="selectDong"
+		parameterType="com.edu.springboot.hospital.AddressDTO"
+		resultType="com.edu.springboot.hospital.AddressDTO">
+		SELECT DISTINCT dong FROM address
+		WHERE gugun=#{gugun} ORDER BY dong DESC
 	</select>
 
 </mapper>

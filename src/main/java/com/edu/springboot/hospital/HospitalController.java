@@ -96,15 +96,23 @@ public class HospitalController {
 		return "hospital/list";
 	}
 	
-	
-	/* 선택된 시도를 파라미터로 전달하면 DTO가 받은 후 매퍼를 호출한다.
-	 * 반환된 결과는 List이므로 이를 JSON 객체로 출력하기 위해 Map 컬랙션을 생성한 후 result 키값에 List를 추가해준다. */
+	// 시구군 동적 셀렉트
 	@RequestMapping("/getGugun.do")
 	@ResponseBody
-	public Map<String, Object> address(AddressDTO addressDTO) {
-		List<AddressDTO> gugunLists = hospitalDAO.selectGugun(addressDTO);
+	public Map<String, Object> address1(AddressDTO addressDTO) {
+		List<AddressDTO> gugunList = hospitalDAO.selectGugun(addressDTO);
 		Map<String, Object> maps = new HashMap<>();
-		maps.put("result", gugunLists);
+		maps.put("result", gugunList);
+		return maps;
+	}
+	
+	// 읍면동 동적 셀렉트
+	@RequestMapping("/getDong.do")
+	@ResponseBody
+	public Map<String, Object> address2(AddressDTO addressDTO) {
+		List<AddressDTO> dongList = hospitalDAO.selectDong(addressDTO);
+		Map<String, Object> maps = new HashMap<>();
+		maps.put("result", dongList);
 		return maps;
 	}
 	

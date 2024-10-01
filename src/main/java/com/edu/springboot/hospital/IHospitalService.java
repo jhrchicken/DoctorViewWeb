@@ -86,8 +86,11 @@ public interface IHospitalService {
 	// 리뷰의 모든 해시태그 삭제
 	public int deleteAllReviewHashtag(int review_idx);
 	
-	// 시도를 인출
+	// 주소 동적 셀렉트: 시도를 인출
 	public List<AddressDTO> selectSido();
-	// 시도에 해당하는 구군을 인출
+	// 주소 동적 셀렉트: 시도에 해당하는 시구군을 인출
 	public List<AddressDTO> selectGugun(AddressDTO addressDTO);
+	// 주소 동적 셀렉트: 시구군에 해당하는 읍면동을 인출
+	public List<AddressDTO> selectDong(AddressDTO addressDTO);
+	
 }
