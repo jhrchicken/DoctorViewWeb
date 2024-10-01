@@ -407,4 +407,25 @@ public class HospitalController {
 		}
 		return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 지도
+	@GetMapping("/hospital/map.do")
+	public String map(Model model) {
+		ArrayList<HospitalDTO> hospList = hospitalDAO.listHospMark();
+		model.addAttribute("hospList", hospList);
+		return "/hospital/map";
+	}
+	
+	
+	
+	
+	
 }

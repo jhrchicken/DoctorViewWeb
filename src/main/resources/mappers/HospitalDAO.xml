@@ -36,6 +36,7 @@
 	
 	
 	
+	
 	<!-- 병원 검색 개수 -->
 	<select id="countSelectHosp"
 		resultType="int"
@@ -387,5 +388,28 @@
 		SELECT DISTINCT dong FROM address
 		WHERE gugun=#{gugun} ORDER BY dong DESC
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 지도에 표시할 병원 목록 -->
+	<select id="listHospMark"
+		resultType="com.edu.springboot.hospital.HospitalDTO">
+		SELECT * FROM api
+		ORDER BY api_idx DESC
+	</select>
+	
+	
+	
+	
+	
+	
 
 </mapper>

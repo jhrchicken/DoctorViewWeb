@@ -96,4 +96,7 @@ public interface IHospitalService {
 	// 주소 동적 셀렉트: 시구군에 해당하는 읍면동을 인출
 	public List<AddressDTO> selectDong(AddressDTO addressDTO);
 	
+	// 지도에 표시할 병원 목록
+	public ArrayList<HospitalDTO> listHospMark();
+	
 }
