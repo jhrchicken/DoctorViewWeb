@@ -23,8 +23,11 @@ public interface IHospitalService {
 	// 병원 조회
 	public BasicDTO viewHosp(String id);
 	
+	// 병원 검색: 검색된 병원의 개수를 카운트
+	public int countSearchHosp(ParameterDTO parameterDTO);
 	// 병원 검색
-	public List<HospitalDTO> searchHosp(String searchSido, String searchGugun, String searchDong, String searchField, String searchWord, List<String> filterList);
+	public List<HospitalDTO> listSearchHosp(String searchSido, String searchGugun, String searchDong, String searchField, String searchWord, List<String> filterList, int start, int end);
+	
 	// 병원 상세정보 조회
 	public DetailDTO selectDetail(String id);
 	

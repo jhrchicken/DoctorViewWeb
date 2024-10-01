@@ -1,5 +1,7 @@
 package com.edu.springboot.hospital;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -12,6 +14,9 @@ public class ParameterDTO {
 	// 검색어
 	private String searchField;
 	private String searchWord;
+	
+	// 필터
+	private List<String> filters;
 
 	// 게시물 구간
 	private int start;

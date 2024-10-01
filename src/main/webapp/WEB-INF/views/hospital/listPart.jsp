@@ -86,3 +86,10 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+
+<!-- 페이지네이션 -->
+<div class="pagination">
+	<div class="pagination_inner">
+		${ pagingImg }
+	</div>
+</div>

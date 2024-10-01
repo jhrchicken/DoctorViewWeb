@@ -26,6 +26,8 @@ public class HospitalDTO {
 	private String pcr;
 	private String hospitalize;
 	private String system;
+	private String night;
+	private String weekend;
 
 	// 추가
 	private double score;
