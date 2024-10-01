@@ -9,6 +9,38 @@
 <title>닥터뷰 | 병원 찾기</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/hosp-list.css" />
+<script>
+$(function() {
+	$('#sido').change(function() {
+		$.ajax({
+			url : "./getGugun.do",
+			type : "get",
+			contentType : "text/html;charset:utf-8;",
+			// 파라미터: 선택한 시도를 전달
+			data : {
+				sido : $('#sido option:selected').val()
+			},
+			dataType : "json",
+			success : function(d) {
+				var optionStr = "";
+				optionStr += "<option value=''>";
+				optionStr += "- 구/군 선택 -";
+				optionStr += "</option>";
+				$.each(d.result, function(index, data) {
+					optionStr += '<option value="' + data.gugun + '">';
+					optionStr += data.gugun;
+					optionStr += '</option>';
+				});
+				// 구군 <select> 태그에 삽입
+				$('#gugun').html(optionStr);
+			},
+			error : function(e) {
+				alert("오류발생:" + e.status + ":" + e.statusText); 
+			}
+		});
+	});
+});
+</script>
 </head>
 <body>
 <%@include file="../common/main_header.jsp" %>
@@ -20,24 +52,79 @@
 				<p>병원명, 지역명, 해시태그 등으로 검색해보세요</p>
 			</div>
 			
-			<!-- 이거 다 수정 필요 -->
 			<div class="list_search">
 				<form class="searchForm" name="searchForm">
 					<div class="search_city">
 						<!-- 광역시도 선택 (필수) -->
-						<!-- <select name="searchSido" class="searchField">
-							<option value="sido">-- 광역시도 선택 --</option>
-							<option value="seoul">서울특별시</option>
-							<option value="busan">부산광역시</option>
-							<option value="incheon">인천광역시</option>
-						</select> -->
-						
-						
+						<select id="sido" name="searchSido" class="searchField">
+							<option value="sido">- 시/도 선택 -</option>
+							<c:forEach items="${ sidoLists }" var="sidoRow">
+								<option value="${ sidoRow.sido }">
+									${ sidoRow.sido }
+								</option>
+							</c:forEach>
+						</select>
+						<select id="gugun" name="searchGugun" class="searchField">
+							<option value="">- 구/군 선택 -</option>
+						</select>
+										
 						<input name="searchWord" class="searchKeyword" type="text" placeholder="병원명을 검색하세요.">
 						<input type="submit" class="search_btn" value="">
 					</div>
 				</form>
 			</div>
+			
+			
+			
+			
+			
+			<div class="list">
+        <div class="other_search">
+          <form class="searchForm" name="searchForm">
+            <select class="searchField" name="searchDepart">
+              <option value="department">-- 진료과목 선택 --</option>
+              <option value="in">내과</option>
+              <option value="out">외과</option>
+              <option value="bone">정형외과</option>
+              <option value="skin">피부과</option>
+              <option value="ear">이비인후과</option>
+              <option value="face">성형외과</option>
+              <option value="teeth">치과</option>
+            </select>
+            <select name="searchTag" class="searchField">
+              <option value="tag">-- 해시태그 선택 --</option>
+              <option value="cold">감기</option>
+              <option value="head">두통</option>
+              <option value="tooth">치통</option>
+              <option value="stomach">복통</option>
+            </select>
+            <select name="searchPark" class="searchField">
+              <option value="park">-- 주차 선택 --</option>
+              <option value="yesPark">주차 가능</option>
+              <option value="noPark">주차 불가능</option>
+            </select>
+            <select name="searchPcr" class="searchField">
+              <option value="pcr">-- PCR 검사 선택 --</option>
+              <option value="yesPcr">PCR 검사 가능</option>
+              <option value="noPcr">PCR 검사 불가능</option>
+            </select>
+            <select name="searchBed" class="searchField">
+              <option value="bed">-- 입원 선택 --</option>
+              <option value="yesBed">입원 가능</option>
+              <option value="noBed">입원 불가능</option>
+            </select>
+            <select name="searchReserv" class="searchField">
+              <option value="reserv">-- 예약 선택 --</option>
+              <option value="yesReserv">예약 가능</option>
+              <option value="noReserv">예약 불가능</option>
+            </select>
+            <!-- 검색 + 페이징 처리를 위한 hidden 박스인듯 -->
+            <!-- <input type="hidden" name="page" value="1"> -->
+            <input type="submit" class="search_btn" value="적용">
+          </form>
+        </div>
+			
+			
 			
 			<div class="list">
 				<c:choose>

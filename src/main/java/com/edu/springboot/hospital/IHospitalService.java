@@ -1,10 +1,11 @@
 package com.edu.springboot.hospital;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.edu.springboot.board.ParameterDTO;
 import com.edu.springboot.doctor.DoctorDTO;
 
 @Mapper
@@ -22,8 +23,7 @@ public interface IHospitalService {
 	// 병원 조회
 	public BasicDTO viewHosp(String id);
 	
-	// 해시태그 목록: 병원 해시태그 목록
-	public ArrayList<HashtagDTO> listHashtag();
+
 	
 	// 병원 상세정보 조회
 	public DetailDTO selectDetail(String id);
@@ -31,16 +31,12 @@ public interface IHospitalService {
 	// 의사 조회
 	public ArrayList<DoctorDTO> listDoctor(HospitalDTO hospitalDTO);
 	
-	
-	
-	
-	
 	// 리뷰 조회
 	public ArrayList<HreviewDTO> listReview(HospitalDTO hospitalDTO);
 	// 리뷰 작성
-	public int writeReview(int score, String content, String cost, String treat, String doctor, String loginId, int api_idx);
+    public int writeReview(Map<String, Object> params);
 	// 리뷰 수정
-	public int editReview(int review_idx, int score, String content, String cost, String treat, String doctor);
+	public int editReview(Map<String, Object> params);
 	// 리뷰 삭제
 	public int deleteReview(int review_idx);
 	
@@ -80,4 +76,18 @@ public interface IHospitalService {
 	public int countReview(int api_idx);
 	// 별점 합계 조회
 	public int sumScore(int api_idx);
+	
+	// 해시태그 목록
+	public ArrayList<HashtagDTO> listHashtag();
+	// 병원 해시태그 목록 조회
+	public ArrayList<HashtagDTO> selectHospHashtag(String id);
+	// 리뷰 해시태그 작성
+	public int writeReviewHashtag(int review_idx, String tag);
+	// 리뷰의 모든 해시태그 삭제
+	public int deleteAllReviewHashtag(int review_idx);
+	
+	// 시도를 인출
+	public List<AddressDTO> selectSido();
+	// 시도에 해당하는 구군을 인출
+	public List<AddressDTO> selectGugun(AddressDTO addressDTO);
 }

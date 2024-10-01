@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page session="true" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +12,7 @@
 <title>닥터뷰 | 예약하기</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/reserve-hosp.css" />
-
-<script type="text/javascript">
+<script>
     document.addEventListener("DOMContentLoaded", function() {
         buildCalendar();
         
@@ -22,7 +24,8 @@
             nextCalendar();
         });
     });
-
+    
+    //  ****************** 달력 관련 ******************  
     var toDay = new Date(); // @param 전역 변수, 오늘 날짜 / 내 컴퓨터 로컬을 기준으로 toDay에 Date 객체를 넣어줌
     var nowDate = new Date();  // @param 전역 변수, 실제 오늘날짜 고정값
     
@@ -42,71 +45,81 @@
      @brief   캘린더 오픈
      @details 날짜 값을 받아 캘린더 폼을 생성하고, 날짜값을 채워넣는다.
      */
-     function buildCalendar() {
-    	    let doMonth = new Date(toDay.getFullYear(), toDay.getMonth(), 1); // 이번 달의 첫 번째 날
-    	    let lastDate = new Date(toDay.getFullYear(), toDay.getMonth() + 1, 0); // 이번 달의 마지막 날
+     
+     // *************** 선택된 병원의 근무요일만 활성화 *************** 
+     var weeks = [${week}];
 
-    	    let tbCalendar = document.querySelector(".scriptCalendar > tbody"); // 캘린더 테이블 본문
-    	    document.getElementById("calYear").innerText = toDay.getFullYear(); // 년도 표시
-    	    document.getElementById("calMonth").innerText = autoLeftPad((toDay.getMonth() + 1), 2); // 월 표시
+	function buildCalendar() {
+	   let doMonth = new Date(toDay.getFullYear(), toDay.getMonth(), 1); // 이번 달의 첫 번째 날
+	   let lastDate = new Date(toDay.getFullYear(), toDay.getMonth() + 1, 0); // 이번 달의 마지막 날
+	
+	   let tbCalendar = document.querySelector(".scriptCalendar > tbody"); // 캘린더 테이블 본문
+	   document.getElementById("calYear").innerText = toDay.getFullYear(); // 년도 표시
+	   document.getElementById("calMonth").innerText = autoLeftPad((toDay.getMonth() + 1), 2); // 월 표시
+	
+	   // 이전 캘린더 데이터를 삭제
+	   while (tbCalendar.rows.length > 0) {
+	       tbCalendar.deleteRow(tbCalendar.rows.length - 1);
+	   }
+	
+	   let row = tbCalendar.insertRow(); // 첫 번째 행
+	   let dom = 1; // 요일 카운터
+	   let daysLength = (Math.ceil((doMonth.getDay() + lastDate.getDate()) / 7) * 7) - doMonth.getDay(); // 캘린더에 표시할 총 일 수
+	
+	   for (let day = 1 - doMonth.getDay(); daysLength >= day; day++) {
+	       let column = row.insertCell();
+	
+	       // 현재 달의 유효한 날
+	       if (Math.sign(day) == 1 && lastDate.getDate() >= day) {
+	           column.innerText = autoLeftPad(day, 2); // 날짜 표시
+	
+	           let currentDate = new Date(toDay.getFullYear(), toDay.getMonth(), day); // 현재 날짜 계산
+	
+	           // 요일 계산
+	           let dayOfWeek = new Date(toDay.getFullYear(), toDay.getMonth(), day).getDay(); // 0: 일요일, 1: 월요일, ..., 6: 토요일
+	           let korWeekday = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"][dayOfWeek];
+	
+	           // 오늘 이후 날짜일 경우 && 선택 가능한 요일인지 확인
+	           if (currentDate >= nowDate && weeks.includes(korWeekday)) {
+	               column.style.backgroundColor = "#FFFFE6"; // 오늘 이후 날짜 배경 색상
+	               column.style.cursor = "pointer";
+	               column.onclick = function () { calendarChoiceDay(this); };
+	           } else {
+	               // 오늘 이전 날짜 또는 선택 불가능한 요일
+	               column.style.backgroundColor = "#E5E5E5"; // 비활성화 색상
+	               column.style.cursor = "not-allowed"; // 선택 불가 커서
+	           }
+	
+	           // 오늘 날짜일 경우
+	           if (day === nowDate.getDate() && toDay.getMonth() === nowDate.getMonth() && toDay.getFullYear() === nowDate.getFullYear()) {
+	               column.style.backgroundColor = "#FFFFE6"; // 오늘 날짜 강조
+	               column.style.cursor = "pointer"; // 오늘 날짜도 선택 가능하게 수정
+	               column.onclick = function () { calendarChoiceDay(column); }; // 오늘 날짜도 선택 가능
+	               calendarChoiceDay(column); // 오늘 날짜 자동 선택
+	           }
+	       } else {
+	           // 이전 또는 다음 달 날짜 처리
+	           let exceptDay = new Date(doMonth.getFullYear(), doMonth.getMonth(), day);
+	           column.innerText = autoLeftPad(exceptDay.getDate(), 2);
+	           column.style.color = "#A9A9A9"; // 이전/다음 달 날짜 회색 표시
+	       }
+	
+	       // 일요일
+	       if (dom % 7 == 1) {
+	           column.style.color = "#FF4D4D"; // 일요일 빨간색
+	       }
+	
+	       // 토요일
+	       if (dom % 7 == 0) {
+	           column.style.color = "#4D4DFF"; // 토요일 파란색
+	           row = tbCalendar.insertRow(); // 주가 끝날 때마다 새 행 추가
+	       }
+	
+	       dom++;
+	    }
+	}
 
-    	    // 이전 캘린더 데이터를 삭제
-    	    while (tbCalendar.rows.length > 0) {
-    	        tbCalendar.deleteRow(tbCalendar.rows.length - 1);
-    	    }
 
-    	    let row = tbCalendar.insertRow(); // 첫 번째 행
-    	    let dom = 1; // 요일 카운터
-    	    let daysLength = (Math.ceil((doMonth.getDay() + lastDate.getDate()) / 7) * 7) - doMonth.getDay(); // 캘린더에 표시할 총 일 수
-
-    	    for (let day = 1 - doMonth.getDay(); daysLength >= day; day++) {
-    	        let column = row.insertCell();
-
-    	        // 현재 달의 유효한 날
-    	        if (Math.sign(day) == 1 && lastDate.getDate() >= day) {
-    	            column.innerText = autoLeftPad(day, 2); // 날짜 표시
-
-    	            let currentDate = new Date(toDay.getFullYear(), toDay.getMonth(), day); // 현재 날짜 계산
-
-    	            // 오늘 이후 날짜일 경우
-    	            if (currentDate >= nowDate) {
-    	                column.style.backgroundColor = "#FFFFE6"; // 오늘 이후 날짜 배경 색상
-    	                column.style.cursor = "pointer";
-    	                column.onclick = function () { calendarChoiceDay(this); };
-    	            } else {
-    	                // 오늘 이전 날짜는 선택 불가
-    	                column.style.backgroundColor = "#E5E5E5"; // 비활성화 색상
-    	                column.style.cursor = "not-allowed"; // 선택 불가 커서
-    	            }
-
-    	            // 오늘 날짜일 경우
-    	            if (day === nowDate.getDate() && toDay.getMonth() === nowDate.getMonth() && toDay.getFullYear() === nowDate.getFullYear()) {
-    	                column.style.backgroundColor = "#FFFFE6"; // 오늘 날짜 강조
-    	                column.style.cursor = "pointer"; // 오늘 날짜도 선택 가능하게 수정
-    	                column.onclick = function () { calendarChoiceDay(column); }; // 오늘 날짜도 선택 가능
-    	                calendarChoiceDay(column); // 오늘 날짜 자동 선택
-    	            }
-    	        } else {
-    	            // 이전 또는 다음 달 날짜 처리
-    	            let exceptDay = new Date(doMonth.getFullYear(), doMonth.getMonth(), day);
-    	            column.innerText = autoLeftPad(exceptDay.getDate(), 2);
-    	            column.style.color = "#A9A9A9"; // 이전/다음 달 날짜 회색 표시
-    	        }
-
-    	        // 일요일
-    	        if (dom % 7 == 1) {
-    	            column.style.color = "#FF4D4D"; // 일요일 빨간색
-    	        }
-
-    	        // 토요일
-    	        if (dom % 7 == 0) {
-    	            column.style.color = "#4D4DFF"; // 토요일 파란색
-    	            row = tbCalendar.insertRow(); // 주가 끝날 때마다 새 행 추가
-    	        }
-
-    	        dom++;
-    	    }
-    	}
 
     	// 날짜 선택 함수 (기본적으로 오늘 선택)
     	// 날짜 선택 함수 수정 (선택된 날짜를 hidden input에 설정)
@@ -126,8 +139,7 @@
 		    const month = document.getElementById("calMonth").innerText;
 		    const day = column.innerText.trim(); // 공백 제거
 		    
-		    const formattedDate = year + month + day;
-// 		    console.log("Selected date:", formattedDate); // 디버깅
+		    const formattedDate = year + "-" + month + "-" +  day;
 		    
 // 		    선택한 날짜를 input에 설정
 		    document.getElementById("selectedDate").value = formattedDate;
@@ -159,10 +171,18 @@
   <div class="content">
     <div class="content_inner">
       <h2>병원 예약</h2>
+    
+
+
+
+
+    
+
       
+
       <!-- form -->
 	  <form name="proceedFrm" method="post" 
-					action="#" onsubmit="return validateForm(this);">
+					action="/reserve/proceed.do" onsubmit="return validateForm(this);">
 
 
       <!-- 병원 정보 -->
@@ -174,23 +194,23 @@
             </span>
             <div class="info">
               <div class="info_top">
-                <h3>더조은병원</h3>
+                <h3>${ hospitalInfo.name }</h3>
                 <!-- 병원명/아이디 전달 -->
-                <input type="hi-dden" name="hosp_ref" value="선택한 병원아이디" placeholder="" readonly/>
-                <input type="hi-dden" name="hospname" value="선택한 병원명" placeholder="" readonly/>
+                <input type="hi-dden" name="hosp_ref" value="${ hospitalInfo.id }" placeholder="" readonly/>
+                <input type="hi-dden" name="hospname" value="${ hospitalInfo.name }" placeholder="" readonly/>
               </div>
               <div class="detail">
                 <div class="details">
                   <p class="blue">전화</p>
-                  <p>02-738-5001</p>
+                  <p>${ hospitalInfo.tel }</p>
                 </div>
                 <div class="details">
                   <p class="blue">주소</p>
-                  <p>서울특별시 종로구</p>
+                  <p>${ hospitalInfo.address }</p>
                 </div>
                 <div class="details">
                   <p class="blue">진료과목</p>
-                  <p>피부과</p>
+                  <p>${ hospitalInfo.department }</p>
                 </div>
               </div>
             </div>
@@ -201,62 +221,42 @@
        <!-- 의사정보 -->
 	  <div class="list">
 	    <ul class="doctor">
+	    
+	      <c:forEach items="${ doctorInfo }" var="row" varStatus="loop">
 	      
 	      <li>
 			<label>
-				<input id="의사1"  type="radio" name="doctorname" value="의사1" />
-				<label for="의사1">의사1</label>
+				<input id="${ row.name }"  type="radio" name="doctorname" value="의사1" />
+				<label for="${ row.name }">${ row.name }</label>
 			</label>
 	        <span class="img">
 	          <img src="/images/doctor.png" alt="" />
 	        </span>
 	        <div class="info">
 	          <div class="info_top">
-	            <h3>의료진명 1</h3>
-	            <input type="hi-dden" name="doc_idx_doc1" value="의사idx1" />
+	            <h3>${ row.name }</h3>
+	            <input type="hi-dden" name="doc_idx" value="의사idx1" />
 	            <input type="hi-dden" name="doctorname_doc1" value="의료진이름1" />
 	            <div class="detail">
 	              <div class="details">
 	                <p class="blue">전공</p>
+	                <p>${ row.major }</p>
 	              </div>
 	              <div class="details">
 	                <p class="blue">경력</p>
+	                <p>${ row.career }</p>
 	              </div>
 	              <div class="details">
 	                <p class="blue">근무시간</p>
+	                <p>${ row.hours }</p>
 	              </div>
 	            </div>
 	          </div>
 	        </div>
 	      </li>
 	      
-	      <li>
-	      	<label>
-				<input id="의사2"  type="radio" name="doctorname" value="의사2" />
-				<label for="의사2">의사2</label>
-			</label>
-	        <span class="img">
-	          <img src="/images/doctor.png" alt="" />
-	        </span>
-	        <div class="info">
-	          <div class="info_top">
-	            <h3>의료진명 2</h3>
-	            <input type="hi-dden" name="doc_idx_doc2" value="의사idx2" />
-	            <input type="hi-dden" name="doctorname_doc2" value="의료진이름2" />
-	            <div class="detail">
-	              <div class="details">
-	                <p class="blue">전공</p>
-	              </div>
-	              <div class="details">
-	                <p class="blue">경력</p>
-	              </div>
-	              <div class="details">
-	                <p class="blue">근무시간</p>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	      </li>
+	      </c:forEach>
+	      
 	      
 	    </ul>
 	  </div>
@@ -308,74 +308,45 @@
 			        </tr>
 			    </thead>
 			    <tbody>
-			       <!-- 스크립트로 내용 채워넣음 -->
-				<!-- 선택한 날짜를 전달할 hidden input 추가 -->
-				<input type="hi-dden" id="selectedDate" name="selectedDate" value="">
+			    	<!-- 스크립트로 내용 채워넣음 -->
+			       
+			    	<!-- 선택한 예약 날짜 전달 input -->
+					<input type="hidden" id="selectedDate" name="postdate" value="">
 			    </tbody>
+			    
 			</table>
-			
-			   
 
           <div class="time_select">
             <div class="am">
               <div class="time_title">오전</div>
               <ul class="time_list">
-                <li class="time_item">
-                  <button type="button" class="btn_time unselectable" disabled="">11:30</button>
-                </li>
+              
+              	<!-- 12:00 이전만 출력 -->
+			    <c:forEach items="${hoursInfo.generateTimeSlots()}" var="timeSlot" varStatus="loop">
+			        <c:if test="${timeSlot lt '12:00'}">
+			            <li class="time_item">
+			                 <input id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}" >
+							 <label for="${timeSlot}">${timeSlot}</label>
+			            </li>
+			        </c:if>
+			    </c:forEach>
+				
               </ul>
             </div>
             <div>
               <div class="time_title">오후</div>
               <ul class="time_list">
-                <li class="time_item">
-                  <button type="button" class="btn_time unselectable" disabled="">12:00</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">12:30</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">1:00</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">1:30</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">2:00</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">2:30</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">3:00</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">3:30</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">4:00</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">4:30</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">5:00</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time unselectable" disabled="">5:30</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">6:00</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">6:30</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">7:00</button>
-                </li>
-                <li class="time_item">
-                  <button type="button" class="btn_time">7:30</button>
-                </li>
+              
+              	<!-- 12:00 이후만 출력 -->
+			    <c:forEach items="${hoursInfo.generateTimeSlots()}" var="timeSlot" varStatus="loop">
+			        <c:if test="${timeSlot ge '12:00'}">
+			            <li class="time_item">
+			                 <input id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}" >
+							 <label for="${timeSlot}">${timeSlot}</label>
+			            </li>
+			        </c:if>
+			    </c:forEach>
+                
               </ul>
             </div>
           </div>
@@ -391,21 +362,21 @@
                 <tr class="first_tr">
                   <td class="left">이름</td>
                   <td>
-                  	<input type="text" name="username" value="유저명" placeholder="방문자의 이름을 입력해주세요.">
-                  	<input type="hi-dden" name="user_ref" value="유저아이디">
+                  	<input type="text" name="username" value="${ userInfo.name }" placeholder="방문자의 이름을 입력해주세요.">
+                  	유저 아이디(폼값 확인용): <input type="hi-dden" name="user_ref" value="${ userInfo.id }">
                   </td>
                 </tr>
                 <tr>
                   <td class="left">전화번호</td>
-                  <td><input type="text" name="tel" value="유저전화번호" placeholder="방문자의 전화번호를 입력해주세요."></td>
+                  <td><input type="text" name="tel" value="${ userInfo.tel }" placeholder="방문자의 전화번호를 입력해주세요."></td>
                 </tr>
                 <tr>
                   <td class="left">주민등록번호</td>
-                  <td><input type="text" name="rnn" value="유저주민번호" placeholder="방문자의 전화번호를 입력해주세요."></td>
+                  <td><input type="text" name="rrn" value="${ userInfo.rrn }" placeholder="방문자의 전화번호를 입력해주세요."></td>
                 </tr>
                 <tr>
                   <td class="left">주소</td>
-                  <td><input type="text" name="address" value="유저주소" placeholder="방문자의 전화번호를 입력해주세요."></td>
+                  <td><input type="text" name="address" value="${ userInfo.address }" placeholder="방문자의 전화번호를 입력해주세요."></td>
                 </tr>
                 <tr></tr>
               </table>
@@ -432,8 +403,8 @@
 		
       </div>
       
-        <!-- 예약하기 버튼 -->
-        <button type="button">예약하기</button>
+	      <!-- 예약하기 버튼 -->
+	      <button type="submit">예약하기</button>
       
       </form>
       

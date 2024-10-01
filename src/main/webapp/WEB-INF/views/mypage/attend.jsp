@@ -8,18 +8,9 @@
 <meta charset="UTF-8">
 <title>닥터뷰 | 출석체크</title>
 <%@include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/doc-list.css" />
+<link rel="stylesheet" href="/css/my-attend.css" />
 
 
-<style type="text/css">
-    a { color:#000000;text-decoration:none; }
-    .scriptCalendar { text-align:center; }
-    .scriptCalendar > thead > tr > td { width:50px;height:50px; }
-    .scriptCalendar > thead > tr:first-child > td { font-weight:bold; }
-    .scriptCalendar > thead > tr:last-child > td { background-color:#90EE90; }
-    .scriptCalendar > tbody > tr > td { width:50px;height:50px; }
-    .calendarBtn { cursor:pointer; } 
-</style>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         buildCalendar();
@@ -82,16 +73,11 @@
 
     	            // 오늘 날짜일 경우
     	            if (day === nowDate.getDate() && toDay.getMonth() === nowDate.getMonth() && toDay.getFullYear() === nowDate.getFullYear()) {
-    	                column.style.backgroundColor = "#FFFFE6"; // 오늘 날짜 강조
-    	                column.style.cursor = "pointer";
     	                column.onclick = function () { calendarChoiceDay(this); };
-
     	                // 오늘 날짜 자동 선택
     	                calendarChoiceDay(column);
     	            } else {
-    	                // 오늘이 아닌 다른 날 비활성화
-    	                column.style.backgroundColor = "#E5E5E5"; // 비활성화 색상
-    	                column.style.cursor = "not-allowed"; // 선택 불가 커서
+    	            	column.classList.add("past");
     	            }
     	        } else {
     	            // 이전 또는 다음 달 날짜 처리
@@ -102,12 +88,12 @@
 
     	        // 일요일
     	        if (dom % 7 == 1) {
-    	            column.style.color = "#FF4D4D"; // 일요일 빨간색
+    	            column.classList.add("sunday");
     	        }
 
     	        // 토요일
     	        if (dom % 7 == 0) {
-    	            column.style.color = "#4D4DFF"; // 토요일 파란색
+    	        	column.classList.add("saturday");
     	            row = tbCalendar.insertRow(); // 주가 끝날 때마다 새 행 추가
     	        }
 
@@ -121,16 +107,12 @@
     	function calendarChoiceDay(column) {
     	    if (document.getElementsByClassName("choiceDay")[0]) {
     	        // 이전에 선택된 날짜가 있을 경우 초기화
-    	        document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "#FFFFE6";  
+    	        document.getElementsByClassName("choiceDay")[0];  
     	        document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
     	    }
-
     	    // 선택한 날짜 강조
-    	    column.style.backgroundColor = "#FF9999";
     	    column.classList.add("choiceDay");
     	}
-
-
 
     /**
      * @brief   숫자 두자릿수( 00 ) 변경
@@ -144,13 +126,7 @@
         }
         return num;
     }
-    
-
-
 </script>
-
-
-
 </head>
 <body>
 <%@include file="../common/main_header.jsp" %>
@@ -160,46 +136,56 @@
 		<div class="content_inner">
 			<div class="list_title">
 				<h2>출석체크</h2>
-				<p>매일 출석해 포인트를 받아가세욧</p>
+				<p>매일 출석하고 포인트를 받아가세요.</p>
 			</div>
-			
-		    <br/>
-		    
-		   
+			<div class="calendar">
+				<div class="calendar_top">
+					<button type="button" class="prev_btn" id="btnPrevCalendar">
+						<img src="/images/paging2.svg" alt="" style="width: 30px; height: 30px;" />
+					</button>
+					<div class="date">
+						<p id="calYear">YYYY</p>
+						<p>/</p>
+						<p id="calMonth">MM</p>
+					</div>
+					<button type="button" class="next_btn" id="nextNextCalendar">
+						<img src="/images/paging3.svg" alt="" style="width: 30px; height: 30px;" />
+					</button>
+				</div>
 				
-		    <table class="scriptCalendar">
-		        <thead>
-		            <tr>
-		                <td class="calendarBtn" id="btnPrevCalendar">&#60;&#60;</td>
-		                <td colspan="5">
-		                    <span id="calYear">YYYY</span>년
-		                    <span id="calMonth">MM</span>월
-		                </td>
-		                <td class="calendarBtn" id="nextNextCalendar">&#62;&#62;</td>
-		            </tr>
-		            <tr>
-		                <td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
-		            </tr>
-		        </thead>
-		        <tbody></tbody>
-		    </table>
-			   
+			    <table class="scriptCalendar">
+			        <thead>
+			            <tr>
+			                <td>일</td>
+			                <td>월</td>
+			                <td>화</td>
+			                <td>수</td>
+			                <td>목</td>
+			                <td>금</td>
+			                <td>토</td>
+			            </tr>
+			        </thead>
+			        <tbody>
+			        	<!-- 스크립트로 내용 채워넣음 -->
+			        </tbody>
+			    </table>
+			    
+		    </div>
+				
 		    <form name="attend" method="post" action="/mypage/attend.do">
-               <input type="hidden" name="attendDate" id="attendDate" value="${ todayDate }" />
-				<c:if test="${ memberDTO.attend != todayDate }">
-				    <button type="submit" id="attendButton">출석체크 하기</button>
-				</c:if>
-		        <c:if test="${ memberDTO.attend == todayDate }">
-				    <button type="button" disabled>완료됨</button>
-				</c:if>
+				<div class="btn_wrap">
+	                <input type="hidden" name="attendDate" id="attendDate" value="${ todayDate }" />
+					<c:if test="${ memberDTO.attend != todayDate }">
+						<button type="submit" id="attendButton">출석체크</button>
+					</c:if>
+					<c:if test="${ memberDTO.attend == todayDate }">
+						<button type="button" disabled>출석완료</button>
+					</c:if>
+				</div>   
             </form>
-			
-		    
 		</div>
 	</div>
 </main>
-
-
 
 <%@include file="../common/main_footer.jsp" %>
 </body>

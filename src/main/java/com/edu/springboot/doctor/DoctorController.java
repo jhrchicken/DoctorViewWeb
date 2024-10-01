@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
+import org.springframework.aop.IntroductionAdvisor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.edu.springboot.board.BoardDTO;
 import com.edu.springboot.board.ParameterDTO;
+import com.edu.springboot.hospital.HashtagDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -109,7 +111,9 @@ public class DoctorController {
 		// 의사 좋아요 클릭 여부
 		int doclikecheck = doctorDAO.checkDocLike(id, Integer.toString(doctorDTO.getDoc_idx()));
 		model.addAttribute("doclikecheck", doclikecheck);
-
+		// 해시태그
+		ArrayList<HashtagDTO> hashtagList = doctorDAO.listHashtag();
+		model.addAttribute("hashtagList", hashtagList);
 		return "doctor/view";
 	}
 
@@ -165,9 +169,6 @@ public class DoctorController {
 				String photo = FileUtil.renameFile(uploadDir, filename);
 				doctorDTO.setPhoto(photo);
 			}
-			else {
-				doctorDTO.setPhoto("NULL");
-			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -190,24 +191,54 @@ public class DoctorController {
 	public String writeReviewPost(HttpServletRequest req, HttpSession session) {
 		// 폼값
 		int doc_idx = Integer.parseInt(req.getParameter("doc_idx"));
-		int score = Integer.parseInt(req.getParameter("score"));
+		int score = Integer.parseInt(req.getParameter("score")) ;
 		String content = req.getParameter("content");
 		// 세션에 저장된 로그인 아이디
-		String id = (String) session.getAttribute("userId");
+		String loginId = (String) session.getAttribute("userId");
 		// 리뷰 작성
-		doctorDAO.writeReview(score, content, id, doc_idx);
-		return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_idx;
+		Map<String, Object> params = new HashMap<>();
+		params.put("score", score);
+	    params.put("content", content);
+	    params.put("loginId", loginId);
+	    params.put("doc_idx", doc_idx);
+	    doctorDAO.writeReview(params);
+	    // 생성된 review_idx
+	    int review_idx = (int) params.get("review_idx");
+	    // 해시태그 처리
+	    String hashtags = req.getParameter("hashtags");
+	    System.err.println(review_idx);
+	    if (hashtags != null && !hashtags.isEmpty()) {
+	    	String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
+	    	for (String hashtag : hashtagArray) {
+	    		doctorDAO.writeReviewHashtag(review_idx, hashtag.trim());
+	    	}
+	    }
+	    return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_idx;
 	}
 	
 	@PostMapping("/doctor/editReview.do")
 	public String editReviewPost(HttpServletRequest req) {
+		System.err.println("진입");
 		// 폼값
 		int doc_ref = Integer.parseInt(req.getParameter("doc_ref"));
 		int review_idx = Integer.parseInt(req.getParameter("review_idx"));
 		int score = Integer.parseInt(req.getParameter("score"));
 		String content = req.getParameter("content");
 		// 댓글 수정
-		doctorDAO.editReview(review_idx, score, content);
+		Map<String, Object> params = new HashMap<>();
+		params.put("score", score);
+		params.put("content", content);
+		params.put("review_idx", review_idx);
+		doctorDAO.editReview(params);
+		// 해시태그 처리
+	    String hashtags = req.getParameter("hashtags");
+	    if (hashtags != null && !hashtags.isEmpty()) {
+	    	String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
+	    	doctorDAO.deleteAllReviewHashtag(review_idx);
+	    	for (String hashtag : hashtagArray) {
+	    		doctorDAO.writeReviewHashtag(review_idx, hashtag.trim());
+	    	}
+	    }
 		return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_ref;
 	}
 	

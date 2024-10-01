@@ -1,4 +1,4 @@
-package com.edu.springboot.hospital;
+package com.edu.springboot.doctor;
 
 import lombok.Data;
 

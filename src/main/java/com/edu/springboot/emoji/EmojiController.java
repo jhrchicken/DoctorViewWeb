@@ -35,7 +35,7 @@ public class EmojiController {
 		model.addAttribute("emojiDTO", emojiDTO);
 
 		// 유저의 보유 포인트 목록 가져오기
-		MemberDTO memberDTO = memberDAO.userPoint((String)session.getAttribute("userId"));
+		MemberDTO memberDTO = memberDAO.userInfo((String)session.getAttribute("userId"));
 		model.addAttribute("memberDTO", memberDTO);
 
 		return "emoji/myEmoji";
@@ -71,7 +71,7 @@ public class EmojiController {
 			model.addAttribute("emojiDTO", emojiDTO);
 			
 			// 유저의 보유 포인트 목록 가져오기
-			MemberDTO memberDTO = memberDAO.userPoint((String)session.getAttribute("userId"));
+			MemberDTO memberDTO = memberDAO.userInfo((String)session.getAttribute("userId"));
 			model.addAttribute("memberDTO", memberDTO);
 		}
 		
@@ -84,7 +84,7 @@ public class EmojiController {
 	public String buy(Model model, MemberDTO memberDTO, StoreDTO storeDTO, EmojiDTO emojiDTO, HttpSession session, RedirectAttributes redirectAttributes) {
 		
 		// 유저의 보유 포인트 목록 가져오기
-		memberDTO = memberDAO.userPoint((String)session.getAttribute("userId"));
+		memberDTO = memberDAO.userInfo((String)session.getAttribute("userId"));
 		
 		if (memberDTO.getPoint() >= storeDTO.getPrice() ) {
 			// 회원 이모지 추가

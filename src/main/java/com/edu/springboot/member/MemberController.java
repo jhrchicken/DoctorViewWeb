@@ -159,7 +159,7 @@ public class MemberController {
 		String saveId = req.getParameter("save");
 		
 		if(loginUser != null) {
-			if(loginUser.getApprove().equals("F")) {
+			if(loginUser.getEnable() == 0) {
 				// 회원가입 승인 대기 처리 추가
 				model.addAttribute("loginFailed", "회원승인 대기 상태입니다.");
 				return "member/login";
@@ -181,7 +181,7 @@ public class MemberController {
 		    return "redirect:/";
 		}
 		else {
-			model.addAttribute("loginFaild", "아이디 혹은 비밀번호가 일치하지않습니다.");
+			model.addAttribute("loginFailed", "아이디 혹은 비밀번호가 일치하지않습니다.");
 			return "member/login";
 		}
 	}

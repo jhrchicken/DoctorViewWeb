@@ -2,6 +2,7 @@ package com.edu.springboot.hospital;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.edu.springboot.board.ParameterDTO;
 import com.edu.springboot.doctor.DoctorDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -90,7 +91,21 @@ public class HospitalController {
 		// 목록 하단에 출력할 페이지 번호를 String으로 저장한 후 Model에 저장
 		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/hospital.do?");
 		model.addAttribute("pagingImg", pagingImg);
+		// 동적 셀렉트 페이지로 진입시에 시도 부분은 미리 select한 후 <select> 태그에 포함
+		model.addAttribute("sidoLists", hospitalDAO.selectSido());
 		return "hospital/list";
+	}
+	
+	
+	/* 선택된 시도를 파라미터로 전달하면 DTO가 받은 후 매퍼를 호출한다.
+	 * 반환된 결과는 List이므로 이를 JSON 객체로 출력하기 위해 Map 컬랙션을 생성한 후 result 키값에 List를 추가해준다. */
+	@RequestMapping("/getGugun.do")
+	@ResponseBody
+	public Map<String, Object> address(AddressDTO addressDTO) {
+		List<AddressDTO> gugunLists = hospitalDAO.selectGugun(addressDTO);
+		Map<String, Object> maps = new HashMap<>();
+		maps.put("result", gugunLists);
+		return maps;
 	}
 	
 	@RequestMapping("/hospital/viewHosp.do")
@@ -132,6 +147,9 @@ public class HospitalController {
 			}
 			ArrayList<DoctorDTO> doctorList = hospitalDAO.listDoctor(hospitalDTO);
 			model.addAttribute("doctorList", doctorList);
+			// 해시태그
+			ArrayList<HashtagDTO> hospHashtagList = hospitalDAO.selectHospHashtag(hospId);
+			model.addAttribute("hospHashtagList", hospHashtagList);
 		}
 		// 병원 좋아요 수
 		int likecount = hospitalDAO.countHospLike(hospitalDTO.getApi_idx());
@@ -152,6 +170,9 @@ public class HospitalController {
 			int reviewlikecheck = hospitalDAO.checkReviewLike(loginId, Integer.toString(review.getReview_idx()));
 			model.addAttribute("reviewlikecheck", reviewlikecheck);
 		}
+		// 해시태그
+		ArrayList<HashtagDTO> hashtagList = hospitalDAO.listHashtag();
+		model.addAttribute("hashtagList", hashtagList);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("hospitalDTO", hospitalDTO);
 		return "hospital/view";
@@ -159,19 +180,38 @@ public class HospitalController {
 	
 	@PostMapping("/hospital/writeReview.do")
 	public String writeReviewPost(HttpServletRequest req, HttpSession session) {
-		// 폼값
+	    // 폼값
 		int api_idx = Integer.parseInt(req.getParameter("api_idx"));
 		int score = Integer.parseInt(req.getParameter("score"));
 		String content = req.getParameter("content");
 		String cost = req.getParameter("cost");
 		String treat = req.getParameter("treat");
 		String doctor = req.getParameter("doctor");
-		// 세션에 저장된 로그인 아이디
-		String loginId = (String) session.getAttribute("userId");
-		hospitalDAO.writeReview(score, content, cost, treat, doctor, loginId, api_idx);
-		return "redirect:../hospital/viewHosp.do?api_idx=" + api_idx;
+	    // 세션에 저장된 로그인 아이디
+	    String loginId = (String) session.getAttribute("userId");
+	    // 리뷰 작성
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("score", score);
+	    params.put("content", content);
+	    params.put("cost", cost);
+	    params.put("treat", treat);
+	    params.put("doctor", doctor);
+	    params.put("loginId", loginId);
+	    params.put("api_idx", api_idx);
+	    hospitalDAO.writeReview(params);
+	    // 생성된 review_idx
+	    int review_idx = (int) params.get("review_idx");  
+	    // 해시태그 처리
+	    String hashtags = req.getParameter("hashtags");
+	    if (hashtags != null && !hashtags.isEmpty()) {
+	    	String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
+	    	for (String hashtag : hashtagArray) {
+	    		hospitalDAO.writeReviewHashtag(review_idx, hashtag.trim());
+	    	}
+	    }
+	    return "redirect:../hospital/viewHosp.do?api_idx=" + api_idx;
 	}
-	
+
 	@PostMapping("/hospital/editReview.do")
 	public String editReviewPost(HttpServletRequest req, HttpSession session) {
 		// 폼값
@@ -182,10 +222,25 @@ public class HospitalController {
 		String cost = req.getParameter("cost");
 		String treat = req.getParameter("treat");
 		String doctor = req.getParameter("doctor");
-		// 댓글 수정
-		hospitalDAO.editReview(review_idx, score, content, cost, treat, doctor);
+		// 리뷰 수정
+		Map<String, Object> params = new HashMap<>();
+	    params.put("score", score);
+	    params.put("content", content);
+	    params.put("cost", cost);
+	    params.put("treat", treat);
+	    params.put("doctor", doctor);
+	    params.put("review_idx", review_idx);
+	    hospitalDAO.editReview(params);
+		// 해시태그 처리
+	    String hashtags = req.getParameter("hashtags");
+	    if (hashtags != null && !hashtags.isEmpty()) {
+	    	String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
+	    	hospitalDAO.deleteAllReviewHashtag(review_idx);
+	    	for (String hashtag : hashtagArray) {
+	    		hospitalDAO.writeReviewHashtag(review_idx, hashtag.trim());
+	    	}
+	    }
 		return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
-		
 	}
 	
 	@PostMapping("/hospital/deleteReview.do")
@@ -261,37 +316,4 @@ public class HospitalController {
 		}
 		return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

@@ -11,7 +11,7 @@ public class ReserveDTO {
 	private String doctorname;
 	private String username;
 	private String tel;
-	private String rnn;
+	private String rrn;
 	private String address;
 	private Date postdate;
 	private String posttime;
@@ -20,4 +20,8 @@ public class ReserveDTO {
 	private String hide;
 	private String user_ref;
 	private String hosp_ref;
+	
+	
+	//추가컬럼
+	private int api_idx;
 }

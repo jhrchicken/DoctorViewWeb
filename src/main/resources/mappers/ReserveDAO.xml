@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.edu.springboot.reserve.IReserveService">
+
+	<!-- 사용자가 예약할 병원 정보 가져옴 -->
+	<select id="getHospital"
+		parameterType="com.edu.springboot.reserve.ReserveDTO"
+		resultType="com.edu.springboot.member.MemberDTO">
+		SELECT *
+		FROM member m
+		WHERE m.name = (SELECT a.name 
+		                FROM api a 
+		                WHERE a.api_idx = #{api_idx})
+	</select>
+	
+	<!-- 사용자가 예약할 병원의 의사 정보 -->
+	<select id="getDoctor"
+		resultType="com.edu.springboot.doctor.DoctorDTO">
+		SELECT * FROM doctor WHERE hosp_ref = #{hosp_ref}
+	</select>
+	
+	<!-- 예약정보 저장 -->
+	<insert id="saveReservationInfo"
+		parameterType="com.edu.springboot.reserve.ReserveDTO">
+		INSERT INTO appointment (app_id, hospname, doctorname, username, tel, rrn, address, postdate, posttime, user_ref, hosp_ref)
+    	VALUES (seq_appointment_idx.nextval, #{hospname}, #{doctorname}, #{username}, #{tel}, #{rrn}, #{address}, #{postdate}, #{posttime}, #{user_ref}, #{hosp_ref} )
+	</insert>
+
+	
+	
+</mapper>

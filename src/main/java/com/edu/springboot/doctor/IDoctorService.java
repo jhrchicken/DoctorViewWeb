@@ -1,10 +1,12 @@
 package com.edu.springboot.doctor;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.edu.springboot.board.ParameterDTO;
+import com.edu.springboot.hospital.HashtagDTO;
 
 @Mapper
 public interface IDoctorService {
@@ -25,9 +27,9 @@ public interface IDoctorService {
 	// 리뷰 조회
 	public ArrayList<DreviewDTO> listReview(DoctorDTO doctorDTO);
 	// 리뷰 작성
-	public int writeReview(int score, String content, String id, int doc_idx);
+    public int writeReview(Map<String, Object> params);
 	// 리뷰 수정
-	public int editReview(int review_idx, int score, String content);
+    public int editReview(Map<String, Object> params);
 	// 리뷰 삭제
 	public int deleteReview(int review_idx);
 
@@ -73,4 +75,11 @@ public interface IDoctorService {
 	public int countReview(String doc_idx);
 	// 별점 합계 조회
 	public int sumScore(String doc_idx);
+	
+	// 해시태그 목록
+	public ArrayList<HashtagDTO> listHashtag();
+	// 리뷰 해시태그 작성
+	public int writeReviewHashtag(int review_idx, String tag);
+	// 리뷰의 모든 해시태그 삭제
+	public int deleteAllReviewHashtag(int review_idx);
 }

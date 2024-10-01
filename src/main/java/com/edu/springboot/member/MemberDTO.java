@@ -16,11 +16,10 @@ public class MemberDTO {
 	private String taxid;
 	private String department;
 	private int visitcount;
-	
 	private int enable;
 	private String auth;
 	private String email;
-	private String approve;
+//	private String approve;
 	private String attend;
 	
 }
