@@ -86,6 +86,7 @@ public class ReserveController {
 		return "reserve/list"; 
 	}
 
+	// 예약 취소하기
 	
 }
 
