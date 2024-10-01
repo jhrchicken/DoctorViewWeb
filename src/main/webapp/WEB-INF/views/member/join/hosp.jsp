@@ -227,183 +227,181 @@
           </div>
 
 
-          <form>
-            <p>*필수 입력사항</p>
-            <table class="regist">
-              <tr>
-                <td class="left">아이디</td>
-                <td class="id">
-                  <input type="text" name="id" value="" maxlength="15" placeholder="아이디* (영문+숫자, 6~15자)" />
-                  <button id="idCheckBtn" name="idCheckBtn" class="id_check" type="button"><span class="blind">중복 확인</span></button>
-                  <span id="idCheckResult" class="notice_ok"></span> 
-                  <input type="hidden" name="idCheck" value="unCheck" />
-                </td>
-              </tr>
-              <!-- 비밀번호 폼 시작 -->
-              <tr class="pass">
-                <td rowspan="2" class="left">비밀번호</td>
-                <td><input type="password" name="password" value="" maxlength="20" placeholder="비밀번호* (영문+숫자, 특수문자(선택), 8~20자)" /></td>
-              </tr>
-              <tr>
-                <td>
-                  <input type="password" name="passwordCheck" value="" maxlength="20" placeholder="비밀번호 확인*" />
-                </td>
-              </tr>
-              <!-- 비밀번호 폼 끝 -->
-              <tr>
-                <td class="left">이름</td>
-                <td><input type="text" name="name" value="" placeholder="병원명*" /></td>
-              </tr>
-              <tr>
-                <td class="left">전화번호</td>
-                <td class="mobile">
-					<!-- 전화번호 input 길이 조정 필요 -->
-					<input type="tel" name="tel1" value="" placeholder="전화번호*" /> -
-					<input type="tel" name="tel2" value="" placeholder="전화번호*" /> -
-					<input type="tel" name="tel3" value="" placeholder="전화번호*" />
-                </td>
-              </tr>
-              <tr>
-                <td class="left">주소</td>
-                <td><input type="text" name="address" placeholder="주소*" /></td>
-              </tr>
-              <tr>
-                <td class="left">진료과목</td>
-                <td>
-                  <input type="text" name="department" value="" placeholder="진료과목*" />
-              </tr>
-              <tr>
-                <td class="left">사업자 번호</td>
-                <td class="regi">
-					<input type="text" name="taxid1" value="" placeholder="사업자번호*" /> -
-					<input type="text" name="taxid2" value="" placeholder="사업자번호*" /> -
-					<input type="text" name="taxid3" value="" placeholder="사업자번호*" />
-	            </td>
-              </tr>
-              <!-- 영업시간 폼 시작 -->
-              <tr class="time">
-                <td rowspan="4" class="left">영업시간</td>
-                <td>
-                   요일:  
-                  	<label class="checkbox_wrap">
-	                   	<input id="monday" type="checkbox" name="weeks" value="월요일" />
-	                   	<label for="monday">월</label>
-                  	</label>
-                  	<label class="checkbox_wrap">
-	                    <input id="tuesday" type="checkbox" name="weeks" value="화요일" />
-	                    <label for="tuesday">화</label>
-                  	</label>
+          <p>*필수 입력사항</p>
+          <table class="regist">
+            <tr>
+              <td class="left">아이디</td>
+              <td class="id">
+                <input type="text" name="id" value="" maxlength="15" placeholder="아이디* (영문+숫자, 6~15자)" />
+                <button id="idCheckBtn" name="idCheckBtn" class="id_check" type="button"><span class="blind">중복 확인</span></button>
+                <span id="idCheckResult" class="notice_ok"></span> 
+                <input type="hidden" name="idCheck" value="unCheck" />
+              </td>
+            </tr>
+            <!-- 비밀번호 폼 시작 -->
+            <tr class="pass">
+              <td rowspan="2" class="left">비밀번호</td>
+              <td><input type="password" name="password" value="" maxlength="20" placeholder="비밀번호* (영문+숫자, 특수문자(선택), 8~20자)" /></td>
+            </tr>
+            <tr>
+              <td>
+                <input type="password" name="passwordCheck" value="" maxlength="20" placeholder="비밀번호 확인*" />
+              </td>
+            </tr>
+            <!-- 비밀번호 폼 끝 -->
+            <tr>
+              <td class="left">이름</td>
+              <td><input type="text" name="name" value="" placeholder="병원명*" /></td>
+            </tr>
+            <tr>
+              <td class="left">전화번호</td>
+              <td class="mobile">
+				<input type="tel" name="tel1" maxlength="3" value="" placeholder="010" /> -
+				<input type="tel" name="tel2" maxlength="4" value="" placeholder="전화번호*" /> -
+				<input type="tel" name="tel3" maxlength="4" value="" />
+              </td>
+            </tr>
+            <tr>
+              <td class="left">주소</td>
+              <td><input type="text" name="address" value="" placeholder="주소*" /></td>
+            </tr>
+            <tr>
+              <td class="left">진료과목</td>
+              <td>
+                <input type="text" name="department" value="" placeholder="진료과목*" />
+            </tr>
+            <tr>
+              <td class="left">사업자 번호</td>
+              <td class="regi">
+				<input type="text" name="taxid1" value="" placeholder="사업자번호*" /> -
+				<input type="text" name="taxid2" value="" placeholder="사업자번호*" /> -
+				<input type="text" name="taxid3" value="" placeholder="사업자번호*" />
+           	  </td>
+            </tr>
+            <!-- 영업시간 폼 시작 -->
+            <tr class="time">
+              <td rowspan="4" class="left">영업시간</td>
+              <td>
+                 요일:  
+                	<label class="checkbox_wrap">
+                  		<input id="monday" type="checkbox" name="weeks" value="월요일" />
+                  		<label for="monday">월</label>
+                	</label>
+                	<label class="checkbox_wrap">
+                    	<input id="tuesday" type="checkbox" name="weeks" value="화요일" />
+                    	<label for="tuesday">화</label>
+                	</label>
                     <label class="checkbox_wrap">
-                    	<input id="wednesday" type="checkbox" name="weeks" value="수요일" />
-                    	<label for="wednesday">수</label>
-                  	</label>
+                  		<input id="wednesday" type="checkbox" name="weeks" value="수요일" />
+                  		<label for="wednesday">수</label>
+                	</label>
                     <label class="checkbox_wrap">
-                    	<input id="thursday" type="checkbox" name="weeks" value="목요일" />
-                    	<label for="thursday">목</label>
-                  	</label>
+                  		<input id="thursday" type="checkbox" name="weeks" value="목요일" />
+                  		<label for="thursday">목</label>
+                	</label>
                     <label class="checkbox_wrap">
-                    	<input id="friday" type="checkbox" name="weeks" value="금요일" />
-                    	<label for="friday">금</label>
-                  	</label>
+                  		<input id="friday" type="checkbox" name="weeks" value="금요일" />
+                  		<label for="friday">금</label>
+                	</label>
                     <label class="checkbox_wrap">
-                    	<input id="saturday" type="checkbox" name="weeks" value="토요일" />
-                    	<label for="saturday">토</label>
-                  	</label>
+                  		<input id="saturday" type="checkbox" name="weeks" value="토요일" />
+                  		<label for="saturday">토</label>
+                	</label>
                     <label class="checkbox_wrap">
-                    	<input id="sunday" type="checkbox" name="weeks" value="일요일" />
-                    	<label for="sunday">일</label>
-                  	</label> 
-                </td>
-              </tr>
-              <tr class="time">
-                <td>
-                  진료 시간: 
-                  <input type="time" name="starttime" value="" />
-                   ~ 
-                  <input type="time" name="endtime" value="" />
-                </td>
-              </tr>
-              <tr class="time">
-                <td>
-                  휴게 시간: 
-                  <input type="time" name="startbreak" value="" />
-                   ~ 
-                  <input type="time" name="endbreak" value="" />
-                </td>
-              </tr>
-              <tr class="time">
-                <td>
-                  접수 마감: <input type="time" name="deadline" value="" />
-                </td>
-              </tr>
-              <!-- 영업시간 폼 끝 -->
-              <!-- 의료진 폼 시작 -->
-              <tr class="doc">
-                <td rowspan="4" class="left">의료진</td>
-                <td id="doctorContainer">
-                	<table class="doctor-info">
-                		<tr>
-                			<td class="left">이름: </td>
-                			<td><input type="text" name="doctornamez" value="" placeholder="이름*" /></td>
-                		</tr>
-                		<tr>
-                			<td class="left">전공: </td>
-                			<td><input type="text" name="majorz" placeholder="전공*" /></td>
-                		</tr>
-                		<tr>
-                			<td class="left">경력</td>
-                			<td><input type="text" name="careerz" placeholder="경력*" /></td>
-                		</tr>
-                		<tr>
-                			<td class="left">진료시간:</td>
-                			<td><input type="text" name="hoursz" value="" class="doc_time" placeholder="진료시간*" /></td>
-                		</tr>
-                	</table>
-                	<div class="add">
-						<button id="addDoctor" class="plus" type="button"><span class="blind">의료진 추가</span></button>
-						<button id="addDoctor" class="delete" type="button"><span class="blind">의료진 삭제</span></button>
-                	</div>
-                </td>
-              </tr>
-              
-              <script>
-              document.getElementById("addDoctor").onclick = function() {
-  	            // 새로운 의료진 정보 추가
-  	            const newDoctorInfo = document.createElement("table");
-  	            newDoctorInfo.className = "doctor-info";
-  	            newDoctorInfo.innerHTML = `
-  	            	<tr>
-        			<td class="left">이름: </td>
-        			<td><input type="text" name="doctornamez" value="" placeholder="이름*" /></td>
-	        		</tr>
-	        		<tr>
-	        			<td class="left">전공: </td>
-	        			<td><input type="text" name="majorz" placeholder="전공*" /></td>
-	        		</tr>
-	        		<tr>
-	        			<td class="left">경력</td>
-	        			<td><input type="text" name="careerz" placeholder="경력*" /></td>
-	        		</tr>
-	        		<tr>
-	        			<td class="left">진료시간:</td>
-	        			<td><input type="text" name="hoursz" value="" class="doc_time" placeholder="진료시간*" /></td>
-	        		</tr>
-  	            `;
-  	            
-  	            const doctorContainer = document.getElementById("doctorContainer");
-  	            doctorContainer.appendChild(newDoctorInfo);
-  	            doctorContainer.appendChild(document.getElementById("addDoctor"));
-  	          };
-              </script>
+                  		<input id="sunday" type="checkbox" name="weeks" value="일요일" />
+                  		<label for="sunday">일</label>
+                	</label> 
+              	</td>
+            </tr>
+            <tr class="time">
+              <td>
+                진료 시간: 
+                <input type="time" name="starttime" value="" />
+                 ~ 
+                <input type="time" name="endtime" value="" />
+              </td>
+            </tr>
+            <tr class="time">
+              <td>
+                휴게 시간: 
+                <input type="time" name="startbreak" value="" />
+                 ~ 
+                <input type="time" name="endbreak" value="" />
+              </td>
+            </tr>
+            <tr class="time">
+              <td>
+                접수 마감: <input type="time" name="deadline" value="" />
+              </td>
+            </tr>
+            <!-- 영업시간 폼 끝 -->
+            <!-- 의료진 폼 시작 -->
+            <tr class="doc">
+              <td rowspan="4" class="left">의료진</td>
+              <td id="doctorContainer">
+              	<table class="doctor-info">
+              		<tr>
+              			<td class="left">이름: </td>
+              			<td><input type="text" name="doctornamez" value="" placeholder="이름*" /></td>
+              		</tr>
+              		<tr>
+              			<td class="left">전공: </td>
+              			<td><input type="text" name="majorz" placeholder="전공*" /></td>
+              		</tr>
+              		<tr>
+              			<td class="left">경력</td>
+              			<td><input type="text" name="careerz" placeholder="경력*" /></td>
+              		</tr>
+              		<tr>
+              			<td class="left">진료시간:</td>
+              			<td><input type="text" name="hoursz" value="" class="doc_time" placeholder="진료시간*" /></td>
+              		</tr>
+              	</table>
+              	<div class="add">
+				<button id="addDoctor" class="plus" type="button"><span class="blind">의료진 추가</span></button>
+				<button id="addDoctor" class="delete" type="button"><span class="blind">의료진 삭제</span></button>
+              	</div>
+              </td>
+            </tr>
+            
+            <script>
+            document.getElementById("addDoctor").onclick = function() {
+	            // 새로운 의료진 정보 추가
+	            const newDoctorInfo = document.createElement("table");
+	            newDoctorInfo.className = "doctor-info";
+	            newDoctorInfo.innerHTML = `
+	            	<tr>
+      			<td class="left">이름: </td>
+      			<td><input type="text" name="doctornamez" value="" placeholder="이름*" /></td>
+       		</tr>
+       		<tr>
+       			<td class="left">전공: </td>
+       			<td><input type="text" name="majorz" placeholder="전공*" /></td>
+       		</tr>
+       		<tr>
+       			<td class="left">경력</td>
+       			<td><input type="text" name="careerz" placeholder="경력*" /></td>
+       		</tr>
+       		<tr>
+       			<td class="left">진료시간:</td>
+       			<td><input type="text" name="hoursz" value="" class="doc_time" placeholder="진료시간*" /></td>
+       		</tr>
+	            `;
+	            
+	            const doctorContainer = document.getElementById("doctorContainer");
+	            doctorContainer.appendChild(newDoctorInfo);
+	            doctorContainer.appendChild(document.getElementById("addDoctor"));
+	          };
+            </script>
 
-              <!-- 의료진 폼 끝 -->
-            </table>    
+            <!-- 의료진 폼 끝 -->
+          </table>    
 
             
-            <div class="btn_wrap">
-              <input type="submit" value="완료" />
-            </div>
-          </form>
+          <div class="btn_wrap">
+            <input type="submit" value="완료" />
+          </div>
+        </form>
       </div>
     </div>
   </div>

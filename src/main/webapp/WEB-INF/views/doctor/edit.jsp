@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰</title>
+<title>닥터뷰 | 마이페이지</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/doc-edit.css" />
 <script>

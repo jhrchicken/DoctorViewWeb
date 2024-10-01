@@ -17,7 +17,6 @@
 		<div class="content_inner">
 			<div class="list_title">
 				<h2>찜한 병원</h2>
-				<p>병원명, 지역명, 해시태그 등으로 검색해보세요</p>
 			</div>
 			
 			<div class="list">
