@@ -494,8 +494,8 @@ public class MemberController {
 		    System.out.println("String타입 아님");
 		}
 		
-		// 500포인트 추가
-		memberDTO.setPoint(memberDTO.getPoint()+500);
+		// 10포인트 추가
+		memberDTO.setPoint(memberDTO.getPoint()+10);
 		memberDAO.userAttend(memberDTO);
 		
 		return "mypage/attend";
