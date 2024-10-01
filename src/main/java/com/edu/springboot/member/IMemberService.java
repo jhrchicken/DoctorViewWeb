@@ -62,8 +62,8 @@ public interface IMemberService {
 //	병원 상세정보 수정
 	public int updateHospDetail(DetailDTO detailDTO);
 
-//	보유한 포인트 정보 가져옴
-	public MemberDTO userPoint(String id);
+//	로그인 한 유저 정보
+	public MemberDTO userInfo(String id);
 	
 //  회원 포인트 정보 감소
 	public int decreaseUserPoint(MemberDTO memberDTO);

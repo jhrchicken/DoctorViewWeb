@@ -64,7 +64,7 @@
 							</c:if>
 							<!-- 공통: 예약 관리 -->
 							<c:if test="${ sessionScope.userAuth != 'ROLE_HOSP' }">
-								<li><a href="#">예약 관리</a></li>
+								<li><a href="/reserve/list.do">예약 관리</a></li>
 							</c:if>
 							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
 								<li><a href="#">예약 관리</a></li>
@@ -93,7 +93,7 @@
 					<!-- user name 정보 추가했더염 -->
 					<li><p>${ userEmoji } ${ userId }</p></li>
 					<li><a href="/member/logout.do">로그아웃</a></li>
-					<li><a href="#">나의 예약</a></li>
+					<li><a href="/reserve/list.do">나의 예약</a></li>
 				</c:if>
 				<div class="btn_wrap">
 					<!-- 로그인 하지 않은 상태 -->

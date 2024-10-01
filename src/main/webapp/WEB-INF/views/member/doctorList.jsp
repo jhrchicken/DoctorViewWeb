@@ -47,10 +47,10 @@ function deleteDoctor(doc_idx) {
 									</form>
 									<span class="img">
 										<!-- ****************** DB 업데이트 후 결과 확인 필요 *****************  -->
-										<c:if test="${ row.photo == 'NULL' }">
+										<c:if test="${ row.photo == null }">
 											<img src="/images/doctor.png" alt="" />
 										</c:if>
-										<c:if test="${ row.photo != 'NULL' }">
+										<c:if test="${ row.photo != null }">
 											<img src="/uploads/${ row.photo }" alt="" />
 										</c:if>
 									</span>

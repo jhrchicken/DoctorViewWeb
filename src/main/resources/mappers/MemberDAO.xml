@@ -9,15 +9,15 @@
 	<!-- user 회원가입 -->
 	<insert id="userJoin"
 		parameterType="com.edu.springboot.member.MemberDTO">
-		INSERT INTO member (id, password, name, nickname, tel, email, address, rrn, enable, auth, approve)
-		VALUES (#{id}, #{password}, #{name}, #{nickname}, #{tel}, #{email}, #{address}, #{rrn}, 1, 'ROLE_USER', 'T')
+		INSERT INTO member (id, password, name, nickname, tel, email, address, rrn, enable, auth)
+		VALUES (#{id}, #{password}, #{name}, #{nickname}, #{tel}, #{email}, #{address}, #{rrn}, 1, 'ROLE_USER')
 	</insert>
 	
 	<!-- hosp 회원가입 -->
 	<insert id="joinMember"
 		parameterType="com.edu.springboot.member.MemberDTO">
 		INSERT INTO member (id, password, name, nickname, tel, address, taxid, department, enable, auth)
-    	VALUES (#{id}, #{password}, #{name}, #{name}, #{tel}, #{address}, #{taxid}, #{department}, 1, 'ROLE_HOSP')
+    	VALUES (#{id}, #{password}, #{name}, #{name}, #{tel}, #{address}, #{taxid}, #{department}, 0, 'ROLE_HOSP')
 	</insert>
 	<insert id="joinDoctor"
 		parameterType="com.edu.springboot.member.DoctorDTO">
@@ -122,12 +122,14 @@
         SELECT * FROM doctor WHERE hosp_ref = #{id}
     </select>
     
-    <!-- user 포인트 정보 가져오기 -->
-	<select id="userPoint" 
+    <!-- 로그인 한 유저 정보 (point값 가져옴) -->
+	<select id="userInfo" 
     	parameterType="String"
     	resultType="com.edu.springboot.member.MemberDTO">
         SELECT * FROM member WHERE id = #{id}
     </select>
+    
+   
     
    	<!-- 유저 포인트 감소 -->
 	<update id="decreaseUserPoint"
@@ -135,6 +137,7 @@
 		UPDATE member SET point=#{point} WHERE id = #{id}
 	</update>
 	
+
 	<!-- 유저 출석체크 -->
 	<update id="userAttend"
 		parameterType="com.edu.springboot.member.MemberDTO">

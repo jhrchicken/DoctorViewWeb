@@ -281,10 +281,10 @@ document.addEventListener('DOMContentLoaded', function () {
 					</c:if>
 					
 					<div class="btn_wrap">
-						<!-- 사용자가 로그인 했고 임점한 병원인 경우에만 채팅 가능 -->
+						<!-- 사용자가 로그인 했고 임점한 병원인 경우에만 예약 가능 -->
 						<!-- ****************** 수정 필요 ****************** -->
 						<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null }">
-							<button>예약하기</button>
+							<button type="button" onclick="location.href='/reserve/proceed.do?api_idx=${ param.api_idx }';">예약하기</button>
 						</c:if>
 						
 						<!-- 사용자가 로그인 했고 입점한 병원인 경우에만 채팅 가능 -->

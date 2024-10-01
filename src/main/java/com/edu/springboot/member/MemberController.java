@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;import ch.qos.logback.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -54,9 +55,9 @@ public class MemberController {
 		memberDTO.setEmail(eamil);
 		memberDTO.setRrn(rrn);
 		
-		memberDAO.userJoin(memberDTO);
+		int joinResult = memberDAO.userJoin(memberDTO);
 		
-		if (memberDAO.userJoin(memberDTO) == 1) {
+		if (joinResult == 1) {
 			return "redirect:/member/login.do";
 		}
 		else {
@@ -132,7 +133,7 @@ public class MemberController {
     @RequestMapping("/member/join/getNick.do")
     @ResponseBody
     public String getNick() {
-    	String[] firstNick = {"촉촉한", "파닥파닥", "싱싱한", "상큼한", "야망있는", "살금살금", "제멋대로", "거친 파도 속", "신출귀몰한", "야생의", "시들시들한", "트렌디한", "철푸덕", "새콤달콤한", "수줍어하는", "카리스마있는", "졸렬한", "배고픈", "비열한","뒷 골목의", "불타는", "노란머리","버섯머리", "버석한", "기괴한", "더조은","용의주도한", "괴로운", "비염걸린", "눈물흘리는", "코찔찔이", "꼬들한", "소극적인"};	
+    	String[] firstNick = {"촉촉한", "파닥파닥", "싱싱한", "상큼한", "야망있는", "살금살금", "제멋대로", "거친 파도 속", "신출귀몰한", "야생의", "시들시들한", "트렌디한", "철푸덕", "새콤달콤한", "수줍어하는", "카리스마있는", "졸렬한", "배고픈", "비열한","뒷 골목의", "불타는", "노란머리","버섯머리", "버석한", "기괴한", "더조은","용의주도한", "괴로운", "비염걸린", "눈물흘리는", "코찔찔이", "꼬들한", "소극적인", "화끈한"};	
     	String[] lastNick = {"열대어", "팽이버섯", "오리", "야자수", "숙주나물", "수박", "도둑", "어부", "헌터", "뽀야미", "파수꾼", "대주주", "알부자", "사천왕", "수족 냉증", "불주먹", "물주먹", "스나이퍼", "파스타", "수면핑", "농구공", "바다의 왕자", "아기돼지", "김치볶음밥", "파인애플", "지하철", "회리", "하림", "다영", "꼬질이"};
     	
         int firstIndex = (int) (Math.random() * firstNick.length);
@@ -158,9 +159,9 @@ public class MemberController {
 		String saveId = req.getParameter("save");
 		
 		if(loginUser != null) {
-			if(loginUser.getApprove().equals("F")) {
+			if(loginUser.getEnable() == 0) {
 				// 회원가입 승인 대기 처리 추가
-				model.addAttribute("loginFailed", "회원승인 대기 상태입니다.");
+				model.addAttribute("loginFailed", "회원 승인 대기 상태입니다.");
 				return "member/login";
 			}
 		    session.setAttribute("userId", loginUser.getId()); 
@@ -180,7 +181,7 @@ public class MemberController {
 		    return "redirect:/";
 		}
 		else {
-			model.addAttribute("loginFaild", "아이디 혹은 비밀번호가 일치하지않습니다.");
+			model.addAttribute("loginFailed", "아이디 혹은 비밀번호가 일치하지않습니다.");
 			return "member/login";
 		}
 	}
@@ -426,13 +427,6 @@ public class MemberController {
 	    }
 	    else {
 //	    	insert 쿼리
-	    	System.out.println("insert 쿼리");
-	    	if(detailDTO.getPhoto() != null	) {
-	    		System.out.println("null 아님");
-	    	} else {
-	    		System.out.println("null임");
-	    	}
-//	    	insert 쿼리
 	    	hospDatailResult = memberDAO.insertHospDetail(detailDTO);
 	    }
 		
@@ -500,8 +494,8 @@ public class MemberController {
 		    System.out.println("String타입 아님");
 		}
 		
-		// 500포인트 추가
-		memberDTO.setPoint(memberDTO.getPoint()+500);
+		// 10포인트 추가
+		memberDTO.setPoint(memberDTO.getPoint()+10);
 		memberDAO.userAttend(memberDTO);
 		
 		return "mypage/attend";

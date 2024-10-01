@@ -138,8 +138,6 @@
 				<h2>출석체크</h2>
 				<p>매일 출석하고 포인트를 받아가세요.</p>
 			</div>
-			
-			
 			<div class="calendar">
 				<div class="calendar_top">
 					<button type="button" class="prev_btn" id="btnPrevCalendar">

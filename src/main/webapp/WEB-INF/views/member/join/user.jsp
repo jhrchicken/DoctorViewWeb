@@ -110,13 +110,20 @@
 
 		$("#idCheckBtn").click(function() {
 		    var join_id = $('input[name="id"]').val();
-		    var id_pattern = /^[a-zA-Z0-9]{6,15}$/;
-	
+
+		    if (join_id.length < 6) {
+		    	alert("6자 이상으로 입력해주세요.");
+		    	$('input[name="id"]').focus();
+		    	return false;
+		    }
+		    
+		    var id_pattern = /^[a-zA-Z0-9]+$/;
 		    if (!id_pattern.test(join_id)) {
 		        alert("아이디는 영문자와 숫자만 포함되어야 합니다.");
 		        $('input[name="id"]').focus();
 		        return false;
 		    }
+		    
 	
 		    $.ajax({
 		        url: "../../member/join/checkId.do", 
