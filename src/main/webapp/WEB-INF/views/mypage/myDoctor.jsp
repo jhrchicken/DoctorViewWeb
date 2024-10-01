@@ -18,7 +18,6 @@
 		<div class="content_inner">
 			<div class="list_title">
 				<h2>찜한 의사</h2>
-				<p>의사 이름, 전공으로 검색해보세요.</p>
 			</div>
 			
 			<div class="list">
