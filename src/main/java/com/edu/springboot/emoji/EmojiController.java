@@ -35,7 +35,7 @@ public class EmojiController {
 		model.addAttribute("emojiDTO", emojiDTO);
 
 		// 유저의 보유 포인트 목록 가져오기
-		MemberDTO memberDTO = memberDAO.userInfo((String)session.getAttribute("userId"));
+		MemberDTO memberDTO = memberDAO.loginMember((String)session.getAttribute("userId"), (String)session.getAttribute("userPassword"));
 		model.addAttribute("memberDTO", memberDTO);
 
 		return "emoji/myEmoji";
@@ -45,7 +45,7 @@ public class EmojiController {
 	@PostMapping("/emoji/editEmoji.do")
 	public String editEmoji(Model model, HttpSession session, EmojiDTO emojiDTO) {
 		// 현재 사용중인 이모지 비활성화
-		emojiDAO.deactivateEmoji(emojiDTO);
+		emojiDAO.deactivateEmoji((String) session.getAttribute("userId"));
 		
 		// 선택한 이모지 활성화
 		emojiDAO.activateEmoji(emojiDTO);
@@ -71,7 +71,7 @@ public class EmojiController {
 			model.addAttribute("emojiDTO", emojiDTO);
 			
 			// 유저의 보유 포인트 목록 가져오기
-			MemberDTO memberDTO = memberDAO.userInfo((String)session.getAttribute("userId"));
+			MemberDTO memberDTO = memberDAO.loginMember((String)session.getAttribute("userId"),(String)session.getAttribute("userPassword"));
 			model.addAttribute("memberDTO", memberDTO);
 		}
 		
@@ -84,7 +84,7 @@ public class EmojiController {
 	public String buy(Model model, MemberDTO memberDTO, StoreDTO storeDTO, EmojiDTO emojiDTO, HttpSession session, RedirectAttributes redirectAttributes) {
 		
 		// 유저의 보유 포인트 목록 가져오기
-		memberDTO = memberDAO.userInfo((String)session.getAttribute("userId"));
+		memberDTO = memberDAO.loginMember((String)session.getAttribute("userId"),(String)session.getAttribute("userPassword"));
 		
 		if (memberDTO.getPoint() >= storeDTO.getPrice() ) {
 			// 회원 이모지 추가

@@ -50,12 +50,15 @@ function validateForm(form) {
 	        
 		<form name="joinFrm" method="post" enctype="multipart/form-data"
 				action="../../member/editHosp.do" onsubmit="return validateForm(this);">
+				
+			<!-- member -->
 			<p>*필수 입력사항</p>
 			<table class="regist">
 				<tr>
 					<td class="left">아이디</td>
 					<td class="id">
 						<input type="text" name="id" value="${ loginUserInfo.id }" maxlength="15" readonly/>
+			         	<input type="hidden" name="hosp_ref" value="${ hoursInfo.hosp_ref }" />
 					</td>
 				</tr>
 				<tr class="pass">
@@ -94,6 +97,7 @@ function validateForm(form) {
 					</td>
 				</tr>
 			
+				<!-- hours -->
 				<!-- 영업시간 폼 시작 -->
 			    <tr class="time">
 			    	<td rowspan="4" class="left">영업시간</td>
@@ -128,6 +132,7 @@ function validateForm(form) {
 						        });
 						    </script>
 						</c:if>
+
 						<label class="checkbox_wrap">
 				         	<input id="monday" type="checkbox" name="weeks" value="월요일" />
 				         	<label for="monday">월</label>
@@ -224,6 +229,7 @@ function validateForm(form) {
 							    <img src="/uploads/${ hospDatilInfo.photo }"  />
 							</c:if>
 				    		<input type="file" name="file" value="${ hospDatilInfo.photo }" />
+				    		<input type="hidden" name="photo" value="${ hospDatilInfo.photo }" />
 			    		</div>
 			    	</td>
 			    </tr>

@@ -32,7 +32,7 @@ public class ReserveController {
 		model.addAttribute("hospitalInfo", hospitalInfo);
 		
 		// 예약할 병원: 영업시간정보
-		List<HoursDTO> hoursInfo = memberDAO.hospHours(hospitalInfo);
+		List<HoursDTO> hoursInfo = memberDAO.selectHospHours(hospitalInfo.getId());
 		String[] weeks = new String[hoursInfo.size()];
 		for (int i = 0; i < hoursInfo.size(); i++) {
 		    HoursDTO hour = hoursInfo.get(i);
@@ -55,7 +55,7 @@ public class ReserveController {
 		model.addAttribute("doctorInfo", doctorInfo);
 //		
 		// 예약하는 개인회원 정보
-		MemberDTO userInfo = memberDAO.userInfo((String)session.getAttribute("userId"));
+		MemberDTO userInfo = memberDAO.loginMember((String)session.getAttribute("userId"),(String)session.getAttribute("userPassword"));
 		model.addAttribute("userInfo", userInfo);
 		
 		return "reserve/proceed";

@@ -9,49 +9,47 @@ import com.edu.springboot.emoji.EmojiDTO;
 @Mapper
 public interface IMemberService {
 //	회원가입: 개인회원 
-	public int userJoin(MemberDTO memberDTO);
+	public int insertUser(MemberDTO memberDTO);
 	
 //	회원가입: 병원회원
-	public int joinMember(MemberDTO memberDTO);
-	public int joinDoctor(DoctorDTO doctorDTO);
-	public int joinHours(HoursDTO hoursDTO);
-	public int joinHoursUpdate(HoursDTO hoursDTO);
+	public int insertHospMember(MemberDTO memberDTO);
+	public int insertHospDoctor(DoctorDTO doctorDTO);
+	public int insertHospHours(HoursDTO hoursDTO);
+	public int updateHospHours(HoursDTO hoursDTO);
 	
-//	로그인
-	public MemberDTO loginMember(MemberDTO memberDTO);
-	
-//	회원가입 아이디 중복 체크
+//	회원가입: 아이디 중복 체크
 	public int checkId(String id);
-	
-//	회원가입 랜덤 닉네임 생성
+//	회원가입: 랜덤 닉네임 생성
 	public String getNick();
 	
+//	로그인
+//	public MemberDTO loginMember(MemberDTO memberDTO);
+	public MemberDTO loginMember(String id, String passwd);
+	
 //	아이디찾기
-	public MemberDTO findIdMember(MemberDTO memberDTO);
+	public String findIdMember(MemberDTO memberDTO);
 	
 //	비밀번호찾기
 	public MemberDTO findPassMember(MemberDTO memberDTO);
-	
 //  새로운 비밀번호 생성
-	public int newPassword(String password, String id, String email);
+	public int updateNewPass(String password, String id, String email);
 	
 //	회원정보수정: user
-	public int userEdit(MemberDTO memberDTO);
+	public int editUser(MemberDTO memberDTO);
 	
-//	회원정보수정: hosp - member
-	public int editHospMember(MemberDTO memberDTO);
-	
+//	회원정보수정: hosp 
+	public int updateHospMember(MemberDTO memberDTO);
 //	회원정보수정: hosp - hours
-	public int editHours(HoursDTO hoursDTO);
+	public int editHospHours(HoursDTO hoursDTO);
 	
 //	회원정보선택: hosp - hours
-	public List<HoursDTO> hospHours(MemberDTO memberDTO);
+	public List<HoursDTO> selectHospHours(String hosp_ref);
 	
 //	회원정보선택: hosp - detail
-	public DetailDTO selectHospDatail(MemberDTO memberDTO);
+	public DetailDTO selectHospDatail(String hosp_ref);
 	
 //	회원정보선택: hosp - doctor
-	public List<DoctorDTO> selectHospDoctor(MemberDTO memberDTO);
+	public List<DoctorDTO> selectHospDoctor(String hosp_ref);
 	
 	
 //	로그인한 병원의 영업시간정보 초기화
@@ -63,9 +61,10 @@ public interface IMemberService {
 //	병원 상세정보 수정
 	public int updateHospDetail(DetailDTO detailDTO);
 
-//	로그인 한 유저 정보
-	public MemberDTO userInfo(String id);
 	
+	
+	
+//  ***************** mypage로 이동 예정 *****************
 //  회원 포인트 정보 감소
 	public int decreaseUserPoint(MemberDTO memberDTO);
 	

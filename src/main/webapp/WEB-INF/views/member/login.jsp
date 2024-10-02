@@ -43,13 +43,18 @@ function validateForm(form) {
         <form name="loginFrm" method="post" action="../member/login.do" onsubmit="return validateForm(this);">
           <div class="login">
             <p>아이디</p>
-            <input type="text" name="id" value="${ cookie.savdId.value }" placeholder="아이디 입력">
+            <input type="text" name="id" value="${ cookie.saveId.value }" placeholder="아이디 입력">
             <span></span>
             <p>비밀번호</p>
             <input type="password" name="password" value="" placeholder="비밀번호 입력">
           </div>
           <label class="checkbox_wrap">
-            <input id="rememberId" name="saveId" value="save" type="checkbox">
+			<c:if test="${ not empty cookie.saveId.value }">
+			  <input id="rememberId" name="saveId" value="save" type="checkbox" checked>
+			</c:if>
+			<c:if test="${ empty cookie.saveId.value }">
+			  <input id="rememberId" name="saveId" value="save" type="checkbox" >
+			</c:if>
             <label for="rememberId">아이디 저장</label>
           </label>
              <input class="login_btn" type="submit" value="로그인"/>

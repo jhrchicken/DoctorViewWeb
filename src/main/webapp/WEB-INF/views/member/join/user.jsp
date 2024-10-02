@@ -105,9 +105,8 @@
 		return true;
 	}
 	
-	// 아이디 중복 확인
 	$(function() {
-
+		// 아이디 중복 확인
 		$("#idCheckBtn").click(function() {
 		    var join_id = $('input[name="id"]').val();
 
@@ -123,7 +122,6 @@
 		        $('input[name="id"]').focus();
 		        return false;
 		    }
-		    
 	
 		    $.ajax({
 		        url: "../../member/join/checkId.do", 
