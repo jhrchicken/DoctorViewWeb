@@ -30,11 +30,13 @@
     	VALUES (seq_appointment_idx.nextval, #{hospname}, #{doctorname}, #{username}, #{tel}, #{rrn}, #{address}, #{postdate}, #{posttime}, #{user_ref}, #{hosp_ref} )
 	</insert>
 	
-	<!-- 사용자가 예약정보 -->
+	<!-- 예약 목록  -->
 	<select id="getReservationInfo"
 		resultType="com.edu.springboot.reserve.ReserveDTO">
-		SELECT * FROM appointment WHERE user_ref = #{id}
+		SELECT * FROM appointment WHERE user_ref = #{user_ref}
 	</select>
+	
+	
 
 	
 	

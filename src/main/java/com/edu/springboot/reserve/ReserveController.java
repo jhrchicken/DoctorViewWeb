@@ -77,16 +77,23 @@ public class ReserveController {
 	}
 
 	// 예약 관리 페이지로 이동
-	@GetMapping("/reserve/list.do")
-	public String reserveListGet(Model model, HttpSession session) {
-		// 로그인 한 유저의 예약 정보 가져옴
+	@GetMapping("/reserve.do")
+	public String reserveGet(Model model, HttpSession session) {
+		// 로그인 한 유저의 예약 목록 가져옴
 		List<ReserveDTO> reserveInfo = reserveDAO.getReservationInfo((String)session.getAttribute("userId"));
 		model.addAttribute("reserveInfo", reserveInfo);
 		
 		return "reserve/list"; 
 	}
 
-	// 예약 취소하기
+	// 예약 추가정보 입력
+	@GetMapping("/reserve/extraInfo.do")
+	public String extraInfo(Model model, HttpSession session, ReserveDTO reserveDTO) {
+		
+		System.err.println(reserveDTO);
+		
+		return "reserve/extraInfo";
+	}
 	
 }
 

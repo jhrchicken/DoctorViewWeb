@@ -17,8 +17,9 @@ public interface IReserveService {
 
 	// 예약 정보 저장
 	public int saveReservationInfo(ReserveDTO reserveDTO);
-	// 예약 정보 가져옴
-	public List<ReserveDTO> getReservationInfo(String id);
+	// 예약 목록 가져옴
+	public List<ReserveDTO> getReservationInfo(String user_ref);
+
 	
 	
 

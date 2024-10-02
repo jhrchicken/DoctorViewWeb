@@ -22,7 +22,7 @@
       <h2>병원 예약 성공</h2>
       <p>예약성공했습니다</p>
     
-		<a href="../../reserve/list.do">예약관리 페이지로 이동</a>
+		<a href="../../reserve.do">예약관리 페이지로 이동</a>
       
     </div>
   </div>

@@ -76,7 +76,7 @@ function deleteReservation(app_id) {
 					
 					<!-- 하단 메뉴(버튼) -->
 					<div class="board_btn">
-						<button type="button" onclick="location.href='/doctor/editDoctor.do?doc_idx=${ row.app_id }';">메모추가</button>
+						<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">메모추가</button>
 						<button type="button" onclick="deleteReservation(${ row.app_id });">삭제</button>
 					</div>
 				</li>
