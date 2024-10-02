@@ -30,11 +30,50 @@
     	VALUES (seq_appointment_idx.nextval, #{hospname}, #{doctorname}, #{username}, #{tel}, #{rrn}, #{address}, #{postdate}, #{posttime}, #{user_ref}, #{hosp_ref} )
 	</insert>
 	
-	<!-- 사용자가 예약정보 -->
+	<!-- 예약 목록  -->
 	<select id="getReservationInfo"
-		resultType="com.edu.springboot.reserve.ReserveDTO">
-		SELECT * FROM appointment WHERE user_ref = #{id}
+	    resultType="com.edu.springboot.reserve.ReserveDTO">
+	    SELECT * FROM appointment
+	    WHERE 1=1
+	    <if test="user_ref != null">
+	        AND user_ref = #{user_ref}
+	    </if>
+	    <if test="hosp_ref != null">
+	        AND hosp_ref = #{hosp_ref}
+	    </if>
+	    ORDER BY postdate
 	</select>
+
+	
+	<!-- 에약정보 한개 가져오기  -->
+	<select id="getReservationDetails"
+		resultType="com.edu.springboot.reserve.ReserveDTO">
+		SELECT * FROM appointment WHERE app_id = #{app_id}
+	</select>
+	
+	<!-- 예약 메모추가  -->
+	<update id="updateReservationDetails">
+	    UPDATE appointment
+	    <set>
+	        <if test="user_memo != null">
+	            user_memo = #{user_memo},
+	        </if>
+	        <if test="hosp_memo != null">
+	            hosp_memo = #{hosp_memo},
+	        </if>
+	    </set>
+	    WHERE app_id = #{app_id}
+	</update>
+	
+	<!-- 예약 취소  -->
+	<update id="cancelReservation">
+	    UPDATE appointment
+	    SET cancel = 'T'
+	    WHERE app_id = #{app_id}
+	</update>
+
+
+
 
 	
 	

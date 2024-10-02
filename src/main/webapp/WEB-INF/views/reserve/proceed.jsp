@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page session="true" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-
-<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +9,9 @@
 <title>닥터뷰 | 예약하기</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/reserve-hosp.css" />
+
 <script>
+//  ****************** 달력 관련 ******************  
     document.addEventListener("DOMContentLoaded", function() {
         buildCalendar();
         
@@ -25,7 +24,6 @@
         });
     });
     
-    //  ****************** 달력 관련 ******************  
     var toDay = new Date(); // @param 전역 변수, 오늘 날짜 / 내 컴퓨터 로컬을 기준으로 toDay에 Date 객체를 넣어줌
     var nowDate = new Date();  // @param 전역 변수, 실제 오늘날짜 고정값
     
@@ -152,6 +150,61 @@
         }
         return num;
     }
+     
+	//  ****************** 폼값 검증 ******************  
+	function validateForm(form) {
+		
+		// 의사 선택 검증
+	    const doctorname = form.doctorname;  
+	    let doctorChecked = false;
+	    if (doctorname.length) {
+	        for (let i = 0; i < doctorname.length; i++) {
+	            if (doctorname[i].checked) {
+	                doctorChecked = true;
+	                break;
+	            }
+	        }
+	    } else {
+	        doctorChecked = doctorname.checked;
+	    }
+	    if (!doctorChecked) {
+	        alert("진료받을 의사를 선택하세요.");
+	        return false;
+	    }
+		 
+		// 시간 선택 검증
+		const posttime = form.posttime;  
+		let timeChecked = false;
+		for (let i = 0; i < posttime.length; i++) {
+		    if (posttime[i].checked) {
+		    	timeChecked = true;
+		        break;
+		    }
+		}
+		if (!timeChecked) {
+			alert("진료받을 시간을 선택하세요.");
+			return false;
+		}
+		
+		// 예약자 정보 검증
+		if (form.username.value == '') {
+			alert("방문자 이름을 입력하세요.");
+			form.username.focus();
+			return false;
+		}
+		if (form.tel.value == '') {
+			alert("방문자 전화번호를 입력하세요.");
+			form.tel.focus();
+			return false;
+		}
+		if (form.rrn.value == '') {
+			alert("방문자 주민등록번호 입력하세요.");
+			form.rrn.focus();
+			return false;
+		}
+	
+		return true;
+	}
 </script>
 </head>
 <body>
@@ -200,6 +253,7 @@
 					<c:forEach items="${ doctorInfo }" var="row" varStatus="loop">
 						<li>
 							<label>
+								<!-- 의사 선택 radio -->
 								<input id="${ row.name }"  type="radio" name="doctorname" value="${ row.name }" />
 								<label class="doc_check" for="${ row.name }">${ row.name } 의사<p>${ row.major }</p></label>
 							</label>
@@ -208,8 +262,8 @@
 									<span class="doc_img">
 										<img src="/images/doctor.png" alt="" />
 									</span>
-						       		<input type="hidden" name="doc_idx" value="의사idx1" />
-						          	<input type="hidden" name="doctorname_doc1" value="의료진이름1" />
+						       		<input type="hidden" name="doc_idx" value="${ row.doc_idx }" />
+						          	<input type="hidden" name="doctorname_${ row.name }" value="${ row.name }" />
 								</div>
 								<div class="doc_content">
 									<div class="doc_title">
@@ -336,11 +390,11 @@
 				                	</tr>
 					                <tr>
 					                	<td class="left">주민등록<br/>번호</td>
-					                  	<td><input type="text" name="rrn" value="${ userInfo.rrn }" placeholder="방문자의 전화번호를 입력해주세요."></td>
+					                  	<td><input type="text" name="rrn" value="${ userInfo.rrn }" placeholder="방문자의 주민등록번호를 입력해주세요."></td>
 					                </tr>
 					                <tr>
 					                	<td class="left">주소</td>
-					                  	<td><input type="text" name="address" value="${ userInfo.address }" placeholder="방문자의 전화번호를 입력해주세요."></td>
+					                  	<td><input type="text" name="address" value="${ userInfo.address }" placeholder="방문자의 주소를 입력해주세요."></td>
 					                </tr>
 			              		</table>
 			            	</div>
@@ -348,20 +402,22 @@
 			            	<div class="btn_wrap">
 				            	<button type="button" onclick="resetForm()">새로 작성하기</button> 
 				            	<button type="submit">예약하기</button>
+				            	
+				            	<!-- 새로작성하기 버튼 함수 -->
+								<script>
+									function resetForm() {
+									    // 모든 input 요소 선택
+									    const inputs = document.querySelectorAll('.reserv_wrap input[type="text"]');
+									
+									    // 각 input 요소의 값을 초기화
+									    inputs.forEach(input => {
+									        input.value = ''; // 빈 문자열로 설정
+									    });
+									}
+								</script>
+								
 				            </div>
 			            	
-			            	<!-- 새로작성하기 버튼 함수 -->
-							<script>
-								function resetForm() {
-								    // 모든 input 요소 선택
-								    const inputs = document.querySelectorAll('.reserv_bottom input[type="text"]');
-								
-								    // 각 input 요소의 값을 초기화
-								    inputs.forEach(input => {
-								        input.value = ''; // 빈 문자열로 설정
-								    });
-								}
-							</script>
 				        </div>
 					</div>
 				        

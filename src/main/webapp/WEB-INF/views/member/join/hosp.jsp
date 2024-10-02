@@ -286,7 +286,7 @@
             </tr>
             <!-- 영업시간 폼 시작 -->
             <tr class="time">
-              <td rowspan="4" class="left">영업시간</td>
+              <td rowspan="4" class="left">진료시간</td>
               <td>
                  요일:  
                 	<label class="checkbox_wrap">
