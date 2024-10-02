@@ -321,6 +321,9 @@
 <!-- 시간 선택 input 태그에서 select 태그로 변경됨 -->
 <tr class="time">
   <td>
+  
+  <p> 접수마감시간이 오후 8시 이후이면 야간진료 가능으로 표시됩니다 </p>
+  
     진료 시간: 
     <select id="starttime" name="starttime">
 	    <option value="">시작 시간 선택</option>

@@ -108,14 +108,12 @@ public class MemberController {
 	    	hoursResult = memberDAO.joinHours(hoursDTO);
 	    }
 	    
-	    
 	    // 종료 시간이 8시 이후이면 야간 진료 표시
-	    if (hoursDTO.getEndtime().compareTo("20:00") > 0) {
+	    if (hoursDTO.getDeadline().compareTo("20:00") > 0) {
 	    	hoursDTO.setNight("T"); 
 	    } else {
 	    	hoursDTO.setNight("F"); 
 	    }
-	    
 	    // 회원가입 시 체크한 진료요일 업데이트
 	    weeks = req.getParameterValues("weeks");
 	    for(int i=0 ; i<weeks.length ; i++) {
@@ -130,8 +128,6 @@ public class MemberController {
 	    	
 	    	hoursResult = memberDAO.joinHoursUpdate(hoursDTO);
 	    }
-	    
-	    
 	    
 	    
 		// 회원가입 성공
