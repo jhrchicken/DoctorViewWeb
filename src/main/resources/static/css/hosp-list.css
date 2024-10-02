@@ -23,16 +23,28 @@
 }
 
 /*** 병원 찾기 - 검색 ***/
+#container .searchForm {
+  width: 80%;
+}
 #container .list_search {
   display: flex;
   justify-content: center;
-  gap: 0 5px;
-  width: 100%;
   margin-bottom: 20px;
 }
-#container .search_city .searchField {
+#container .search_city {
+  display: flex;
+  gap: 0 5px;
+  justify-content: center;
+}
+#container .search_hosp {
+  display: flex;
+  gap: 0 5px;
+  justify-content: center;
+  margin-top: 10px;
+}
+#container .searchField {
   border: 2px solid #ddd;
-  width: 190px;
+  width: 150px;
   height: 41px;
   color: var(--gray-400);
   padding: 0 10px;
@@ -40,45 +52,35 @@
   background: url(/images/drop_down_arrow.svg) no-repeat right 5px top 50%;
   cursor: pointer;
 }
-#container .search_city .searchKeyword {
+#container .searchKeyword {
   border: 2px solid #ddd;
   background: none;
-  width: 650px;
-  height: 50px;
+  width: calc(90% - 200px);
+  height: 41px;
   font-size: 16px;
 }
-#container .search_city .search_btn {
+#container .search_btn {
   border: 2px solid #ddd;
   background: url(/images/search.svg) no-repeat 50% 50% / 80%;
-  width: 50px;
-  height: 50px;
+  width: 41px;
+  height: 41px;
   color: var(--gray-400);
   cursor: pointer;
 }
 /*** 추가 조건 ***/
 #container .other_search {
   display: flex;
+  justify-content: center;
   gap: 0 5px;
   width: 100%;
-  margin-bottom: 20px;
+  margin-top: 10px;
 }
-#container .other_search .searchField {
+#container .other_search button {
   border: 2px solid #ddd;
-  height: 45px;
-  width: 200px;
-  color: var(--gray-400);
-  padding: 0 10px;
-  position: relative;
-  background: url(/images/drop_down_arrow.svg) no-repeat right 5px top 50%;
-  cursor: pointer;
-}
-#container .other_search .search_btn {
-  border: 2px solid #ddd;
-  width: 60px;
-  height: 45px;
-  color: var(--gray-400);
-  padding: 10px;
-  cursor: pointer;
+  padding: 9px 10px;
+  background: #fff;
+  color: #999;
+  width: 100px;
 }
 /*** 병원 목록 ***/
 #container .list>p {
