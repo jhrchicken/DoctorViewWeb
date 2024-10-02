@@ -206,14 +206,14 @@ html, body {
 /* 아이콘과 텍스트의 조합 */
 .category .ico_open {
 	display: block;
-	background: url('/images/logo.svg') no-repeat;
+	background: url('/images/open.svg') no-repeat;
     width: 22px; /* 아이콘의 너비 */
     height: 26px; /* 아이콘의 높이 */
     margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
 }
 .category .open_selected {
 	display: block;
-	background: url('/images/chat.svg') no-repeat;
+	background: url('/images/open_white.svg') no-repeat;
     width: 22px; /* 아이콘의 너비 */
     height: 26px; /* 아이콘의 높이 */
     margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
@@ -234,14 +234,14 @@ html, body {
 }
 .category .ico_weekend {
 	display: block;
-    background: url('/images/logo.svg') no-repeat;
+    background: url('/images/weekend.svg') no-repeat;
     width: 22px; /* 아이콘의 너비 */
     height: 26px; /* 아이콘의 높이 */
     margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
 }
 .category .weekend_selected {
 	display: block;
-	background: url('/images/chat.svg') no-repeat;
+	background: url('/images/weekend_white.svg') no-repeat;
     width: 22px; /* 아이콘의 너비 */
     height: 26px; /* 아이콘의 높이 */
     margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
