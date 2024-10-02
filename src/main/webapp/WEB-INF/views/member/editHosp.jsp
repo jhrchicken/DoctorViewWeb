@@ -42,16 +42,14 @@ function validateForm(form) {
       <div class="login_wrap">
       	<h2>병원정보 수정</h2>
     
-    	<p class="fail">실패</p>
-    	
 	    <c:if test="${ not empty editUserFaild }">
 			<!-- 글자색 css 변경필요 -->
-	  		<p>${ editUserFaild }</p>
+	  		<p class="fail">${ editUserFaild }</p>
 	    </c:if>
 	        
 	        
 		<form name="joinFrm" method="post" enctype="multipart/form-data"
-				action="../../member/editdosp.do" onsubmit="return validateForm(this);">
+				action="../../member/editHosp.do" onsubmit="return validateForm(this);">
 			<p>*필수 입력사항</p>
 			<table class="regist">
 				<tr>
@@ -160,70 +158,57 @@ function validateForm(form) {
 				      	</label>
 				     </td>
    				</tr>
-   			
 
-<!-- 	   			<tr class="time"> -->
-<!-- 					<td> -->
-<!-- 				    	진료 시간:  -->
-<%-- 			       		<input type="time" name="starttime" value="${ starttime }" /> --%>
-<!-- 				        ~  -->
-<%-- 				        <input type="time" name="endtime" value="${ endtime }" /> --%>
-<!-- 			        </td> -->
-<!-- 	   			</tr> -->
-<!-- 				<tr class="time"> -->
-<!-- 	     			<td> -->
-<!-- 	       				휴게 시간:  -->
-<%-- 	       				<input type="time" name="startbreak" value="${ startbreak }" /> --%>
-<!-- 				        ~  -->
-<%-- 				        <input type="time" name="endbreak" value="${ endbreak }" /> --%>
-<!-- 				    </td> -->
-<!-- 			    </tr> -->
-<!-- 			    <tr class="time"> -->
-<!-- 			    	<td> -->
-<%-- 			        	접수 마감: <input type="time" name="deadline" value="${ deadline }" /> --%>
-<!-- 			     	</td> -->
-<!-- 			    </tr> -->
-			    
-			    
-
-<!-- 시간 선택 input 태그에서 select 태그로 변경됨 -->
-<tr class="time">
-  <td>
-    진료 시간: 
-    <select id="starttime" name="starttime">
-	    <option value="">${ starttime }</option>
-	</select>
-     ~ 
-    <select id="endtime" name="endtime">
-	    <option value="">${ endtime }</option>
-	</select>
-  </td>
-</tr>
-<tr class="time">
-  <td>
-    휴게 시간: 
-    <select id="startbreak" name="startbreak">
-	    <option value="">${ startbreak }</option>
-	</select>
-     ~ 
-    <select id="endbreak" name="endbreak">
-	    <option value="">${ endbreak }</option>
-	</select>
-  </td>
-</tr>
-<tr class="time">
-  <td>
-    접수 마감: 
-    <select id="deadline" name="deadline">
-	    <option value="">${ deadline }</option>
-	</select>
-  </td>
-</tr>
-
-			    
-			    
-			    
-		    
+				<!-- 시간 선택 input 태그에서 select 태그로 변경됨 -->
+				<tr class="time">
+				  <td>
+				    진료 시간: 
+				    <select id="starttime" name="starttime">
+					    <option value="${ starttime }">${ starttime }</option>
+					</select>
+				     ~ 
+				    <select id="endtime" name="endtime">
+					    <option value="${ endtime }">${ endtime }</option>
+					</select>
+				  </td>
+				</tr>
+				<tr class="time">
+				  <td>
+				    휴게 시간: 
+				    <select id="startbreak" name="startbreak">
+					    <option value="${ startbreak }">${ startbreak }</option>
+					</select>
+				     ~ 
+				    <select id="endbreak" name="endbreak">
+					    <option value="${ endbreak }">${ endbreak }</option>
+					</select>
+				  </td>
+				</tr>
+				<tr class="time">
+				  <td>
+				    접수 마감: 
+				    <select id="deadline" name="deadline">
+					    <option value="${ deadline }">${ deadline }</option>
+					</select>
+				  </td>
+				</tr>
+				<script>
+				    const timeSelectIds = ['starttime', 'endtime', 'startbreak', 'endbreak', 'deadline'];
+				
+				    timeSelectIds.forEach(id => {
+				        const selectElement = document.getElementById(id);
+				        
+				        for (let hour = 0; hour < 24; hour++) {
+				            for (let minute = 0; minute < 60; minute += 30) {
+				                const value = String(hour).padStart(2, '0') + ':' + String(minute).padStart(2, '0');
+				                const option = document.createElement('option');
+				                option.value = value;
+				                option.textContent = value;
+				                selectElement.appendChild(option);
+				            }
+				        }
+				    });
+				</script>
 		    
 			    <!-- 추가사항 -->
 			    <!-- ********* 병원 이미지 추가 필요 ********* -->
@@ -251,20 +236,76 @@ function validateForm(form) {
 			    	<td><input type="text" name="traffic" value="${ hospDatilInfo.traffic }" placeholder="ex ) 00역에서 도보 10분" /></td>
 			    </tr>
 			    <tr>
+			    
+			    	<!-- radio 버튼으로 변경됨 -->
 			    	<td class="left">주차</td>
-			    	<td><input type="text" name="parking" value="${ hospDatilInfo.parking }" placeholder="ex ) 건물 내 주차 공간 있음" /></td>
+			    	<td>
+					    <label>
+					        <input id="parking_t" type="radio" name="parking" value="T" ${ hospDatilInfo.parking == 'T' ? 'checked' : '' } />
+					        <label class="doc_check" for="parking_t">가능</label>
+					    </label>
+					</td>
+					<td>
+					    <label>
+					        <input id="parking_f" type="radio" name="parking" value="F" ${ hospDatilInfo.parking == 'F' ? 'checked' : '' } />
+					        <label class="doc_check" for="parking_f">불가능</label>
+					    </label>
+					</td>
+					
 			    </tr>
 			    <tr>
+			    	
+			    	<!-- radio 버튼으로 변경됨 -->
 			    	<td class="left">PCR 검사</td>
-			    	<td><input type="text" name="pcr" value="${ hospDatilInfo.pcr }" placeholder="ex ) 가능 / 불가능" /></td>
+					<td>
+					    <label>
+					        <input id="pcr_t" type="radio" name="pcr" value="T" ${ hospDatilInfo.pcr == 'T' ? 'checked' : '' } />
+					        <label class="doc_check" for="pcr_t">가능</label>
+					    </label>
+					</td>
+					<td>
+					    <label>
+					        <input id="pcr_f" type="radio" name="pcr" value="F" ${ hospDatilInfo.pcr == 'F' ? 'checked' : '' } />
+					        <label class="doc_check" for="pcr_f">불가능</label>
+					    </label>
+					</td>
+
 			    </tr>
 			    <tr>
+			    
+			    	<!-- radio 버튼으로 변경됨 -->
 			    	<td class="left">입원</td>
-			    	<td><input type="text" name="hospitalize" value="${ hospDatilInfo.hospitalize }" placeholder="ex ) 가능 / 불가능" /></td>
+			    	<td>
+					    <label>
+					        <input id="hospitalize_t" type="radio" name="hospitalize" value="T" ${ hospDatilInfo.hospitalize == 'T' ? 'checked' : '' } />
+					        <label class="doc_check" for="hospitalize_t">가능</label>
+					    </label>
+					</td>
+					<td>
+					    <label>
+					        <input id="hospitalize_f" type="radio" name="hospitalize" value="F" ${ hospDatilInfo.hospitalize == 'F' ? 'checked' : '' } />
+					        <label class="doc_check" for="hospitalize_f">불가능</label>
+					    </label>
+					</td>
+					
 			    </tr>
 			    <tr>
+			    
+			    	<!-- radio 버튼으로 변경됨 -->
 			    	<td class="left">예약 방문</td>
-			    	<td><input type="text" name="system" value="${ hospDatilInfo.system }" placeholder="ex ) 가능 / 불가능" /></td>
+			    	<td>
+					    <label>
+					        <input id="system_t" type="radio" name="system" value="T" ${ hospDatilInfo.system == 'T' ? 'checked' : '' } />
+					        <label class="doc_check" for="system_t">가능</label>
+					    </label>
+					</td>
+					<td>
+					    <label>
+					        <input id="system_f" type="radio" name="system" value="F" ${ hospDatilInfo.system == 'F' ? 'checked' : '' } />
+					        <label class="doc_check" for="system_f">불가능</label>
+					    </label>
+					</td>
+					
 			    </tr>
 		    
 			    <!-- 의료진 추가 -->

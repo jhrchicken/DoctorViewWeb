@@ -54,8 +54,8 @@ public interface IMemberService {
 	public List<DoctorDTO> selectHospDoctor(MemberDTO memberDTO);
 	
 	
-//	로그인한 병원의 영업시간정보 삭제
-	public int deleteHospHours(MemberDTO memberDTO);
+//	로그인한 병원의 영업시간정보 초기화
+	public int resetHospHours(HoursDTO hoursDTO);
 	
 //	병원 상세정보 추가
 	public int insertHospDetail(DetailDTO detailDTO);

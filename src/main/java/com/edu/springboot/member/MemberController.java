@@ -401,16 +401,34 @@ public class MemberController {
 		int hospMemberResult = memberDAO.editHospMember(memberDTO);
 		
 		// hours
-		// 현재 선택된 병원의 기존 영업시간 데이터 삭제
-		memberDAO.deleteHospHours(memberDTO);
+//		memberDAO.deleteHospHours(memberDTO);
+		hoursDTO.setHosp_ref(memberDTO.getId());
 		
-		// 새로 수정된 영업시간 데이터 삽입
-	    String[] weeks = req.getParameterValues("weeks");
-	    hoursDTO.setHosp_ref(memberDTO.getId());
+	    // 현재 선택된 병원의 기존 영업시간 데이터 초기화
+	    String[] weeks = {"월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"};
+	    for (int i = 0; i < weeks.length; i++) {
+	    	hoursDTO.setWeek(weeks[i]);
+	    	memberDAO.resetHospHours(hoursDTO);
+	    }
+		
+		// 새로 수정된 영업시간 데이터 update
+	    // 종료 시간이 8시 이후이면 야간 진료 표시
+	    if (hoursDTO.getDeadline().compareTo("20:00") > 0) {
+	    	hoursDTO.setNight("T"); 
+	    } else {
+	    	hoursDTO.setNight("F"); 
+	    }
+	    weeks = req.getParameterValues("weeks");
 	    int hospHoursResult = 0;
 	    for(int i=0 ; i<weeks.length ; i++) {
 	    	hoursDTO.setWeek(weeks[i]);
-	    	hospHoursResult = memberDAO.joinHours(hoursDTO);
+	    	// 주말 진료 판단 (주말인 경우 주말 진료 표시)
+	    	if (weeks[i].equals("토") || weeks[i].equals("일")) {
+	    		hoursDTO.setWeekend("T"); 
+	    	} else {
+	    		hoursDTO.setWeekend("F"); 
+	    	}
+	    	hospHoursResult = memberDAO.joinHoursUpdate(hoursDTO);
 	    }
 	    
 	    // detail
