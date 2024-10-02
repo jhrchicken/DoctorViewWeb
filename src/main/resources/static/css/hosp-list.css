@@ -29,7 +29,7 @@
 #container .list_search {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 #container .search_city {
   display: flex;
