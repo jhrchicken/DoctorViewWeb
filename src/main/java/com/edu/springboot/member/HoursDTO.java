@@ -16,6 +16,10 @@ public class HoursDTO {
 	private String endbreak;
 	private String deadline;
 	private String hosp_ref;
+	private String open_week;
+	private String weekend;
+	private String night;
+	private String open;
 	
 	// 30분단위 시간 계산
 	public List<LocalTime> generateTimeSlots() {

@@ -160,27 +160,69 @@ function validateForm(form) {
 				      	</label>
 				     </td>
    				</tr>
-	   			<tr class="time">
-					<td>
-				    	진료 시간: 
-			       		<input type="time" name="starttime" value="${ starttime }" />
-				        ~ 
-				        <input type="time" name="endtime" value="${ endtime }" />
-			        </td>
-	   			</tr>
-				<tr class="time">
-	     			<td>
-	       				휴게 시간: 
-	       				<input type="time" name="startbreak" value="${ startbreak }" />
-				        ~ 
-				        <input type="time" name="endbreak" value="${ endbreak }" />
-				    </td>
-			    </tr>
-			    <tr class="time">
-			    	<td>
-			        	접수 마감: <input type="time" name="deadline" value="${ deadline }" />
-			     	</td>
-			    </tr>
+   			
+
+<!-- 	   			<tr class="time"> -->
+<!-- 					<td> -->
+<!-- 				    	진료 시간:  -->
+<%-- 			       		<input type="time" name="starttime" value="${ starttime }" /> --%>
+<!-- 				        ~  -->
+<%-- 				        <input type="time" name="endtime" value="${ endtime }" /> --%>
+<!-- 			        </td> -->
+<!-- 	   			</tr> -->
+<!-- 				<tr class="time"> -->
+<!-- 	     			<td> -->
+<!-- 	       				휴게 시간:  -->
+<%-- 	       				<input type="time" name="startbreak" value="${ startbreak }" /> --%>
+<!-- 				        ~  -->
+<%-- 				        <input type="time" name="endbreak" value="${ endbreak }" /> --%>
+<!-- 				    </td> -->
+<!-- 			    </tr> -->
+<!-- 			    <tr class="time"> -->
+<!-- 			    	<td> -->
+<%-- 			        	접수 마감: <input type="time" name="deadline" value="${ deadline }" /> --%>
+<!-- 			     	</td> -->
+<!-- 			    </tr> -->
+			    
+			    
+
+<!-- 시간 선택 input 태그에서 select 태그로 변경됨 -->
+<tr class="time">
+  <td>
+    진료 시간: 
+    <select id="starttime" name="starttime">
+	    <option value="">${ starttime }</option>
+	</select>
+     ~ 
+    <select id="endtime" name="endtime">
+	    <option value="">${ endtime }</option>
+	</select>
+  </td>
+</tr>
+<tr class="time">
+  <td>
+    휴게 시간: 
+    <select id="startbreak" name="startbreak">
+	    <option value="">${ startbreak }</option>
+	</select>
+     ~ 
+    <select id="endbreak" name="endbreak">
+	    <option value="">${ endbreak }</option>
+	</select>
+  </td>
+</tr>
+<tr class="time">
+  <td>
+    접수 마감: 
+    <select id="deadline" name="deadline">
+	    <option value="">${ deadline }</option>
+	</select>
+  </td>
+</tr>
+
+			    
+			    
+			    
 		    
 		    
 			    <!-- 추가사항 -->
