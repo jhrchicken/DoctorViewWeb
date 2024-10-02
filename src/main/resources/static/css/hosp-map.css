@@ -1,0 +1,233 @@
+#container .content {
+  padding: 170px 0 80px;
+  min-height: 100vh;
+}
+#container .content_inner {
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+#container h2 {
+  text-align: center;
+  font-size: 40px;
+  color: var(--gray-600);
+  font-weight: 700;
+  padding: 80px 0;
+}
+
+
+/* 지도에 사용자 컨트롤 올리기 */
+html, body {
+	width:100%;
+	height:100%;
+	margin:0;
+	padding:0;
+} 
+.map_wrap {
+	position:relative;
+	overflow:hidden;
+	width:100%;
+	height:350px;
+}
+.radius_border{
+	border:1px solid #919191;
+	border-radius:5px;
+}     
+.custom_typecontrol {
+	position:absolute;
+	top:10px;
+	right:10px;
+	overflow:hidden;
+	width:130px;
+	height:30px;
+	margin:0;
+	padding:0;
+	z-index:1;
+	font-size:12px;
+	font-family:'Malgun Gothic', '맑은 고딕', sans-serif;
+}
+.custom_typecontrol span {
+	display:block;
+	width:65px;
+	height:30px;
+	float:left;
+	text-align:center;
+	line-height:30px;
+	cursor:pointer;
+}
+.custom_typecontrol .btn {
+	background:#fff;
+	background:linear-gradient(#fff,  #e6e6e6);
+}       
+.custom_typecontrol .btn:hover {
+	background:#f5f5f5;
+	background:linear-gradient(#f5f5f5,#e3e3e3);
+}
+.custom_typecontrol .btn:active {
+	background:#e6e6e6;
+	background:linear-gradient(#e6e6e6, #fff);
+}    
+.custom_typecontrol .selected_btn {
+	color:#fff;background:#425470;
+	background:linear-gradient(#425470, #5b6d8a);
+}
+.custom_typecontrol .selected_btn:hover {
+	color:#fff;
+}   
+.custom_zoomcontrol {
+    position: absolute;
+    top: 200px; 
+    right: 10px; 
+    width: 50px; /* 카테고리와 동일한 너비 */
+    height: auto; /* 높이를 자동으로 조절 */
+    overflow: hidden; 
+    z-index: 1; 
+    background-color: #fff; /* 배경색을 카테고리와 동일하게 설정 */
+    border: 1px solid #ccc; /* 테두리 스타일 통일 */
+    border-radius: 5px; /* 모서리 둥글게 */
+}
+
+.custom_zoomcontrol span {
+    display: flex; /* 플렉스 박스로 아이템 정렬 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    width: 100%; /* 전체 너비를 차지하게 */
+    height: 40px; /* 높이를 통일 */
+    cursor: pointer;
+    border-bottom: 1px solid #bfbfbf; /* 아이템 간 구분선 */
+    background: #fff; /* 기본 배경색 */
+    color: #000; /* 기본 글자색 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+.custom_zoomcontrol span:last-child {
+    border: none; /* 마지막 아이템의 하단 경계선 제거 */
+}
+
+.custom_zoomcontrol span img {
+    width: 15px; 
+    height: 15px; 
+    padding: 8px 0; /* 여백 조절 */
+    border: none; /* 이미지 테두리 제거 */
+}
+/* 호버 효과 추가 */
+.custom_zoomcontrol span:hover {
+    background: #f5f5f5; /* 호버 시 배경색 변경 */
+}	
+/* 이미지 마커와 커스텀 오버레이 */
+.customoverlay {
+	position:relative;
+	bottom:85px;
+	border-radius:6px;
+	border: 1px solid #ccc;
+	border-bottom:2px solid #ddd;
+	float:left;
+}
+.customoverlay:nth-of-type(n) {
+	border:0;
+	box-shadow:0px 1px 2px #888;
+}
+.customoverlay a {
+	display:block;
+	text-decoration:none;
+	color:#000;
+	text-align:center;
+	border-radius:6px;
+	font-size:14px;
+	font-weight:bold;
+	overflow:hidden;
+	background: #d95050;
+	background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
+}
+.customoverlay .title {
+	display:block;
+	text-align:center;
+	background:#fff;
+	margin-right:35px;
+	padding:10px 15px;
+	font-size:14px;
+	font-weight:bold;
+}
+.customoverlay:after {
+	content:'';
+	position:absolute;
+	margin-left:-12px;
+	left:50%;
+	bottom:-12px;
+	width:22px;
+	height:12px;
+	background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+/* 다양한 이미지 마커 표시하기 */
+.category, .category *{margin:0;padding:0;color:#666;}   
+.category {
+   position: absolute;
+   overflow: hidden;
+   top: 10px;
+   right: 10px;
+   width: 50px;
+   height: auto; /* 높이를 자동으로 조절 */
+   z-index: 10;
+   border: 1px solid #ccc; /* 테두리 스타일 */
+   border-radius: 5px; /* 모서리 둥글게 */
+   font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+   font-size: 12px;
+   text-align: center;
+   background-color: #fff; /* 배경색 */
+}
+.category .menu_selected {
+    background: #FFCE32; /* 선택된 메뉴 배경색 */
+    border-left: 1px solid #915B2F;
+    border-right: 1px solid #915B2F;
+    margin: 0 -1px; /* 경계선 스타일 통일 */
+}
+.category ul {
+    padding: 0; /* 기본 패딩 제거 */
+    margin: 0; /* 기본 마진 제거 */
+    display: flex; /* 플렉스 박스로 아이템 정렬 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+}
+.category li {
+    list-style: none; /* 리스트 스타일 제거 */
+    width: 50px; /* 너비를 고정 */
+    height: 60px; /* 높이를 늘려 아이콘과 텍스트가 들어갈 공간 확보 */
+    border-bottom: 1px solid #ccc; /* 아이템 간 구분선 */
+    cursor: pointer;
+    display: flex; /* 플렉스 박스로 아이템 정렬 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    background-color: #fff; /* 기본 배경색 */
+}
+.category li:last-child {
+    border-bottom: none; /* 마지막 아이템의 하단 경계선 제거 */
+}
+.category li:hover {
+    background-color: #f5f5f5; /* 호버 시 배경색 변경 */
+}
+.category .ico_comm {
+    display: block;
+    margin: 0 auto 2px;
+    width: 22px;
+    height: 26px;
+}
+/* 아이콘과 텍스트의 조합 */
+.category .ico_open {
+	background: url('/images/chat.svg') no-repeat;
+    width: 22px; /* 아이콘의 너비 */
+    height: 26px; /* 아이콘의 높이 */
+    margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
+}
+.category .ico_night {
+	background: url('/images/chat.svg') no-repeat;
+    width: 22px; /* 아이콘의 너비 */
+    height: 26px; /* 아이콘의 높이 */
+    margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
+}
+.category .ico_weekend {
+    background: url('/images/chat.svg') no-repeat;
+    width: 22px; /* 아이콘의 너비 */
+    height: 26px; /* 아이콘의 높이 */
+    margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
+}
