@@ -27,25 +27,21 @@
     var toDay = new Date(); // @param 전역 변수, 오늘 날짜 / 내 컴퓨터 로컬을 기준으로 toDay에 Date 객체를 넣어줌
     var nowDate = new Date();  // @param 전역 변수, 실제 오늘날짜 고정값
     
-    /**
-     * @brief   이전달 버튼 클릭시
-     */
+    // @brief   이전달 버튼 클릭시
     function prevCalendar() {
         this.toDay = new Date(toDay.getFullYear(), toDay.getMonth() - 1, toDay.getDate());
         buildCalendar();    // @param 전월 캘린더 출력 요청
     }
 
-    /**
-     * @brief   다음달 버튼 클릭시
-     */
+    // @brief   다음달 버튼 클릭시
     function nextCalendar() {
         this.toDay = new Date(toDay.getFullYear(), toDay.getMonth() + 1, toDay.getDate());
         buildCalendar();    // @param 명월 캘린더 출력 요청
     }
 
-    /**
-     * @brief   캘린더 오픈
-     * @details 날짜 값을 받아 캘린더 폼을 생성하고, 날짜값을 채워넣는다.
+     /*
+     @brief   캘린더 오픈
+     @details 날짜 값을 받아 캘린더 폼을 생성하고, 날짜값을 채워넣는다.
      */
      function buildCalendar() {
     	    let doMonth = new Date(toDay.getFullYear(), toDay.getMonth(), 1); // 이번 달의 첫 번째 날
@@ -101,9 +97,7 @@
     	    }
     	}
 
-    	/**
-    	 * 날짜 선택 함수 (기본적으로 오늘 선택)
-    	 */
+    	 // 날짜 선택 함수 (기본적으로 오늘 선택)
     	function calendarChoiceDay(column) {
     	    if (document.getElementsByClassName("choiceDay")[0]) {
     	        // 이전에 선택된 날짜가 있을 경우 초기화

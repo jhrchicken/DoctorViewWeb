@@ -70,6 +70,7 @@
 #container td.past {
   background: #eee;
   color: var(--gray-500);
+  cursor: not-allowed;
 }
 #container td.saturday {
   color: blue;

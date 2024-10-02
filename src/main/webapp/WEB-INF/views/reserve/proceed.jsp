@@ -79,19 +79,16 @@
 	
 	           // 오늘 이후 날짜일 경우 && 선택 가능한 요일인지 확인
 	           if (currentDate >= nowDate && weeks.includes(korWeekday)) {
-	               column.style.backgroundColor = "#FFFFE6"; // 오늘 이후 날짜 배경 색상
-	               column.style.cursor = "pointer";
 	               column.onclick = function () { calendarChoiceDay(this); };
+	               // 오늘 이후 날짜 배경 색상
+	               column.classList.add("future")
 	           } else {
 	               // 오늘 이전 날짜 또는 선택 불가능한 요일
-	               column.style.backgroundColor = "#E5E5E5"; // 비활성화 색상
-	               column.style.cursor = "not-allowed"; // 선택 불가 커서
+	               column.classList.add("past");
 	           }
 	
 	           // 오늘 날짜일 경우
 	           if (day === nowDate.getDate() && toDay.getMonth() === nowDate.getMonth() && toDay.getFullYear() === nowDate.getFullYear()) {
-	               column.style.backgroundColor = "#FFFFE6"; // 오늘 날짜 강조
-	               column.style.cursor = "pointer"; // 오늘 날짜도 선택 가능하게 수정
 	               column.onclick = function () { calendarChoiceDay(column); }; // 오늘 날짜도 선택 가능
 	               calendarChoiceDay(column); // 오늘 날짜 자동 선택
 	           }
@@ -99,17 +96,17 @@
 	           // 이전 또는 다음 달 날짜 처리
 	           let exceptDay = new Date(doMonth.getFullYear(), doMonth.getMonth(), day);
 	           column.innerText = autoLeftPad(exceptDay.getDate(), 2);
-	           column.style.color = "#A9A9A9"; // 이전/다음 달 날짜 회색 표시
+	           column.classList.add("prevnext")
 	       }
 	
 	       // 일요일
 	       if (dom % 7 == 1) {
-	           column.style.color = "#FF4D4D"; // 일요일 빨간색
+	    	   column.classList.add("sunday");
 	       }
 	
 	       // 토요일
 	       if (dom % 7 == 0) {
-	           column.style.color = "#4D4DFF"; // 토요일 파란색
+	    	   column.classList.add("saturday");
 	           row = tbCalendar.insertRow(); // 주가 끝날 때마다 새 행 추가
 	       }
 	
@@ -118,18 +115,15 @@
 	}
 
 
-
     	// 날짜 선택 함수 (기본적으로 오늘 선택)
     	// 날짜 선택 함수 수정 (선택된 날짜를 hidden input에 설정)
    	    function calendarChoiceDay(column) {
 		    if (document.getElementsByClassName("choiceDay")[0]) {
 		        // 이전에 선택된 날짜가 있을 경우 초기화
-		        document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "#FFFFE6";  
+		        document.getElementsByClassName("choiceDay")[0];  
 		        document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
 		    }
-		
 		    // 선택한 날짜 강조
-		    column.style.backgroundColor = "#FF9999";
 		    column.classList.add("choiceDay");
 		
 		    // 선택한 날짜를 hidden input에 설정
@@ -216,12 +210,12 @@
 		return true;
 	}
 </script>
-
 </head>
 <body>
 <%@include file="../common/main_header.jsp" %>
 
 <main id="container">
+
   <div class="content">
     <div class="content_inner">
       <h2>병원 예약</h2>
@@ -450,32 +444,9 @@
       
     </div>
   </div>
+
 </main>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<%@include file="../common/main_footer.jsp" %>
+<%@ include file="../common/main_footer.jsp" %>
 </body>
 </html>

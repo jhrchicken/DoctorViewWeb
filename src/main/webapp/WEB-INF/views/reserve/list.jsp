@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰 | 예약관리</title>
+<title>닥터뷰 | 마이페이지</title>
 <%@ include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/my-doctor-list.css" />
 <script>
@@ -24,7 +24,7 @@ function deleteReservation(app_id) {
 <main id="container">
 	<div class="content">
 		<div class="content_inner">
-			<h2>예약 목록</h2>
+		<h2>예약 목록</h2>
 			
 			
 			
@@ -59,6 +59,7 @@ function deleteReservation(app_id) {
 								<div class="details">
 									<p class="blue">예약 의사</p>
 									<p>${ row.doctorname }</p>
+
 								</div>
 								<div class="details">
 									<p class="blue">예약자</p>
@@ -143,6 +144,7 @@ function deleteReservation(app_id) {
 									</div>
         						</c:if>
         						</div>
+
 							</div>
 						</div>
 					</div>
@@ -156,18 +158,12 @@ function deleteReservation(app_id) {
 				</li>
 				</c:if>
 				
-				
-				
-				
 			</c:forEach>
 			
 		</ul>
 	</c:otherwise>
 </c:choose>
 </div>
-			
-			
-			
 			
 			
 		</div>

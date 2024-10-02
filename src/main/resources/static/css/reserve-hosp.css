@@ -11,81 +11,142 @@
 #container h2 {
   text-align: center;
   font-size: 40px;
-  color: var(--gray-600);
+  color: var(--point-color2);
   font-weight: 700;
   padding-bottom: 50px;
 }
 
 /*** 병원 정보 ***/
-#container .doctor li {
+#container .hosp_info {
   width: 100%;
-  height: 250px;
+  height: 300px;
   padding: 30px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   position: relative;
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
-#container .doctor li:last-child {
-  margin-bottom: 0;
-}
-#container .doctor li a {
+/*** 병원 사진 ***/
+#container .img {
   display: block;
-  width: 100%;
-  height: 250px;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-/*** 사진 ***/
-#container .doctor>li>.img {
-  width: 190px;
-  height: 190px;
+  width: 240px;
+  height: 240px;
   border: 2px solid #ddd;
 }
-/*** 의사 정보 ***/
-#container .doctor .info {
-  padding: 0 30px;
+/*** 병원 정보 ***/
+#container .info {
+  padding: 30px;
+  /* 해시태그 들어가면 아래와 같이 변경하기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  padding: 0 30px; */
+  width: 80%;
 }
-/*** 병원 이름, 주소 등 ***/
-#container .doctor .info_top h3 {
-  font-size: 32px;
-  font-weight: 700;
-}
-#container .doctor .info_top>p {
+#container .info_top>p {
   font-size: 20px;
   color: var(--gray-400);
   font-weight: 500;
   display: block;
-  margin-top: 5px;
 }
-#container .doctor .detail {
+#container .info_top h3 {
+  font-size: 32px;
+  font-weight: 700;
+}
+#container .detail {
   margin-top: 20px;
   font-size: 23px;
   font-weight: 500;
   line-height: 1.5em;
 }
-#container .doctor .details {
+#container .details {
   display: flex;
   gap: 0 10px;
 }
-#container .doctor .blue {
+#container .blue {
   color: var(--point-color2);
+}
+
+/*** 의사 정보 ***/
+#container .doctor {
+  display: flex;
+  gap: 0 20px;
+  margin-bottom: 30px;
+}
+#container .doctor>li {
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  padding: 20px;  
+  width: calc((100% / 3) - 40px / 3);
+}
+#container .doctor label {
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+#container .doctor label.doc_check>p {
+  font-size: 18px;
+  font-weight: 400;
+  margin-left: 8px;
+  color: #999;
+}
+#container .doctor label.doc_check::after {
+  transform: translateY(-60%);
+}
+#container .doctor .doc {
+  display: flex;
+  gap: 0 20px;
+}
+#container .doctor .doc_wrap {
+  display: flex;
+  margin-top: 10px;
+}
+#container .doctor .doc_img {
+  border: 2px solid #ddd;
+  display: block;
+}
+#container .doctor .doc_img img {
+  width: 100px;
+  height: 100px;
+}
+#container .doctor .doc_title {
+  display: flex;
+  align-items: center;
+  gap: 0 5px;
+  margin-bottom: 10px;
+}
+#container .doctor .doc_title h3 {
+  font-size: 20px;
+  font-weight: 500;
+}
+#container .doctor .doc_title p {
+  font-size: 18px;
+  color: var(--gray-500);
+}
+#container .doctor .doc_content {
+  padding-top: 20px;
+}
+#container .doctor .doc_detail {
+  display: flex;
+  gap: 0 5px;
+  line-height: 1.5em;
+}
+#container .doctor .doc_detail>.blue {
+  color: var(--point-color2);
+  font-weight: 500;
 }
 
 
 /*********************************************************************/
 
 /*** 예약 폼 ***/
-#container .reserv_top {
+#container .reservation {
   display: flex;
   gap: 0 30px;
 }
 
 /*** 진료과목 선택 ***/
-#container .list_search {
+/* #container .list_search {
   display: flex;
   gap: 0 5px;
   width: 100%;
@@ -108,93 +169,98 @@
   height: 50px;
   color: var(--gray-400);
   cursor: pointer;
-}
+} */
 
 /*** 달력 ***/
-#container .date_select {
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  padding: 20px;
+#container .calendar {
   width: 60%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  padding: 50px;
 }
 /*** 월 선택 ***/
-#container .calendar_title {
+#container .calendar_top {
   display: flex;
-  justify-content: center;
-  vertical-align: center;
   gap: 0 10px;
-  margin: 30px 0;
+  justify-content: center;
+  padding: 10px 0 20px;
 }
-#container .calendar_title p {
+#container .calendar_top>button {
+  border: none;
+  background: none;
+}
+#container .date {
+  display: flex;
+  gap: 0 5px;
   font-size: 25px;
   font-weight: 500;
 }
-#container .calendar_title button {
-  width: 30px;
-  height: 30px;
-  border: none;
+/*** 달력 ***/
+#container .scriptCalendar {
+  text-align: center;
+  border: 1px solid #ddd;
 }
-#container .calendar_title .btn_prev {
-  background: url(/images/paging2.svg) no-repeat 50% / 100%;
+#container .scriptCalendar td {
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
-#container .calendar_title .btn_next {
-  background: url(/images/paging3.svg) no-repeat 50% / 100%;
-}
-/*** 일 선택 ***/
-#container .calendar_header {
+#container .scriptCalendar thead>tr>td {
+  font-weight: 700;
   font-size: 18px;
-}
-#container .calendar_body::before {
-  content: '';
-  display: table-row;
-  height: 10px;
-}
-#container .calendar_body td {
-  padding: 5px;
-}
-#container .calendar_body td>button{
-  width: 100%;
-  height: 82px;
-  padding: 20px 5px 5px;
-  border: 1px solid #eee;
-  border-radius: 10px;
-  background: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-#container .calendar_body td>button.dayoff {
-  color: red;
-}
-#container .calendar_body td>button.unselectable {
-  background: #ddd;
-  color: #666;
-}
-#container .calendar_body td>button.today {
+  padding: 20px;
   background: var(--point-color2);
   color: #fff;
 }
+#container .scriptCalendar tbody>tr>td {
+  padding: 5px;
+  height: 100px;
+}
 
-#container .calendar_body td>button>.text {
-  font-size: 13px;
-  margin-top: 5px;
+
+#container td.past {
+  background: #eee;
+  color: var(--gray-500);
+}
+#container td.future {
+  cursor: pointer;
+}
+#container td.saturday {
+  color: blue;
+}
+#container td.sunday {
+  color: red;
+}
+#container td.prevnext {
+  color: #a9a9a9;
+}
+#container td.choiceDay {
+  background: var(--point-color1);
+  color: #fff;
+  cursor: pointer;
 }
 
 /*************************************************************************/
+
+#container .reserv_right {
+  width: 40%;
+}
 
 /*** 시간 ***/
 #container .time_select {
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-  padding: 50px;
-  width: 40%;
+  padding: 30px;
   font-size: 18px;
 }
 #container .am {
-  margin-bottom: 25px;
+  margin-bottom: 50px;
 }
 #container .time_title {
   margin-bottom: 10px;
+  color: var(--gray-500);
+  font-size: 22px;
+  font-weight: 500;
+  padding-left: 5px;
 }
 #container .time_list {
   display: flex;
@@ -204,65 +270,59 @@
 #container .time_item {
   width: calc(25% - 30px / 4);
 }
-#container .time_list button {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  color: var(--gray-500);
-  background: none;
-  padding: 10px;
-  font-size: 18px;
-  width: 100%;
-}
 
 /**************************************************************************/
 
 /*** 예약자 정보 ***/
-#container .reserv_bottom {
+#container .user_info {
   margin-top: 30px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   padding: 30px;
 }
-#container .reserv_bottom h3 {
+#container .user_info h3 {
   font-size: 22px;
   font-weight: 500;
   margin-bottom: 5px;
 }
-#container .reserv_bottom>p {
+#container .user_info>p {
   color: var(--gray-500);
 }
-#container .reserv_bottom .reserv_form {
-  display: flex;
-  gap: 0 10px;
-}
-#container .reserv_bottom .reserv_wrap {
-  margin-top: 20px;
+#container .user_info .reserv_wrap {
+  margin-top: 15px;
   border: 2px solid #ddd;
-  border-radius: 5px;
-  width: 90%;
 }
-#container .reserv_bottom .first_tr {
+#container .user_info tr {
   border-bottom: 2px solid #ddd;
 }
-#container .reserv_bottom td {
-  padding: 10px;
+#container .user_info tr:last-child {
+  border: none;
 }
-#container .reserv_bottom td.left {
-  width: 200px;
+#container .user_info td {
+  padding: 10px;
+  height: 55px;
+}
+#container .user_info td.left {
+  width: 100px;
   text-align: center;
   border-right: 2px solid #ddd;
   font-weight: 500;
 }
-#container .reserv_bottom td>input {
+#container .user_info td>input {
   border: 1px solid #ddd;
   width: 100%;
-  height: 45px;
+  height: 35px;
   padding: 0 10px;
 }
-#container .reserv_bottom button {
-  margin-top: 20px;
-  width: 10%;
+#container .user_info .btn_wrap {
+  display: flex;
+  gap: 0 10px;
+}
+#container .user_info .btn_wrap button {
+  margin-top: 10px;
+  width: 50%;
   background: var(--point-color2);
+  padding: 10px;
   border: none;
   border-radius: 10px;
   color: #fff;

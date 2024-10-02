@@ -314,14 +314,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			
 			<!-- 의사 정보 -->
 			<div class="list">
-				<c:choose>
-					<c:when test="${ empty doctorList }">
-						<tr>
-							<p>등록된 의사가 없습니다.</p>
-						</tr>
-					</c:when>
-					<c:otherwise>
-						<ul class="doctor">
+				<ul class="doctor">
+					<c:choose>
+						<c:when test="${ empty doctorList }">
+							<li class="none">
+								<p>등록된 의사가 없습니다.</p>
+							</li>
+						</c:when>
+						<c:otherwise>
 							<c:forEach items="${ doctorList }" var="row" varStatus="loop">
 								<li>
 									<div class="doc_wrap">
@@ -351,9 +351,9 @@ document.addEventListener('DOMContentLoaded', function () {
 									<a href="../doctor/viewDoctor.do?doc_idx=${ row.doc_idx }"><span class="blind">의사 바로가기</span></a>
 								</li>
 							</c:forEach>
-						</ul>
-					</c:otherwise>
-				</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</ul>
 				
 				<!-- 페이지네이션 -->
 				<div class="pagination">

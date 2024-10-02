@@ -141,10 +141,10 @@
                data: { join_id: join_id },
                success: function(responseData) {
                    if (responseData === "0") {
-                       $("#idCheckResult").css("color","green").html("<br>사용가능한 아이디<br>");
+                       $("#idCheckResult").css("color","green").html("사용가능한 아이디");
                        $('input[name="idCheck"]').val("check");
                    } else {
-                       $("#idCheckResult").css("color","red").html("<br>사용할 수 없는 아이디<br>");
+                       $("#idCheckResult").css("color","red").html("사용할 수 없는 아이디");
                        $('input[name="idCheck"]').val("unCheck");
                    }
                },
@@ -262,7 +262,7 @@
             <tr>
               <td class="left">전화번호</td>
               <td class="mobile">
-				<input type="tel" name="tel1" maxlength="3" value="" placeholder="010" /> -
+				<input type="tel" name="tel1" maxlength="3" value="" placeholder="031" /> -
 				<input type="tel" name="tel2" maxlength="4" value="" placeholder="전화번호*" /> -
 				<input type="tel" name="tel3" maxlength="4" value="" />
               </td>
@@ -279,9 +279,9 @@
             <tr>
               <td class="left">사업자 번호</td>
               <td class="regi">
-				<input type="text" name="taxid1" value="" placeholder="사업자번호*" /> -
-				<input type="text" name="taxid2" value="" placeholder="사업자번호*" /> -
-				<input type="text" name="taxid3" value="" placeholder="사업자번호*" />
+				<input type="text" name="taxid1" value="" maxlength="3" placeholder="사업자번호*" /> -
+				<input type="text" name="taxid2" value="" maxlength="2" placeholder="사업자번호*" /> -
+				<input type="text" name="taxid3" value="" maxlength="5" placeholder="사업자번호*" />
            	  </td>
             </tr>
             <!-- 영업시간 폼 시작 -->

@@ -25,7 +25,7 @@ $(function() {
 			success : function(d) {
 				var optionStr = "";
 				optionStr += "<option value=''>";
-				optionStr += "- 시/구/군 선택 -";
+				optionStr += "- 시/군/구 선택 -";
 				optionStr += "</option>";
 				$.each(d.result, function(index, data) {
 					optionStr += '<option value="' + data.gugun + '">';
@@ -89,12 +89,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 selectedFilters = selectedFilters.filter(h => h !== filterValue);
                 button.style.backgroundColor = ''; // 원래 색상으로 변경
                 button.style.color = ''; // 원래 텍스트 색상으로 변경
+                button.style.border = '';
             }
             else {
                 // 선택되지 않은 조건인 경우 추가
                 selectedFilters.push(filterValue);
                 button.style.backgroundColor = '#005ad5'; // 선택된 색상으로 변경
                 button.style.color = '#fff'; // 텍스트 색상 변경
+                button.style.border = 'none';
             }
             // 필터 값을 숨겨진 input에 저장
             filtersHiddenInput.value = selectedFilters.join(',');
@@ -157,29 +159,31 @@ function searchHosp(event) {
 							</c:forEach>
 						</select>
 						<select id="gugun" name="searchGugun" class="searchField">
-							<option value="">- 시/구/군 선택 -</option>
+							<option value="">- 시/군/구 선택 -</option>
 						</select>
 						<select id="dong" name="searchDong" class="searchField">
 							<option value="">- 읍/면/동 선택 -</option>
 						</select>
+					</div>
+					<div class="search_hosp">
 						<!-- 검색 -->
 						<select class="searchField" name="searchField">
 							<option value="name">병원명</option>
 							<option value="department">진료과목</option>
 							<option value="hashtag">해시태그</option>
 						</select>
-						<input name="searchWord" class="searchWord" type="text" placeholder="검색어를 입력하세요.">
-						<button type="submit" class="search_btn" onclick="searchHosp(event)">검색</button>
-						<div class="search-button">
-							<button type="button" class="filter-button" data-filter="parking" data-default-text="주차 가능">주차</button>
-							<button type="button" class="filter-button" data-filter="pcr" data-default-text="PCR 검사 가능">PCR 검사</button>
-							<button type="button" class="filter-button" data-filter="hospitalize" data-default-text="입원 가능">입원</button>
-							<button type="button" class="filter-button" data-filter="system" data-default-text="예약 가능">예약</button>
-							<button type="button" class="filter-button" data-filter="night" data-default-text="예약 가능">야간진료</button>
-							<button type="button" class="filter-button" data-filter="weekend" data-default-text="예약 가능">주말진료</button>
-						</div>
-						<input type="hidden" name="filters" id="filters" value="">
+						<input name="searchWord" class="searchKeyword" type="text" placeholder="검색어를 입력하세요.">
+						<button type="submit" class="search_btn" onclick="searchHosp(event)"><span class="blind">검색</span></button>
 					</div>
+					<div class="other_search">
+						<button type="button" class="filter-button" data-filter="parking" data-default-text="주차 가능">주차</button>
+						<button type="button" class="filter-button" data-filter="pcr" data-default-text="PCR 검사 가능">PCR 검사</button>
+						<button type="button" class="filter-button" data-filter="hospitalize" data-default-text="입원 가능">입원</button>
+						<button type="button" class="filter-button" data-filter="system" data-default-text="예약 가능">예약</button>
+						<button type="button" class="filter-button" data-filter="night" data-default-text="예약 가능">야간진료</button>
+						<button type="button" class="filter-button" data-filter="weekend" data-default-text="예약 가능">주말진료</button>
+					</div>
+					<input type="hidden" name="filters" id="filters" value="">
 				</form>
 			</div>
 			
