@@ -15,6 +15,7 @@ public interface IMemberService {
 	public int joinMember(MemberDTO memberDTO);
 	public int joinDoctor(DoctorDTO doctorDTO);
 	public int joinHours(HoursDTO hoursDTO);
+	public int joinHoursUpdate(HoursDTO hoursDTO);
 	
 //	로그인
 	public MemberDTO loginMember(MemberDTO memberDTO);

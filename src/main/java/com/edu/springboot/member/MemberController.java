@@ -65,7 +65,7 @@ public class MemberController {
 			return "member/join/user";
 		}
 	} 
-	
+	 
 //	회원가입: 병원
 	@GetMapping("/member/join/hosp.do")
 	public String hospJoinGet() {
@@ -86,8 +86,8 @@ public class MemberController {
 	    String[] majorz = req.getParameterValues("majorz");
 	    String[] careerz = req.getParameterValues("careerz");
 	    String[] hoursz = req.getParameterValues("hoursz");
-	    int doctorResult = 0;
 	    
+	    int doctorResult = 0;
 	    for (int i = 0; i < doctornamez.length; i++) {
 	        doctorDTO.setDoctorname(doctornamez[i]);
 	        doctorDTO.setMajor(majorz[i]);
@@ -98,23 +98,47 @@ public class MemberController {
 	    }
 
 	    // hours
-	    String[] weeks = req.getParameterValues("weeks");
 	    hoursDTO.setHosp_ref(memberDTO.getId());
+	    
 	    int hoursResult = 0;
-//	    월,화,수 ... 순서로 입력
-	    for(int i=0 ; i<weeks.length ; i++) {
+	    // 회원가입한 병원의 월~일 데이터 입력
+	    String[] weeks = {"월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"};
+	    for (int i = 0; i < weeks.length; i++) {
 	    	hoursDTO.setWeek(weeks[i]);
 	    	hoursResult = memberDAO.joinHours(hoursDTO);
 	    }
 	    
 	    
+	    // 종료 시간이 8시 이후이면 야간 진료 표시
+	    if (hoursDTO.getEndtime().compareTo("20:00") > 0) {
+	    	hoursDTO.setNight("T"); 
+	    } else {
+	    	hoursDTO.setNight("F"); 
+	    }
+	    
+	    // 회원가입 시 체크한 진료요일 업데이트
+	    weeks = req.getParameterValues("weeks");
+	    for(int i=0 ; i<weeks.length ; i++) {
+	    	hoursDTO.setWeek(weeks[i]);
+
+	    	// 주말 진료 판단 (주말인 경우 주말 진료 표시)
+	    	if (weeks[i].equals("토") || weeks[i].equals("일")) {
+	    		hoursDTO.setWeekend("T"); 
+	    	} else {
+	    		hoursDTO.setWeekend("F"); 
+	    	}
+	    	
+	    	hoursResult = memberDAO.joinHoursUpdate(hoursDTO);
+	    }
+	    
+	    
+	    
+	    
 		// 회원가입 성공
 	    if (memberResult == 1 && doctorResult == 1 && hoursResult == 1) {
-//	    	회원승인이 필요하기때문에 home으로 이동
 	        return "redirect:/";
 	    } else {
-	    	// 회원가입 실패
-	    	model.addAttribute("joinFaild", "회원가입에 실패했습니다.");
+	    	model.addAttribute("joinFailed", "회원가입에 실패했습니다.");
 	    	return "member/join/hosp";
 	    }
 	}
@@ -326,7 +350,6 @@ public class MemberController {
 		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
 		String[] tel =  loginUser.getTel().split("-");
 		String[] taxid =  loginUser.getTaxid().split("-");
-		
 		model.addAttribute("loginUserInfo", loginUser);
 		model.addAttribute("tel", tel);
 		model.addAttribute("taxid", taxid);
@@ -339,7 +362,6 @@ public class MemberController {
 		for (int i = 0; i < hoursDTO.size(); i++) {
 			weekList.add(hoursDTO.get(i).getWeek());
 		}
-		
 		// view에서 weeks를 js배열로 변경하기위해 ArrayList에서 일반배열로 변경
 		String[] weeks = new String[weekList.size()];
 		// weekList의 내용을 weeks 배열에 복사

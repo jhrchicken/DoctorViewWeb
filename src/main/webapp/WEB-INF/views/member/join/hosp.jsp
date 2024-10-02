@@ -154,12 +154,9 @@
            });
        });
    });
-   
-     
 </script>
 </head>
 <body>
-
 <%@ include file="../../common/main_header.jsp" %>
 	
 <main id="container">
@@ -319,27 +316,63 @@
                 	</label> 
               	</td>
             </tr>
-            <tr class="time">
-              <td>
-                진료 시간: 
-                <input type="time" name="starttime" value="" />
-                 ~ 
-                <input type="time" name="endtime" value="" />
-              </td>
-            </tr>
-            <tr class="time">
-              <td>
-                휴게 시간: 
-                <input type="time" name="startbreak" value="" />
-                 ~ 
-                <input type="time" name="endbreak" value="" />
-              </td>
-            </tr>
-            <tr class="time">
-              <td>
-                접수 마감: <input type="time" name="deadline" value="" />
-              </td>
-            </tr>
+            
+            
+<!-- 시간 선택 input 태그에서 select 태그로 변경됨 -->
+<tr class="time">
+  <td>
+    진료 시간: 
+    <select id="starttime" name="starttime">
+	    <option value="">시작 시간 선택</option>
+	</select>
+     ~ 
+    <select id="endtime" name="endtime">
+	    <option value="">종료 시간 선택</option>
+	</select>
+  </td>
+</tr>
+<tr class="time">
+  <td>
+    휴게 시간: 
+    <select id="startbreak" name="startbreak">
+	    <option value="">시작 시간 선택</option>
+	</select>
+     ~ 
+    <select id="endbreak" name="endbreak">
+	    <option value="">종료 시간 선택</option>
+	</select>
+  </td>
+</tr>
+<tr class="time">
+  <td>
+    접수 마감: 
+    <select id="deadline" name="deadline">
+	    <option value="">종료 시간 선택</option>
+	</select>
+  </td>
+</tr>
+<script>
+    const timeSelectIds = ['starttime', 'endtime', 'startbreak', 'endbreak', 'deadline'];
+
+    timeSelectIds.forEach(id => {
+        const selectElement = document.getElementById(id);
+        
+        for (let hour = 0; hour < 24; hour++) {
+            for (let minute = 0; minute < 60; minute += 30) {
+                const value = String(hour).padStart(2, '0') + ':' + String(minute).padStart(2, '0');
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                selectElement.appendChild(option);
+            }
+        }
+    });
+</script>
+
+
+
+            
+            
             <!-- 영업시간 폼 끝 -->
             <!-- 의료진 폼 시작 -->
             <tr class="doc">
@@ -347,11 +380,11 @@
               <td id="doctorContainer">
               	<table class="doctor-info">
               		<tr>
-              			<td class="left">이름: </td>
+              			<td class="left">이름 </td>
               			<td><input type="text" name="doctornamez" value="" placeholder="이름*" /></td>
               		</tr>
               		<tr>
-              			<td class="left">전공: </td>
+              			<td class="left">전공 </td>
               			<td><input type="text" name="majorz" placeholder="전공*" /></td>
               		</tr>
               		<tr>
@@ -359,7 +392,7 @@
               			<td><input type="text" name="careerz" placeholder="경력*" /></td>
               		</tr>
               		<tr>
-              			<td class="left">진료시간:</td>
+              			<td class="left">진료시간</td>
               			<td><input type="text" name="hoursz" value="" class="doc_time" placeholder="진료시간*" /></td>
               		</tr>
               	</table>
