@@ -68,7 +68,7 @@
 	<!-- 예약 취소  -->
 	<update id="cancelReservation">
 	    UPDATE appointment
-	    SET cancel = ${cancel}
+	    SET cancel = 'T'
 	    WHERE app_id = #{app_id}
 	</update>
 

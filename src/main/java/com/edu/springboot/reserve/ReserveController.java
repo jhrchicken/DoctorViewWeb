@@ -120,8 +120,6 @@ public class ReserveController {
 	// 예약 취소하기
 	@PostMapping("/reserve/cancel.do")
 	public String cancel(Model model, HttpSession session, ReserveDTO reserveDTO) {
-		// 예약취소여부 설정
-		reserveDTO.setCancel("T");
 		reserveDAO.cancelReservation(reserveDTO);
 		
 		return "redirect:/reserve.do";

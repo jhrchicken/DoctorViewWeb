@@ -104,7 +104,12 @@ function deleteReservation(app_id) {
 				
 				<!-- hosp회원 화면-->
 				<c:if test="${ userAuth eq 'ROLE_HOSP' }">
+				
 				<li>
+					<c:if test="${ row.cancel eq 'T' }">
+						<h3>취소된 예약</h3>
+					</c:if>
+							
 					<div class="info">
 						<div class="info_top">
 							<div class="detail">
