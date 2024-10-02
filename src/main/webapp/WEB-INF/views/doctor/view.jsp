@@ -332,17 +332,15 @@ document.addEventListener('DOMContentLoaded', function () {
 										</div>
 										<!-- 해시태그 -->
 										<c:if test="${ not empty hashtagList }">
-											<div class="review_hash">
-												<ul>
-													<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
-														<c:if test="${ hashrow.dreview_ref == row.review_idx }">
-															<li class="hash">
-																<p>${ hashrow.tag }</p>
-															</li>
-														</c:if>
-													</c:forEach>
-												</ul>
-											</div>
+											<ul class="review_hash">
+												<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
+													<c:if test="${ hashrow.dreview_ref == row.review_idx }">
+														<li class="hash">
+															<p>${ hashrow.tag }</p>
+														</li>
+													</c:if>
+												</c:forEach>
+											</ul>
 										</c:if>
 										<div class="review_content">
 											<p>${ row.content }</p>					
@@ -436,24 +434,24 @@ document.addEventListener('DOMContentLoaded', function () {
 			<div class="modal-content">
 				<!-- Modal Header -->
 				<div class="modal-header">
-					<h4 class="modal-title">의사 리뷰 작성</h4>
+					<h4 class="modal-title">리뷰 작성</h4>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<!-- Modal Body -->
 				<div class="modal-body">
 					<!-- 해시태그 선택 -->
-                    <div class="form-group mb-3">
+                    <div class="form-group">
                         <label>해시태그 선택:</label>
                         <div id="hashtag-list">
                             <!-- 해시태그 목록 -->
-                            <button type="button" class="btn btn-secondary m-1">#친절해요</button>
-                            <button type="button" class="btn btn-secondary m-1">#전문적이예요</button>
-                            <button type="button" class="btn btn-secondary m-1">#청결해요</button>
-                            <button type="button" class="btn btn-secondary m-1">#신속해요</button>
+                            <button type="button" class="btn btn-secondary">친절해요</button>
+                            <button type="button" class="btn btn-secondary">전문적이예요</button>
+                            <button type="button" class="btn btn-secondary">청결해요</button>
+                            <button type="button" class="btn btn-secondary">신속해요</button>
                         </div>
                     </div>
                     <!-- 별 점수 선택 -->
-                    <div class="form-group mb-3">
+                    <div class="form-group">
                         <label>점수 선택:</label>
                         <div id="star-rating" style="cursor: pointer;">
                             <!-- 별 아이콘 -->
@@ -464,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <img src="/images/star_empty.svg" class="star" data-value="5" />
                         </div>
                     </div>
-					<textarea class="form-control mb-3" name="content" style="height: 100px;" placeholder="내용을 입력해주세요 (필수입력)"></textarea>
+					<textarea class="form-control" name="content" style="height: 100px;" placeholder="내용을 입력해주세요 (필수입력)"></textarea>
 				</div>
 				<!-- Modal Footer -->
 				<div class="modal-footer">
@@ -493,18 +491,18 @@ document.addEventListener('DOMContentLoaded', function () {
 				<div class="modal-body">
 					<input type="hidden" id="review_edit_review_idx" name="review_idx" value="">
 					<!-- 해시태그 선택 영역 -->
-					<div class="form-group mb-3">
+					<div class="form-group">
 						<label>해시태그 선택:</label>
 						<div id="hashtag-list">
 							<!-- 해시태그 목록 -->
-							<button type="button" class="btn btn-secondary m-1">#친절해요</button>
-							<button type="button" class="btn btn-secondary m-1">#전문적이예요</button>
-							<button type="button" class="btn btn-secondary m-1">#청결해요</button>
-							<button type="button" class="btn btn-secondary m-1">#신속해요</button>
+							<button type="button" class="btn btn-secondary">친절해요</button>
+							<button type="button" class="btn btn-secondary">전문적이예요</button>
+							<button type="button" class="btn btn-secondary">청결해요</button>
+							<button type="button" class="btn btn-secondary">신속해요</button>
 						</div>
 					</div>
 					<!-- 별 점수 선택 영역 -->
-					<div class="form-group mb-3">
+					<div class="form-group">
 						<label>점수 선택:</label>
 						<div id="star-rating" style="cursor: pointer;">
 							<!-- 별 아이콘 -->
@@ -516,7 +514,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						</div>
 					</div>
 					<!-- 폼 입력 -->
-					<textarea class="form-control mb-3" id="review_edit_content" name="content" style="height: 100px;" placeholder="내용을 입력해주세요 (필수입력)"></textarea>
+					<textarea class="form-control" id="review_edit_content" name="content" style="height: 100px;" placeholder="내용을 입력해주세요 (필수입력)"></textarea>
 				</div>
 				<!-- Modal Footer -->
 				<div class="modal-footer">

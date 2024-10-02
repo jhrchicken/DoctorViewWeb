@@ -1,6 +1,5 @@
 #container .content {
   padding: 170px 0 80px;
-  min-height: 100vh;
 }
 #container .content_inner {
     max-width: 1170px;
@@ -171,14 +170,14 @@
   gap: 0 5px;
   margin-top: 5px;
 }
-#container .review_hash>p {
+#container .review_hash p {
   display: block;
   padding: 5px 10px;
   background: #bbb;
   border-radius: 5px;
   color: #fff;
 }
-#container .review_hash>p::before {
+#container .review_hash p::before {
   content: '#';
   margin-right: 5px;
 }
@@ -245,6 +244,7 @@
 #container .recomm_title .edit {
   color: var(--gray-400);
 }
+/*** 댓글 내용 ***/
 #container .recomm_content {
   border: 1px solid #bbb;
   border-radius: 5px;
@@ -276,4 +276,32 @@
   padding: 50px 20px;
   text-align: center;
   color: var(--gray-500);
+}
+
+
+/*** 모달창 ***/
+.modal-content {
+  color: var(--gray-500);
+}
+.modal-content button {
+  height: auto;
+  padding: 5px 10px;
+  border: 1px solid #bbb;
+}
+.modal-content button.btn-close {
+  border: none;
+}
+.modal-content #hashtag-list {
+  display: flex;
+  gap: 0 5px;
+  margin-top: 5px;
+}
+.modal-content .form-group {
+  margin-bottom: 10px;	
+}
+.modal-content .form-control {
+  margin-bottom: 10px;
+}
+.modal-content .form-control:last-child {
+  margin-bottom: 0;
 }
