@@ -205,6 +205,7 @@ function changeMarker(type) {
     if (openMenu.className === 'menu_selected' && type === 'open') {
         // 이미 선택된 카테고리를 다시 클릭했을 때 모든 마커 표시
         openMenu.className = '';
+        openIcon.className = 'ico_open';
         setAllMarkers(map);
         setOpenMarkers(null);
         setNightMarkers(null);
@@ -213,6 +214,7 @@ function changeMarker(type) {
     else if (nightMenu.className === 'menu_selected' && type === 'night') {
         // 이미 선택된 카테고리를 다시 클릭했을 때 모든 마커 표시
         nightMenu.className = '';
+        nightIcon.className = 'ico_night';
         setAllMarkers(map);
         setOpenMarkers(null);
         setNightMarkers(null);
@@ -221,6 +223,7 @@ function changeMarker(type) {
     else if (weekendMenu.className === 'menu_selected' && type === 'weekend') {
         // 이미 선택된 카테고리를 다시 클릭했을 때 모든 마커 표시
         weekendMenu.className = '';
+        weekendIcon.className = 'ico_weekend';
         setAllMarkers(map);
         setOpenMarkers(null);
         setNightMarkers(null);
@@ -231,8 +234,11 @@ function changeMarker(type) {
         if (type === 'open') {
             // 스타일 변경
             openMenu.className = 'menu_selected';
+            openIcon.className = 'open_selected';
             nightMenu.className = '';
+            nightIcon.className = 'ico_night';
             weekendMenu.className = '';
+            weekendIcon.className = 'ico_weekend';
             setAllMarkers(null);
             setOpenMarkers(map);
             setNightMarkers(null);
@@ -240,8 +246,11 @@ function changeMarker(type) {
         }
         else if (type === 'night') {
             nightMenu.className = 'menu_selected';
+            nightIcon.className = 'night_selected';
             openMenu.className = '';
+            openIcon.className = 'ico_open';
             weekendMenu.className = '';
+            weekendIcon.className = 'ico_weekend';
             setAllMarkers(null);
             setOpenMarkers(null);
             setNightMarkers(map);
@@ -249,8 +258,11 @@ function changeMarker(type) {
         }
         else if (type === 'weekend') {
             weekendMenu.className = 'menu_selected';
+            weekendIcon.className = 'weekend_selected';
             openMenu.className = '';
+            openIcon.className = 'ico_open';
             nightMenu.className = '';
+            nightIcon.className = 'ico_night';
             setAllMarkers(null);
             setOpenMarkers(null);
             setNightMarkers(null);
@@ -282,23 +294,23 @@ function zoomOut() {
 				    <div class="category">
 				        <ul>
 				            <li id="openMenu" onclick="changeMarker('open')">
-				                <span class="ico_comm ico_open"></span>
+				                <span id="openIcon" class="ico_open"></span>
 				                영업중
 				            </li>
 				            <li id="nightMenu" onclick="changeMarker('night')">
-				                <span class="ico_comm ico_night"></span>
+				                <span id="nightIcon" class="ico_night"></span>
 				                야간진료
 				            </li>
 				            <li id="weekendMenu" onclick="changeMarker('weekend')">
-				                <span class="ico_comm ico_weekend"></span>
+				                <span id="weekendIcon" class="ico_weekend"></span>
 				                주말진료
 				            </li>
 				        </ul>
 				    </div>
 				    <!-- 지도 확대, 축소 컨트롤 -->
 				    <div class="custom_zoomcontrol radius_border"> 
-				        <span onclick="zoomIn()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대"></span>  
-				        <span onclick="zoomOut()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" alt="축소"></span>
+				        <span onclick="zoomIn()"><img src="/images/zoom_in.svg"></span>  
+				        <span onclick="zoomOut()"><img src="/images/zoom_out.svg"></span>
 				    </div>
 				</div>
 			</div>

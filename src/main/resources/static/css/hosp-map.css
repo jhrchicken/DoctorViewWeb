@@ -27,7 +27,7 @@ html, body {
 	position:relative;
 	overflow:hidden;
 	width:100%;
-	height:350px;
+	height:600px;
 }
 .radius_border{
 	border:1px solid #919191;
@@ -105,15 +105,14 @@ html, body {
 }
 
 .custom_zoomcontrol span img {
-    width: 15px; 
-    height: 15px; 
-    padding: 8px 0; /* 여백 조절 */
+    width: 20px; 
+    height: 20px;
     border: none; /* 이미지 테두리 제거 */
 }
 /* 호버 효과 추가 */
 .custom_zoomcontrol span:hover {
     background: #f5f5f5; /* 호버 시 배경색 변경 */
-}	
+}
 /* 이미지 마커와 커스텀 오버레이 */
 .customoverlay {
 	position:relative;
@@ -176,10 +175,11 @@ html, body {
    background-color: #fff; /* 배경색 */
 }
 .category .menu_selected {
-    background: #FFCE32; /* 선택된 메뉴 배경색 */
+    background: #005AD5; /* 선택된 메뉴 배경색 */
     border-left: 1px solid #915B2F;
     border-right: 1px solid #915B2F;
     margin: 0 -1px; /* 경계선 스타일 통일 */
+    color: #FFF;
 }
 .category ul {
     padding: 0; /* 기본 패딩 제거 */
@@ -203,30 +203,45 @@ html, body {
 .category li:last-child {
     border-bottom: none; /* 마지막 아이템의 하단 경계선 제거 */
 }
-.category li:hover {
-    background-color: #f5f5f5; /* 호버 시 배경색 변경 */
-}
-.category .ico_comm {
-    display: block;
-    margin: 0 auto 2px;
-    width: 22px;
-    height: 26px;
-}
 /* 아이콘과 텍스트의 조합 */
 .category .ico_open {
+	display: block;
+	background: url('/images/logo.svg') no-repeat;
+    width: 22px; /* 아이콘의 너비 */
+    height: 26px; /* 아이콘의 높이 */
+    margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
+}
+.category .open_selected {
+	display: block;
 	background: url('/images/chat.svg') no-repeat;
     width: 22px; /* 아이콘의 너비 */
     height: 26px; /* 아이콘의 높이 */
     margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
 }
 .category .ico_night {
-	background: url('/images/chat.svg') no-repeat;
+	display: block;
+	background: url('/images/night.svg') no-repeat;
+    width: 22px; /* 아이콘의 너비 */
+    height: 26px; /* 아이콘의 높이 */
+    margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
+}
+.category .night_selected {
+	display: block;
+	background: url('/images/night_white.svg') no-repeat;
     width: 22px; /* 아이콘의 너비 */
     height: 26px; /* 아이콘의 높이 */
     margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
 }
 .category .ico_weekend {
-    background: url('/images/chat.svg') no-repeat;
+	display: block;
+    background: url('/images/logo.svg') no-repeat;
+    width: 22px; /* 아이콘의 너비 */
+    height: 26px; /* 아이콘의 높이 */
+    margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
+}
+.category .weekend_selected {
+	display: block;
+	background: url('/images/chat.svg') no-repeat;
     width: 22px; /* 아이콘의 너비 */
     height: 26px; /* 아이콘의 높이 */
     margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
