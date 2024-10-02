@@ -1,6 +1,9 @@
 package com.edu.springboot.reserve;
 
+import java.lang.reflect.Member;
 import java.util.List;
+
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,12 +66,13 @@ public class ReserveController {
 	
 	// 예약하기
 	@PostMapping("/reserve/proceed.do")
-	public String proceedPost(ReserveDTO reserveDTO) {
+	public String proceedPost(Model model, ReserveDTO reserveDTO) {
 		// 예약정보 저장
 		int reserveResult = reserveDAO.saveReservationInfo(reserveDTO);
 		
 		if(reserveResult ==1) {
 			// 예약에 성공하면
+			model.addAttribute("reserveDTO", reserveDTO);
 			return "reserve/complete";
 		} else {
 			// 예약에 실패하면
@@ -102,7 +106,6 @@ public class ReserveController {
 		
 		return "reserve/extraInfo";
 	}
-	
 	@PostMapping("/reserve/extraInfo.do")
 	public String extraInfoPost(Model model, HttpSession session, ReserveDTO reserveDTO) {
 		// user 메모 추가
@@ -125,6 +128,42 @@ public class ReserveController {
 		return "redirect:/reserve.do";
 	}
 	
+	// 예약 내역 숨김 (user)
+	@GetMapping("/reserve/delete.do")
+	public String delete(ReserveDTO reserveDTO) {
+		reserveDAO.hideReservation(reserveDTO);
+		
+		return "redirect:/reserve.do";
+	}
+	
+	// 예약 시간 설정
+	@GetMapping("/reserve/setTime.do")
+	public String setTime(Model model, HttpSession session, ReserveDTO reserveDTO, MemberDTO memberDTO) {
+		// 병원 기본 정보
+		MemberDTO hospitalInfo  = reserveDAO.getMyHospital(memberDTO);
+		model.addAttribute("hospitalInfo", hospitalInfo);
+		
+		// 예약할 병원: 영업시간정보
+		List<HoursDTO> hoursInfo = memberDAO.selectHospHours(hospitalInfo.getId());
+		String[] weeks = new String[hoursInfo.size()];
+		for (int i = 0; i < hoursInfo.size(); i++) {
+		    HoursDTO hour = hoursInfo.get(i);
+		    weeks[i] = hour.getWeek(); 
+		}
+		
+		// js 배열로 사용하기 위한 작업
+		String week = "";
+		for(int i=0; i<weeks.length; i++) {
+		if(i==0) 
+			week += "'"+weeks[i]+"'";
+		else 
+			week += ",'"+weeks[i]+"'";
+		}
+		model.addAttribute("hoursInfo", hoursInfo.get(0));
+		model.addAttribute("week", week);
+		
+		return "reserve/setTime";
+	}
 	
 	
 }

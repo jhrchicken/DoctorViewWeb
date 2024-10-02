@@ -17,6 +17,13 @@
 		                WHERE a.api_idx = #{api_idx})
 	</select>
 	
+	<!-- 이름으로 병원 정보 가져옴 -->
+	<select id="getMyHospital"
+		parameterType="com.edu.springboot.member.MemberDTO"
+		resultType="com.edu.springboot.member.MemberDTO">
+		SELECT * FROM member WHERE id = #{id}
+	</select>
+	
 	<!-- 사용자가 예약할 병원의 의사 정보 -->
 	<select id="getDoctor"
 		resultType="com.edu.springboot.doctor.DoctorDTO">
@@ -43,7 +50,6 @@
 	    </if>
 	    ORDER BY postdate
 	</select>
-
 	
 	<!-- 에약정보 한개 가져오기  -->
 	<select id="getReservationDetails"
@@ -69,6 +75,13 @@
 	<update id="cancelReservation">
 	    UPDATE appointment
 	    SET cancel = 'T'
+	    WHERE app_id = #{app_id}
+	</update>
+	
+	<!-- 예약내역 숨김  -->
+	<update id="hideReservation">
+	    UPDATE appointment
+	    SET hide = 'T'
 	    WHERE app_id = #{app_id}
 	</update>
 

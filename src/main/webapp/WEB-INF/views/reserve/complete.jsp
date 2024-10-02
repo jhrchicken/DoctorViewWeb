@@ -24,6 +24,13 @@
 	      	<div class="complete">
 	      		<img src="/images/complete.svg" alt="" />
 	      		<div class="message">
+	      		
+	      			<div class="details">
+	      				<p class="blue">병원: ${ reserveDTO.hospname }</p>
+	      				<p class="blue">날짜 및 시간: ${ reserveDTO.postdate }, ${ reserveDTO.posttime }</p>
+	      				<p class="blue">방문자: ${ reserveDTO.username }</p>
+					</div>
+								
 					<p>예약이 완료되었습니다.</p>
 					<p>방문 시 신분증을 꼭 지참해주세요!</p>
 	      		</div>
