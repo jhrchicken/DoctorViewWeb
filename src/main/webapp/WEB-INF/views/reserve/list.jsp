@@ -50,33 +50,32 @@ function deleteReservation(app_id) {
 						<div class="info_top">
 							<h3>${ row.hospname }</h3>
 							
-							<c:if test="${ row.cancel eq 'T' }">
-								<h3>취소된 예약</h3>
-							</c:if>
-							
-							
-							<div class="detail">
-								<div class="details">
-									<p class="blue">예약 의사</p>
-									<p>${ row.doctorname }</p>
-
-								</div>
-								<div class="details">
-									<p class="blue">예약자</p>
-									<p>${ row.username }</p>
-								</div>
-								<div class="details">
-									<p class="blue">예약일</p>
-									<p>${ row.postdate } ${ row.posttime }</p>
-								</div>
-								<div class="details">
-							    <c:if test="${ not empty row.user_memo }">
+							<div class="detail_content">
+								<div class="detail">
 									<div class="details">
-										<p class="blue">메모</p>
-										<p>${ row.user_memo }</p>
+										<p class="blue">예약 의사</p>
+										<p>${ row.doctorname }</p>
+	
 									</div>
-        						</c:if>
-        						</div>
+									<div class="details">
+										<p class="blue">예약자</p>
+										<p>${ row.username }</p>
+									</div>
+									<div class="details">
+										<p class="blue">예약일</p>
+										<p>${ row.postdate } ${ row.posttime }</p>
+									</div>
+								</div>
+								<div class="detail memo">
+									<div class="details">
+									    <c:if test="${ not empty row.user_memo }">
+											<div class="details">
+												<p class="blue">메모</p>
+												<p>${ row.user_memo }</p>
+											</div>
+		        						</c:if>
+	        						</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -95,6 +94,11 @@ function deleteReservation(app_id) {
 <%-- 						<button type="button" onclick="deleteReservation(${ row.app_id });">내역<br />숨김</button> --%>
 						<button type="button" onclick="deleteReservation(${ row.app_id });">예약<br />취소</button>
 					</div>
+					<c:if test="${ row.cancel eq 'T' }">
+						<div class="cancel">
+							<p>취소된 예약</p>
+						</div>
+					</c:if>
 				</li>
 				</c:if>
 				
