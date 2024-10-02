@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>닥터뷰 | 병원 예약</title>
 <%@include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/reserve-complete.css" />
+<link rel="stylesheet" href="/css/reserve-alert.css" />
 </head>
 <body>
 <%@include file="../common/main_header.jsp" %>
@@ -30,7 +30,7 @@
 				<a href="../../reserve.do">예약관리 페이지로 이동</a>
 	      	</div>
       	</div>
-      
+            
     </div>
   </div>
 </main>

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>닥터뷰 | 마이페이지</title>
 <%@ include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/my-doctor-list.css" />
+<link rel="stylesheet" href="/css/my-reservation-list.css" />
 <script>
 function deleteReservation(app_id) {
 	if (confirm("예약을 취소하시겠습니까?")) {
@@ -32,15 +32,15 @@ function deleteReservation(app_id) {
 <div class="my_doctor">
 <c:choose>
 	<c:when test="${ empty reserveInfo }">
-		<div>
-			<p>예약정보가 없습니다</p>
+		<div class="none">
+			<p>예약 정보가 없습니다.</p>
 		</div>
 	</c:when>
 	<c:otherwise>
 		<ul class="doctor">
 			<c:forEach items="${ reserveInfo }" var="row" varStatus="loop">
 			
-				<!-- user회원 화면-->
+				<!-- user 회원 화면-->
 				<c:if test="${ userAuth eq 'ROLE_USER' }">
 				<li>
 					<form name="deleteReservationForm_${row.app_id}">
@@ -67,11 +67,7 @@ function deleteReservation(app_id) {
 								</div>
 								<div class="details">
 									<p class="blue">예약일</p>
-									<p>${ row.postdate }</p>
-								</div>
-								<div class="details">
-									<p class="blue">시간</p>
-									<p>${ row.posttime }</p>
+									<p>${ row.postdate } ${ row.posttime }</p>
 								</div>
 								<div class="details">
 							    <c:if test="${ not empty row.user_memo }">
@@ -89,20 +85,20 @@ function deleteReservation(app_id) {
 					
 						<!-- 메모작성 유무에 따라 버튼 text 변경  -->
 						<c:if test="${ empty row.user_memo }">
-							<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">메모추가</button>
+							<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">메모<br />추가</button>
 						</c:if>
 						<c:if test="${ not empty row.user_memo }">
-							<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">메모수정</button>
+							<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">메모<br />수정</button>
 						</c:if>
 						
 						<!-- 추가 예정 -->	
-<%-- 						<button type="button" onclick="deleteReservation(${ row.app_id });">내역숨김</button> --%>
-						<button type="button" onclick="deleteReservation(${ row.app_id });">예약취소</button>
+<%-- 						<button type="button" onclick="deleteReservation(${ row.app_id });">내역<br />숨김</button> --%>
+						<button type="button" onclick="deleteReservation(${ row.app_id });">예약<br />취소</button>
 					</div>
 				</li>
 				</c:if>
 				
-				<!-- hosp회원 화면-->
+				<!-- hosp 회원 화면-->
 				<c:if test="${ userAuth eq 'ROLE_HOSP' }">
 				
 				<li>
@@ -157,15 +153,20 @@ function deleteReservation(app_id) {
 					<!-- 추가 예정 -->
 					<!-- 하단 메뉴(버튼) -->
 <!-- 					<div class="board_btn"> -->
-<%-- 						<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">메모추가</button> --%>
+<%-- 						<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">메모<br />추가</button> --%>
 <%-- 						<button type="button" onclick="deleteReservation(${ row.app_id });">삭제</button> --%>
 <!-- 					</div> -->
 				</li>
 				</c:if>
-				
 			</c:forEach>
 			
 		</ul>
+		<!-- 페이지네이션 -->
+		<div class="pagination">
+			<div class="pagination_inner">
+				${ pagingImg }
+			</div>
+		</div>	
 	</c:otherwise>
 </c:choose>
 </div>
