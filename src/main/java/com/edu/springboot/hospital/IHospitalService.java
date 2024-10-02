@@ -23,7 +23,10 @@ public interface IHospitalService {
 	// 병원 조회
 	public BasicDTO viewHosp(String id);
 	
-
+	// 병원 검색: 검색된 병원의 개수를 카운트
+	public int countSearchHosp(ParameterDTO parameterDTO);
+	// 병원 검색
+	public List<HospitalDTO> listSearchHosp(String searchSido, String searchGugun, String searchDong, String searchField, String searchWord, List<String> filterList, int start, int end);
 	
 	// 병원 상세정보 조회
 	public DetailDTO selectDetail(String id);
@@ -86,8 +89,14 @@ public interface IHospitalService {
 	// 리뷰의 모든 해시태그 삭제
 	public int deleteAllReviewHashtag(int review_idx);
 	
-	// 시도를 인출
+	// 주소 동적 셀렉트: 시도를 인출
 	public List<AddressDTO> selectSido();
-	// 시도에 해당하는 구군을 인출
+	// 주소 동적 셀렉트: 시도에 해당하는 시구군을 인출
 	public List<AddressDTO> selectGugun(AddressDTO addressDTO);
+	// 주소 동적 셀렉트: 시구군에 해당하는 읍면동을 인출
+	public List<AddressDTO> selectDong(AddressDTO addressDTO);
+	
+	// 지도에 표시할 병원 목록
+	public ArrayList<HospitalDTO> listHospMark();
+	
 }

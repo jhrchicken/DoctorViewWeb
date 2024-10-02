@@ -15,7 +15,7 @@
 						<ul>
 							<li><a href="/hospital.do">병원 찾기</a></li>
 							<li><a href="/doctor.do">의사 찾기</a></li>
-							<li><a href="#">지도로 찾기</a></li>
+							<li><a href="/hospital/map.do">지도로 찾기</a></li>
 						</ul>
 					</div>
 				</li>

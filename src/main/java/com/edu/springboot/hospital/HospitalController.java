@@ -1,18 +1,22 @@
 package com.edu.springboot.hospital;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.springboot.doctor.DoctorDTO;
 
@@ -53,7 +57,7 @@ public class HospitalController {
 		model.addAttribute("maps", maps);
 		// 병원 API 목록 저장
 		ArrayList<HospitalDTO> hospList = hospitalDAO.listHospApi(parameterDTO);
-			for (HospitalDTO hospital : hospList) {
+		for (HospitalDTO hospital : hospList) {
 			String id = hospitalDAO.selectHospId(hospital.getName());
 			// 입점
 			if (id != null) {
@@ -96,15 +100,102 @@ public class HospitalController {
 		return "hospital/list";
 	}
 	
-	
-	/* 선택된 시도를 파라미터로 전달하면 DTO가 받은 후 매퍼를 호출한다.
-	 * 반환된 결과는 List이므로 이를 JSON 객체로 출력하기 위해 Map 컬랙션을 생성한 후 result 키값에 List를 추가해준다. */
-	@RequestMapping("/getGugun.do")
+	// 병원 검색 처리
+    @PostMapping("/hospital/searchHosp.do")
+    public ModelAndView searchHosp(HttpServletRequest req, ParameterDTO parameterDTO,
+            @RequestParam(name = "searchSido", required = false) String searchSido,
+            @RequestParam(name = "searchGugun", required = false) String searchGugun,
+            @RequestParam(name = "searchDong", required = false) String searchDong,
+            @RequestParam(name = "searchField", required = false) String searchField,
+            @RequestParam(name = "searchWord", required = false) String searchWord,
+            @RequestParam(name = "filters", required = false) String filters) {
+
+    	List<String> filterArray = filters != null ? Arrays.asList(filters.split(",")) : new ArrayList<>();
+    	// 병원 API 레코드 개수
+    	parameterDTO.setSearchSido(searchSido);
+    	parameterDTO.setSearchGugun(searchGugun);
+    	parameterDTO.setSearchDong(searchDong);
+    	parameterDTO.setSearchField(searchField);
+    	parameterDTO.setSearchField(searchField);
+    	parameterDTO.setSearchWord(searchWord);
+    	parameterDTO.setFilters(filterArray);
+    	int total = hospitalDAO.countSearchHosp(parameterDTO);
+		// 현재 페이지
+		int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
+				? 1 : Integer.parseInt(req.getParameter("pageNum"));
+		// 현재 페이지에 출력할 게시글의 구간 계산 및 저장
+		int start = (pageNum - 1) * postsPerPage + 1;
+		int end = pageNum * postsPerPage;
+		parameterDTO.setStart(start);
+		parameterDTO.setEnd(end);
+		// 뷰에서 게시글의 가상번호 계산을 위한 값 저장
+		Map<String, Object> maps = new HashMap<String, Object>();
+		maps.put("total", total);
+		maps.put("postsPerPage", postsPerPage);
+		maps.put("pageNum", pageNum);
+        // 필터 처리
+        List<HospitalDTO> hospList = hospitalDAO.listSearchHosp(searchSido, searchGugun, searchDong, searchField, searchWord, filterArray, start, end);
+        for (HospitalDTO hospital : hospList) {
+			String id = hospitalDAO.selectHospId(hospital.getName());
+			// 입점
+			if (id != null) {
+				hospital.setEnter("T");
+				hospital.setId(id);
+				// 입점 병원 상세 정보
+				DetailDTO detailDTO = hospitalDAO.selectDetail(id);
+				if (detailDTO != null) {
+					if (detailDTO.getPhoto() != null) {
+						hospital.setPhoto(detailDTO.getPhoto());
+					}
+				}
+			}
+			// 미입점
+			else {
+				hospital.setEnter("F");
+			}
+			// 기능과 관련된 정보
+			int hosplikecount = hospitalDAO.countHospLike(hospital.getApi_idx());
+			int reviewcount = hospitalDAO.countReview(hospital.getApi_idx());
+			int scoresum = hospitalDAO.sumScore(hospital.getApi_idx());
+			if (reviewcount != 0) {
+				hospital.setScore(scoresum / reviewcount);
+			}
+			else {
+				hospital.setScore(0);
+			}
+			hospital.setLikecount(hosplikecount);
+			hospital.setReviewcount(reviewcount);
+		}
+		// ModelAndView 설정
+        ModelAndView mav = new ModelAndView("hospital/listPart");
+        mav.addObject("hospList", hospList);
+        mav.addObject("maps", maps);
+		// 해시태그
+		ArrayList<HashtagDTO> hashtagList = hospitalDAO.listHashtag();
+		mav.addObject("hashtagList", hashtagList);
+		// 목록 하단에 출력할 페이지 번호를 String으로 저장한 후 Model에 저장
+		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/hospital.do?");
+		mav.addObject("pagingImg", pagingImg);
+        return mav;
+    }
+
+	// 시구군 동적 셀렉트
+	@RequestMapping("/hospital/getGugun.do")
 	@ResponseBody
-	public Map<String, Object> address(AddressDTO addressDTO) {
-		List<AddressDTO> gugunLists = hospitalDAO.selectGugun(addressDTO);
+	public Map<String, Object> address1(AddressDTO addressDTO) {
+		List<AddressDTO> gugunList = hospitalDAO.selectGugun(addressDTO);
 		Map<String, Object> maps = new HashMap<>();
-		maps.put("result", gugunLists);
+		maps.put("result", gugunList);
+		return maps;
+	}
+	
+	// 읍면동 동적 셀렉트
+	@RequestMapping("/hospital/getDong.do")
+	@ResponseBody
+	public Map<String, Object> address2(AddressDTO addressDTO) {
+		List<AddressDTO> dongList = hospitalDAO.selectDong(addressDTO);
+		Map<String, Object> maps = new HashMap<>();
+		maps.put("result", dongList);
 		return maps;
 	}
 	
@@ -316,4 +407,25 @@ public class HospitalController {
 		}
 		return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 지도
+	@GetMapping("/hospital/map.do")
+	public String map(Model model) {
+		ArrayList<HospitalDTO> hospList = hospitalDAO.listHospMark();
+		model.addAttribute("hospList", hospList);
+		return "/hospital/map";
+	}
+	
+	
+	
+	
+	
 }

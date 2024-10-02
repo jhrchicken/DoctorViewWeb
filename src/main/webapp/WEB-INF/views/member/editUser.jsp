@@ -55,11 +55,9 @@ $(function() {
       <div class="login_wrap">
         <h2>회원정보 변경</h2>
         
-        <!-- 로그인 실패 시 메시지 -->
-        <c:if test="${ not empty editUserFaild }">
-			<!-- 글자색 css 변경필요 -->
-	   		<p><b>${ editUserFaild }</b></p>
-        </c:if>
+	    <c:if test="${ not empty editUserFaild }">
+	  		<p>${ editUserFaild }</p>
+	    </c:if>
         
         <form name="joinFrm" method="post" action="../../member/editUser.do" onsubmit="return validateForm(this);">
           <p>*필수 입력사항</p>

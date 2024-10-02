@@ -8,6 +8,5 @@ public class AddressDTO {
 	private String sido;
 	private String gugun;
 	private String dong;
-	private String bunji;
 	private String seq;
 }

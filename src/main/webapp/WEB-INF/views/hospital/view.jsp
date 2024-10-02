@@ -121,7 +121,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 selectedHashtags = selectedHashtags.filter(h => h !== tag);
                 button.style.backgroundColor = ''; // 원래 색상으로 변경
                 button.style.color = ''; // 원래 텍스트 색상으로 변경
-            } else {
+            }
+            else {
                 // 선택되지 않은 해시태그인 경우 추가
                 selectedHashtags.push(tag);
                 button.style.backgroundColor = '#005ad5'; // 선택된 색상으로 변경
@@ -530,10 +531,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         <label>해시태그 선택:</label>
                         <div id="hashtag-list">
                             <!-- 해시태그 목록 -->
-                            <button type="button" class="btn btn-secondary m-1">#친절해요</button>
-                            <button type="button" class="btn btn-secondary m-1">#전문적이예요</button>
-                            <button type="button" class="btn btn-secondary m-1">#청결해요</button>
-                            <button type="button" class="btn btn-secondary m-1">#신속해요</button>
+                            <button type="button" class="btn btn-secondary m-1">친절해요</button>
+                            <button type="button" class="btn btn-secondary m-1">전문적이예요</button>
+                            <button type="button" class="btn btn-secondary m-1">청결해요</button>
+                            <button type="button" class="btn btn-secondary m-1">신속해요</button>
                         </div>
                     </div>
                     <!-- 별 점수 선택 -->
@@ -586,10 +587,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						<label>해시태그 선택:</label>
 						<div id="hashtag-list">
 							<!-- 해시태그 목록 -->
-							<button type="button" class="btn btn-secondary m-1">#친절해요</button>
-							<button type="button" class="btn btn-secondary m-1">#전문적이예요</button>
-							<button type="button" class="btn btn-secondary m-1">#청결해요</button>
-							<button type="button" class="btn btn-secondary m-1">#신속해요</button>
+							<button type="button" class="btn btn-secondary m-1">친절해요</button>
+							<button type="button" class="btn btn-secondary m-1">전문적이예요</button>
+							<button type="button" class="btn btn-secondary m-1">청결해요</button>
+							<button type="button" class="btn btn-secondary m-1">신속해요</button>
 						</div>
 					</div>
 					<!-- 별 점수 선택 영역 -->

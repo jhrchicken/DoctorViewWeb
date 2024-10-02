@@ -11,39 +11,143 @@
 		resultType="int"
 		parameterType="com.edu.springboot.hospital.ParameterDTO">
 		SELECT COUNT(*) FROM api
-		WHERE 1 = 1
-		<if test="searchWord!=null and !searchWord.equals('')">
-			AND name LIKE '%' || #{searchWord} || '%'
-		</if>
- 		<if test="searchSido!= null and !searchSido.equals('')">
-			AND address LIKE '%' || #{searchSido} || '%'
-		</if>
-		<if test="searchGugun != null and !searchGugun.equals('')">
-			AND address LIKE '%' || #{searchGugun} || '%'
-		</if>
 	</select>
-	
+
 	<!-- 병원 API 목록: 병원 API에서 한 페이지에 출력할 레코드를 인출 -->
 	<select id="listHospApi"
-		resultType="com.edu.springboot.hospital.HospitalDTO"
-		parameterType="com.edu.springboot.hospital.ParameterDTO">
+			resultType="com.edu.springboot.hospital.HospitalDTO"
+			parameterType="com.edu.springboot.hospital.ParameterDTO">
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
 				SELECT * FROM api
-					WHERE 1 = 1
-					<if test="searchWord!=null and !searchWord.equals('')">
-						AND name LIKE '%'||#{searchWord}||'%'
-					</if>
-					<if test="searchSido!= null and !searchSido.equals('')">
-						AND address LIKE '%' || #{searchSido} || '%'
-					</if>
-					<if test="searchGugun != null and !searchGugun.equals('')">
-						AND address LIKE '%' || #{searchGugun} || '%'
-					</if>
 				ORDER BY api_idx DESC
 			) Tb
 		)
-		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}
+		WHERE rNum <![CDATA[>=]]> #{start} AND rNum <![CDATA[<=]]> #{end}
+	</select>
+	
+	<!-- 병원 검색: 검색에 만족하는 병원 개수 카운트 -->
+	<select id="countSearchHosp"
+		resultType="int"
+		parameterType="com.edu.springboot.hospital.ParameterDTO">
+		SELECT COUNT(*) FROM api
+	</select>
+	
+	
+	
+	
+	
+	<!-- 병원 검색 개수 -->
+	<select id="countSelectHosp"
+		resultType="int"
+		parameterType="com.edu.springboot.hospital.ParameterDTO">
+		SELECT COUNT(*) FROM api
+		WHERE 1 = 1
+		<!-- 검색어 -->
+		<if test="param5 != null and param5.trim() != ''">
+			AND ${param4} LIKE '%' || #{param5} || '%'
+		</if>
+		<!-- 시도 선택 -->
+		<if test="param1 != null and param1.trim() != ''">
+			AND address LIKE '%' || #{param1} || '%'
+		</if>
+		<!-- 시군구 선택 -->
+		<if test="param2 != null and param2.trim() != ''">
+			AND address LIKE '%' || #{param2} || '%'
+		</if>
+		<!-- 읍면동 선택 -->
+		<if test="param3 != null and param3.trim() != ''">
+			AND address LIKE '%' || #{param3} || '%'
+		</if>
+           <!-- 필터 처리 -->
+           <if test="param6 != null and param6.size() != 0">
+           	AND api_idx IN (
+           		SELECT api.api_idx FROM member
+           		INNER JOIN api on member.name = api.name
+           		WHERE member.id IN (
+           			SELECT hosp_ref FROM DETAIL
+           			WHERE 1 = 1
+           			<if test="param6.contains('parking')">
+           				AND parking = 'Y'
+           			</if>
+           			<if test="param6.contains('pcr')">
+           				AND pcr = 'Y'
+           			</if>
+           			<if test="param6.contains('hospitalize')">
+           				AND hospitalize = 'Y'
+           			</if>
+           			<if test="param6.contains('system')">
+           				AND system = 'Y'
+           			</if>
+           		)
+           	)
+           </if>
+           ORDER BY api_idx DESC
+	</select>
+	
+	<!-- 병원 검색 -->
+	<select id="listSearchHosp"
+		parameterType="map"
+		resultType="com.edu.springboot.hospital.HospitalDTO">
+	    SELECT * FROM (
+	        SELECT Tb.*, rownum rNum FROM (
+	            SELECT * FROM api
+	            WHERE 1 = 1
+				<!-- 검색어 -->
+			    <if test="param5 != null and param5.trim() != ''">
+			        <if test="param4 != 'hashtag'">
+			            AND ${param4} LIKE '%' || #{param5} || '%'
+			        </if>
+			        <if test="param4 == 'hashtag'">
+			            AND api_idx IN (
+			            	SELECT api.api_idx FROM member
+		            		INNER JOIN api on member.name = api.name
+		            		WHERE member.id IN (
+		            			SELECT hosp_ref FROM hashtag
+		            			WHERE tag LIKE '%' || #{param5} || '%'
+		            		)
+			            )
+			        </if>
+			    </if>
+				<!-- 시도 선택 -->
+				<if test="param1 != null and param1.trim() != ''">
+					AND address LIKE '%' || #{param1} || '%'
+				</if>
+				<!-- 시군구 선택 -->
+				<if test="param2 != null and param2.trim() != ''">
+					AND address LIKE '%' || #{param2} || '%'
+				</if>
+				<!-- 읍면동 선택 -->
+				<if test="param3 != null and param3.trim() != ''">
+					AND address LIKE '%' || #{param3} || '%'
+				</if>
+	            <!-- 필터 처리 -->
+	            <if test="param6 != null and param6.size() != 0">
+	            	AND api_idx IN (
+	            		SELECT api.api_idx FROM member
+	            		INNER JOIN api on member.name = api.name
+	            		WHERE member.id IN (
+	            			SELECT hosp_ref FROM DETAIL
+	            			WHERE 1 = 1
+	            			<if test="param6.contains('parking')">
+	            				AND parking = 'Y'
+	            			</if>
+	            			<if test="param6.contains('pcr')">
+	            				AND pcr = 'Y'
+	            			</if>
+	            			<if test="param6.contains('hospitalize')">
+	            				AND hospitalize = 'Y'
+	            			</if>
+	            			<if test="param6.contains('system')">
+	            				AND system = 'Y'
+	            			</if>
+	            		)
+	            	)
+	            </if>
+	            ORDER BY api_idx DESC
+	        ) Tb
+	    )
+	   	WHERE rNum <![CDATA[>=]]> #{param7} AND rNum <![CDATA[<=]]> #{param8}
 	</select>
 	
 	<!-- 병원 API 조회 -->
@@ -258,19 +362,54 @@
 	
 	
 	
-
-	<!-- 시도를 인출: 중복데이터를 그룹화하여 인출 -->
+	
+	
+	
+	<!-- 주소 동적 셀렉트: 시도를 인출 -->
 	<select id="selectSido"
 		resultType="com.edu.springboot.hospital.AddressDTO">
-		SELECT sido FROM zipcode GROUP BY sido ORDER BY sido ASC	
+		SELECT sido FROM address
+		GROUP BY sido ORDER BY sido ASC	
 	</select>
 	
-	<!-- 선택한 시/도의 조건에 맞는 구/군을 인출 -->
+	<!-- 주소 동적 셀렉트: 시도에 해당하는 시구군을 인출 -->
 	<select id="selectGugun"
 		parameterType="com.edu.springboot.hospital.AddressDTO"
 		resultType="com.edu.springboot.hospital.AddressDTO">
-		SELECT DISTINCT gugun FROM zipcode
-		WHERE sido=#{sido} ORDER BY gugun DESC
+		SELECT gugun FROM address
+		WHERE sido=#{sido}
+		GROUP BY gugun ORDER BY gugun DESC
 	</select>
+	
+	<!-- 주소 동적 셀렉트: 시구군에 해당하는 읍면동을 인출 -->
+	<select id="selectDong"
+		parameterType="com.edu.springboot.hospital.AddressDTO"
+		resultType="com.edu.springboot.hospital.AddressDTO">
+		SELECT DISTINCT dong FROM address
+		WHERE gugun=#{gugun} ORDER BY dong DESC
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 지도에 표시할 병원 목록 -->
+	<select id="listHospMark"
+		resultType="com.edu.springboot.hospital.HospitalDTO">
+		SELECT * FROM api
+		ORDER BY api_idx DESC
+	</select>
+	
+	
+	
+	
+	
+	
 
 </mapper>
