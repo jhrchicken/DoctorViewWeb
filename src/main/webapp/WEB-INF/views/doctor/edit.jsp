@@ -74,7 +74,7 @@
 				</div> 
 
 				<div class="board_btn">
-					<button type="button" onclick="location.href='../doctor.do';">취소</button>
+					<button type="button" onclick="location.href='/member/doctorInfo.do';">취소</button>
 					<button type="submit">완료</button>
 				</div>
 			</form>

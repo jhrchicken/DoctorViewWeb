@@ -37,8 +37,7 @@ function validateForm(form) {
           
         <!-- 로그인 실패 시 메시지 -->
         <c:if test="${ not empty loginFailed }">
-			<!-- 글자색 css 변경필요 -->
-	   		<p><b>${ loginFailed }</b></p>
+	   		<p class="fail">${ loginFailed }</p>
         </c:if>
 	
         <form name="loginFrm" method="post" action="../member/login.do" onsubmit="return validateForm(this);">

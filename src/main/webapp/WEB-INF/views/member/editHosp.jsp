@@ -42,14 +42,16 @@ function validateForm(form) {
       <div class="login_wrap">
       	<h2>병원정보 수정</h2>
     
+    	<p class="fail">실패</p>
+    	
 	    <c:if test="${ not empty editUserFaild }">
 			<!-- 글자색 css 변경필요 -->
-	  		<p><b>${ editUserFaild }</b></p>
+	  		<p>${ editUserFaild }</p>
 	    </c:if>
 	        
 	        
 		<form name="joinFrm" method="post" enctype="multipart/form-data"
-				action="../../member/editdosp.do" onsubmit="return validateForm(tdis);">
+				action="../../member/editdosp.do" onsubmit="return validateForm(this);">
 			<p>*필수 입력사항</p>
 			<table class="regist">
 				<tr>

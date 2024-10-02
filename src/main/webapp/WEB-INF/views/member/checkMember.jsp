@@ -28,10 +28,11 @@ function validateForm(form) {
 	      <div class="login_wrap">
 	        <h2>회원 인증</h2>
 	        <p>로그인한 회원의 비밀번호를 입력해주세요.</p>
+	        
           	<!-- 회원인증 실패 시 메시지 -->
 	        <c:if test="${ not empty checkMemberFaild }">
 				<!-- css 변경필요 -->
-		   		<p><b>${ checkMemberFaild }</b></p>
+		   		<p class="fail">${ checkMemberFaild }</p>
 	        </c:if>
 	        <form name="loginFrm" method="post" action="../member/checkMember.do" onsubmit="return validateForm(this);">
 	          <div class="login">

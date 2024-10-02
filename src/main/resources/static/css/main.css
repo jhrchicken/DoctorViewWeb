@@ -159,4 +159,5 @@
 }
 #container .notify span {
   color: red;
+  font-weight: 500;
 }
