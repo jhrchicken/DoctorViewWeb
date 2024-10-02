@@ -65,7 +65,7 @@ public class MemberController {
 			return "member/join/user";
 		}
 	} 
-	
+	 
 //	회원가입: 병원
 	@GetMapping("/member/join/hosp.do")
 	public String hospJoinGet() {
