@@ -1,6 +1,6 @@
 #container .content {
   margin-top: 170px;
-  padding: 100px 0;
+  padding: 100px 0 170px;
 }
 #container .content_inner {
   max-width: 1170px;

@@ -26,17 +26,19 @@ public class PagingUtil {
 
         // 페이지표시 제어를 위한 변수
         int blockCount = 1;
+        
         // 4. 페이지를 뿌려주는 로직 : blockPage의 수만큼 또는 마지막페이지가 될때까지 페이지를 출력한다.
-        while (blockCount <= blockPage && intTemp <= totalPage) {
-            if (intTemp == pageNum) {
-                pagingStr += "<p>" + intTemp + "</p>";
-            } else {
-                pagingStr += "<a href='" + page + "pageNum=" + intTemp + "'>" +
-                             intTemp + "</a>";
-            }
-            intTemp++;
-            blockCount++;
-        }
+    	while (blockCount <= blockPage && intTemp <= totalPage) {
+    		if (intTemp == pageNum) {
+    			pagingStr += "<p>" + intTemp + "</p>";
+    		}
+    		else {
+    			pagingStr += "<a href='" + page + "pageNum=" + intTemp + "'>" +
+    					intTemp + "</a>";
+    		}
+    		intTemp++;
+    		blockCount++;
+    	}
 
         // 5. 다음페이지블럭 & 마지막페이지 바로가기
         if (intTemp <= totalPage) {
