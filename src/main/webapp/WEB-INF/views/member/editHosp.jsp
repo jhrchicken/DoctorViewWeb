@@ -42,14 +42,16 @@ function validateForm(form) {
       <div class="login_wrap">
       	<h2>병원정보 수정</h2>
     
+    	<p class="fail">실패</p>
+    	
 	    <c:if test="${ not empty editUserFaild }">
 			<!-- 글자색 css 변경필요 -->
-	  		<p><b>${ editUserFaild }</b></p>
+	  		<p>${ editUserFaild }</p>
 	    </c:if>
 	        
 	        
 		<form name="joinFrm" method="post" enctype="multipart/form-data"
-				action="../../member/editdosp.do" onsubmit="return validateForm(tdis);">
+				action="../../member/editdosp.do" onsubmit="return validateForm(this);">
 			<p>*필수 입력사항</p>
 			<table class="regist">
 				<tr>
@@ -158,27 +160,69 @@ function validateForm(form) {
 				      	</label>
 				     </td>
    				</tr>
-	   			<tr class="time">
-					<td>
-				    	진료 시간: 
-			       		<input type="time" name="starttime" value="${ starttime }" />
-				        ~ 
-				        <input type="time" name="endtime" value="${ endtime }" />
-			        </td>
-	   			</tr>
-				<tr class="time">
-	     			<td>
-	       				휴게 시간: 
-	       				<input type="time" name="startbreak" value="${ startbreak }" />
-				        ~ 
-				        <input type="time" name="endbreak" value="${ endbreak }" />
-				    </td>
-			    </tr>
-			    <tr class="time">
-			    	<td>
-			        	접수 마감: <input type="time" name="deadline" value="${ deadline }" />
-			     	</td>
-			    </tr>
+   			
+
+<!-- 	   			<tr class="time"> -->
+<!-- 					<td> -->
+<!-- 				    	진료 시간:  -->
+<%-- 			       		<input type="time" name="starttime" value="${ starttime }" /> --%>
+<!-- 				        ~  -->
+<%-- 				        <input type="time" name="endtime" value="${ endtime }" /> --%>
+<!-- 			        </td> -->
+<!-- 	   			</tr> -->
+<!-- 				<tr class="time"> -->
+<!-- 	     			<td> -->
+<!-- 	       				휴게 시간:  -->
+<%-- 	       				<input type="time" name="startbreak" value="${ startbreak }" /> --%>
+<!-- 				        ~  -->
+<%-- 				        <input type="time" name="endbreak" value="${ endbreak }" /> --%>
+<!-- 				    </td> -->
+<!-- 			    </tr> -->
+<!-- 			    <tr class="time"> -->
+<!-- 			    	<td> -->
+<%-- 			        	접수 마감: <input type="time" name="deadline" value="${ deadline }" /> --%>
+<!-- 			     	</td> -->
+<!-- 			    </tr> -->
+			    
+			    
+
+<!-- 시간 선택 input 태그에서 select 태그로 변경됨 -->
+<tr class="time">
+  <td>
+    진료 시간: 
+    <select id="starttime" name="starttime">
+	    <option value="">${ starttime }</option>
+	</select>
+     ~ 
+    <select id="endtime" name="endtime">
+	    <option value="">${ endtime }</option>
+	</select>
+  </td>
+</tr>
+<tr class="time">
+  <td>
+    휴게 시간: 
+    <select id="startbreak" name="startbreak">
+	    <option value="">${ startbreak }</option>
+	</select>
+     ~ 
+    <select id="endbreak" name="endbreak">
+	    <option value="">${ endbreak }</option>
+	</select>
+  </td>
+</tr>
+<tr class="time">
+  <td>
+    접수 마감: 
+    <select id="deadline" name="deadline">
+	    <option value="">${ deadline }</option>
+	</select>
+  </td>
+</tr>
+
+			    
+			    
+			    
 		    
 		    
 			    <!-- 추가사항 -->

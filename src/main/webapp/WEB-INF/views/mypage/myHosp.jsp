@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>닥터뷰 | 찜한 병원</title>
 <%@include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/hosp-list.css" />
+<link rel="stylesheet" href="/css/my-heart.css" />
 </head>
 <body>
 <%@include file="../common/main_header.jsp" %>
@@ -22,9 +22,9 @@
 			<div class="list">
 				<c:choose>
 					<c:when test="${ empty hospList }">
-						<tr>
+						<div class="none">
 							<p>검색 결과가 없습니다</p>
-						</tr>
+						</div>
 					</c:when>
 					<c:otherwise>
 						<ul class="hospital">
@@ -98,16 +98,16 @@
 								</li>
 							</c:forEach>
 						</ul>
+						<!-- 페이지네이션 -->
+						<div class="pagination">
+							<div class="pagination_inner">
+								${ pagingImg }
+							</div>
+						</div>	
 					</c:otherwise>
 				</c:choose>
 			</div>
 			
-			<!-- 페이지네이션 -->
-				<div class="pagination">
-					<div class="pagination_inner">
-						${ pagingImg }
-					</div>
-				</div>	
 		</div>
 	</div>
 </main>

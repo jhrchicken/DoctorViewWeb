@@ -1,6 +1,5 @@
 #container .content {
   padding: 170px 0 80px;
-  min-height: 100vh;
 }
 #container .content_inner {
   max-width: 1170px;
@@ -159,4 +158,5 @@
 }
 #container .notify span {
   color: red;
+  font-weight: 500;
 }

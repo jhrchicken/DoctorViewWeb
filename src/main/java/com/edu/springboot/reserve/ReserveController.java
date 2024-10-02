@@ -77,16 +77,55 @@ public class ReserveController {
 	}
 
 	// 예약 관리 페이지로 이동
-	@GetMapping("/reserve/list.do")
-	public String reserveListGet(Model model, HttpSession session) {
-		// 로그인 한 유저의 예약 정보 가져옴
-		List<ReserveDTO> reserveInfo = reserveDAO.getReservationInfo((String)session.getAttribute("userId"));
+	@GetMapping("/reserve.do")
+	public String reserveGet(Model model, HttpSession session) {
+		List<ReserveDTO> reserveInfo;
+		
+		// 로그인 한 유저의 예약 목록 
+		if(session.getAttribute("userAuth").equals("ROLE_USER")) {
+			reserveInfo = reserveDAO.getReservationInfo((String)session.getAttribute("userId"), null);
+		}
+		else {
+			reserveInfo = reserveDAO.getReservationInfo(null, (String)session.getAttribute("userId"));
+		}
 		model.addAttribute("reserveInfo", reserveInfo);
+		
 		
 		return "reserve/list"; 
 	}
 
+	// 예약 추가정보(메모) 
+	@GetMapping("/reserve/extraInfo.do")
+	public String extraInfoGet(Model model, HttpSession session, ReserveDTO reserveDTO) {
+		ReserveDTO reserveDetail = reserveDAO.getReservationDetails(reserveDTO.getApp_id());
+		model.addAttribute("reserveDetail", reserveDetail);
+		
+		return "reserve/extraInfo";
+	}
+	
+	@PostMapping("/reserve/extraInfo.do")
+	public String extraInfoPost(Model model, HttpSession session, ReserveDTO reserveDTO) {
+		// user 메모 추가
+		if(session.getAttribute("userAuth").equals("ROLE_USER")) {
+			reserveDAO.updateReservationDetails(reserveDTO.getApp_id(), reserveDTO.getUser_memo(), null);
+		}
+		// hosp 메모추가
+		else {
+			reserveDAO.updateReservationDetails(reserveDTO.getApp_id(), null, reserveDTO.getHosp_memo());
+		}
+		
+		return "redirect:/reserve.do";
+	}
+	
 	// 예약 취소하기
+	@PostMapping("/reserve/cancel.do")
+	public String cancel(Model model, HttpSession session, ReserveDTO reserveDTO) {
+		reserveDAO.cancelReservation(reserveDTO);
+		
+		return "redirect:/reserve.do";
+	}
+	
+	
 	
 }
 

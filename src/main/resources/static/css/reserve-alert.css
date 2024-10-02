@@ -1,0 +1,32 @@
+#container .content {
+  margin-top: 170px;
+  padding: 100px 0;
+}
+#container .content_inner {
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+
+#container .complete_wrap {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+#container .complete img {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 20px;
+}
+#container .complete .message {
+  font-size: 25px;
+}
+#container .complete a {
+  display: block;
+  padding: 10px;
+  background: var(--point-color2);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 20px;
+  margin-top: 30px;
+}

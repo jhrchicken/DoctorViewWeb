@@ -9,9 +9,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰 | 예약성공</title>
+<title>닥터뷰 | 병원 예약</title>
 <%@include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/reserve-hosp.css" />
+<link rel="stylesheet" href="/css/reserve-alert.css" />
 </head>
 <body>
 <%@include file="../common/main_header.jsp" %>
@@ -19,11 +19,18 @@
 <main id="container">
   <div class="content">
     <div class="content_inner">
-      <h2>병원 예약 성공</h2>
-      <p>예약성공했습니다</p>
-    
-		<a href="../../reserve/list.do">예약관리 페이지로 이동</a>
-      
+      	
+      	<div class="complete_wrap">
+	      	<div class="complete">
+	      		<img src="/images/complete.svg" alt="" />
+	      		<div class="message">
+					<p>예약이 완료되었습니다.</p>
+					<p>방문 시 신분증을 꼭 지참해주세요!</p>
+	      		</div>
+				<a href="../../reserve.do">예약관리 페이지로 이동</a>
+	      	</div>
+      	</div>
+            
     </div>
   </div>
 </main>

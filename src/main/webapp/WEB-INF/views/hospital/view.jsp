@@ -121,12 +121,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 selectedHashtags = selectedHashtags.filter(h => h !== tag);
                 button.style.backgroundColor = ''; // 원래 색상으로 변경
                 button.style.color = ''; // 원래 텍스트 색상으로 변경
+                button.style.border = '';
             }
             else {
                 // 선택되지 않은 해시태그인 경우 추가
                 selectedHashtags.push(tag);
                 button.style.backgroundColor = '#005ad5'; // 선택된 색상으로 변경
                 button.style.color = '#fff'; // 텍스트 색상 변경
+                button.style.border = '1px solid #005ad5';
             }
             // 히든 필드에 선택된 해시태그 값을 저장
             updateHiddenInput();
@@ -152,11 +154,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 selectedHashtags = selectedHashtags.filter(h => h !== tag);
                 button.style.backgroundColor = ''; // 원래 색상으로 변경
                 button.style.color = ''; // 원래 텍스트 색상으로 변경
+                button.style.border = '';
             } else {
                 // 선택되지 않은 해시태그인 경우 추가
                 selectedHashtags.push(tag);
                 button.style.backgroundColor = '#005ad5'; // 선택된 색상으로 변경
                 button.style.color = '#fff'; // 텍스트 색상 변경
+                button.style.border = '1px solid #005ad5';
             }
             // 히든 필드에 선택된 해시태그 값을 저장
             updateHiddenInput();
@@ -314,14 +318,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			
 			<!-- 의사 정보 -->
 			<div class="list">
-				<c:choose>
-					<c:when test="${ empty doctorList }">
-						<tr>
-							<p>등록된 의사가 없습니다.</p>
-						</tr>
-					</c:when>
-					<c:otherwise>
-						<ul class="doctor">
+				<ul class="doctor">
+					<c:choose>
+						<c:when test="${ empty doctorList }">
+							<li class="none">
+								<p>등록된 의사가 없습니다.</p>
+							</li>
+						</c:when>
+						<c:otherwise>
 							<c:forEach items="${ doctorList }" var="row" varStatus="loop">
 								<li>
 									<div class="doc_wrap">
@@ -351,9 +355,9 @@ document.addEventListener('DOMContentLoaded', function () {
 									<a href="../doctor/viewDoctor.do?doc_idx=${ row.doc_idx }"><span class="blind">의사 바로가기</span></a>
 								</li>
 							</c:forEach>
-						</ul>
-					</c:otherwise>
-				</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</ul>
 				
 				<!-- 페이지네이션 -->
 				<div class="pagination">
@@ -417,17 +421,15 @@ document.addEventListener('DOMContentLoaded', function () {
 										</div>
 										<!-- 해시태그 -->
 										<c:if test="${ not empty hashtagList }">
-											<div class="review_hash">
-												<ul>
-													<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
-														<c:if test="${ hashrow.hreview_ref == row.review_idx }">
-															<li class="hash">
-																<p>${ hashrow.tag }</p>
-															</li>
-														</c:if>
-													</c:forEach>
-												</ul>
-											</div>
+											<ul class="review_hash">
+												<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
+													<c:if test="${ hashrow.hreview_ref == row.review_idx }">
+														<li class="hash">
+															<p>${ hashrow.tag }</p>
+														</li>
+													</c:if>
+												</c:forEach>
+											</ul>
 										</c:if>
 										<div class="review_content">
 											<p>${ row.content }</p>					
@@ -527,18 +529,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <!-- 해시태그 선택 -->
-                    <div class="form-group mb-3">
+                    <div class="form-group">
                         <label>해시태그 선택:</label>
                         <div id="hashtag-list">
                             <!-- 해시태그 목록 -->
-                            <button type="button" class="btn btn-secondary m-1">친절해요</button>
-                            <button type="button" class="btn btn-secondary m-1">전문적이예요</button>
-                            <button type="button" class="btn btn-secondary m-1">청결해요</button>
-                            <button type="button" class="btn btn-secondary m-1">신속해요</button>
+                            <button type="button" class="btn btn-secondary">친절해요</button>
+                            <button type="button" class="btn btn-secondary">전문적이예요</button>
+                            <button type="button" class="btn btn-secondary">청결해요</button>
+                            <button type="button" class="btn btn-secondary">신속해요</button>
                         </div>
                     </div>
                     <!-- 별 점수 선택 -->
-                    <div class="form-group mb-3">
+                    <div class="form-group">
                         <label>점수 선택:</label>
                         <div id="star-rating" style="cursor: pointer;">
                             <!-- 별 아이콘 -->
@@ -550,10 +552,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                     </div>
                     <!-- 폼 입력 -->
-                    <textarea class="form-control mb-3" name="doctor" style="height: 20px;" placeholder="담당 의사를 입력해주세요"></textarea>
-                    <textarea class="form-control mb-3" name="treat" style="height: 20px;" placeholder="치료 내용을 입력해주세요"></textarea>
-                    <textarea class="form-control mb-3" name="cost" style="height: 20px;" placeholder="비용을 입력해주세요"></textarea>
-                    <textarea class="form-control mb-3" name="content" style="height: 100px;" placeholder="내용을 입력해주세요 (필수입력)"></textarea>
+                    <textarea class="form-control" name="doctor" style="height: 20px;" placeholder="담당 의사를 입력해주세요"></textarea>
+                    <textarea class="form-control" name="treat" style="height: 20px;" placeholder="치료 내용을 입력해주세요"></textarea>
+                    <textarea class="form-control" name="cost" style="height: 20px;" placeholder="비용을 입력해주세요"></textarea>
+                    <textarea class="form-control" name="content" style="height: 100px;" placeholder="내용을 입력해주세요 (필수입력)"></textarea>
                 </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer">
@@ -583,18 +585,18 @@ document.addEventListener('DOMContentLoaded', function () {
 				<div class="modal-body">
 					<input type="hidden" id="review_edit_review_idx" name="review_idx" value="">
 					<!-- 해시태그 선택 영역 -->
-					<div class="form-group mb-3">
+					<div class="form-group">
 						<label>해시태그 선택:</label>
 						<div id="hashtag-list">
 							<!-- 해시태그 목록 -->
-							<button type="button" class="btn btn-secondary m-1">친절해요</button>
-							<button type="button" class="btn btn-secondary m-1">전문적이예요</button>
-							<button type="button" class="btn btn-secondary m-1">청결해요</button>
-							<button type="button" class="btn btn-secondary m-1">신속해요</button>
+							<button type="button" class="btn btn-secondary">친절해요</button>
+							<button type="button" class="btn btn-secondary">전문적이예요</button>
+							<button type="button" class="btn btn-secondary">청결해요</button>
+							<button type="button" class="btn btn-secondary">신속해요</button>
 						</div>
 					</div>
 					<!-- 별 점수 선택 영역 -->
-					<div class="form-group mb-3">
+					<div class="form-group">
 						<label>점수 선택:</label>
 						<div id="star-rating" style="cursor: pointer;">
 							<!-- 별 아이콘 -->
@@ -606,10 +608,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						</div>
 					</div>
 					<!-- 댓글 내용 -->
-                    <textarea class="form-control mb-3" id="review_edit_doctor"  name="doctor" style="height: 20px;" placeholder="담당 의사를 입력해주세요"></textarea>
-                    <textarea class="form-control mb-3" id="review_edit_treat" name="treat" style="height: 20px;" placeholder="치료 내용을 입력해주세요"></textarea>
-                    <textarea class="form-control mb-3" id="review_edit_cost" name="cost" style="height: 20px;" placeholder="비용을 입력해주세요"></textarea>
-					<textarea class="form-control mb-3" id="review_edit_content" name="content" style="height: 100px;" placeholder="내용을 입력해주세요 (필수입력)"></textarea>
+                    <textarea class="form-control" id="review_edit_doctor"  name="doctor" style="height: 20px;" placeholder="담당 의사를 입력해주세요"></textarea>
+                    <textarea class="form-control" id="review_edit_treat" name="treat" style="height: 20px;" placeholder="치료 내용을 입력해주세요"></textarea>
+                    <textarea class="form-control" id="review_edit_cost" name="cost" style="height: 20px;" placeholder="비용을 입력해주세요"></textarea>
+					<textarea class="form-control" id="review_edit_content" name="content" style="height: 100px;" placeholder="내용을 입력해주세요 (필수입력)"></textarea>
 				</div>
 				<!-- Modal Footer -->
 				<div class="modal-footer">

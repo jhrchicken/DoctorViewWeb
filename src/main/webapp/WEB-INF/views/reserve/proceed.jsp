@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page session="true" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-
-<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +9,9 @@
 <title>닥터뷰 | 예약하기</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/reserve-hosp.css" />
+
 <script>
+//  ****************** 달력 관련 ******************  
     document.addEventListener("DOMContentLoaded", function() {
         buildCalendar();
         
@@ -25,7 +24,6 @@
         });
     });
     
-    //  ****************** 달력 관련 ******************  
     var toDay = new Date(); // @param 전역 변수, 오늘 날짜 / 내 컴퓨터 로컬을 기준으로 toDay에 Date 객체를 넣어줌
     var nowDate = new Date();  // @param 전역 변수, 실제 오늘날짜 고정값
     
@@ -81,19 +79,16 @@
 	
 	           // 오늘 이후 날짜일 경우 && 선택 가능한 요일인지 확인
 	           if (currentDate >= nowDate && weeks.includes(korWeekday)) {
-	               column.style.backgroundColor = "#FFFFE6"; // 오늘 이후 날짜 배경 색상
-	               column.style.cursor = "pointer";
 	               column.onclick = function () { calendarChoiceDay(this); };
+	               // 오늘 이후 날짜 배경 색상
+	               column.classList.add("future")
 	           } else {
 	               // 오늘 이전 날짜 또는 선택 불가능한 요일
-	               column.style.backgroundColor = "#E5E5E5"; // 비활성화 색상
-	               column.style.cursor = "not-allowed"; // 선택 불가 커서
+	               column.classList.add("past");
 	           }
 	
 	           // 오늘 날짜일 경우
 	           if (day === nowDate.getDate() && toDay.getMonth() === nowDate.getMonth() && toDay.getFullYear() === nowDate.getFullYear()) {
-	               column.style.backgroundColor = "#FFFFE6"; // 오늘 날짜 강조
-	               column.style.cursor = "pointer"; // 오늘 날짜도 선택 가능하게 수정
 	               column.onclick = function () { calendarChoiceDay(column); }; // 오늘 날짜도 선택 가능
 	               calendarChoiceDay(column); // 오늘 날짜 자동 선택
 	           }
@@ -101,17 +96,17 @@
 	           // 이전 또는 다음 달 날짜 처리
 	           let exceptDay = new Date(doMonth.getFullYear(), doMonth.getMonth(), day);
 	           column.innerText = autoLeftPad(exceptDay.getDate(), 2);
-	           column.style.color = "#A9A9A9"; // 이전/다음 달 날짜 회색 표시
+	           column.classList.add("prevnext")
 	       }
 	
 	       // 일요일
 	       if (dom % 7 == 1) {
-	           column.style.color = "#FF4D4D"; // 일요일 빨간색
+	    	   column.classList.add("sunday");
 	       }
 	
 	       // 토요일
 	       if (dom % 7 == 0) {
-	           column.style.color = "#4D4DFF"; // 토요일 파란색
+	    	   column.classList.add("saturday");
 	           row = tbCalendar.insertRow(); // 주가 끝날 때마다 새 행 추가
 	       }
 	
@@ -120,18 +115,15 @@
 	}
 
 
-
     	// 날짜 선택 함수 (기본적으로 오늘 선택)
     	// 날짜 선택 함수 수정 (선택된 날짜를 hidden input에 설정)
    	    function calendarChoiceDay(column) {
 		    if (document.getElementsByClassName("choiceDay")[0]) {
 		        // 이전에 선택된 날짜가 있을 경우 초기화
-		        document.getElementsByClassName("choiceDay")[0].style.backgroundColor = "#FFFFE6";  
+		        document.getElementsByClassName("choiceDay")[0];  
 		        document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
 		    }
-		
 		    // 선택한 날짜 강조
-		    column.style.backgroundColor = "#FF9999";
 		    column.classList.add("choiceDay");
 		
 		    // 선택한 날짜를 hidden input에 설정
@@ -158,108 +150,139 @@
         }
         return num;
     }
+     
+	//  ****************** 폼값 검증 ******************  
+	function validateForm(form) {
+		
+		// 의사 선택 검증
+	    const doctorname = form.doctorname;  
+	    let doctorChecked = false;
+	    if (doctorname.length) {
+	        for (let i = 0; i < doctorname.length; i++) {
+	            if (doctorname[i].checked) {
+	                doctorChecked = true;
+	                break;
+	            }
+	        }
+	    } else {
+	        doctorChecked = doctorname.checked;
+	    }
+	    if (!doctorChecked) {
+	        alert("진료받을 의사를 선택하세요.");
+	        return false;
+	    }
+		 
+		// 시간 선택 검증
+		const posttime = form.posttime;  
+		let timeChecked = false;
+		for (let i = 0; i < posttime.length; i++) {
+		    if (posttime[i].checked) {
+		    	timeChecked = true;
+		        break;
+		    }
+		}
+		if (!timeChecked) {
+			alert("진료받을 시간을 선택하세요.");
+			return false;
+		}
+		
+		// 예약자 정보 검증
+		if (form.username.value == '') {
+			alert("방문자 이름을 입력하세요.");
+			form.username.focus();
+			return false;
+		}
+		if (form.tel.value == '') {
+			alert("방문자 전화번호를 입력하세요.");
+			form.tel.focus();
+			return false;
+		}
+		if (form.rrn.value == '') {
+			alert("방문자 주민등록번호 입력하세요.");
+			form.rrn.focus();
+			return false;
+		}
+	
+		return true;
+	}
 </script>
-
-
-
-
 </head>
 <body>
 <%@include file="../common/main_header.jsp" %>
 
 <main id="container">
-  <div class="content">
-    <div class="content_inner">
-      <h2>병원 예약</h2>
-    
+	<div class="content">
+		<div class="content_inner">
+			<h2>병원 예약</h2>
+			
+			<!-- form -->
+			<form name="proceedFrm" method="post" 
+				action="/reserve/proceed.do" onsubmit="return validateForm(this);">
 
-
-
-
-    
-
+				<!-- 병원 정보 -->
+				<div class="hosp_info">
+					<span class="img">
+						<img src="/images/hospital.png" alt="" style="width: 100%; height: 100%;" />
+					</span>
+					<div class="info">
+						<div class="info_top">
+			        		<h3>${ hospitalInfo.name }</h3>
+							<!-- 병원명/아이디 전달 -->
+							<input type="hidden" name="hosp_ref" value="${ hospitalInfo.id }" placeholder="" readonly/>
+							<input type="hidden" name="hospname" value="${ hospitalInfo.name }" placeholder="" readonly/>
+						</div>
+						<div class="detail">
+						  	<div class="details">
+						    	<p class="blue">전화</p>
+						    	<p>${ hospitalInfo.tel }</p>
+							</div>
+							<div class="details">
+						  		<p class="blue">주소</p>
+						  		<p>${ hospitalInfo.address }</p>
+							</div>
+							<div class="details">
+							  	<p class="blue">진료과목</p>
+							  	<p>${ hospitalInfo.department }</p>
+					        </div>
+			      		</div>
+			   		</div>
+				</div>
       
-
-      <!-- form -->
-	  <form name="proceedFrm" method="post" 
-					action="/reserve/proceed.do" onsubmit="return validateForm(this);">
-
-
-      <!-- 병원 정보 -->
-      <div class="list">
-        <ul class="doctor">
-          <li>
-            <span class="img">
-              <img src="/images/hospital.png" alt="" />
-            </span>
-            <div class="info">
-              <div class="info_top">
-                <h3>${ hospitalInfo.name }</h3>
-                <!-- 병원명/아이디 전달 -->
-                <input type="hidden" name="hosp_ref" value="${ hospitalInfo.id }" placeholder="" readonly/>
-                <input type="hidden" name="hospname" value="${ hospitalInfo.name }" placeholder="" readonly/>
-              </div>
-              <div class="detail">
-                <div class="details">
-                  <p class="blue">전화</p>
-                  <p>${ hospitalInfo.tel }</p>
-                </div>
-                <div class="details">
-                  <p class="blue">주소</p>
-                  <p>${ hospitalInfo.address }</p>
-                </div>
-                <div class="details">
-                  <p class="blue">진료과목</p>
-                  <p>${ hospitalInfo.department }</p>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      
-       <!-- 의사정보 -->
-	  <div class="list">
-	    <ul class="doctor">
-	    
-	      <c:forEach items="${ doctorInfo }" var="row" varStatus="loop">
-	      
-	      <li>
-			<label>
-				<input id="${ row.name }"  type="radio" name="doctorname" value="${ row.name }" />
-				<label for="${ row.name }">${ row.name }</label>
-			</label>
-	        <span class="img">
-	          <img src="/images/doctor.png" alt="" />
-	        </span>
-	        <div class="info">
-	          <div class="info_top">
-	            <h3>${ row.name }</h3>
-	            <input type="hidden" name="doc_idx" value="의사idx1" />
-	            <input type="hidden" name="doctorname_doc1" value="의료진이름1" />
-	            <div class="detail">
-	              <div class="details">
-	                <p class="blue">전공</p>
-	                <p>${ row.major }</p>
-	              </div>
-	              <div class="details">
-	                <p class="blue">경력</p>
-	                <p>${ row.career }</p>
-	              </div>
-	              <div class="details">
-	                <p class="blue">근무시간</p>
-	                <p>${ row.hours }</p>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	      </li>
-	      
-	      </c:forEach>
-	      
-	      
-	    </ul>
-	  </div>
+				<!-- 의사정보 -->
+				<ul class="doctor">
+					<c:forEach items="${ doctorInfo }" var="row" varStatus="loop">
+						<li>
+							<label>
+								<!-- 의사 선택 radio -->
+								<input id="${ row.name }"  type="radio" name="doctorname" value="${ row.name }" />
+								<label class="doc_check" for="${ row.name }">${ row.name } 의사<p>${ row.major }</p></label>
+							</label>
+							<div class="doc">							
+								<div class="doc_wrap">
+									<span class="doc_img">
+										<img src="/images/doctor.png" alt="" />
+									</span>
+						       		<input type="hidden" name="doc_idx" value="${ row.doc_idx }" />
+						          	<input type="hidden" name="doctorname_${ row.name }" value="${ row.name }" />
+								</div>
+								<div class="doc_content">
+									<div class="doc_title">
+										<h3>${ row.name }</h3>
+										<p>${ row.major }</p>
+									</div>
+									<div class="doc_detail">
+										<p class="blue">경력</p>
+								        <p>${ row.career }</p>
+								    </div>
+							        <div class="doc_detail">
+										<p class="blue">진료 요일</p>
+										<p>${ row.hours }</p>
+									</div>
+						    	</div>
+							</div>
+				  		</li>
+					</c:forEach>	      
+				</ul>
 
 <!-- 진료과목 추후 추가 -->
 <!--       <div class="list_search"> -->
@@ -277,165 +300,133 @@
 <!--         </form> -->
 <!--       </div> -->
       
-      <!-- 예약 폼 -->
-      <div class="reservation">
-      
-        <div class="reserv_top">
-          <!-- ************************************* 캘린더 ************************************ -->
-			<div>
-			   <button type="button" class="prev_btn" id="btnPrevCalendar">
-			      <img src="/images/paging2.svg" alt="" />
-			   </button>
-			   <div>
-			      <p id="calYear">YYYY</p>
-			      <p id="calMonth">MM</p>
-			   </div>
-			   <button type="button" class="next_btn" id="nextNextCalendar">
-			      <img src="/images/paging3.svg" alt="" />
-			   </button>
-			</div>
-			
-			<table class="scriptCalendar">
-			    <thead>
-			        <tr>
-			            <td>일</td>
-			            <td>월</td>
-			            <td>화</td>
-			            <td>수</td>
-			            <td>목</td>
-			            <td>금</td>
-			            <td>토</td>
-			        </tr>
-			    </thead>
-			    <tbody>
-			    	<!-- 스크립트로 내용 채워넣음 -->
-			       
-			    	<!-- 선택한 예약 날짜 전달 input -->
-					<input type="hidden" id="selectedDate" name="postdate" value="">
-			    </tbody>
-			    
-			</table>
-
-          <div class="time_select">
-            <div class="am">
-              <div class="time_title">오전</div>
-              <ul class="time_list">
-              
-              	<!-- 12:00 이전만 출력 -->
-			    <c:forEach items="${hoursInfo.generateTimeSlots()}" var="timeSlot" varStatus="loop">
-			        <c:if test="${timeSlot lt '12:00'}">
-			            <li class="time_item">
-			                 <input id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}" >
-							 <label for="${timeSlot}">${timeSlot}</label>
-			            </li>
-			        </c:if>
-			    </c:forEach>
-				
-              </ul>
-            </div>
-            <div>
-              <div class="time_title">오후</div>
-              <ul class="time_list">
-              
-              	<!-- 12:00 이후만 출력 -->
-			    <c:forEach items="${hoursInfo.generateTimeSlots()}" var="timeSlot" varStatus="loop">
-			        <c:if test="${timeSlot ge '12:00'}">
-			            <li class="time_item">
-			                 <input id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}" >
-							 <label for="${timeSlot}">${timeSlot}</label>
-			            </li>
-			        </c:if>
-			    </c:forEach>
-                
-              </ul>
-            </div>
-          </div>
-        </div>
-
-		<!-- 예약자 정보 -->
-        <div class="reserv_bottom">
-          <h3>예약자 정보</h3>
-          <p>실제 방문하시는 분의 정보를 입력해주세요.</p>
-          <div class="reserv_form">
-            <div class="reserv_wrap">
-              <table>
-                <tr class="first_tr">
-                  <td class="left">이름</td>
-                  <td>
-                  	<input type="text" name="username" value="${ userInfo.name }" placeholder="방문자의 이름을 입력해주세요.">
-                  	<input type="hidden" name="user_ref" value="${ userInfo.id }">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="left">전화번호</td>
-                  <td><input type="text" name="tel" value="${ userInfo.tel }" placeholder="방문자의 전화번호를 입력해주세요."></td>
-                </tr>
-                <tr>
-                  <td class="left">주민등록번호</td>
-                  <td><input type="text" name="rrn" value="${ userInfo.rrn }" placeholder="방문자의 전화번호를 입력해주세요."></td>
-                </tr>
-                <tr>
-                  <td class="left">주소</td>
-                  <td><input type="text" name="address" value="${ userInfo.address }" placeholder="방문자의 전화번호를 입력해주세요."></td>
-                </tr>
-                <tr></tr>
-              </table>
-            </div>
-            
-            <button type="button" onclick="resetForm()">새로 작성하기</button> 
-            
-          </div>
-        </div>
-        
-        <!-- 새로작성하기 버튼 함수 -->
-		<script>
-		function resetForm() {
-		    // 모든 input 요소 선택
-		    const inputs = document.querySelectorAll('.reserv_bottom input[type="text"]');
-		
-		    // 각 input 요소의 값을 초기화
-		    inputs.forEach(input => {
-		        input.value = ''; // 빈 문자열로 설정
-		    });
-		}
-		</script>
-        
-		
-      </div>
-      
-	      <!-- 예약하기 버튼 -->
-	      <button type="submit">예약하기</button>
-      
-      </form>
-      
-    </div>
-  </div>
+	      		<!-- 예약 폼 -->
+				<div class="reservation">
+		          <!-- ************************************* 캘린더 ************************************ -->
+		          	<div class="calendar">
+						<div class="calendar_top">
+						   <button type="button" class="prev_btn" id="btnPrevCalendar">
+						      <img src="/images/paging2.svg" alt="" style="width: 30px; height: 30px;" />
+						   </button>
+						   <div class="date">
+						      <p id="calYear">YYYY</p>
+						      <p>/</p>
+						      <p id="calMonth">MM</p>
+						   </div>
+						   <button type="button" class="next_btn" id="nextNextCalendar">
+						      <img src="/images/paging3.svg" alt="" style="width: 30px; height: 30px;" />
+						   </button>
+						</div>
+					
+						<table class="scriptCalendar">
+						    <thead>
+						        <tr>
+						            <td>일</td>
+						            <td>월</td>
+						            <td>화</td>
+						            <td>수</td>
+						            <td>목</td>
+						            <td>금</td>
+						            <td>토</td>
+						        </tr>
+						    </thead>
+						    <tbody>
+						    	<!-- 스크립트로 내용 채워넣음 -->
+						       
+						    	<!-- 선택한 예약 날짜 전달 input -->
+								<input type="hidden" id="selectedDate" name="postdate" value="">
+						    </tbody>
+						</table>
+					</div>
+					
+					<div class="reserv_right">
+						<div class="time_select">
+				        	<div class="am">
+				            	<div class="time_title">오전</div>
+			              		<ul class="time_list">
+					              	<!-- 12:00 이전만 출력 -->
+								    <c:forEach items="${hoursInfo.generateTimeSlots()}" var="timeSlot" varStatus="loop">
+								        <c:if test="${timeSlot lt '12:00'}">
+								            <li class="time_item">
+							                	<input id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}" >
+											 	<label for="${timeSlot}">${timeSlot}</label>
+								            </li>
+								        </c:if>
+								    </c:forEach>
+			              		</ul>
+			            	</div>
+			            	<div>
+			              		<div class="time_title">오후</div>
+		             			<ul class="time_list">
+					              	<!-- 12:00 이후만 출력 -->
+								    <c:forEach items="${hoursInfo.generateTimeSlots()}" var="timeSlot" varStatus="loop">
+								        <c:if test="${timeSlot ge '12:00'}">
+								            <li class="time_item">
+								                 <input id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}" >
+												 <label for="${timeSlot}">${timeSlot}</label>
+								            </li>
+								        </c:if>
+								    </c:forEach>
+			              		</ul>
+		           			</div>
+		       			</div>
+		       			
+		       			<!-- 예약자 정보 -->
+		       			<div class="user_info">
+				        	<h3>예약자 정보</h3>
+				        	<p>실제 방문하시는 분의 정보를 입력해주세요.</p>
+			            	<div class="reserv_wrap">
+			              		<table>
+					                <tr>
+					                	<td class="left">이름</td>
+					                  	<td>
+						                  	<input type="text" name="username" value="${ userInfo.name }" placeholder="방문자의 이름을 입력해주세요.">
+						                  	<input type="hidden" name="user_ref" value="${ userInfo.id }">
+					                  	</td>
+					                </tr>
+			                		<tr>
+				                  		<td class="left">전화번호</td>
+				                  		<td><input type="text" name="tel" value="${ userInfo.tel }" placeholder="방문자의 전화번호를 입력해주세요."></td>
+				                	</tr>
+					                <tr>
+					                	<td class="left">주민등록<br/>번호</td>
+					                  	<td><input type="text" name="rrn" value="${ userInfo.rrn }" placeholder="방문자의 주민등록번호를 입력해주세요."></td>
+					                </tr>
+					                <tr>
+					                	<td class="left">주소</td>
+					                  	<td><input type="text" name="address" value="${ userInfo.address }" placeholder="방문자의 주소를 입력해주세요."></td>
+					                </tr>
+			              		</table>
+			            	</div>
+			            
+			            	<div class="btn_wrap">
+				            	<button type="button" onclick="resetForm()">새로 작성하기</button> 
+				            	<button type="submit">예약하기</button>
+				            	
+				            	<!-- 새로작성하기 버튼 함수 -->
+								<script>
+									function resetForm() {
+									    // 모든 input 요소 선택
+									    const inputs = document.querySelectorAll('.reserv_wrap input[type="text"]');
+									
+									    // 각 input 요소의 값을 초기화
+									    inputs.forEach(input => {
+									        input.value = ''; // 빈 문자열로 설정
+									    });
+									}
+								</script>
+								
+				            </div>
+			            	
+				        </div>
+					</div>
+				        
+	   			</div>
+      		</form>
+   		</div>
+	</div>
 </main>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<%@include file="../common/main_footer.jsp" %>
+<%@ include file="../common/main_footer.jsp" %>
 </body>
 </html>
