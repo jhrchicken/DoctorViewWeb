@@ -251,23 +251,23 @@ document.addEventListener('DOMContentLoaded', function () {
 						<div class="details">
 							<div class="detail_flex">
 								<p class="blue">교통편</p>
-								<p>${ doctorDTO.parking }</p>
+								<p>${ hospitalDTO.parking }</p>
 							</div>
 							<div class="detail_flex">
 								<p class="blue">주차</p>
-								<p>${ doctorDTO.parking }</p>
+								<p>${ hospitalDTO.parking }</p>
 							</div>
 							<div class="detail_flex">
 								<p class="blue">예약제</p>
-								<p>${ doctorDTO.system }</p>
+								<p>${ hospitalDTO.system }</p>
 							</div>
 							<div class="detail_flex">
 								<p class="blue">입원</p>
-								<p>${ doctorDTO.hospitalize }</p>
+								<p>${ hospitalDTO.hospitalize }</p>
 							</div>
 							<div class="detail_flex">
 								<p class="blue">PCR 검사</p>
-								<p>${ doctorDTO.pcr }</p>
+								<p>${ hospitalDTO.pcr }</p>
 							</div>
 						</div>
 					</div>

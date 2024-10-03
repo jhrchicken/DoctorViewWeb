@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	var hospList = [
 	    <c:forEach items="${ hospList }" var="row" varStatus="loop">
 	        {
+	        	api_idx: ${ row.api_idx },
 	            address: '${row.address}',
 	            name: '${row.name}',
 	        }<c:if test="${!loop.last}">,</c:if>
@@ -95,6 +96,23 @@ function createOpenMarkers() {
 	    		// 생성된 마커를 영업중 마커 배열에 추가
 	    		openMarkers.push(marker);
 	    		marker.setMap(map);
+	            // 마커를 클릭했을 때 표시할 커스텀 오버레이
+	            var content = '<div class="customoverlay">' +
+				    '	<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
+				    '		<span class="title">' + hospital.name + '</span>' +
+				    '	</a>' +
+				    '</div>';
+	            // 커스텀 오버레이 생성
+	            var customOverlay = new kakao.maps.CustomOverlay({
+	            	map: map,
+	            	position: coords,
+	            	content: content,
+	            	yAnchor: 0.2
+	            })
+	            // 마커 클릭 이벤트 발생 시 커스텀 오버레이 표시
+	            kakao.maps.event.addListener(marker, 'click', function() {
+	            	customOverlay.setMap(map);
+	            });
 	        }
 	    });
 	});
