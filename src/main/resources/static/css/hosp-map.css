@@ -15,104 +15,57 @@
   padding: 80px 0;
 }
 
-
-/* 지도에 사용자 컨트롤 올리기 */
-html, body {
-	width:100%;
-	height:100%;
-	margin:0;
-	padding:0;
-} 
 .map_wrap {
 	position:relative;
 	overflow:hidden;
 	width:100%;
 	height:600px;
 }
-.radius_border{
+
+/* 지도에 사용자 컨트롤 올리기 */
+.radius_border {
 	border:1px solid #919191;
 	border-radius:5px;
-}     
-.custom_typecontrol {
-	position:absolute;
-	top:10px;
-	right:10px;
-	overflow:hidden;
-	width:130px;
-	height:30px;
-	margin:0;
-	padding:0;
-	z-index:1;
-	font-size:12px;
-	font-family:'Malgun Gothic', '맑은 고딕', sans-serif;
 }
-.custom_typecontrol span {
-	display:block;
-	width:65px;
-	height:30px;
-	float:left;
-	text-align:center;
-	line-height:30px;
-	cursor:pointer;
-}
-.custom_typecontrol .btn {
-	background:#fff;
-	background:linear-gradient(#fff,  #e6e6e6);
-}       
-.custom_typecontrol .btn:hover {
-	background:#f5f5f5;
-	background:linear-gradient(#f5f5f5,#e3e3e3);
-}
-.custom_typecontrol .btn:active {
-	background:#e6e6e6;
-	background:linear-gradient(#e6e6e6, #fff);
-}    
-.custom_typecontrol .selected_btn {
-	color:#fff;background:#425470;
-	background:linear-gradient(#425470, #5b6d8a);
-}
-.custom_typecontrol .selected_btn:hover {
-	color:#fff;
-}   
+
+/* 확대 축소 */
 .custom_zoomcontrol {
     position: absolute;
     top: 200px; 
     right: 10px; 
-    width: 50px; /* 카테고리와 동일한 너비 */
-    height: auto; /* 높이를 자동으로 조절 */
+    width: 50px;
+    height: auto;
     overflow: hidden; 
     z-index: 1; 
-    background-color: #fff; /* 배경색을 카테고리와 동일하게 설정 */
-    border: 1px solid #ccc; /* 테두리 스타일 통일 */
-    border-radius: 5px; /* 모서리 둥글게 */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
-
 .custom_zoomcontrol span {
-    display: flex; /* 플렉스 박스로 아이템 정렬 */
-    flex-direction: column; /* 세로 방향으로 정렬 */
-    align-items: center; /* 수평 중앙 정렬 */
-    justify-content: center; /* 수직 중앙 정렬 */
-    width: 100%; /* 전체 너비를 차지하게 */
-    height: 40px; /* 높이를 통일 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
     cursor: pointer;
-    border-bottom: 1px solid #bfbfbf; /* 아이템 간 구분선 */
-    background: #fff; /* 기본 배경색 */
-    color: #000; /* 기본 글자색 */
-    text-align: center; /* 텍스트 중앙 정렬 */
+    border-bottom: 1px solid #bfbfbf;
+    background: #fff;
+    color: #000;
+    text-align: center;
 }
 .custom_zoomcontrol span:last-child {
-    border: none; /* 마지막 아이템의 하단 경계선 제거 */
+    border: none;
 }
-
 .custom_zoomcontrol span img {
     width: 20px; 
     height: 20px;
-    border: none; /* 이미지 테두리 제거 */
+    border: none;
 }
-/* 호버 효과 추가 */
 .custom_zoomcontrol span:hover {
-    background: #f5f5f5; /* 호버 시 배경색 변경 */
+    background: #f5f5f5;
 }
+
 /* 이미지 마커와 커스텀 오버레이 */
 .customoverlay {
 	position:relative;
@@ -157,8 +110,8 @@ html, body {
 	height:12px;
 	background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 }
+
 /* 다양한 이미지 마커 표시하기 */
-.category, .category *{margin:0;padding:0;color:#666;}   
 .category {
    position: absolute;
    overflow: hidden;
@@ -173,6 +126,9 @@ html, body {
    font-size: 12px;
    text-align: center;
    background-color: #fff; /* 배경색 */
+   margin:0;
+   padding:0;
+   color:#666;
 }
 .category .menu_selected {
     background: #005AD5; /* 선택된 메뉴 배경색 */
@@ -246,3 +202,56 @@ html, body {
     height: 26px; /* 아이콘의 높이 */
     margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
 }
+
+/* 교통정보 */
+.traffic {
+   position: absolute;
+   overflow: hidden;
+   top: 290px;
+   right: 10px;
+   width: 50px;
+   height: auto;
+   z-index: 10;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+   font-size: 12px;
+   text-align: center;
+   background-color: #fff;
+   margin:0;
+   padding:0;
+   color:#666;
+}
+.traffic .menu_selected {
+    background: #FFCE32; /* 선택된 메뉴 배경색 */
+    border-left: 1px solid #915B2F;
+    border-right: 1px solid #915B2F;
+    margin: 0 -1px; /* 경계선 스타일 통일 */
+}
+.traffic ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.traffic li {
+    list-style: none;
+    width: 50px;
+    height: 60px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+.traffic .ico_traffic {
+	display: block;
+	background: url('/images/traffic.svg') no-repeat;
+    width: 22px; /* 아이콘의 너비 */
+    height: 26px; /* 아이콘의 높이 */
+    margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
+}
+

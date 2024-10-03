@@ -29,6 +29,9 @@ var weekendMarkers = [];
 // 현재 표시된 오버레이를 저장할 변수
 var currentOverlay = null;
 
+// 교통정보 표시 여부를 저장할 변수
+var isTrafficOn = false;
+
 document.addEventListener('DOMContentLoaded', function() {
     var mapContainer = document.getElementById('map');
     var mapOption = { 
@@ -375,6 +378,20 @@ function zoomIn() {
 function zoomOut() {
     map.setLevel(map.getLevel() + 1);
 }
+
+// 교통정보 표시 토글 함수
+function traffic() {
+    if (isTrafficOn) {
+        trafficMenu.className = '';
+        map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+        isTrafficOn = false;
+    }
+    else {
+        trafficMenu.className = 'menu_selected';
+        map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+        isTrafficOn = true;
+    }
+}
 </script>
 </head>
 <body>
@@ -406,6 +423,15 @@ function zoomOut() {
 				    <div class="custom_zoomcontrol radius_border"> 
 				        <span onclick="zoomIn()"><img src="/images/zoom_in.svg"></span>  
 				        <span onclick="zoomOut()"><img src="/images/zoom_out.svg"></span>
+				    </div>
+				    <!-- 교통 정보 -->
+				    <div class="traffic radius_border">
+				    	<ul>
+				    		<li id="trafficMenu" onclick="traffic()">
+				    			<span class="ico_traffic"></span>
+				    			교통정보
+				    		</li>
+				    	</ul>
 				    </div>
 				</div>
 			</div>
