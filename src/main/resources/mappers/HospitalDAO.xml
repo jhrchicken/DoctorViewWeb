@@ -401,8 +401,12 @@
 	
 	<!-- 지도에 표시할 병원 목록 -->
 	<select id="listHospMark"
+		parameterType="com.edu.springboot.hospital.ParameterDTO"
 		resultType="com.edu.springboot.hospital.HospitalDTO">
 		SELECT * FROM api
+		<if test="searchWord!=null and !searchWord.equals('')">
+			WHERE ${searchField} LIKE '%'||#{searchWord}||'%'
+		</if>
 		ORDER BY api_idx DESC
 	</select>
 	
