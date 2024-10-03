@@ -43,8 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
   	// 마커가 표시될 위치 (현재 위치)
     var markerPosition  = new kakao.maps.LatLng(37.56918323969871, 126.98481614705707); 
+    // 마커 이미지
+  	var imageSrc = '/images/pin_red.svg';
+    var imageSize = new kakao.maps.Size(40, 40); 
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
     // 마커 생성
     var marker = new kakao.maps.Marker({
+    	image : markerImage,
         position: markerPosition
     });
     // 마커를 지도 위에 표시
@@ -55,8 +60,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	    <c:forEach items="${ hospList }" var="row" varStatus="loop">
 	        {
 	        	api_idx: ${ row.api_idx },
-	            address: '${row.address}',
 	            name: '${row.name}',
+	        	department: '${row.department}',
+	        	tel: '${row.tel}',
+	        	photo: '${row.photo}',
+	            address: '${row.address}',
 	        }<c:if test="${!loop.last}">,</c:if>
 	    </c:forEach>
 	];
@@ -110,17 +118,24 @@ function createOpenMarkers() {
 	                    currentOverlay.setMap(null);
 	                }
 	                // 마커를 클릭했을 때 표시할 커스텀 오버레이
-	                var content = '<div class="customoverlay">' +
-					    '	<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
-					    '		<span class="title">' + hospital.name + '</span>' +
-					    '	</a>' +
-					    '</div>';
+				    var content = '<div class="overlay">' + 
+		            '    <div class="info">' + 
+		            '		<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
+				    '			<span class="title">' + hospital.name + '</span>' +
+				    '		</a>' +
+		            '		<div class="detail">' + 
+		            '			<div class="department">' + hospital.department + '</div>' + 
+		            '			<div class="tel">' + hospital.tel + '</div>' + 
+		            '			<div class="address">' + hospital.address + '</div>' + 
+		            '        </div>' + 
+		            '    </div>' +
+		            '</div>';
 	                // 커스텀 오버레이 생성
 	                var customOverlay = new kakao.maps.CustomOverlay({
 	                	map: map,
 	                	position: coords,
 	                	content: content,
-	                	yAnchor: 0.2
+	                	yAnchor: 0.7
 	                });
 	                // 현재 표시된 오버레이를 기록
 	                currentOverlay = customOverlay;
@@ -157,17 +172,24 @@ function createAllMarkers() {
 	                    currentOverlay.setMap(null);
 	                }
 	                // 마커를 클릭했을 때 표시할 커스텀 오버레이
-	                var content = '<div class="customoverlay">' +
-					    '	<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
-					    '		<span class="title">' + hospital.name + '</span>' +
-					    '	</a>' +
-					    '</div>';
+				    var content = '<div class="overlay">' + 
+		            '    <div class="info">' + 
+		            '		<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
+				    '			<span class="title">' + hospital.name + '</span>' +
+				    '		</a>' +
+		            '		<div class="detail">' + 
+		            '			<div class="department">' + hospital.department + '</div>' + 
+		            '			<div class="tel">' + hospital.tel + '</div>' + 
+		            '			<div class="address">' + hospital.address + '</div>' + 
+		            '        </div>' + 
+		            '    </div>' +
+		            '</div>';
 	                // 커스텀 오버레이 생성
 	                var customOverlay = new kakao.maps.CustomOverlay({
 	                	map: map,
 	                	position: coords,
 	                	content: content,
-	                	yAnchor: 0.2
+	                	yAnchor: 0.7
 	                });
 	                // 현재 표시된 오버레이를 기록
 	                currentOverlay = customOverlay;
@@ -204,17 +226,24 @@ function createNightMarkers() {
 	                    currentOverlay.setMap(null);
 	                }
 	                // 마커를 클릭했을 때 표시할 커스텀 오버레이
-	                var content = '<div class="customoverlay">' +
-					    '	<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
-					    '		<span class="title">' + hospital.name + '</span>' +
-					    '	</a>' +
-					    '</div>';
+				    var content = '<div class="overlay">' + 
+		            '    <div class="info">' + 
+		            '		<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
+				    '			<span class="title">' + hospital.name + '</span>' +
+				    '		</a>' +
+		            '		<div class="detail">' + 
+		            '			<div class="department">' + hospital.department + '</div>' + 
+		            '			<div class="tel">' + hospital.tel + '</div>' + 
+		            '			<div class="address">' + hospital.address + '</div>' + 
+		            '        </div>' + 
+		            '    </div>' +
+		            '</div>';
 	                // 커스텀 오버레이 생성
 	                var customOverlay = new kakao.maps.CustomOverlay({
 	                	map: map,
 	                	position: coords,
 	                	content: content,
-	                	yAnchor: 0.2
+	                	yAnchor: 0.7
 	                });
 	                // 현재 표시된 오버레이를 기록
 	                currentOverlay = customOverlay;
@@ -251,17 +280,24 @@ function createWeekendMarkers() {
 	                    currentOverlay.setMap(null);
 	                }
 	                // 마커를 클릭했을 때 표시할 커스텀 오버레이
-	                var content = '<div class="customoverlay">' +
-					    '	<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
-					    '		<span class="title">' + hospital.name + '</span>' +
-					    '	</a>' +
-					    '</div>';
+				    var content = '<div class="overlay">' + 
+		            '    <div class="info">' + 
+		            '		<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
+				    '			<span class="title">' + hospital.name + '</span>' +
+				    '		</a>' +
+		            '		<div class="detail">' + 
+		            '			<div class="department">' + hospital.department + '</div>' + 
+		            '			<div class="tel">' + hospital.tel + '</div>' + 
+		            '			<div class="address">' + hospital.address + '</div>' + 
+		            '        </div>' + 
+		            '    </div>' +
+		            '</div>';
 	                // 커스텀 오버레이 생성
 	                var customOverlay = new kakao.maps.CustomOverlay({
 	                	map: map,
 	                	position: coords,
 	                	content: content,
-	                	yAnchor: 0.2
+	                	yAnchor: 0.7
 	                });
 	                // 현재 표시된 오버레이를 기록
 	                currentOverlay = customOverlay;
@@ -399,7 +435,21 @@ function traffic() {
 	<main id="container">
 		<div class="content">
 			<div class="content_inner">
-				<h2>지도로 찾기</h2>
+				<div class="list_title">
+					<h2>지도로 찾기</h2>
+					<p>병원명을 검색해보세요</p>
+				</div>
+				
+				<div class="list_search">
+					<form class="search_city" name="searchForm">
+						<select class="searchField" name="searchField">
+							<option value="name">병원명</option>
+							<option value="major">전공</option>
+						</select>
+						<input name="searchWord" class="searchKeyword" type="text" placeholder="검색어를 입력하세요.">
+						<input type="submit" class="search_btn" value="검색">
+					</form>
+				</div>
 				<div class="map_wrap">
 				    <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;"></div>
 				    <!-- 지도 위에 표시될 마커 카테고리 -->

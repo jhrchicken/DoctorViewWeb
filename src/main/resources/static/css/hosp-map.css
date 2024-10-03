@@ -66,32 +66,33 @@
     background: #f5f5f5;
 }
 
+
 /* 이미지 마커와 커스텀 오버레이 */
-.customoverlay {
+.overlay {
 	position:relative;
 	bottom:85px;
-	border-radius:6px;
+	border-radius: 15px;
 	border: 1px solid #ccc;
 	border-bottom:2px solid #ddd;
 	float:left;
+	background: #FFF;
 }
-.customoverlay:nth-of-type(n) {
+.overlay .info {
 	border:0;
-	box-shadow:0px 1px 2px #888;
 }
-.customoverlay a {
+.overlay a {
+	border-radius: 10px 10px 0 0;
+/* 	border-bottom: 1px solid #005AD5; */
 	display:block;
 	text-decoration:none;
 	color:#000;
 	text-align:center;
-	border-radius:6px;
 	font-size:14px;
 	font-weight:bold;
 	overflow:hidden;
-	background: #d95050;
-	background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
+	background: #005AD5 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
 }
-.customoverlay .title {
+.overlay .title {
 	display:block;
 	text-align:center;
 	background:#fff;
@@ -100,7 +101,7 @@
 	font-size:14px;
 	font-weight:bold;
 }
-.customoverlay:after {
+.overlay:after {
 	content:'';
 	position:absolute;
 	margin-left:-12px;
@@ -110,6 +111,23 @@
 	height:12px;
 	background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 }
+.info .detail {
+	position: relative;
+	overflow: hidden;
+	margin: 5px 10px;
+	height: 65px;
+}
+.info .detail .department {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.info .detail .tel, .info .detail .address {
+	font-size: 14px;
+	color: #888;
+	margin-top: -2px;
+}
+
 
 /* 다양한 이미지 마커 표시하기 */
 .category {
@@ -254,4 +272,11 @@
     height: 26px; /* 아이콘의 높이 */
     margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
 }
+
+
+
+
+
+
+
 

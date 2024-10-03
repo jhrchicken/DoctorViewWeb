@@ -97,6 +97,6 @@ public interface IHospitalService {
 	public List<AddressDTO> selectDong(AddressDTO addressDTO);
 	
 	// 지도에 표시할 병원 목록
-	public ArrayList<HospitalDTO> listHospMark();
+	public ArrayList<HospitalDTO> listHospMark(ParameterDTO parameterDTO);
 	
 }

@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -418,14 +417,10 @@ public class HospitalController {
 	
 	// 지도
 	@GetMapping("/hospital/map.do")
-	public String map(Model model) {
-		ArrayList<HospitalDTO> hospList = hospitalDAO.listHospMark();
+	public String map(Model model, ParameterDTO parameterDTO) {
+		ArrayList<HospitalDTO> hospList = hospitalDAO.listHospMark(parameterDTO);
 		model.addAttribute("hospList", hospList);
 		return "/hospital/map";
 	}
-	
-	
-	
-	
 	
 }
