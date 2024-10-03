@@ -26,6 +26,9 @@ var openMarkers = [];
 var nightMarkers = [];
 var weekendMarkers = [];
 
+// 현재 표시된 오버레이를 저장할 변수
+var currentOverlay = null;
+
 document.addEventListener('DOMContentLoaded', function() {
     var mapContainer = document.getElementById('map');
     var mapOption = { 
@@ -96,29 +99,35 @@ function createOpenMarkers() {
 	    		// 생성된 마커를 영업중 마커 배열에 추가
 	    		openMarkers.push(marker);
 	    		marker.setMap(map);
-	            // 마커를 클릭했을 때 표시할 커스텀 오버레이
-	            var content = '<div class="customoverlay">' +
-				    '	<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
-				    '		<span class="title">' + hospital.name + '</span>' +
-				    '	</a>' +
-				    '</div>';
-	            // 커스텀 오버레이 생성
-	            var customOverlay = new kakao.maps.CustomOverlay({
-	            	map: map,
-	            	position: coords,
-	            	content: content,
-	            	yAnchor: 0.2
-	            })
-	            // 마커 클릭 이벤트 발생 시 커스텀 오버레이 표시
+	            
+	            // 마커 클릭 이벤트 발생 시 커스텀 오버레이 생성 및 표시
 	            kakao.maps.event.addListener(marker, 'click', function() {
-	            	customOverlay.setMap(map);
+	                // 기존에 표시된 오버레이가 있으면 제거
+	                if (currentOverlay) {
+	                    currentOverlay.setMap(null);
+	                }
+	                // 마커를 클릭했을 때 표시할 커스텀 오버레이
+	                var content = '<div class="customoverlay">' +
+					    '	<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
+					    '		<span class="title">' + hospital.name + '</span>' +
+					    '	</a>' +
+					    '</div>';
+	                // 커스텀 오버레이 생성
+	                var customOverlay = new kakao.maps.CustomOverlay({
+	                	map: map,
+	                	position: coords,
+	                	content: content,
+	                	yAnchor: 0.2
+	                });
+	                // 현재 표시된 오버레이를 기록
+	                currentOverlay = customOverlay;
 	            });
 	        }
 	    });
 	});
 }
 
-// 모든 마커를 생성하고 영업중 마커 배열에 추가하는 함수
+// 모든 마커를 생성하고 모든 병원 마커 배열에 추가하는 함수
 function createAllMarkers() {
 	// 주소-좌표 변환 객체를 생성
     var geocoder = new kakao.maps.services.Geocoder();
@@ -137,6 +146,29 @@ function createAllMarkers() {
 	    		// 생성된 마커를 모든 병원 마커 배열에 추가
 	    		allMarkers.push(marker);
 	    		marker.setMap(map);
+	    		
+	    		// 마커 클릭 이벤트 발생 시 커스텀 오버레이 생성 및 표시
+	            kakao.maps.event.addListener(marker, 'click', function() {
+	                // 기존에 표시된 오버레이가 있으면 제거
+	                if (currentOverlay) {
+	                    currentOverlay.setMap(null);
+	                }
+	                // 마커를 클릭했을 때 표시할 커스텀 오버레이
+	                var content = '<div class="customoverlay">' +
+					    '	<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
+					    '		<span class="title">' + hospital.name + '</span>' +
+					    '	</a>' +
+					    '</div>';
+	                // 커스텀 오버레이 생성
+	                var customOverlay = new kakao.maps.CustomOverlay({
+	                	map: map,
+	                	position: coords,
+	                	content: content,
+	                	yAnchor: 0.2
+	                });
+	                // 현재 표시된 오버레이를 기록
+	                currentOverlay = customOverlay;
+	            });
 	        }
 	    });
 	});
@@ -161,6 +193,29 @@ function createNightMarkers() {
 	    		// 생성된 마커를 야간진료 마커 배열에 추가
 	    		nightMarkers.push(marker);
 	    		marker.setMap(map);
+	    		
+	    		// 마커 클릭 이벤트 발생 시 커스텀 오버레이 생성 및 표시
+	            kakao.maps.event.addListener(marker, 'click', function() {
+	                // 기존에 표시된 오버레이가 있으면 제거
+	                if (currentOverlay) {
+	                    currentOverlay.setMap(null);
+	                }
+	                // 마커를 클릭했을 때 표시할 커스텀 오버레이
+	                var content = '<div class="customoverlay">' +
+					    '	<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
+					    '		<span class="title">' + hospital.name + '</span>' +
+					    '	</a>' +
+					    '</div>';
+	                // 커스텀 오버레이 생성
+	                var customOverlay = new kakao.maps.CustomOverlay({
+	                	map: map,
+	                	position: coords,
+	                	content: content,
+	                	yAnchor: 0.2
+	                });
+	                // 현재 표시된 오버레이를 기록
+	                currentOverlay = customOverlay;
+	            });
 	        }
 		});
 	});
@@ -185,6 +240,29 @@ function createWeekendMarkers() {
 	    		// 생성된 마커를 주말진료 마커 배열에 추가
 	    		weekendMarkers.push(marker);
 	    		marker.setMap(map);
+	    		
+	    		// 마커 클릭 이벤트 발생 시 커스텀 오버레이 생성 및 표시
+	            kakao.maps.event.addListener(marker, 'click', function() {
+	                // 기존에 표시된 오버레이가 있으면 제거
+	                if (currentOverlay) {
+	                    currentOverlay.setMap(null);
+	                }
+	                // 마커를 클릭했을 때 표시할 커스텀 오버레이
+	                var content = '<div class="customoverlay">' +
+					    '	<a href="../hospital/viewHosp.do?api_idx=' + hospital.api_idx + '" target="_blank">' +
+					    '		<span class="title">' + hospital.name + '</span>' +
+					    '	</a>' +
+					    '</div>';
+	                // 커스텀 오버레이 생성
+	                var customOverlay = new kakao.maps.CustomOverlay({
+	                	map: map,
+	                	position: coords,
+	                	content: content,
+	                	yAnchor: 0.2
+	                });
+	                // 현재 표시된 오버레이를 기록
+	                currentOverlay = customOverlay;
+	            });
 	        }
 		});
 	});
@@ -213,7 +291,7 @@ function setWeekendMarkers(map) {
     });
 }
 
-//카테고리를 클릭했을 때 type에 따라 카테고리의 스타일과 지도에 표시되는 마커를 변경하는 함수
+// 카테고리를 클릭했을 때 type에 따라 카테고리의 스타일과 지도에 표시되는 마커를 변경하는 함수
 function changeMarker(type) {
     var openMenu = document.getElementById('openMenu');
     var nightMenu = document.getElementById('nightMenu');
@@ -288,7 +366,6 @@ function changeMarker(type) {
         }
     }
 }
-
 
 // 지도 확대 함수
 function zoomIn() {
