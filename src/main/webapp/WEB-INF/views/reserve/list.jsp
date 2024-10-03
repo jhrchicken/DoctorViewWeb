@@ -123,62 +123,71 @@ function hideReservation(app_id) {
 				<!-- hosp 회원 화면-->
 				<c:if test="${ userAuth eq 'ROLE_HOSP' }">
 				
-				<li>
-					<c:if test="${ row.cancel eq 'T' }">
-						<h3>취소된 예약</h3>
-					</c:if>
-							
-					<div class="info">
-						<div class="info_top">
-							<div class="detail">
-								<div class="details">
-									<p class="blue">예약일</p>
-									<p>${ row.postdate }</p>
-								</div>
-								<div class="details">
-									<p class="blue">시간</p>
-									<p>${ row.posttime }</p>
-								</div>
-								<div class="details">
-									<p class="blue">예약 의사</p>
-									<p>${ row.doctorname }</p>
-								</div>
-								<div class="details">
-									<p class="blue">예약자명</p>
-									<p>${ row.username }</p>
-								</div>
-								<div class="details">
-									<p class="blue">예약자 전화번호</p>
-									<p>${ row.tel }</p>
-								</div>
-								<div class="details">
-									<p class="blue">예약자 주민번호</p>
-									<p>${ row.rrn }</p>
-								</div>
-								<div class="details">
-									<p class="blue">예약자 주소</p>
-									<p>${ row.address }</p>
-								</div>
-								<div class="details">
-							    <c:if test="${ not empty row.hosp_memo }">
+					<c:if test="${ row.user_ref ne 'admin' }">
+					<li>
+						<c:if test="${ row.cancel eq 'T' }">
+							<h3>취소된 예약</h3>
+						</c:if>
+						
+						
+						
+								
+						<div class="info">
+							<div class="info_top">
+								<div class="detail">
 									<div class="details">
-										<p class="blue">메모</p>
-										<p>${ row.hosp_memo }</p>
+										<p class="blue">예약일</p>
+										<p>${ row.postdate }</p>
 									</div>
-        						</c:if>
-        						</div>
-
+									<div class="details">
+										<p class="blue">시간</p>
+										<p>${ row.posttime }</p>
+									</div>
+									<div class="details">
+										<p class="blue">예약 의사</p>
+										<p>${ row.doctorname }</p>
+									</div>
+									<div class="details">
+										<p class="blue">예약자명</p>
+										<p>${ row.username }</p>
+									</div>
+									<div class="details">
+										<p class="blue">예약자 전화번호</p>
+										<p>${ row.tel }</p>
+									</div>
+									<div class="details">
+										<p class="blue">예약자 주민번호</p>
+										<p>${ row.rrn }</p>
+									</div>
+									<div class="details">
+										<p class="blue">예약자 주소</p>
+										<p>${ row.address }</p>
+									</div>
+									<div class="details">
+								    <c:if test="${ not empty row.hosp_memo }">
+										<div class="details">
+											<p class="blue">메모</p>
+											<p>${ row.hosp_memo }</p>
+										</div>
+	        						</c:if>
+	        						</div>
+	
+								</div>
 							</div>
 						</div>
-					</div>
+						
+						<!-- 추가 예정 -->
+						<!-- 하단 메뉴(버튼) -->
+	<!-- 					<div class="board_btn"> -->
+	<%-- 						<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">메모<br />추가</button> --%>
+	<%-- 						<button type="button" onclick="deleteReservation(${ row.app_id });">삭제</button> --%>
+	<!-- 					</div> -->
+					</li>
 					
-					<!-- 추가 예정 -->
-					<!-- 하단 메뉴(버튼) -->
-<!-- 					<div class="board_btn"> -->
-<%-- 						<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">메모<br />추가</button> --%>
-<%-- 						<button type="button" onclick="deleteReservation(${ row.app_id });">삭제</button> --%>
-<!-- 					</div> -->
-				</li>
+					
+					
+					</c:if>
+					
 				</c:if>
 			</c:forEach>
 			

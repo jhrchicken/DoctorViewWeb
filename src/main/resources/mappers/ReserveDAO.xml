@@ -85,6 +85,17 @@
 	    WHERE app_id = #{app_id}
 	</update>
 
+	<!-- 예약닫기를 위한 admin 예약정보 저장 -->
+	<insert id="closeTime"
+		parameterType="com.edu.springboot.reserve.ReserveDTO">
+		INSERT INTO appointment (app_id, hospname, doctorname, username, tel, rrn, address, postdate, posttime, user_ref, hosp_ref)
+    	VALUES (seq_appointment_idx.nextval, #{hospname}, 'F', 'F', 'F', 'F', 'F', #{postdate}, #{posttime}, 'admin', #{hosp_ref} )
+	</insert>
+<!-- 	<insert id="closeTime" -->
+<!-- 		parameterType="com.edu.springboot.reserve.ReserveDTO"> -->
+<!-- 		INSERT INTO appointment (app_id, hospname, doctorname, username, tel, rrn, address, postdate, posttime, user_ref, hosp_ref) -->
+<!--     	VALUES (seq_appointment_idx.nextval, #{hospname}, 'F', 'F', 'F', 'F', 'F', , #{posttime}, 'admin', #{hosp_ref} ) -->
+<!-- 	</insert> -->
 
 
 

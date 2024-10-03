@@ -167,6 +167,7 @@
     <div class="content_inner">
       <div class="login_wrap">
         <h2>일반 회원가입</h2>
+        
         <form name="joinFrm" method="post" action="../../member/join/user.do" onsubmit="return validateForm(this);">
           <div class="agree_wrap">
             <div class="agree">

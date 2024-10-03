@@ -19,6 +19,7 @@ public interface IReserveService {
 
 	// 예약 정보 저장
 	public int saveReservationInfo(ReserveDTO reserveDTO);
+	
 	// 예약 목록 가져옴
 	public List<ReserveDTO> getReservationInfo(@Param("user_ref") String user_ref, @Param("hosp_ref") String hosp_ref);
 	
@@ -33,6 +34,8 @@ public interface IReserveService {
 	// 에약내역 숨김
 	public int hideReservation(ReserveDTO reserveDTO);
 	
+	// 예약시간 close
+	public int closeTime(ReserveDTO reserveDTO);
 	
 
 	

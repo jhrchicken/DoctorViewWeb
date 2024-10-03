@@ -205,7 +205,9 @@
 	
 		return true;
 	}
+	
 </script>
+
 </head>
 <body>
 <%@include file="../common/main_header.jsp" %>
@@ -214,6 +216,8 @@
 	<div class="content">
 		<div class="content_inner">
 			<h2>병원 예약</h2>
+			<c:set var="selectdate" value="${param.postdate}" />
+			<p>선택한날짜: ${ selectdate }</p>
 			
 			<!-- form -->
 			<form name="proceedFrm" method="post" 
@@ -333,8 +337,10 @@
 						    <tbody>
 						    	<!-- 스크립트로 내용 채워넣음 -->
 						       
-						    	<!-- 선택한 예약 날짜 전달 input -->
+								<!-- 선택한 예약 날짜 전달 input -->
 								<input type="hidden" id="selectedDate" name="postdate" value="">
+								
+								
 						    </tbody>
 						</table>
 					</div>
@@ -342,31 +348,68 @@
 					<div class="reserv_right">
 						<div class="time_select">
 				        	<div class="am">
+				              	<!-- 12:00 이전만 출력 -->
 				            	<div class="time_title">오전</div>
 			              		<ul class="time_list">
-					              	<!-- 12:00 이전만 출력 -->
-								    <c:forEach items="${hoursInfo.generateTimeSlots()}" var="timeSlot" varStatus="loop">
-								        <c:if test="${timeSlot lt '12:00'}">
-								            <li class="time_item">
-							                	<input id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}" >
-											 	<label for="${timeSlot}">${timeSlot}</label>
-								            </li>
-								        </c:if>
-								    </c:forEach>
+			
+<!-- ************ 코드 수정 예정 **************** -->
+<!-- 해당하는 시간에 예약이 있는 경우 예약불가 표시 -->
+<c:forEach items="${hoursInfo.generateTimeSlots()}" var="timeSlot" varStatus="loop">
+    <c:if test="${timeSlot lt '12:00'}">
+        <c:set var="isReserved" value="false" />
+        <c:forEach items="${closeTime}" var="close" varStatus="loop">
+            <c:if test="${close.posttime eq timeSlot}">
+                <c:set var="isReserved" value="true" />
+            </c:if>
+        </c:forEach>
+
+        <c:if test="${isReserved}">
+            <li class="time_item">
+                예약불가: ${timeSlot}
+            </li>
+        </c:if>
+        <c:if test="${not isReserved}">
+            <li class="time_item">
+                <input id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}">
+                <label for="${timeSlot}">${timeSlot}</label>
+            </li>
+        </c:if>
+    </c:if>
+</c:forEach>
+
 			              		</ul>
 			            	</div>
 			            	<div>
+				              	<!-- 12:00 이후만 출력 -->
 			              		<div class="time_title">오후</div>
 		             			<ul class="time_list">
-					              	<!-- 12:00 이후만 출력 -->
-								    <c:forEach items="${hoursInfo.generateTimeSlots()}" var="timeSlot" varStatus="loop">
-								        <c:if test="${timeSlot ge '12:00'}">
-								            <li class="time_item">
-								                 <input id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}" >
-												 <label for="${timeSlot}">${timeSlot}</label>
-								            </li>
-								        </c:if>
-								    </c:forEach>
+		             			
+		             			
+<!-- ************ 코드 수정 예정 **************** -->
+<!-- 해당하는 시간에 예약이 있는 경우 예약불가 표시 -->
+<c:forEach items="${hoursInfo.generateTimeSlots()}" var="timeSlot" varStatus="loop">
+    <c:if test="${timeSlot ge '12:00'}">
+        <c:set var="isReserved" value="false" />
+        <c:forEach items="${closeTime}" var="close" varStatus="loop">
+            <c:if test="${close.posttime eq timeSlot}">
+                <c:set var="isReserved" value="true" />
+            </c:if>
+        </c:forEach>
+
+        <c:if test="${isReserved}">
+            <li class="time_item">
+                예약불가: ${timeSlot}
+            </li>
+        </c:if>
+        <c:if test="${not isReserved}">
+            <li class="time_item">
+                <input id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}">
+                <label for="${timeSlot}">${timeSlot}</label>
+            </li>
+        </c:if>
+    </c:if>
+</c:forEach>
+
 			              		</ul>
 		           			</div>
 		       			</div>

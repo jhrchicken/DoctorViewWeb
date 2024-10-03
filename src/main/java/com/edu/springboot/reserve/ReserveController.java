@@ -1,9 +1,6 @@
 package com.edu.springboot.reserve;
 
-import java.lang.reflect.Member;
 import java.util.List;
-
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +13,7 @@ import com.edu.springboot.member.HoursDTO;
 import com.edu.springboot.member.IMemberService;
 import com.edu.springboot.member.MemberDTO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -53,6 +51,13 @@ public class ReserveController {
 		model.addAttribute("hoursInfo", hoursInfo.get(0));
 		model.addAttribute("week", week);
 		
+		// 예약할 병원: 예약불가 시간
+		// 해당하는 병원의 예약이 있는 시간
+		List<ReserveDTO> closeTime = reserveDAO.getReservationInfo(null, hospitalInfo.getId());
+		model.addAttribute("closeTime", closeTime);
+		
+		
+		
 		// 예약할 병원: 의사정보 
 		List<DoctorDTO> doctorInfo = reserveDAO.getDoctor(hospitalInfo.getId());
 		model.addAttribute("doctorInfo", doctorInfo);
@@ -80,7 +85,7 @@ public class ReserveController {
 		}
 	}
 
-	// 예약 관리 페이지로 이동
+	// 예약 목록 페이지로 이동
 	@GetMapping("/reserve.do")
 	public String reserveGet(Model model, HttpSession session) {
 		List<ReserveDTO> reserveInfo;
@@ -138,7 +143,10 @@ public class ReserveController {
 	
 	// 예약 시간 설정
 	@GetMapping("/reserve/setTime.do")
-	public String setTime(Model model, HttpSession session, ReserveDTO reserveDTO, MemberDTO memberDTO) {
+	public String setTimeGet(Model model, HttpSession session, ReserveDTO reserveDTO, MemberDTO memberDTO) {
+		
+		// ************* 수정 예정 *************
+		memberDTO.setId((String)session.getAttribute("userId"));
 		// 병원 기본 정보
 		MemberDTO hospitalInfo  = reserveDAO.getMyHospital(memberDTO);
 		model.addAttribute("hospitalInfo", hospitalInfo);
@@ -159,12 +167,34 @@ public class ReserveController {
 		else 
 			week += ",'"+weeks[i]+"'";
 		}
+		
+		// 예약할 병원: 예약불가 시간
+		// 해당하는 병원의 예약이 있는 시간
+		List<ReserveDTO> closeTime = reserveDAO.getReservationInfo(null, hospitalInfo.getId());
+		
+		model.addAttribute("closeTime", closeTime);
 		model.addAttribute("hoursInfo", hoursInfo.get(0));
 		model.addAttribute("week", week);
-		
+		System.err.println("setTiem get완료");
+
 		return "reserve/setTime";
 	}
 	
+	@PostMapping("/reserve/setTime.do")
+	public String setTimePost(HttpServletRequest req, ReserveDTO reserveDTO) {
+		System.err.println("post진입");
+
+		String[] posttimez = req.getParameterValues("posttimez");
+		
+		int setCloseTime;
+	    for (int i = 0; i < posttimez.length; i++) {
+	    	reserveDTO.setPosttime(posttimez[i]);
+	    	setCloseTime = reserveDAO.closeTime(reserveDTO);
+	    }
+		
+	    System.err.println("post완료");
+		return "redirect:/reserve/setTime.do";
+	}
 	
 }
 
