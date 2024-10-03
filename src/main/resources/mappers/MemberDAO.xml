@@ -6,141 +6,127 @@
 
 <mapper namespace="com.edu.springboot.member.IMemberService">
 	
-	<!-- user 회원가입 -->
-	<insert id="userJoin"
+	<!-- 회원가입: user 데이터 insert  -->
+	<insert id="insertUser"
 		parameterType="com.edu.springboot.member.MemberDTO">
 		INSERT INTO member (id, password, name, nickname, tel, email, address, rrn, enable, auth)
 		VALUES (#{id}, #{password}, #{name}, #{nickname}, #{tel}, #{email}, #{address}, #{rrn}, 1, 'ROLE_USER')
 	</insert>
 	
-	<!-- hosp 회원가입 -->
-	<insert id="joinMember"
+	<!-- 회원가입: hosp 데이터 insert -->
+	<!-- hosp member 데이터 insert -->
+	<insert id="insertHospMember"
 		parameterType="com.edu.springboot.member.MemberDTO">
 		INSERT INTO member (id, password, name, nickname, tel, address, taxid, department, enable, auth)
     	VALUES (#{id}, #{password}, #{name}, #{name}, #{tel}, #{address}, #{taxid}, #{department}, 0, 'ROLE_HOSP')
 	</insert>
-	<insert id="joinDoctor"
+	<!-- hosp doctor 데이터 insert -->
+	<insert id="insertHospDoctor"
 		parameterType="com.edu.springboot.member.DoctorDTO">
     	INSERT INTO doctor (doc_idx, name, major, career, hours, hosp_ref) 
     	VALUES (seq_doctor_idx.nextval, #{doctorname}, #{major}, #{career}, #{hours}, #{hosp_ref})
 	</insert>
-	<!-- 회원가입한 병원의 기본 hours 데이터 입력 -->
-	<insert id="joinHours"
+	<!-- hosp hours 기본(월~일) 데이터 insert -->
+	<insert id="insertHospHours"
 		parameterType="com.edu.springboot.member.HoursDTO">
     	INSERT INTO hours  
 		VALUES (seq_hours_idx.nextval, #{week}, '00:00', '00:00', '00:00', '00:00', '00:00', #{hosp_ref}, 'F', 'F', 'F', 'F')
 	</insert>
-	<!-- 입력받은 진료시간 업데이트 -->
-	<update id="joinHoursUpdate"
+	<!-- hosp hours update -->
+	<update id="updateHospHours"
 		parameterType="com.edu.springboot.member.HoursDTO">
 		UPDATE hours SET starttime=#{starttime}, endtime=#{endtime}, startbreak=#{startbreak}, endbreak=#{endbreak}, deadline=#{deadline}, open_week='T', night=#{night}, weekend=#{weekend} 
 		WHERE hosp_ref=#{hosp_ref} and week=#{week}
 	</update>
-
 	
-	
+ 	<!-- 회원가입: 아이디 중복 체크 -->
+    <select id="checkId" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM member WHERE id = #{id}
+    </select>
     
     <!-- 로그인 -->
     <select id="loginMember" 
-    	parameterType="com.edu.springboot.member.MemberDTO"
-    	resultType="com.edu.springboot.member.MemberDTO">
-        SELECT * FROM member WHERE id = #{id} and password=#{password}
-    </select>
-	
- 	<!-- 아이디 중복 체크 -->
-    <select id="checkId" 
     	parameterType="String"
-    	resultType="int">
-        SELECT COUNT(*) FROM member WHERE id = #{id}
+    	resultType="com.edu.springboot.member.MemberDTO">
+        SELECT * FROM member WHERE id = #{param1} and password=#{param2}
     </select>
 	
 	<!-- 아이디 찾기 -->
-	<select id="findIdMember" 
+    <select id="findIdMember" 
     	parameterType="com.edu.springboot.member.MemberDTO"
-    	resultType="com.edu.springboot.member.MemberDTO">
-        SELECT * FROM member WHERE email = #{email} and password=#{password}
+    	resultType="String">
+        SELECT id FROM member WHERE email = #{email} and password=#{password}
     </select>
+    
     <!-- 비밀번호 찾기 -->
 	<select id="findPassMember" 
     	parameterType="com.edu.springboot.member.MemberDTO"
     	resultType="com.edu.springboot.member.MemberDTO">
         SELECT * FROM member WHERE id = #{id} and email = #{email}
     </select>
-    <update id="newPassword" 
+    <update id="updateNewPass" 
     	parameterType="String">
         UPDATE member SET password = #{param1} WHERE id = #{param2} AND email = #{param3}
     </update>
     
     <!-- 회원정보 수정 user -->
-	<update id="userEdit"
+	<update id="editUser"
 		parameterType="com.edu.springboot.member.MemberDTO">
 		UPDATE member SET password=#{password}, name=#{name}, nickname=#{nickname}, tel=#{tel}, email=#{email}, address=#{address} 
 		WHERE id=#{id}
 	</update>
 	
-	<!-- 회원정보 수정 hosp - member -->
-	<update id="editHospMember"
+    <!-- 병원정보 찾기 hosp -->
+	<select id="selectHospHours" 
+    	parameterType="String"
+    	resultType="com.edu.springboot.member.HoursDTO">
+        SELECT * FROM hours WHERE hosp_ref = #{param1} and open_week='T'
+    </select>
+    <select id="selectHospDatail" 
+    	parameterType="String"
+    	resultType="com.edu.springboot.member.DetailDTO">
+        SELECT * FROM detail WHERE hosp_ref = #{id}
+    </select>
+	<select id="selectHospDoctor" 
+    	parameterType="String"
+    	resultType="com.edu.springboot.member.DoctorDTO">
+        SELECT * FROM doctor WHERE hosp_ref = #{hosp_ref}
+    </select>
+    
+    <!-- 회원정보 수정 hosp -->
+    <!--  hosp member 데이터 update -->
+	<update id="updateHospMember"
 		parameterType="com.edu.springboot.member.MemberDTO">
 		UPDATE member SET password=#{password}, name=#{name}, nickname=#{name}, tel=#{tel}, address=#{address}, department=#{department}
 		WHERE id=#{id}
 	</update>
-	
-    <!-- 병원정보 찾기 hosp -->
-	<select id="hospHours" 
-    	parameterType="com.edu.springboot.member.MemberDTO"
-    	resultType="com.edu.springboot.member.HoursDTO">
-        SELECT * FROM hours WHERE hosp_ref = #{id} and open_week='T'
-    </select>
-    <select id="selectHospDatail" 
-    	parameterType="com.edu.springboot.member.MemberDTO"
-    	resultType="com.edu.springboot.member.DetailDTO">
-        SELECT * FROM detail WHERE hosp_ref = #{id}
-    </select>
-    
-    <!-- 병원 영업시간 초기화  -->
-	<update id="resetHospHours"
-		parameterType="com.edu.springboot.member.HoursDTO">
-		UPDATE hours SET starttime='00:00', endtime='00:00', startbreak='00:00', endbreak='00:00', deadline='00:00', open_week='F', night='F', weekend='F'
-		WHERE hosp_ref=#{hosp_ref} and week=#{week}
-	</update>
-	
-	
-	
-
-	<!-- 병원 detail 삽입 -->
-	<insert id="insertHospDetail"
-		parameterType="com.edu.springboot.member.DetailDTO">
-		INSERT INTO detail 
-		VALUES (seq_detail_idx.nextval,
-			<if test="photo != null">#{photo}</if>
-            <if test="photo == null">NULL</if>, 
-		 	#{introduce}, #{traffic}, #{parking}, #{pcr}, #{hospitalize}, #{system}, #{hosp_ref})
-	</insert>
-	
+    <!-- hosp detail 데이터 update -->
 	<update id="updateHospDetail"
 		parameterType="com.edu.springboot.member.DetailDTO">
 		UPDATE detail SET introduce=#{introduce}, traffic=#{traffic}, parking=#{parking}, pcr=#{pcr}, hospitalize=#{hospitalize}, system=#{system}, photo=
 		<if test="photo != null">#{photo}</if>
-        <if test="photo == null">NULL</if>
+        <if test="photo == null">null</if>
 		WHERE hosp_ref=#{hosp_ref}
 	</update>
-	
-	<!-- 병원 의료진 정보 가져오기 -->
-	 <select id="selectHospDoctor" 
-    	parameterType="com.edu.springboot.member.MemberDTO"
-    	resultType="com.edu.springboot.member.DoctorDTO">
-        SELECT * FROM doctor WHERE hosp_ref = #{id}
-    </select>
     
-    <!-- 로그인 한 유저 정보 (point값 가져옴) -->
-	<select id="userInfo" 
-    	parameterType="String"
-    	resultType="com.edu.springboot.member.MemberDTO">
-        SELECT * FROM member WHERE id = #{id}
-    </select>
-    
+    <!-- hosp hours 초기화  -->
+	<update id="resetHospHours"
+		parameterType="com.edu.springboot.member.HoursDTO">
+		UPDATE hours SET starttime='00:00', endtime='00:00', startbreak='00:00', endbreak='00:00', deadline='00:00', open_week='F', night='F', weekend='F', open='F'
+		WHERE hosp_ref=#{hosp_ref} and week=#{week}
+	</update>
+
+	<!-- hosp detail 데이터 insert -->
+	<insert id="insertHospDetail" parameterType="com.edu.springboot.member.DetailDTO">
+		INSERT INTO detail 
+		VALUES (seq_detail_idx.nextval,
+			<if test="photo != null">#{photo}</if>
+            <if test="photo == null">null</if>, 
+		 	#{introduce}, #{traffic}, #{parking}, #{pcr}, #{hospitalize}, #{system}, #{hosp_ref})
+	</insert>
+
    
-    
+    <!--  ***************** mypage로 이동 예정 *****************  -->
    	<!-- 유저 포인트 감소 -->
 	<update id="decreaseUserPoint"
 		parameterType="com.edu.springboot.member.MemberDTO">

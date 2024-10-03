@@ -14,11 +14,9 @@
 	    JOIN store s ON e.emoji = s.emoji
 	    WHERE e.user_ref = #{param1}
 	</select>
-	
-	
 	<!-- 이모지 비활성화 -->
 	<update id="deactivateEmoji">
-		UPDATE emoji SET use_emoji='F' WHERE use_emoji='T'
+		UPDATE emoji SET use_emoji='F' WHERE user_ref=#{param1} and use_emoji='T'
 	</update>
 	
 	<!-- 이모지 변경(활성화) -->

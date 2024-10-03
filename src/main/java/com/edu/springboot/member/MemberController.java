@@ -33,18 +33,17 @@ public class MemberController {
 	@Autowired
 	EmailSending email;
 	
-//	회원가입: 진입
+//	회원가입 페이지로 진입
 	@GetMapping("/member/join.do")
 	public String join() {
 		return "member/join";
 	}
 	
-//	회원가입: user 
+//	일반사용자 회원가입 
 	@GetMapping("/member/join/user.do")
 	public String userJoinGet() {
 		return "member/join/user";
 	}
-	
 	@PostMapping("/member/join/user.do")
 	public String userJoinPost(MemberDTO memberDTO, HttpServletRequest req, Model model) {
 		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
@@ -55,7 +54,7 @@ public class MemberController {
 		memberDTO.setEmail(eamil);
 		memberDTO.setRrn(rrn);
 		
-		int joinResult = memberDAO.userJoin(memberDTO);
+		int joinResult = memberDAO.insertUser(memberDTO);
 		
 		if (joinResult == 1) {
 			return "redirect:/member/login.do";
@@ -71,7 +70,6 @@ public class MemberController {
 	public String hospJoinGet() {
 		return "member/join/hosp";
 	}
-	
 	@PostMapping("/member/join/hosp.do")
 	public String hospJoinPost(MemberDTO memberDTO, DoctorDTO doctorDTO, HoursDTO hoursDTO, HttpServletRequest req, Model model) {
 		// member
@@ -79,9 +77,10 @@ public class MemberController {
 		String taxid = req.getParameter("taxid1") + "-" + req.getParameter("taxid2") + "-" + req.getParameter("taxid3");
 		memberDTO.setTel(tel);
 		memberDTO.setTaxid(taxid);
-		int memberResult = memberDAO.joinMember(memberDTO);
+		int memberResult = memberDAO.insertHospMember(memberDTO);
 	    
 	    // doctor
+		doctorDTO.setHosp_ref(memberDTO.getId());
 	    String[] doctornamez = req.getParameterValues("doctornamez");
 	    String[] majorz = req.getParameterValues("majorz");
 	    String[] careerz = req.getParameterValues("careerz");
@@ -93,40 +92,39 @@ public class MemberController {
 	        doctorDTO.setMajor(majorz[i]);
 	        doctorDTO.setCareer(careerz[i]);
 	        doctorDTO.setHours(hoursz[i]);
-	        doctorDTO.setHosp_ref(memberDTO.getId());
-	        doctorResult = memberDAO.joinDoctor(doctorDTO);
+	        doctorResult = memberDAO.insertHospDoctor(doctorDTO);
 	    }
 
 	    // hours
 	    hoursDTO.setHosp_ref(memberDTO.getId());
 	    
-	    int hoursResult = 0;
-	    // 회원가입한 병원의 월~일 데이터 입력
+	    // 병원 기본 hours 데이터 생성
 	    String[] weeks = {"월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"};
 	    for (int i = 0; i < weeks.length; i++) {
 	    	hoursDTO.setWeek(weeks[i]);
-	    	hoursResult = memberDAO.joinHours(hoursDTO);
+	    	memberDAO.insertHospHours(hoursDTO);
 	    }
 	    
-	    // 종료 시간이 8시 이후이면 야간 진료 표시
+	    // 병원의 근무 hours 데이터 입력
+	    // 야간 진료 판단 (접수마감시간이 8시 이후)
 	    if (hoursDTO.getDeadline().compareTo("20:00") > 0) {
 	    	hoursDTO.setNight("T"); 
 	    } else {
 	    	hoursDTO.setNight("F"); 
 	    }
-	    // 회원가입 시 체크한 진료요일 업데이트
+	    int hoursResult = 0;
 	    weeks = req.getParameterValues("weeks");
 	    for(int i=0 ; i<weeks.length ; i++) {
 	    	hoursDTO.setWeek(weeks[i]);
 
-	    	// 주말 진료 판단 (주말인 경우 주말 진료 표시)
-	    	if (weeks[i].equals("토") || weeks[i].equals("일")) {
+	    	// 주말 진료 판단
+	    	if (weeks[i].equals("토요일") || weeks[i].equals("일요일")) {
 	    		hoursDTO.setWeekend("T"); 
 	    	} else {
 	    		hoursDTO.setWeekend("F"); 
 	    	}
 	    	
-	    	hoursResult = memberDAO.joinHoursUpdate(hoursDTO);
+	    	hoursResult = memberDAO.updateHospHours(hoursDTO);
 	    }
 	    
 	    
@@ -156,12 +154,8 @@ public class MemberController {
     	String[] firstNick = {"촉촉한", "파닥파닥", "싱싱한", "상큼한", "야망있는", "살금살금", "제멋대로", "거친 파도 속", "신출귀몰한", "야생의", "시들시들한", "트렌디한", "철푸덕", "새콤달콤한", "수줍어하는", "카리스마있는", "졸렬한", "배고픈", "비열한","뒷 골목의", "불타는", "노란머리","버섯머리", "버석한", "기괴한", "더조은","용의주도한", "괴로운", "비염걸린", "눈물흘리는", "코찔찔이", "꼬들한", "소극적인", "화끈한"};	
     	String[] lastNick = {"열대어", "팽이버섯", "오리", "야자수", "숙주나물", "수박", "도둑", "어부", "헌터", "뽀야미", "파수꾼", "대주주", "알부자", "사천왕", "수족 냉증", "불주먹", "물주먹", "스나이퍼", "파스타", "수면핑", "농구공", "바다의 왕자", "아기돼지", "김치볶음밥", "파인애플", "지하철", "회리", "하림", "다영", "꼬질이"};
     	
-        int firstIndex = (int) (Math.random() * firstNick.length);
-        String randomFirstNick = firstNick[firstIndex];
-
-        int lastIndex = (int) (Math.random() * lastNick.length);
-        String randomLastNick = lastNick[lastIndex];
-
+        String randomFirstNick = firstNick[(int) (Math.random() * firstNick.length)];
+        String randomLastNick = lastNick[(int) (Math.random() * lastNick.length)];
         String randomNick = randomFirstNick + " " +randomLastNick;
 
         return randomNick;
@@ -172,38 +166,36 @@ public class MemberController {
 	public String login() {
 		return "member/login";
 	}
-	 
 	@PostMapping("/member/login.do")
-	public String login(MemberDTO memberDTO, HttpSession session, Model model, HttpServletRequest req, HttpServletResponse resp) {
-		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
-		String saveId = req.getParameter("save");
-		
-		if(loginUser != null) {
-			if(loginUser.getEnable() == 0) {
-				// 회원가입 승인 대기 처리 추가
-				model.addAttribute("loginFailed", "회원 승인 대기 상태입니다.");
-				return "member/login";
-			}
-		    session.setAttribute("userId", loginUser.getId()); 
-		    session.setAttribute("userPassword", loginUser.getPassword()); 
-		    session.setAttribute("userName", loginUser.getName());
-		    session.setAttribute("userAuth", loginUser.getAuth());
-		    session.setAttribute("userEmoji", loginUser.getEmoji()); 
-		    
-		    
-		    // 아이디 저장버튼이 눌렸다면 로그아웃을 해도 다음 로그인 시 아이디가 표시됨
-            if(req.getParameter("saveId") != null) {
-            	CookieManager.makeCookie(resp, "savdId", memberDTO.getId(), 86400);
-            } else {
-            	CookieManager.deleteCookie(resp, "savdId");
-            }
-		    
-		    return "redirect:/";
-		}
-		else {
-			model.addAttribute("loginFailed", "아이디 혹은 비밀번호가 일치하지않습니다.");
-			return "member/login";
-		}
+	public String login(MemberDTO memberDTO, Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp) {
+//	    MemberDTO loginUser = memberDAO.loginMember(memberDTO);
+	    MemberDTO loginUser = memberDAO.loginMember(memberDTO.getId(), memberDTO.getPassword());
+
+	    if(loginUser == null) {
+	        model.addAttribute("loginFailed", "아이디 혹은 비밀번호가 일치하지않습니다.");
+	        return "member/login";
+	    }
+	    if(loginUser.getEnable() == 0) {
+	    	// 회원가입 승인 대기 처리 추가
+	    	model.addAttribute("loginFailed", "회원 승인 대기 상태입니다.");
+	    	return "member/login";
+	    }
+	    session.setAttribute("userId", loginUser.getId()); 
+	    session.setAttribute("userPassword", loginUser.getPassword()); 
+	    session.setAttribute("userName", loginUser.getName());
+	    session.setAttribute("userAuth", loginUser.getAuth());
+	    session.setAttribute("userEmoji", loginUser.getEmoji());
+	    
+	    // 아이디 저장
+	    loginUser.setSaveId(memberDTO.getSaveId());
+	    if(loginUser.getSaveId() != null) {
+	    	model.addAttribute("checked", "checked");
+	        CookieManager.makeCookie(resp, "saveId", memberDTO.getId(), 86400);
+	    } else {
+	        CookieManager.deleteCookie(resp, "saveId");
+	    }
+
+	    return "redirect:/";
 	}
 	
 //	로그아웃
@@ -219,13 +211,12 @@ public class MemberController {
 	public String findIdGet() {
 		return "member/findId";
 	}
-	
 	@PostMapping("/member/findId.do")
 	public String findIdPost(MemberDTO memberDTO, Model model) {
-		MemberDTO findId = memberDAO.findIdMember(memberDTO);
+		String findId = memberDAO.findIdMember(memberDTO);
 		
 		if(findId != null) {
-			model.addAttribute("foundId", findId.getId());
+			model.addAttribute("foundId", findId);
 			return "member/findId";
 		}
 		else {
@@ -239,7 +230,6 @@ public class MemberController {
 	public String findPassGet() {
 		return "member/findPass";
 	}
-	
 	@PostMapping("/member/findPass.do")
 	public String findPassPost(MemberDTO memberDTO, Model model) {
 		MemberDTO findPass = memberDAO.findPassMember(memberDTO);
@@ -251,14 +241,13 @@ public class MemberController {
 //			비번랜덤생성
 			String newPassword = randomPass();
 //			랜덤생성된 비밀번호로 변경
-			memberDAO.newPassword(newPassword, findPass.getId(), findPass.getEmail());
+			memberDAO.updateNewPass(newPassword, findPass.getId(), findPass.getEmail());
 			
 			infoDTO.setTo(findPass.getEmail());
 			infoDTO.setSubject("비밀번호 찾기");
 			infoDTO.setContent("임시 비밀번호는 " + newPassword + "입니다. 로그인 후 비밀번호 변경을 진행하세요.");
 			infoDTO.setFormat("text");
 			email.myEmailSender(infoDTO);
-			
 			
 			model.addAttribute("passInfo", "임시 비밀번호가 발급되었습니다.<br/>메일함을 확인하세요.");
 			return "member/findPass";
@@ -274,10 +263,9 @@ public class MemberController {
 	public String checkMemberGet() {
 		return "member/checkMember";
 	}
-	
 	@PostMapping("/member/checkMember.do")
 	public String checkMemberPost(MemberDTO memberDTO, Model model) {
-		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
+		MemberDTO loginUser = memberDAO.loginMember(memberDTO.getId(), memberDTO.getPassword());
 		
 		if(loginUser != null) {
 //			주민번호 데이터가 있으면 개인회원
@@ -295,12 +283,8 @@ public class MemberController {
 	
 //	회원정보 수정: user
 	@GetMapping("/member/editUser.do")
-	public String editUserGet(MemberDTO memberDTO, HttpSession session, Model model) {
-		memberDTO.setId((String) session.getAttribute("userId"));
-		memberDTO.setPassword((String) session.getAttribute("userPassword"));
-		
-		
-		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
+	public String editUserGet(HttpSession session, Model model) {
+		MemberDTO loginUser = memberDAO.loginMember((String) session.getAttribute("userId"), (String) session.getAttribute("userPassword"));
 		String[] tel =  loginUser.getTel().split("-");
 		String[] email =  loginUser.getEmail().split("@");
 		String[] rrn =  loginUser.getRrn().split("-");
@@ -313,9 +297,8 @@ public class MemberController {
 		
 		return "member/editUser";
 	}
-	
 	@PostMapping("/member/editUser.do")
-	public String editUserPost(MemberDTO memberDTO, HttpServletRequest req, HttpSession session, Model model) {
+	public String editUserPost(MemberDTO memberDTO, Model model, HttpSession session, HttpServletRequest req) {
 		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
 		String eamil = req.getParameter("email1") + "@" + req.getParameter("email2");
 		String rrn = req.getParameter("rrn1") + "-" + req.getParameter("rrn2") + "000000";
@@ -324,10 +307,11 @@ public class MemberController {
 		memberDTO.setEmail(eamil);
 		memberDTO.setRrn(rrn);
 		
-		memberDAO.userEdit(memberDTO);
+		int editUserResult = memberDAO.editUser(memberDTO);
 		
-		if (memberDAO.userEdit(memberDTO) == 1) {
-			session.setAttribute("userPassword", memberDAO.loginMember(memberDTO).getPassword());
+		if (editUserResult == 1) {
+			// 새로운 비밀번호 session에 저장
+			session.setAttribute("userPassword", memberDTO.getPassword());
 			return "redirect:/member/editUser.do";
 		}
 		else {
@@ -339,11 +323,14 @@ public class MemberController {
 //	회원정보 수정: hosp
 	@GetMapping("/member/editHosp.do")
 	public String editHospGet(MemberDTO memberDTO, DetailDTO detailDTO, HttpSession session, Model model) {
-		memberDTO.setId((String) session.getAttribute("userId"));
-		memberDTO.setPassword((String) session.getAttribute("userPassword"));
+//		memberDTO.setId((String) session.getAttribute("userId"));
+//		memberDTO.setPassword((String) session.getAttribute("userPassword"));
 		
 		// member 
-		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
+//		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
+		String userId = (String) session.getAttribute("userId");
+		MemberDTO loginUser = memberDAO.loginMember(userId, (String) session.getAttribute("userPassword"));
+		
 		String[] tel =  loginUser.getTel().split("-");
 		String[] taxid =  loginUser.getTaxid().split("-");
 		model.addAttribute("loginUserInfo", loginUser);
@@ -351,18 +338,10 @@ public class MemberController {
 		model.addAttribute("taxid", taxid);
 		
 		// hours
-		List<HoursDTO> hoursDTO = memberDAO.hospHours(memberDTO); 
-		
-		// 요일
-		ArrayList<String> weekList = new ArrayList<>();
+		List<HoursDTO> hoursDTO = memberDAO.selectHospHours(userId);
+		String[] weeks = new String[hoursDTO.size()];
 		for (int i = 0; i < hoursDTO.size(); i++) {
-			weekList.add(hoursDTO.get(i).getWeek());
-		}
-		// view에서 weeks를 js배열로 변경하기위해 ArrayList에서 일반배열로 변경
-		String[] weeks = new String[weekList.size()];
-		// weekList의 내용을 weeks 배열에 복사
-		for (int i = 0; i < weekList.size(); i++) {
-		    weeks[i] = weekList.get(i);
+		    weeks[i] = hoursDTO.get(i).getWeek();
 		}
 		
 		HoursDTO hoursInfo = hoursDTO.get(0);
@@ -381,14 +360,13 @@ public class MemberController {
 		model.addAttribute("deadline", deadline);
 		
 		// detail
-		DetailDTO hospDatilInfo = memberDAO.selectHospDatail(memberDTO);
+		DetailDTO hospDatilInfo = memberDAO.selectHospDatail(userId);
 		model.addAttribute("hospDatilInfo", hospDatilInfo);
 		
 		
 		
 		return "member/editHosp";
 	}
-	
 	@PostMapping("/member/editHosp.do")
 	public String editHospPost(MemberDTO memberDTO, HoursDTO hoursDTO, DetailDTO detailDTO, HttpServletRequest req, HttpSession session, Model model) {
 		// member
@@ -396,14 +374,11 @@ public class MemberController {
 		String taxid = req.getParameter("taxid1") + "-" + req.getParameter("taxid2") + "-" + req.getParameter("taxid3");
 		memberDTO.setTel(tel);
 		memberDTO.setTaxid(taxid);
-		memberDAO.editHospMember(memberDTO);
+		memberDAO.updateHospMember(memberDTO);
 		
-		int hospMemberResult = memberDAO.editHospMember(memberDTO);
+		int hospMemberResult = memberDAO.updateHospMember(memberDTO);
 		
 		// hours
-//		memberDAO.deleteHospHours(memberDTO);
-		hoursDTO.setHosp_ref(memberDTO.getId());
-		
 	    // 현재 선택된 병원의 기존 영업시간 데이터 초기화
 	    String[] weeks = {"월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"};
 	    for (int i = 0; i < weeks.length; i++) {
@@ -428,7 +403,7 @@ public class MemberController {
 	    	} else {
 	    		hoursDTO.setWeekend("F"); 
 	    	}
-	    	hospHoursResult = memberDAO.joinHoursUpdate(hoursDTO);
+	    	hospHoursResult = memberDAO.updateHospHours(hoursDTO);
 	    }
 	    
 	    // detail
@@ -451,23 +426,19 @@ public class MemberController {
  		catch (Exception e) {
  			e.printStackTrace();
  		}
-	    detailDTO.setHosp_ref(memberDTO.getId());
-	    int hospDatailResult;
-	    System.out.println(detailDTO);
-	 
-	    
+ 		int hospDatailResult;
 	    // detail 데이터가 있으면
-	    if(memberDAO.selectHospDatail(memberDTO) != null ) {
+	    if(memberDAO.selectHospDatail(memberDTO.getId()) != null ) {
 //	    	update 쿼리
 	    	hospDatailResult = memberDAO.updateHospDetail(detailDTO);
-	    }
-	    else {
+	    } else {
 //	    	insert 쿼리
 	    	hospDatailResult = memberDAO.insertHospDetail(detailDTO);
 	    }
 		
+	    
 		if (hospMemberResult == 1 && hospHoursResult == 1 && hospDatailResult == 1) {
-			session.setAttribute("userPassword", memberDAO.loginMember(memberDTO).getPassword());
+			session.setAttribute("userPassword", memberDTO.getPassword());
 			return "redirect:/member/editHosp.do";
 		}
 		else {
@@ -478,11 +449,10 @@ public class MemberController {
 	
 //	의료진 관리 (의사정보)
 	@GetMapping("/member/doctorInfo.do")
-	public String doctorInfoGet(MemberDTO memberDTO, HttpSession session, Model model) {
-		
-//		로그인한 병원의 의료진 목록 가져오기
+	public String doctorInfoGet(HttpSession session, Model model) {
+		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setId((String) session.getAttribute("userId"));
-		List<DoctorDTO> doctorDTO = memberDAO.selectHospDoctor(memberDTO);
+		List<DoctorDTO> doctorDTO = memberDAO.selectHospDoctor(memberDTO.getId());
 		
 //		모델 저장
 		model.addAttribute("doctorDTO", doctorDTO);
@@ -492,8 +462,7 @@ public class MemberController {
 	
 //	출석체크
 	@GetMapping("/mypage/attend.do")
-	public String attendGet(MemberDTO memberDTO, HttpSession session, Model model) {
-		
+	public String attendGet(HttpSession session, Model model) {
 		// 현재 날짜 가져오기
         LocalDate today = LocalDate.now();
         // 날짜 포맷팅
@@ -502,21 +471,14 @@ public class MemberController {
         // 출력
         model.addAttribute("todayDate", todayDate);
         
-		memberDTO.setId((String) session.getAttribute("userId"));
-		memberDTO.setPassword((String) session.getAttribute("userPassword"));
-		memberDTO= memberDAO.loginMember(memberDTO);
+        MemberDTO memberDTO= memberDAO.loginMember((String) session.getAttribute("userId"), (String) session.getAttribute("userPassword"));
 		model.addAttribute("memberDTO", memberDTO);
 		
 		return "mypage/attend";
 	}
-	
 	@PostMapping("/mypage/attend.do")
-	public String attendPost(MemberDTO memberDTO, HttpSession session, Model model, HttpServletRequest req) {
-		
-		// 현재 로그인한 유저 정보 가져옴 (수정예정)
-		memberDTO.setId((String) session.getAttribute("userId"));
-		memberDTO.setPassword((String) session.getAttribute("userPassword"));
-		memberDTO= memberDAO.loginMember(memberDTO);
+	public String attendPost(HttpSession session, Model model, HttpServletRequest req) {
+		MemberDTO memberDTO= memberDAO.loginMember((String) session.getAttribute("userId"), (String) session.getAttribute("userPassword"));
 		
 		String attend = req.getParameter("attendDate");
 		// 오늘날짜로 attend 컬럼 설정
@@ -536,16 +498,6 @@ public class MemberController {
 		
 		return "mypage/attend";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 //	비밀번호 랜덤생성 함수

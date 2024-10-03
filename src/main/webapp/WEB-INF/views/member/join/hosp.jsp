@@ -110,8 +110,6 @@
 	
 	    return true;
 	}
-
-   
    
    // 아이디 중복 확인
    $(function() {
@@ -140,7 +138,7 @@
            $.ajax({
                data: { join_id: join_id },
                success: function(responseData) {
-                   if (responseData === "0") {
+                   if (responseData == "0") {
                        $("#idCheckResult").css("color","green").html("사용가능한 아이디");
                        $('input[name="idCheck"]').val("check");
                    } else {

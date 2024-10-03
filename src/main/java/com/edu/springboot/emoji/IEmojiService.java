@@ -11,7 +11,7 @@ public interface IEmojiService {
 	public List<EmojiDTO> myEmojiList(String user_ref);
 	
 	// 이모지 사용 비활성화
-	public int deactivateEmoji(EmojiDTO emojiDTO); 
+	public int deactivateEmoji(String user_ref); 
 	
 	// 이모지 사용 활성화
 	public int activateEmoji(EmojiDTO emojiDTO); 

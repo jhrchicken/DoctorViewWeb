@@ -13,6 +13,7 @@ public interface IReserveService {
 	
 	// 예약할 병원 정보
 	public MemberDTO getHospital(ReserveDTO reserveDTO);
+	public MemberDTO getMyHospital(MemberDTO memberDTO);
 	// 예약할 병원의 의사 정보
 	public List<DoctorDTO> getDoctor(String hosp_ref);
 
@@ -29,6 +30,8 @@ public interface IReserveService {
 	// 예약 취소
 	public int cancelReservation(ReserveDTO reserveDTO);
 
+	// 에약내역 숨김
+	public int hideReservation(ReserveDTO reserveDTO);
 	
 	
 
