@@ -230,7 +230,7 @@ html, body {
 	background: url('/images/night_white.svg') no-repeat;
     width: 22px; /* 아이콘의 너비 */
     height: 26px; /* 아이콘의 높이 */
-    margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
+    margin-bottom: 4px;
 }
 .category .ico_weekend {
 	display: block;
