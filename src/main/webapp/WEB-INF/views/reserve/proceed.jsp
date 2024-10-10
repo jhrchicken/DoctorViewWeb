@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>닥터뷰 | 예약하기</title>
 <%@include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/reserve-hosp.css" />
+<link rel="stylesheet" href="/css/reserve-proceed.css" />
 
 <script>
 //  ****************** 달력 관련 ******************  
@@ -217,7 +217,6 @@
 		<div class="content_inner">
 			<h2>병원 예약</h2>
 			<c:set var="selectdate" value="${param.postdate}" />
-			<p>선택한날짜: ${ selectdate }</p>
 			
 			<!-- form -->
 			<form name="proceedFrm" method="post" 
@@ -365,7 +364,8 @@
 
         <c:if test="${isReserved}">
             <li class="time_item">
-                예약불가: ${timeSlot}
+            	<input disabled id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}">
+                <label class="block" for="${timeSlot}">${timeSlot}</label>
             </li>
         </c:if>
         <c:if test="${not isReserved}">
@@ -398,7 +398,8 @@
 
         <c:if test="${isReserved}">
             <li class="time_item">
-                예약불가: ${timeSlot}
+                <input disabled id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}">
+                <label class="block" for="${timeSlot}">${timeSlot}</label>
             </li>
         </c:if>
         <c:if test="${not isReserved}">

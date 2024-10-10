@@ -27,8 +27,8 @@
 								<option value="title">제목</option>
 								<option value="content">내용</option>
 							</select>
-							<input class="searchWord" type="text" name="searchWord" placeholder="검색어를 입력하세요" />
-							<input class="search_btn" type="submit" value=''>
+							<input class="searchWord" type="text" name="searchWord" placeholder="검색어를 입력해주세요." />
+							<input class="search_btn" type="submit" value="">
 						</form>
 					</div>
 				</div>

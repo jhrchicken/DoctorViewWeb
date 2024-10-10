@@ -441,13 +441,13 @@ function traffic() {
 				</div>
 				
 				<div class="list_search">
-					<form class="search_city" name="searchForm">
+					<form class="searchForm" name="searchForm">
 						<select class="searchField" name="searchField">
 							<option value="name">병원명</option>
 							<option value="major">전공</option>
 						</select>
 						<input name="searchWord" class="searchKeyword" type="text" placeholder="검색어를 입력하세요.">
-						<input type="submit" class="search_btn" value="검색">
+						<input type="submit" class="search_btn" value="">
 					</form>
 				</div>
 				<div class="map_wrap">
@@ -457,15 +457,15 @@ function traffic() {
 				        <ul>
 				            <li id="openMenu" onclick="changeMarker('open')">
 				                <span id="openIcon" class="ico_open"></span>
-				                영업중
+				                <p>영업중</p>
 				            </li>
 				            <li id="nightMenu" onclick="changeMarker('night')">
 				                <span id="nightIcon" class="ico_night"></span>
-				                야간진료
+				                <p>야간진료</p>
 				            </li>
 				            <li id="weekendMenu" onclick="changeMarker('weekend')">
 				                <span id="weekendIcon" class="ico_weekend"></span>
-				                주말진료
+				                <p>주말진료</p>
 				            </li>
 				        </ul>
 				    </div>

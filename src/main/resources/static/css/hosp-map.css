@@ -1,19 +1,60 @@
 #container .content {
-  padding: 170px 0 80px;
-  min-height: 100vh;
+  padding: 170px 0;
 }
 #container .content_inner {
   max-width: 1170px;
   margin: 0 auto;
 }
 
-#container h2 {
+#container .list_title {
   text-align: center;
-  font-size: 40px;
-  color: var(--gray-600);
-  font-weight: 700;
-  padding: 80px 0;
+  padding: 80px 0 50px;
 }
+#container h2 {
+  font-size: 40px;
+  color: var(--point-color2);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+#container .list_title>p {
+  font-size: 20px;
+  color: var(--gray-500);
+}
+#container .searchForm {
+  width: 100%;
+  display: flex;
+  gap: 0 5px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+#container .searchField {
+  border: 2px solid #ddd;
+  width: 150px;
+  height: 41px;
+  color: var(--gray-400);
+  padding: 0 10px;
+  position: relative;
+  background: url(/images/drop_down_arrow.svg) no-repeat right 5px top 50%;
+  cursor: pointer;
+}
+#container .searchKeyword {
+  border: 2px solid #ddd;
+  background: none;
+  width: calc(90% - 200px);
+  height: 41px;
+  font-size: 16px;
+}
+#container .search_btn {
+  border: 2px solid #ddd;
+  background: url(/images/search.svg) no-repeat 50% 50% / 80%;
+  width: 41px;
+  height: 41px;
+  color: var(--gray-400);
+  cursor: pointer;
+}
+
+
+/************* 지도 관련 *************/
 
 .map_wrap {
 	position:relative;
@@ -33,7 +74,7 @@
     position: absolute;
     top: 200px; 
     right: 10px; 
-    width: 50px;
+    width: 60px;
     height: auto;
     overflow: hidden; 
     z-index: 1; 
@@ -81,25 +122,19 @@
 	border:0;
 }
 .overlay a {
-	border-radius: 10px 10px 0 0;
-/* 	border-bottom: 1px solid #005AD5; */
+ 	border-radius: 13px 13px 0 0;
 	display:block;
-	text-decoration:none;
-	color:#000;
-	text-align:center;
-	font-size:14px;
-	font-weight:bold;
 	overflow:hidden;
 	background: #005AD5 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
 }
 .overlay .title {
 	display:block;
 	text-align:center;
-	background:#fff;
 	margin-right:35px;
 	padding:10px 15px;
 	font-size:14px;
 	font-weight:bold;
+	color: #fff;
 }
 .overlay:after {
 	content:'';
@@ -114,19 +149,21 @@
 .info .detail {
 	position: relative;
 	overflow: hidden;
-	margin: 5px 10px;
-	height: 65px;
+	margin: 10px;
+	height: 55px;
 }
+
 .info .detail .department {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	margin-bottom: 5px;
 }
 .info .detail .tel, .info .detail .address {
 	font-size: 14px;
 	color: #888;
-	margin-top: -2px;
 }
+
 
 
 /* 다양한 이미지 마커 표시하기 */
@@ -135,7 +172,7 @@
    overflow: hidden;
    top: 10px;
    right: 10px;
-   width: 50px;
+   width: 60px;
    height: auto; /* 높이를 자동으로 조절 */
    z-index: 10;
    border: 1px solid #ccc; /* 테두리 스타일 */
@@ -156,15 +193,13 @@
     color: #FFF;
 }
 .category ul {
-    padding: 0; /* 기본 패딩 제거 */
-    margin: 0; /* 기본 마진 제거 */
     display: flex; /* 플렉스 박스로 아이템 정렬 */
     flex-direction: column; /* 세로 방향으로 정렬 */
     align-items: center; /* 수평 중앙 정렬 */
 }
 .category li {
     list-style: none; /* 리스트 스타일 제거 */
-    width: 50px; /* 너비를 고정 */
+    width: 60px; /* 너비를 고정 */
     height: 60px; /* 높이를 늘려 아이콘과 텍스트가 들어갈 공간 확보 */
     border-bottom: 1px solid #ccc; /* 아이템 간 구분선 */
     cursor: pointer;
@@ -220,6 +255,9 @@
     height: 26px; /* 아이콘의 높이 */
     margin-bottom: 4px; /* 아이콘과 텍스트 사이의 여백 */
 }
+.category .menu_selected {
+    border: none;
+}
 
 /* 교통정보 */
 .traffic {
@@ -227,7 +265,7 @@
    overflow: hidden;
    top: 290px;
    right: 10px;
-   width: 50px;
+   width: 60px;
    height: auto;
    z-index: 10;
    border: 1px solid #ccc;
@@ -255,7 +293,7 @@
 }
 .traffic li {
     list-style: none;
-    width: 50px;
+    width: 60px;
     height: 60px;
     border-bottom: 1px solid #ccc;
     cursor: pointer;

@@ -10,7 +10,7 @@
 		<nav class="gnb_wrap">
 			<ul class="gnb">
 				<li>
-					<a href="#">병원/의사 찾기</a>
+					<a href="/hospital.do">병원/의사 찾기</a>
 					<div class="depth2">
 						<ul>
 							<li><a href="/hospital.do">병원 찾기</a></li>
@@ -20,7 +20,7 @@
 					</div>
 				</li>
 				<li>
-					<a href="#">게시판</a>
+					<a href="/freeboard.do">게시판</a>
 					<div class="depth2">
 						<ul>
 							<li><a href="/freeboard.do">자유게시판</a></li>
@@ -35,7 +35,7 @@
 					</div>
 				</li>
 				<li>
-					<a href="#">이모지</a>
+					<a href="/store.do">이모지</a>
 					<div class="depth2">
 						<ul>
 							<li><a href="/myEmoji.do">나의 이모지</a></li>

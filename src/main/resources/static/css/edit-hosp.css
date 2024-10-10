@@ -57,10 +57,31 @@
   width: 28.7%;
 }
 /*** 영업시간 - 시간 선택 ***/
-#container .regist .time>td>input {
-  width: 30%;
+#container .searchField {
+  border: 2px solid #ddd;
+  width: 150px;
+  height: 41px;
+  color: var(--gray-400);
   padding: 0 10px;
-  margin: 0 10px;
+  position: relative;
+  background: url(/images/drop_down_arrow.svg) no-repeat right 5px top 50%;
+  cursor: pointer;
+  margin-left: 10px;
+}
+#container .deadline {
+  display: flex;
+  gap: 0 10px;
+  vertical-align: center;
+  align-items: center;
+}
+#container .caution {
+  font-size: 10px;
+  color: red;
+}
+/*** 의료진 입력폼 ***/
+#container .regist .doc .doctor-info {
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
 }
 /*** 사진 ***/
 #container .regist .image {
@@ -76,6 +97,10 @@
 }
 #container .regist .image>input {
   border: none;
+}
+/*** 추가 정보 ***/
+#container .regist .extra {
+  margin-left: 100px;
 }
 /*** 의사 추가 ***/
 #container .regist .doctors a {

@@ -23,6 +23,9 @@
   display: flex;
   gap: 0 20px;
 }
+#container .searchForm_wrap {
+  width: 100%;
+}
 #container .title {
   padding: 10px 0 30px;
 }
@@ -35,17 +38,29 @@
 #container .title p {
   color: #bbb;
 }
-#container .search_btn input {
+#container .searchField {
   border: 2px solid #ddd;
+  height: 45px;
+  width: 20%;
+  color: var(--gray-400);
+  padding: 0 10px;
+  position: relative;
+  background: url(/images/drop_down_arrow.svg) no-repeat right 5px top 50%;
+  cursor: pointer;
 }
-#container .search_btn .searchWord {
-  width: 500px;
-  height: 50px;
+#container .searchWord {
+  border: 2px solid #ddd;
+  background: none;
+  height: 45px;
+  width: 50%;
 }
-#container .search_btn .submit {
-  background: url(/images/search.svg) no-repeat 50% / 90%;
-  width: 50px;
-  height: 50px;
+#container .search_btn {
+  border: 2px solid #ddd;
+  background: url(/images/search.svg) no-repeat 50%;
+  height: 45px;
+  width: 45px;
+  color: var(--gray-400);
+  cursor: pointer;
 }
 /*** 빠른 검색 ***/
 #container .tag {
@@ -87,10 +102,11 @@
 }
 #container .link ul {
   display: flex;
-  gap: 0 10px;
+  gap: 0 25px;
+  margin-top: 5px;
 }
 #container .link li {
-  width: calc((100% / 3) - 20px / 3);
+  width: calc((100% / 3) - 50px / 3);
   height: 150px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);

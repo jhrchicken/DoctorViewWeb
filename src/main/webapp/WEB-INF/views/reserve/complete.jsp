@@ -23,18 +23,32 @@
       	<div class="complete_wrap">
 	      	<div class="complete">
 	      		<img src="/images/complete.svg" alt="" />
-	      		<div class="message">
 	      		
-	      			<div class="details">
-	      				<p class="blue">병원: ${ reserveDTO.hospname }</p>
-	      				<p class="blue">날짜 및 시간: ${ reserveDTO.postdate }, ${ reserveDTO.posttime }</p>
-	      				<p class="blue">방문자: ${ reserveDTO.username }</p>
-					</div>
-								
-					<p>예약이 완료되었습니다.</p>
-					<p>방문 시 신분증을 꼭 지참해주세요!</p>
+	      		<p>예약이 완료되었습니다.</p>
+				<p class="caution">방문 시 신분증을 꼭 지참해주세요!</p>
+	      		
+	      		<div class="table_wrap">
+		      		<div class="table">
+		      			<table>
+		      				<tr>
+		      					<td class="left">병원</td>
+		      					<td>${ reserveDTO.hospname }</td>
+		      				</tr>
+		      				<tr>
+		      					<td class="left">날짜 및 시간</td>
+		      					<td>${ reserveDTO.postdate } ${ reserveDTO.posttime }</td>
+		      				</tr>
+		      				<tr>
+		      					<td class="left">방문자</td>
+		      					<td>${ reserveDTO.username }</td>
+		      				</tr>
+						</table>
+		      		</div>
 	      		</div>
-				<a href="../../reserve.do">예약관리 페이지로 이동</a>
+							
+				<div class="btn_wrap">
+					<a href="../../reserve.do">예약관리 페이지로 이동</a>
+				</div>
 	      	</div>
       	</div>
             

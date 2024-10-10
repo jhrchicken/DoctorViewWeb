@@ -16,13 +16,55 @@
 #container .complete img {
   width: 200px;
   height: 200px;
+  margin-bottom: 10px;
+}
+
+#container p {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.5em;
+}
+#container p.caution {
+  color: red;
   margin-bottom: 20px;
 }
-#container .complete .message {
-  font-size: 25px;
+
+#container .table_wrap {
+  display: flex;
+  justify-content: center;
 }
-#container .complete a {
+#container .table {
+  border: 4px solid #ddd;
+  border-radius: 10px;
+  width: 50%;
+}
+#container .table tr {
+  border-bottom: 2px solid #ddd;
+}
+#container .table tr:last-child {
+  border-bottom: none;
+}
+#container .table td {
+  padding: 20px;
+  text-align: left;
+  font-size: 18px;
+  color: var(--gray-500);
+}
+#container .table .left {
+  width: 150px;
+  text-align: center;
+  border-right: 1px solid #ddd;
+}
+
+
+
+#container .btn_wrap {
+  display: flex;
+  justify-content: center;
+}
+#container .btn_wrap a {
   display: block;
+  width: 300px;
   padding: 10px;
   background: var(--point-color2);
   border-radius: 10px;

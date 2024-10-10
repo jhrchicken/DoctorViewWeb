@@ -19,15 +19,21 @@
 			<section class="search">
 				<div class="search_wrap">
 					<img src="/images/doctor.png" alt="캐릭터" style="width: 160px; height: 160px;"/>
-					<div>
+					
+					<div class="searchForm_wrap">
 						<div class="title">
 							<p class="tip">병원, 의사를 검색해보세요.</p>
 							<p>검색 결과는 좋아요 순으로 출력됩니다.</p>
 						</div>
-						<div class="search_btn">
-							<input class="searchWord" type="search" placeholder="검색어를 입력해주세요." />
-							<input class="submit" type="submit" value="" />
-						</div>
+						<form class="searchForm" name="searchForm">
+							<select name="searchField" class="searchField">
+								<option value="">--- 조건 선택 ---</option>
+								<option value="hospital">병원</option>
+								<option value="doctor">의사</option>
+							</select>							
+							<input class="searchWord" type="text" name="searchWord" placeholder="검색어를 입력헤주세요." />
+							<input class="search_btn" type="submit" value="" />
+						</form>
 					</div>
 				</div>
 			</section>
@@ -36,6 +42,18 @@
 			<section class="tag">
 				<div class="swiper">
 	            	<div class="swiper-wrapper">
+	            		<div class="swiper-slide">
+	                  		<a href="#"># 감기</a>
+	            		</div>
+	                  	<div class="swiper-slide">
+	                  		<a href="#"># 이비인후과</a>
+	            		</div>
+	            		<div class="swiper-slide">
+	                  		<a href="#"># 감기</a>
+	            		</div>
+	                  	<div class="swiper-slide">
+	                  		<a href="#"># 이비인후과</a>
+	            		</div>
 	            		<div class="swiper-slide">
 	                  		<a href="#"># 감기</a>
 	            		</div>
@@ -64,18 +82,18 @@
 				<ul>
 					<li>
 						<p>얘기 나눠욧</p>
-						<a href="#"><span class="blind">바로가기</span></a>
+						<a href="/freeboard.do"><span class="blind">바로가기</span></a>
 						<p class="go">자유게시판</p>
 						
 					</li>
 					<li>
 						<p>의료 지식이 필요해욧</p>
-						<a href="#"><span class="blind">바로가기</span></a>
+						<a href="/qnaboard.do"><span class="blind">바로가기</span></a>
 						<p class="go">상담게시판</p>
 					</li>
 					<li>
 						<p>꾸며보아욧</p>
-						<a href="#"></a>
+						<a href="/store.do"></a>
 						<p class="go">이모지 상점</p>
 					</li>
 				</ul>

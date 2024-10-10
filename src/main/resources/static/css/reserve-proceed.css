@@ -36,9 +36,7 @@
 }
 /*** 병원 정보 ***/
 #container .info {
-  padding: 30px;
-  /* 해시태그 들어가면 아래와 같이 변경하기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  padding: 0 30px; */
+  padding: 0 30px;
   width: 80%;
 }
 #container .info_top>p {
@@ -144,32 +142,6 @@
   gap: 0 30px;
 }
 
-/*** 진료과목 선택 ***/
-/* #container .list_search {
-  display: flex;
-  gap: 0 5px;
-  width: 100%;
-  margin: 50px 0 20px;
-}
-#container .search_depart .searchField {
-  border: 2px solid #ddd;
-  width: 250px;
-  height: 50px;
-  color: var(--gray-400);
-  padding: 0 10px;
-  position: relative;
-  background: url(/images/drop_down_arrow.svg) no-repeat right 5px top 50%;
-  cursor: pointer;
-}
-#container .search_depart .search_btn {
-  border: 2px solid #ddd;
-  background: url(/images/search.svg) no-repeat 50% 50% / 80%;
-  width: 50px;
-  height: 50px;
-  color: var(--gray-400);
-  cursor: pointer;
-} */
-
 /*** 달력 ***/
 #container .calendar {
   width: 60%;
@@ -248,7 +220,7 @@
 #container .time_select {
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-  padding: 30px;
+  padding: 40px 30px;
   font-size: 18px;
 }
 #container .am {
@@ -268,6 +240,9 @@
 }
 #container .time_item {
   width: calc(25% - 30px / 4);
+}
+#container .time_item .block {
+  color: red;
 }
 
 /**************************************************************************/

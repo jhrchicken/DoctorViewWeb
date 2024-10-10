@@ -30,7 +30,6 @@
   position: relative;
   display: flex;
 }
-/*** 정보 ***/
 #container .doctor .info {
   padding: 0 10px;
 }
@@ -38,6 +37,7 @@
   font-size: 32px;
   font-weight: 700;
 }
+/*** 사용자 - 예약 리스트 ***/
 #container .doctor .detail_content {
   display: flex;
   gap: 0 15px;
@@ -72,6 +72,14 @@
   color: #fff;
   width: 50px;
   height: 50px;
+}
+/*** 병원 - 예약 리스트 ***/
+#container .doctor .detail_hosp {
+  display: flex;
+  gap: 0 50px;
+  margin-top: 20px;
+  font-size: 18px;
+  line-height: 1.5em;
 }
 
 /*** 예약 없을 때 ***/

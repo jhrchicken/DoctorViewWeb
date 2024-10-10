@@ -319,37 +319,35 @@
 <!-- 시간 선택 input 태그에서 select 태그로 변경됨 -->
 <tr class="time">
   <td>
-  
-  <p> 접수마감시간이 오후 8시 이후이면 야간진료 가능으로 표시됩니다 </p>
-  
-    진료 시간: 
-    <select id="starttime" name="starttime">
+    진료 시간
+    <select class="searchField" id="starttime" name="starttime">
 	    <option value="">시작 시간 선택</option>
 	</select>
      ~ 
-    <select id="endtime" name="endtime">
+    <select class="searchField" id="endtime" name="endtime">
 	    <option value="">종료 시간 선택</option>
 	</select>
   </td>
 </tr>
 <tr class="time">
   <td>
-    휴게 시간: 
-    <select id="startbreak" name="startbreak">
+    휴게 시간
+    <select class="searchField" id="startbreak" name="startbreak">
 	    <option value="">시작 시간 선택</option>
 	</select>
      ~ 
-    <select id="endbreak" name="endbreak">
+    <select class="searchField" id="endbreak" name="endbreak">
 	    <option value="">종료 시간 선택</option>
 	</select>
   </td>
 </tr>
 <tr class="time">
-  <td>
-    접수 마감: 
-    <select id="deadline" name="deadline">
+  <td class="deadline">
+    접수 마감
+    <select class="searchField" id="deadline" name="deadline">
 	    <option value="">종료 시간 선택</option>
 	</select>
+  <p class="caution">*접수 마감시간이 오후 8시 이후이면<br />&nbsp;&nbsp;'야간 진료 가능'으로 표시됩니다. </p>
   </td>
 </tr>
 <script>

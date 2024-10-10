@@ -27,7 +27,12 @@
         <c:if test="${ not empty userId }">
 	        <!-- user 정보 및 상점이동 -->
 	        <div class="user">
-			    <p class="user_emoji">${ userEmoji }</p>
+	        	<c:if test="${ empty emojiDTO }">
+	        		<p class="now_emoji none">없음</p>
+	        	</c:if>
+	        	<c:if test="${ not empty emojiDTO }">
+				    <p class="now_emoji user_emoji">${ userEmoji }</p>
+	        	</c:if>
 			    <div class="user_info">
 				    <div class="user_name">
 			        	<p>${ userId }님</p>

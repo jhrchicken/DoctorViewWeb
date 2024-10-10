@@ -167,32 +167,32 @@ function validateForm(form) {
 				<!-- 시간 선택 input 태그에서 select 태그로 변경됨 -->
 				<tr class="time">
 				  <td>
-				    진료 시간: 
-				    <select id="starttime" name="starttime">
+				    진료 시간
+				    <select class="searchField" id="starttime" name="starttime">
 					    <option value="${ starttime }">${ starttime }</option>
 					</select>
 				     ~ 
-				    <select id="endtime" name="endtime">
+				    <select class="searchField" id="endtime" name="endtime">
 					    <option value="${ endtime }">${ endtime }</option>
 					</select>
 				  </td>
 				</tr>
 				<tr class="time">
 				  <td>
-				    휴게 시간: 
-				    <select id="startbreak" name="startbreak">
+				    휴게 시간
+				    <select class="searchField" id="startbreak" name="startbreak">
 					    <option value="${ startbreak }">${ startbreak }</option>
 					</select>
 				     ~ 
-				    <select id="endbreak" name="endbreak">
+				    <select class="searchField" id="endbreak" name="endbreak">
 					    <option value="${ endbreak }">${ endbreak }</option>
 					</select>
 				  </td>
 				</tr>
 				<tr class="time">
 				  <td>
-				    접수 마감: 
-				    <select id="deadline" name="deadline">
+				    접수 마감
+				    <select class="searchField" id="deadline" name="deadline">
 					    <option value="${ deadline }">${ deadline }</option>
 					</select>
 				  </td>
@@ -242,7 +242,6 @@ function validateForm(form) {
 			    	<td><input type="text" name="traffic" value="${ hospDatilInfo.traffic }" placeholder="ex ) 00역에서 도보 10분" /></td>
 			    </tr>
 			    <tr>
-			    
 			    	<!-- radio 버튼으로 변경됨 -->
 			    	<td class="left">주차</td>
 			    	<td>
@@ -250,17 +249,13 @@ function validateForm(form) {
 					        <input id="parking_t" type="radio" name="parking" value="T" ${ hospDatilInfo.parking == 'T' ? 'checked' : '' } />
 					        <label class="doc_check" for="parking_t">가능</label>
 					    </label>
-					</td>
-					<td>
-					    <label>
+					    <label class="extra">
 					        <input id="parking_f" type="radio" name="parking" value="F" ${ hospDatilInfo.parking == 'F' ? 'checked' : '' } />
 					        <label class="doc_check" for="parking_f">불가능</label>
 					    </label>
 					</td>
-					
 			    </tr>
 			    <tr>
-			    	
 			    	<!-- radio 버튼으로 변경됨 -->
 			    	<td class="left">PCR 검사</td>
 					<td>
@@ -268,17 +263,13 @@ function validateForm(form) {
 					        <input id="pcr_t" type="radio" name="pcr" value="T" ${ hospDatilInfo.pcr == 'T' ? 'checked' : '' } />
 					        <label class="doc_check" for="pcr_t">가능</label>
 					    </label>
-					</td>
-					<td>
-					    <label>
+					    <label class="extra">
 					        <input id="pcr_f" type="radio" name="pcr" value="F" ${ hospDatilInfo.pcr == 'F' ? 'checked' : '' } />
 					        <label class="doc_check" for="pcr_f">불가능</label>
 					    </label>
 					</td>
-
 			    </tr>
 			    <tr>
-			    
 			    	<!-- radio 버튼으로 변경됨 -->
 			    	<td class="left">입원</td>
 			    	<td>
@@ -286,17 +277,13 @@ function validateForm(form) {
 					        <input id="hospitalize_t" type="radio" name="hospitalize" value="T" ${ hospDatilInfo.hospitalize == 'T' ? 'checked' : '' } />
 					        <label class="doc_check" for="hospitalize_t">가능</label>
 					    </label>
-					</td>
-					<td>
-					    <label>
+					    <label class="extra">
 					        <input id="hospitalize_f" type="radio" name="hospitalize" value="F" ${ hospDatilInfo.hospitalize == 'F' ? 'checked' : '' } />
 					        <label class="doc_check" for="hospitalize_f">불가능</label>
 					    </label>
 					</td>
-					
 			    </tr>
 			    <tr>
-			    
 			    	<!-- radio 버튼으로 변경됨 -->
 			    	<td class="left">예약 방문</td>
 			    	<td>
@@ -304,16 +291,12 @@ function validateForm(form) {
 					        <input id="system_t" type="radio" name="system" value="T" ${ hospDatilInfo.system == 'T' ? 'checked' : '' } />
 					        <label class="doc_check" for="system_t">가능</label>
 					    </label>
-					</td>
-					<td>
-					    <label>
+					    <label class="extra">
 					        <input id="system_f" type="radio" name="system" value="F" ${ hospDatilInfo.system == 'F' ? 'checked' : '' } />
 					        <label class="doc_check" for="system_f">불가능</label>
 					    </label>
 					</td>
-					
 			    </tr>
-		    
 			    <!-- 의료진 추가 -->
 			    <tr>
 			    	<td class="left">의사</td>

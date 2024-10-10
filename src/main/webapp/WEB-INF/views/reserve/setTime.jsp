@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>닥터뷰 | 예약관리</title>
 <%@include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/reserve-hosp.css" />
+<link rel="stylesheet" href="/css/reserve-setTime.css" />
 
 <script>
 //  ****************** 달력 관련 ******************  
@@ -219,20 +219,9 @@
 				action="/reserve/setTime.do">
 			
 
-				<!-- 병원 정보 -->
-				<div class="hosp_info">
-					<span class="img">
-						<img src="/images/hospital.png" alt="" style="width: 100%; height: 100%;" />
-					</span>
-					<div class="info">
-						<div class="info_top">
-			        		<h3>${ hospitalInfo.name }</h3>
-							<!-- 병원명/아이디 전달 -->
-							<input type="hidden" name="hosp_ref" value="${ hospitalInfo.id }" placeholder="" readonly/>
-							<input type="hidden" name="hospname" value="${ hospitalInfo.name }" placeholder="" readonly/>
-						</div>
-			   		</div>
-				</div>
+				<!-- 병원명/아이디 전달 -->
+				<input type="hidden" name="hosp_ref" value="${ hospitalInfo.id }" placeholder="" readonly/>
+				<input type="hidden" name="hospname" value="${ hospitalInfo.name }" placeholder="" readonly/>
       				
 	      		<!-- 예약 폼 -->
 				<div class="reservation">
@@ -275,7 +264,7 @@
 					
 					<div class="reserv_right">
 						<div class="time_select">
-						<p> 예약을 받지않을 시간을 선택하세요</p>
+							<p> 예약받지 않을 시간을 선택하세요.</p>
 				        	<div class="am">
 				            	<div class="time_title">오전</div>
 			              		<ul class="time_list">
@@ -292,8 +281,9 @@
         </c:forEach>
 
         <c:if test="${isReserved}">
-            <li class="time_item">
-                예약불가: ${timeSlot}
+            <li class="time_item block">
+            	<input id="${timeSlot}" type="checkbox" name="posttimez" value="${timeSlot}">
+                <label for="${timeSlot}">${timeSlot}</label>
             </li>
         </c:if>
         <c:if test="${not isReserved}">
@@ -323,14 +313,15 @@
         </c:forEach>
 
         <c:if test="${isReserved}">
-            <li class="time_item">
-                예약불가: ${timeSlot}
+            <li class="time_item block">
+            	<input id="${timeSlot}" type="checkbox" name="posttimez" value="${timeSlot}">
+                <label for="${timeSlot}">${timeSlot}</label>
             </li>
         </c:if>
         <c:if test="${not isReserved}">
             <li class="time_item">
                 <input id="${timeSlot}" type="checkbox" name="posttimez" value="${timeSlot}">
-                <label for="${timeSlot}">${timeSlot}</label>
+                <label for="${timeSlot}">${ timeSlot }</label>
             </li>
         </c:if>
     </c:if>
@@ -345,7 +336,7 @@
 		       			
 		       			
 		       			<div class="btn_wrap">
-			            	<button type="submit">예약닫기</button>
+			            	<button type="submit">예약 닫기</button>
 			            </div>
 		       			
 		       			

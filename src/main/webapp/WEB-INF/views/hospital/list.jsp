@@ -153,21 +153,22 @@ function searchHosp(event) {
 					<div class="search_city">
 						<!-- 주소 선택 -->
 						<select id="sido" name="searchSido" class="searchField">
-							<option value="">- 시/도 선택 -</option>
+							<option value="">--- 시/도 선택 ---</option>
 							<c:forEach items="${ sidoLists }" var="sidoRow">
 								<option value="${ sidoRow.sido }">${ sidoRow.sido }</option>
 							</c:forEach>
 						</select>
 						<select id="gugun" name="searchGugun" class="searchField">
-							<option value="">- 시/군/구 선택 -</option>
+							<option value="">--- 시/군/구 선택 ---</option>
 						</select>
 						<select id="dong" name="searchDong" class="searchField">
-							<option value="">- 읍/면/동 선택 -</option>
+							<option value="">--- 읍/면/동 선택 ---</option>
 						</select>
 					</div>
 					<div class="search_hosp">
 						<!-- 검색 -->
 						<select class="searchField" name="searchField">
+							<option value="">--- 조건 선택 ---</option>
 							<option value="name">병원명</option>
 							<option value="department">진료과목</option>
 							<option value="hashtag">해시태그</option>

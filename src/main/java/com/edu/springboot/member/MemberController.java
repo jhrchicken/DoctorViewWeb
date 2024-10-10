@@ -151,7 +151,7 @@ public class MemberController {
     @RequestMapping("/member/join/getNick.do")
     @ResponseBody
     public String getNick(Model model) {
-    	String[] firstNick = {"촉촉한", "파닥파닥", "싱싱한", "상큼한", "야망있는", "살금살금", "제멋대로", "거친 파도 속", "신출귀몰한", "야생의", "시들시들한", "트렌디한", "철푸덕", "새콤달콤한", "수줍어하는", "카리스마있는", "졸렬한", "배고픈", "비열한","뒷 골목의", "불타는", "노란머리","버섯머리", "버석한", "기괴한", "더조은","용의주도한", "괴로운", "비염걸린", "눈물흘리는", "코찔찔이", "꼬들한", "소극적인", "화끈한"};	
+    	String[] firstNick = {"촉촉한", "파닥파닥", "싱싱한", "상큼한", "야망있는", "살금살금", "제멋대로", "거친 파도 속", "신출귀몰한", "야생의", "시들시들한", "트렌디한", "철푸덕", "새콤달콤한", "수줍어하는", "카리스마있는", "졸렬한", "배고픈", "비열한","뒷 골목의", "불타는", "노란머리","버섯머리", "버석한", "기괴한", "더조은","용의주도한", "괴로운", "비염걸린", "눈물 흘리는", "코찔찔이", "꼬들한", "소극적인", "화끈한"};	
     	String[] lastNick = {"열대어", "팽이버섯", "오리", "야자수", "숙주나물", "수박", "도둑", "어부", "헌터", "뽀야미", "파수꾼", "대주주", "알부자", "사천왕", "수족 냉증", "불주먹", "물주먹", "스나이퍼", "파스타", "수면핑", "농구공", "바다의 왕자", "아기돼지", "김치볶음밥", "파인애플", "지하철", "회리", "하림", "다영", "꼬질이"};
     	
         String randomFirstNick = firstNick[(int) (Math.random() * firstNick.length)];
@@ -493,7 +493,7 @@ public class MemberController {
 		}
 		
 		// 10포인트 추가
-		memberDTO.setPoint(memberDTO.getPoint()+10);
+		memberDTO.setPoint(memberDTO.getPoint()+200);
 		memberDAO.userAttend(memberDTO);
 		
 		return "mypage/attend";
