@@ -11,7 +11,7 @@
 
 /*** 병원 ***/
 #container .hosp_info {
-  width: 100%;
+  width: calc(100% - 20px);
   height: 300px;
   padding: 30px;
   background: #fff;
@@ -19,7 +19,8 @@
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   position: relative;
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  margin-left: 10px;
 }
 /*** 병원 사진 ***/
 #container .img {
@@ -42,6 +43,16 @@
 #container .info_top h3 {
   font-size: 32px;
   font-weight: 700;
+}
+#container .hosp_name {
+  display: flex;
+  gap: 0 10px;
+}
+#container .approve {
+  display: block;
+  width: 38px;
+  height: 38px;
+  background: url(/images/approve.svg) no-repeat 0 0 / 100%;
 }
 #container .detail {
   margin-top: 20px;
@@ -154,17 +165,29 @@
 }
 
 /*** 의사 리스트 ***/
-#container .doctor {
-  display: flex;
-  gap: 0 20px;
+#container .swiper {
+  height: 190px;
+  padding: 0 10px;
 }
-#container .doctor>li {
+#container .swiper-wrapper {
+  margin-top: 10px;
+}
+#container .doctor .li {
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-  padding: 20px;  
-  width: calc(25% - 60px / 4);
+  width: calc(100% - 60px / 4);
+  height: 150px;
+  position: relative;
 }
-#container .doctor>li.none {
+#container .doctor .li a {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 150px;
+  padding: 20px;
+}
+#container .doctor .li.none {
   width: 100%;
   height: 200px;
   display: flex;
@@ -173,8 +196,15 @@
   font-size: 20px;
   color: #666;
 }
+#container .doctor .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
 #container .doctor .doc_wrap {
   display: flex;
+  gap: 0 20px;
 }
 #container .doctor .doc_img {
   border: 2px solid #ddd;
@@ -185,7 +215,10 @@
   height: 100px;
 }
 #container .doctor .doc_title {
-  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 0 5px;
+  margin-bottom: 30px;
 }
 #container .doctor .doc_title h3 {
   font-size: 20px;
@@ -194,9 +227,6 @@
 #container .doctor .doc_title p {
   font-size: 18px;
   color: var(--gray-500);
-}
-#container .doctor .doc_content {
-  margin-top: 10px;
 }
 #container .doctor .doc_detail {
   display: flex;
@@ -282,6 +312,7 @@
   padding: 10px;
   margin-top: 10px;
   color: var(--gray-500);
+  min-height: 100px;
 }
 /*** 좋아요, 답글달기 ***/
 #container .review_other {

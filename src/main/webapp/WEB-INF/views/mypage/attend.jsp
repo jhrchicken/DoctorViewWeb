@@ -22,6 +22,16 @@
         document.getElementById("nextNextCalendar").addEventListener("click", function(event) {
             nextCalendar();
         });
+        
+     	// 출석하기 버튼 눌렀을 때 alert 추가
+        const attendForm = document.forms["attend"];
+        if (attendForm) {
+            attendForm.addEventListener("submit", function(event) {
+                event.preventDefault(); // 폼 제출을 잠시 멈추고
+                alert("10p 지급 완료!");
+                this.submit(); // 폼 제출
+            });
+        }
     });
 
     var toDay = new Date(); // @param 전역 변수, 오늘 날짜 / 내 컴퓨터 로컬을 기준으로 toDay에 Date 객체를 넣어줌
@@ -173,7 +183,7 @@
 						<button type="submit" id="attendButton">출석체크</button>
 					</c:if>
 					<c:if test="${ memberDTO.attend == todayDate }">
-						<button type="button" disabled>출석완료</button>
+						<button class="attend_complete" type="button" disabled>출석 완료</button>
 					</c:if>
 				</div>   
             </form>

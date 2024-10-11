@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/hosp-view.css" />
 <script>
@@ -222,22 +224,28 @@ document.addEventListener('DOMContentLoaded', function () {
 		<div class="content_inner">
 
 			<div class="hosp_info">
-				<!-- 병원 사진 -->
-				<c:if test="${ hospitalDTO.photo == null }">
-					<span class="img">
-						<img src="/images/hospital.png" alt="" style="width: 100%; height: 100%;" />
-					</span>
-				</c:if>
-				<c:if test="${ hospitalDTO.photo != null }">
-					<span class="img">
-						<img src="/uploads/${ row.photo }" style="width: 100%; height: 100%;" ><br/>
-					</span>
-				</c:if>
-				
+			<!-- 병원 사진 -->
+			<c:if test="${ hospitalDTO.photo == null }">
+				<span class="img">
+					<img src="/images/hospital.png" alt="" style="width: 100%; height: 100%;" />
+				</span>
+			</c:if>
+			<c:if test="${ hospitalDTO.photo != null }">
+				<span class="img">
+					<img src="/uploads/${ row.photo }" style="width: 100%; height: 100%;" ><br/>
+				</span>
+			</c:if>
+			
 				<div class="info">
 					<div class="info_top">
 						<p>${ hospitalDTO.department }</p>
-						<h3>${ hospitalDTO.name }</h3>
+						<div class="hosp_name">
+							<h3>${ hospitalDTO.name }</h3>
+							<!-- 입점한 병원 인증마크 표시 -->
+							<c:if test="${ hospitalDTO.enter == 'T' }">
+								<span class="approve"></span>
+							</c:if>
+						</div>
 					</div>
 					<div class="detail">
 						<div class="details">
@@ -249,122 +257,146 @@ document.addEventListener('DOMContentLoaded', function () {
 							<p>${ hospitalDTO.address }</p>
 						</div>
 						<div class="details">
-							<div class="detail_flex">
+							<%-- <div class="detail_flex">
 								<p class="blue">교통편</p>
-								<p>${ hospitalDTO.parking }</p>
-							</div>
+								<c:if test="${ hospitalDTO.parking == 'T' }">
+									<p>가능</p>
+								</c:if>
+								<c:if test="${ hospitalDTO.parking == 'F' }">
+									<p>불가능</p>
+								</c:if>
+							</div> --%>
 							<div class="detail_flex">
 								<p class="blue">주차</p>
-								<p>${ hospitalDTO.parking }</p>
+								<c:if test="${ hospitalDTO.parking == 'T' }">
+									<p>가능</p>
+								</c:if>
+								<c:if test="${ hospitalDTO.parking == 'F' }">
+									<p>불가능</p>
+								</c:if>
 							</div>
 							<div class="detail_flex">
 								<p class="blue">예약제</p>
-								<p>${ hospitalDTO.system }</p>
+								<c:if test="${ hospitalDTO.system == 'T' }">
+									<p>가능</p>
+								</c:if>
+								<c:if test="${ hospitalDTO.system == 'F' }">
+									<p>불가능</p>
+								</c:if>
 							</div>
 							<div class="detail_flex">
 								<p class="blue">입원</p>
-								<p>${ hospitalDTO.hospitalize }</p>
+								<c:if test="${ hospitalDTO.hospitalize == 'T' }">
+									<p>가능</p>
+								</c:if>
+								<c:if test="${ hospitalDTO.hospitalize == 'F' }">
+									<p>불가능</p>
+								</c:if>
 							</div>
 							<div class="detail_flex">
 								<p class="blue">PCR 검사</p>
-								<p>${ hospitalDTO.pcr }</p>
+								<c:if test="${ hospitalDTO.pcr == 'T' }">
+									<p>가능</p>
+								</c:if>
+								<c:if test="${ hospitalDTO.pcr == 'F' }">
+									<p>불가능</p>
+								</c:if>
 							</div>
 						</div>
 					</div>
 					<!-- 해시태그 -->
 					<c:if test="${ not empty hospHashtagList }">
-						<div class="hashtag">
-							<ul>
-								<c:forEach items="${ hospHashtagList }" var="hashrow" varStatus="loop">
-									<li class="hash">
-										<p>${ hashrow.tag }</p>
-									</li>
-								</c:forEach>
-							</ul>
-						</div>
-					</c:if>
-					
-					<div class="btn_wrap">
-						<!-- 사용자가 로그인 했고 임점한 병원인 경우에만 예약 가능 -->
-						<!-- ****************** 수정 필요 ****************** -->
-						<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null }">
-							<button type="button" onclick="location.href='/reserve/proceed.do?api_idx=${ param.api_idx }';">예약하기</button>
-						</c:if>
-						
-						<!-- 사용자가 로그인 했고 입점한 병원인 경우에만 채팅 가능 -->
-						<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null }">
-						    <button onclick="chat('${ sessionScope.userName }', '${ hospitalDTO.name }');">채팅하기</button>
-						</c:if>
+					<div class="hashtag">
+						<ul>
+							<c:forEach items="${ hospHashtagList }" var="hashrow" varStatus="loop">
+								<li class="hash">
+									<p>${ hashrow.tag }</p>
+								</li>
+							</c:forEach>
+						</ul>
 					</div>
-					
+					</c:if>
+						
+					<div class="btn_wrap">
+					<!-- 사용자가 로그인 했고 임점한 병원인 경우에만 예약 가능 -->
+					<!-- ****************** 수정 필요 ****************** -->
+					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null }">
+						<button type="button" onclick="location.href='/reserve/proceed.do?api_idx=${ param.api_idx }';">예약하기</button>
+					</c:if>
+						
+					<!-- 사용자가 로그인 했고 입점한 병원인 경우에만 채팅 가능 -->
+					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null }">
+					    <button onclick="chat('${ sessionScope.userName }', '${ hospitalDTO.name }');">채팅하기</button>
+					</c:if>
+					</div>
+						
 					<div class="like_wrap">
-						<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
-						<c:if test="${ hosplikecheck == 0 }">
-							<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';">
-								<img src="/images/mark.svg" alt="" style="width: 30px; height: 30px;" />
-								${ hospitalDTO.likecount }
-							</button>
-						</c:if>
-						<!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
-						<c:if test="${ hosplikecheck == 1 }">
-							<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';">
-								<img src="/images/mark_full.svg" alt="" style="width: 30px; height: 30px;" />
-								${ hospitalDTO.likecount }
-							</button>
-						</c:if>
+					<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
+					<c:if test="${ hosplikecheck == 0 }">
+						<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';">
+							<img src="/images/mark.svg" alt="" style="width: 30px; height: 30px;" />
+							${ hospitalDTO.likecount }
+						</button>
+					</c:if>
+					<!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
+					<c:if test="${ hosplikecheck == 1 }">
+						<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';">
+							<img src="/images/mark_full.svg" alt="" style="width: 30px; height: 30px;" />
+							${ hospitalDTO.likecount }
+						</button>
+					</c:if>
 					</div>
 				</div>
 			</div>
 			
 			<!-- 의사 정보 -->
 			<div class="list">
-				<ul class="doctor">
-					<c:choose>
-						<c:when test="${ empty doctorList }">
-							<li class="none">
-								<p>등록된 의사가 없습니다.</p>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${ doctorList }" var="row" varStatus="loop">
-								<li>
-									<div class="doc_wrap">
-										<span class="doc_img">
-											<c:if test="${ row.photo == null }">
-												<img src="/images/doctor.png" alt="" />
-											</c:if>
-											<c:if test="${ row.photo != null }">
-												<img src="/uploads/${ row.photo }" />
-											</c:if>
-										</span>
-										<div class="doc_title">
-											<h3>${ row.name }</h3>
-											<p>${ row.major }</p>
-										</div>
-									</div>
-									<div class="doc_content">
-										<div class="doc_detail">
-											<p class="blue">경력</p>
-											<p>${ row.career }</p>
-										</div>
-										<div class="doc_detail">
-											<p class="blue">진료 요일</p>
-											<p>${ row.hours }</p>
-										</div>
-									</div>
-									<a href="../doctor/viewDoctor.do?doc_idx=${ row.doc_idx }"><span class="blind">의사 바로가기</span></a>
-								</li>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-				
-				<!-- 페이지네이션 -->
-				<div class="pagination">
-					<div class="pagination_inner">
-						${ pagingImg }
-					</div>
-				</div>
+			    <div class="doctor">
+			        <c:choose>
+			            <c:when test="${ empty doctorList }">
+			                <div class="li none">
+			                    <p>등록된 의사가 없습니다.</p>
+			                </div>
+			            </c:when>
+			            <c:otherwise>
+			                <div class="swiper">
+			                    <div class="swiper-wrapper">
+			                        <c:forEach items="${ doctorList }" var="row" varStatus="loop">
+			                            <div class="swiper-slide li">
+			                               <a href="../doctor/viewDoctor.do?doc_idx=${ row.doc_idx }">
+				                               <div class="doc_wrap">
+				                                   <span class="doc_img">
+				                                       <c:if test="${ row.photo == null }">
+				                                           <img src="/images/doctor.png" alt="" />
+				                                       </c:if>
+				                                       <c:if test="${ row.photo != null }">
+				                                           <img src="/uploads/${ row.photo }" />
+				                                       </c:if>
+				                                   </span>
+				                                   <div class="doc_content">
+					                               	   <div class="doc_title">
+					                                       <h3>${ row.name }</h3>
+					                                       <p>${ row.major }</p>
+					                                   </div>
+					                                   <div class="doc_detail">
+					                                       <p class="blue">경력</p>
+					                                       <p>${ row.career }</p>
+					                                   </div>
+					                                   <div class="doc_detail">
+					                                       <p class="blue">진료 요일</p>
+					                                       <p>${ row.hours }</p>
+					                                   </div>
+					                               </div>
+				                               </div>
+				                               
+			                               </a>
+			                            </div>
+			                        </c:forEach>
+			                    </div>
+			                </div>
+			            </c:otherwise>
+			        </c:choose>
+			    </div>
 			</div>
 		</div>
 		
