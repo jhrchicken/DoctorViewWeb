@@ -168,7 +168,7 @@ function searchHosp(event) {
 					<div class="search_hosp">
 						<!-- 검색 -->
 						<select class="searchField" name="searchField">
-							<option value="">--- 조건 선택 ---</option>
+							<option value="name">--- 조건 선택 ---</option>
 							<option value="name">병원명</option>
 							<option value="department">진료과목</option>
 							<option value="hashtag">해시태그</option>
@@ -222,10 +222,11 @@ function searchHosp(event) {
 												<div class="depdis">
 													<p>${ row.department }</p>
 													<!-- 거리 정보가 있을 때만 쩜 나오게 처리해주세욧!!!!!!!!! -->
-													<c:if test="${ not empty row.distance }">
+													<!-- 검색하면 다시 생김 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ -->
+													<%-- <c:if test="${ not empty row.distance }">
 														<p>•</p>
 														<p>${ row.distance }</p>
-													</c:if>
+													</c:if> --%>
 												</div>
 											</div>
 											<div class="detail">

@@ -239,7 +239,13 @@ document.addEventListener('DOMContentLoaded', function () {
 				<div class="info">
 					<div class="info_top">
 						<p>${ hospitalDTO.department }</p>
-						<h3>${ hospitalDTO.name }</h3>
+						<div class="hosp_name">
+							<h3>${ hospitalDTO.name }</h3>
+							<!-- 입점한 병원 인증마크 표시 -->
+							<c:if test="${ hospitalDTO.enter == 'T' }">
+								<span class="approve"></span>
+							</c:if>
+						</div>
 					</div>
 					<div class="detail">
 						<div class="details">
@@ -251,25 +257,50 @@ document.addEventListener('DOMContentLoaded', function () {
 							<p>${ hospitalDTO.address }</p>
 						</div>
 						<div class="details">
-							<div class="detail_flex">
+							<%-- <div class="detail_flex">
 								<p class="blue">교통편</p>
-								<p>${ hospitalDTO.parking }</p>
-							</div>
+								<c:if test="${ hospitalDTO.parking == 'T' }">
+									<p>가능</p>
+								</c:if>
+								<c:if test="${ hospitalDTO.parking == 'F' }">
+									<p>불가능</p>
+								</c:if>
+							</div> --%>
 							<div class="detail_flex">
 								<p class="blue">주차</p>
-								<p>${ hospitalDTO.parking }</p>
+								<c:if test="${ hospitalDTO.parking == 'T' }">
+									<p>가능</p>
+								</c:if>
+								<c:if test="${ hospitalDTO.parking == 'F' }">
+									<p>불가능</p>
+								</c:if>
 							</div>
 							<div class="detail_flex">
 								<p class="blue">예약제</p>
-								<p>${ hospitalDTO.system }</p>
+								<c:if test="${ hospitalDTO.system == 'T' }">
+									<p>가능</p>
+								</c:if>
+								<c:if test="${ hospitalDTO.system == 'F' }">
+									<p>불가능</p>
+								</c:if>
 							</div>
 							<div class="detail_flex">
 								<p class="blue">입원</p>
-								<p>${ hospitalDTO.hospitalize }</p>
+								<c:if test="${ hospitalDTO.hospitalize == 'T' }">
+									<p>가능</p>
+								</c:if>
+								<c:if test="${ hospitalDTO.hospitalize == 'F' }">
+									<p>불가능</p>
+								</c:if>
 							</div>
 							<div class="detail_flex">
 								<p class="blue">PCR 검사</p>
-								<p>${ hospitalDTO.pcr }</p>
+								<c:if test="${ hospitalDTO.pcr == 'T' }">
+									<p>가능</p>
+								</c:if>
+								<c:if test="${ hospitalDTO.pcr == 'F' }">
+									<p>불가능</p>
+								</c:if>
 							</div>
 						</div>
 					</div>
