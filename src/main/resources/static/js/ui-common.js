@@ -14,4 +14,12 @@ $(function() {
 	spaceBetween: 20,
 	centeredSlides: false,
   });
+  
+  // 스와이퍼
+   var swiper = new Swiper('.doctor .swiper', {
+    loop: false,
+    slidesPerView: 3,  
+  	spaceBetween: 20,
+  	centeredSlides: false,
+  });
 });

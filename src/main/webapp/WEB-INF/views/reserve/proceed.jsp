@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>닥터뷰 | 예약하기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/reserve-proceed.css" />
 
@@ -252,40 +254,47 @@
 				</div>
       
 				<!-- 의사정보 -->
-				<ul class="doctor">
-					<c:forEach items="${ doctorInfo }" var="row" varStatus="loop">
-						<li>
-							<label>
-								<!-- 의사 선택 radio -->
-								<input id="${ row.name }"  type="radio" name="doctorname" value="${ row.name }" />
-								<label class="doc_check" for="${ row.name }">${ row.name } 의사<p>${ row.major }</p></label>
-							</label>
-							<div class="doc">							
-								<div class="doc_wrap">
-									<span class="doc_img">
-										<img src="/images/doctor.png" alt="" />
-									</span>
-						       		<input type="hidden" name="doc_idx" value="${ row.doc_idx }" />
-						          	<input type="hidden" name="doctorname_${ row.name }" value="${ row.name }" />
-								</div>
-								<div class="doc_content">
-									<div class="doc_title">
-										<h3>${ row.name }</h3>
-										<p>${ row.major }</p>
+				<div class="proceed">
+					<div class="doctor">
+						<div class="swiper">
+							<div class="swiper-wrapper">
+							<c:forEach items="${ doctorInfo }" var="row" varStatus="loop">
+								<div class="swiper-slide li">
+									<label>
+										<!-- 의사 선택 radio -->
+										<input id="${ row.name }"  type="radio" name="doctorname" value="${ row.name }" />
+										<label class="doc_check" for="${ row.name }">${ row.name } 의사<p>${ row.major }</p></label>
+									</label>
+									<div class="doc">							
+										<div class="doc_wrap">
+											<span class="doc_img">
+												<img src="/images/doctor.png" alt="" />
+											</span>
+								       		<input type="hidden" name="doc_idx" value="${ row.doc_idx }" />
+								          	<input type="hidden" name="doctorname_${ row.name }" value="${ row.name }" />
+										</div>
+										<div class="doc_content">
+											<div class="doc_title">
+												<h3>${ row.name }</h3>
+												<p>${ row.major }</p>
+											</div>
+											<div class="doc_detail">
+												<p class="blue">경력</p>
+										        <p>${ row.career }</p>
+										    </div>
+									        <div class="doc_detail">
+												<p class="blue">진료 요일</p>
+												<p>${ row.hours }</p>
+											</div>
+								    	</div>
 									</div>
-									<div class="doc_detail">
-										<p class="blue">경력</p>
-								        <p>${ row.career }</p>
-								    </div>
-							        <div class="doc_detail">
-										<p class="blue">진료 요일</p>
-										<p>${ row.hours }</p>
-									</div>
-						    	</div>
+					  			</div>
+							</c:forEach>	
 							</div>
-				  		</li>
-					</c:forEach>	      
-				</ul>
+						</div>
+					</div>
+				</div>
+				
 
 <!-- 진료과목 추후 추가 -->
 <!--       <div class="list_search"> -->

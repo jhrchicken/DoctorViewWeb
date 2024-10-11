@@ -271,10 +271,12 @@ document.addEventListener('DOMContentLoaded', function () {
 					</div>
 					
 					<!-- 하단 메뉴(버튼) -->
-					<div class="board_btn">
-						<button type="button" onclick="location.href='../doctor/editDoctor.do?doc_idx=${ param.doc_idx }';">수정하기</button>
-						<button type="button" onclick="deleteDoctor(${ param.doc_idx });">삭제하기</button>
-					</div>
+					<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
+						<div class="board_btn">
+							<button type="button" onclick="location.href='../doctor/editDoctor.do?doc_idx=${ param.doc_idx }';">수정하기</button>
+							<button type="button" onclick="deleteDoctor(${ param.doc_idx });">삭제하기</button>
+						</div>
+					</c:if>
 				</div>
 			</div>
 		</div>
