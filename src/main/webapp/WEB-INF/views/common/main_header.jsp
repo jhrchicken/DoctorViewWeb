@@ -48,9 +48,9 @@
 					<div class="depth2">
 						<ul>
 							<!-- 병원 권한: 내 병원보기 -->
-							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
+							<%-- <c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
 								<li><a href="#">내 병원 보기</a>
-							</c:if>
+							</c:if> --%>
 							<!-- 공통: 개인정보 수정 -->
 							<c:if test="${ sessionScope.userAuth != 'ROLE_HOSP' }">
 								<li><a href="/member/checkMember.do">개인정보 수정</a></li>
@@ -62,9 +62,8 @@
 							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
 								<li><a href="/member/doctorInfo.do">의사 관리</a></li>
 							</c:if>
-							<!-- 공통: 예약 관리 -->
 							<c:if test="${ sessionScope.userAuth != 'ROLE_HOSP' }">
-								<li><a href="/reserve.do">예약 관리</a></li>
+								<li><a href="/reserve.do">예약 내역</a></li>
 							</c:if>
 							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
 								<li><a href="/reserve/setTime.do?id=${ userId }">예약 관리</a></li>
@@ -74,7 +73,7 @@
 							<c:if test="${ sessionScope.userAuth != 'ROLE_HOSP' }">
 								<li><a href="/mypage/myHosp.do">찜한 병원</a></li>
 								<li><a href="/mypage/myDoctor.do">찜한 의사</a></li>
-								<li><a href="#">작성한 리뷰</a></li>
+								<!-- <li><a href="#">작성한 리뷰</a></li> -->
 								<li><a href="/mypage/attend.do">출석체크</a></li>
 							</c:if>
 						</ul>

@@ -36,11 +36,16 @@
 			<p>${ notfountPass }</p>
       	</div> --%>
 
-      	${ passInfo }
-		${ notfountPass }
+      	
 		
       
         <h2>비밀번호 찾기</h2>
+        
+        <!-- 알림 메세지 -->
+        <p>${ passInfo }</p>
+		<p>${ notfountPass }</p>
+		
+		
         <form name="findPassFrm" method="post" action="../member/findPass.do" onsubmit="return validateForm(this);">
           <div class="login">
             <p>아이디</p>

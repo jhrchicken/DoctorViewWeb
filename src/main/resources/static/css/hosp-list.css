@@ -129,6 +129,10 @@
   height: 210px;
   border: 2px solid #ddd;
 }
+#container .hospital>li.not>.img {
+  width: 160px;
+  height: 160px;
+}
 /*** 병원 정보 ***/
 #container .hospital .info {
   padding: 0 30px;

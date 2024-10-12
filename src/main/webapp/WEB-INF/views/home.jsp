@@ -49,28 +49,28 @@
 	                  		<a href="#"># 이비인후과</a>
 	            		</div>
 	            		<div class="swiper-slide">
-	                  		<a href="#"># 감기</a>
+	                  		<a href="#"># 복통</a>
 	            		</div>
 	                  	<div class="swiper-slide">
-	                  		<a href="#"># 이비인후과</a>
+	                  		<a href="#"># 기침</a>
 	            		</div>
 	            		<div class="swiper-slide">
-	                  		<a href="#"># 감기</a>
+	                  		<a href="#"># 소아과</a>
 	            		</div>
 	                  	<div class="swiper-slide">
-	                  		<a href="#"># 이비인후과</a>
+	                  		<a href="#"># 피부염</a>
 	            		</div>
 	            		<div class="swiper-slide">
-	                  		<a href="#"># 감기</a>
+	                  		<a href="#"># 두통</a>
 	            		</div>
 	                  	<div class="swiper-slide">
-	                  		<a href="#"># 이비인후과</a>
+	                  		<a href="#"># 무릎</a>
 	            		</div>
 	            		<div class="swiper-slide">
-	                  		<a href="#"># 감기</a>
+	                  		<a href="#"># 충치</a>
 	            		</div>
 	                  	<div class="swiper-slide">
-	                  		<a href="#"># 이비인후과</a>
+	                  		<a href="#"># 시술</a>
 	            		</div>
 	              	</div>
 	            </div>

@@ -192,9 +192,9 @@ function searchHosp(event) {
 				<div class="list">
 					<c:choose>
 						<c:when test="${ empty hospList }">
-							<tr>
+							<div>
 								<p>검색 결과가 없습니다</p>
-							</tr>
+							</div>
 						</c:when>
 						<c:otherwise>
 							<ul class="hospital">

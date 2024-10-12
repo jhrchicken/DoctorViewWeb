@@ -5,8 +5,8 @@
 		<ul class="team_wrap">
 			<li><p class="team">닥터뷰</p></li>
 			<li><p>정하림</p></li>
-			<li><p>이회리</p></li>
 			<li><p>부다영</p></li>
+			<li><p>이회리</p></li>
 		</ul>
 		<div class="other_wrap">
 			<ul class="other">

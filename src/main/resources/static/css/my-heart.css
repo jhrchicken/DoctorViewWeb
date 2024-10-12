@@ -21,50 +21,9 @@
   color: var(--gray-500);
 }
 
-/*** 의사 찾기 - 검색 ***/
-#container .list_search {
-  display: flex;
-  justify-content: center;
-  gap: 0 5px;
+#container .hospital>li {
   width: 100%;
-  margin-bottom: 20px;
-}
-#container .search_city .searchField {
-  border: 2px solid #ddd;
-  width: 190px;
-  height: 50px;
-  color: var(--gray-400);
-  padding: 0 10px;
-  position: relative;
-  background: url(/images/drop_down_arrow.svg) no-repeat right 5px top 50%;
-  cursor: pointer;
-}
-#container .search_city .searchKeyword {
-  border: 2px solid #ddd;
-  background: none;
-  width: 650px;
-  height: 50px;
-  font-size: 16px;
-}
-#container .search_city .search_btn {
-  border: 2px solid #ddd;
-  background: url(/images/search.svg) no-repeat 50% 50% / 80%;
-  width: 50px;
-  height: 50px;
-  color: var(--gray-400);
-  cursor: pointer;
-}
-/*** 의사 목록 ***/
-#container .list>p {
-  text-align: center;
-  padding: 100px 0;
-  font-size: 25px;
-  color: var(--gray-400);
-}
-/*** 의사 컬럼 ***/
-#container .doctor li {
-  width: 100%;
-  height: 250px;
+  height: 270px;
   padding: 30px;
   background: #fff;
   border-radius: 10px;
@@ -73,54 +32,79 @@
   display: flex;
   margin-bottom: 30px;
 }
-#container .doctor li:last-child {
+#container .hospital li:last-child {
   margin-bottom: 0;
 }
-#container .doctor li a {
+#container .hospital li a {
   display: block;
   width: 100%;
-  height: 250px;
+  height: 270px;
   position: absolute;
   left: 0;
   top: 0;
 }
 /*** 사진 ***/
-#container .doctor>li>.img {
-  width: 190px;
-  height: 190px;
+#container .hospital>li>.img {
+  width: 210px;
+  height: 210px;
   border: 2px solid #ddd;
 }
-/*** 의사 정보 ***/
-#container .doctor .info {
+#container .hospital>li.not>.img {
+  width: 160px;
+  height: 160px;
+}
+/*** 병원 정보 ***/
+#container .hospital .info {
   padding: 0 30px;
 }
-/*** 병원 이름, 주소 등 ***/
-#container .doctor .info_top h3 {
+/*** 병원 이름, 인증마크 ***/
+#container .hospital .hosp_name {
+  display: flex;
+  gap: 0 10px;
+}
+#container .hospital .hosp_name h3 {
   font-size: 32px;
   font-weight: 700;
 }
-#container .doctor .info_top>p {
-  font-size: 20px;
+#container .hospital .approve {
+  display: block;
+  width: 38px;
+  height: 38px;
+  background: url(/images/approve.svg) no-repeat 0 0 / 100%;
+}
+#container .hospital .info_top p {
+  font-size: 25px;
   color: var(--gray-400);
   font-weight: 500;
   display: block;
-  margin-top: 5px;
+  margin-top: 10px;
 }
-#container .doctor .detail {
+#container .hospital .depdis {
+  display: flex;
+  gap: 0 10px;
+}
+/*** 병원 추가 정보 ***/
+#container .hospital .detail {
   margin-top: 20px;
   font-size: 23px;
   font-weight: 500;
   line-height: 1.5em;
 }
-#container .doctor .details {
+#container .hospital .details {
   display: flex;
   gap: 0 10px;
 }
-#container .doctor .blue {
+#container .hospital .blue {
   color: var(--point-color2);
 }
+#container .hospital .address {
+  width: 600px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /*** 별점, 좋아요/댓글 수 ***/
-#container .doctor .info_right {
+#container .hospital .info_right {
   position: absolute;
   right: 30px;
   top: 30px;
@@ -128,11 +112,11 @@
   gap: 0 50px;
   justify-content: right;
 }
-#container .doctor .info_right p {
+#container .hospital .info_right p {
   font-size: 27px;
   position: relative;
 }
-#container .doctor .info_right p::before {
+#container .hospital .info_right p::before {
   content: '';
   display: block;
   width: 27px;
@@ -141,40 +125,29 @@
   left: -35px;
   top: 2px;
 }
-#container .doctor .info_right p.like::before {
+#container .hospital .info_right p.like::before {
   background: url(/images/mark_full.svg) no-repeat 50% 50% / 100%;
 }
-#container .doctor .info_right p.star::before {
+#container .hospital .info_right p.star::before {
   background: url(/images/star.svg) no-repeat 50% 50% / 100%;
 }
 /*** 해시태그 ***/
-/* #container .doctor .hash {
+#container .hospital .hashtag>ul {
   display: flex;
-  gap: 0 20px;
-  margin-top: 20px;
+  gap: 0 10px;
+  margin-top: 10px;
 }
-#container .doctor .hash>p {
-  display: block;
-  font-size: 25px;
+#container .hospital .hash {
+  font-size: 20px;
   background: var(--point-color1);
   color: #fff;
-  border-radius: 5px;
   padding: 5px 10px;
-} */
-
-/*** 찜한 거 없을 때 ***/
-#container .none {
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  color: #666;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-  padding: 20px;  
+  border-radius: 5px;
 }
-
+#container .hospital .hash>p::before {
+  content: '#';
+  margin-right: 5px;
+}
 /*** 게시판 - 페이지네이션 ***/
 #container .pagination {
   margin-top: 30px;  
