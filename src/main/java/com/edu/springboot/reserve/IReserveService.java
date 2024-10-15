@@ -11,6 +11,9 @@ import com.edu.springboot.member.MemberDTO;
 @Mapper
 public interface IReserveService {
 	
+	// 예약 목록
+	public List<ReserveDTO> getAllReservations();
+	
 	// 예약할 병원 정보
 	public MemberDTO getHospital(ReserveDTO reserveDTO);
 	public MemberDTO getMyHospital(MemberDTO memberDTO);

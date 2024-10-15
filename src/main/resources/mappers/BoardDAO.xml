@@ -5,6 +5,15 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.edu.springboot.board.IBoardService">
+
+	<!-- 게시판 전체 목록 -->
+	<select id="getAllBoards" resultType="com.edu.springboot.board.BoardDTO">
+		SELECT * FROM board
+	</select>
+	<!-- 댓글 전체 목록 -->
+	<select id="getAllComments" resultType="com.edu.springboot.board.CommentsDTO">
+		SELECT * FROM comment
+	</select>
 	
 	<!-- 베스트 게시판: 베스트 게시판의 게시글 개수를 카운트 -->
 	<select id="countBestPost">

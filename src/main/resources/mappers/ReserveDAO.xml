@@ -6,6 +6,14 @@
 	
 <mapper namespace="com.edu.springboot.reserve.IReserveService">
 
+	<!-- 예약 목록 -->
+	<select id="getAllReservations" resultType="com.edu.springboot.reserve.ReserveDTO">
+		SELECT * FROM appointment
+	</select>
+
+	
+		
+
 	<!-- 사용자가 예약할 병원 정보 가져옴 -->
 	<select id="getHospital"
 		parameterType="com.edu.springboot.reserve.ReserveDTO"

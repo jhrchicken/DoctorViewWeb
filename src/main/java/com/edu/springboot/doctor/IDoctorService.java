@@ -1,6 +1,7 @@
 package com.edu.springboot.doctor;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -10,6 +11,14 @@ import com.edu.springboot.hospital.HashtagDTO;
 
 @Mapper
 public interface IDoctorService {
+	
+	// 의사 전체 목록
+	public List<DoctorDTO> getAllDoctors();
+	// 의사 리뷰 목록
+	public List<DreviewDTO> getAllDReviews();
+	// 의사 리뷰의 답변 목록
+	public List<DreviewDTO> getAllDReplies();
+	
 
 	// 의사 목록: 의사의 게시글 개수를 카운트
 	public int countDoctor(ParameterDTO parameterDTO);

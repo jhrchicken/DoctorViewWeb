@@ -6,9 +6,21 @@
 
 <mapper namespace="com.edu.springboot.member.IMemberService">
 
-	<!-- 회원 전체 목록 -->
-	<select id="getAllMember"  resultType="com.edu.springboot.member.MemberDTO">
+	<!-- 회원 목록 -->
+	<select id="getAllMembers" resultType="com.edu.springboot.member.MemberDTO">
         SELECT * FROM member 
+    </select>
+    <!-- 병원 영업시간 목록 -->
+    <select id="getAllHours" resultType="com.edu.springboot.member.HoursDTO">
+    	SELECT * FROM hours
+    </select>
+    <!-- 전체 좋아요 목록 -->
+    <select id="getAllLikes" resultType="com.edu.springboot.member.LikesDTO">
+    	SELECT * FROM likes
+    </select>
+    <!-- 전체 신고 목록 -->
+    <select id="getAllReports" resultType="com.edu.springboot.member.ReportDTO">
+    	SELECT * FROM report
     </select>
 	
 
