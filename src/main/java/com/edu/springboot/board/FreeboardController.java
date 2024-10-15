@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.mail.Session;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.JSFunction;
 import utils.PagingUtil;
 
 
@@ -66,7 +69,13 @@ public class FreeboardController {
 	}
 	
 	@RequestMapping("/freeboard/viewPost.do")
-	public String viewPostReq(Model model, BoardDTO boardDTO, HttpSession session) {
+	public String viewPostReq(Model model, BoardDTO boardDTO, HttpSession session, HttpServletResponse response) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 자유게시판의 게시글 조회
 		boardDTO = boardDAO.viewPost(boardDTO);
 		// 조회수 증가
@@ -101,22 +110,38 @@ public class FreeboardController {
 	}
 	
 	@GetMapping("/freeboard/writePost.do")
-	public String writePostGet(Model model) {
+	public String writePostGet(Model model, HttpSession session, HttpServletResponse response) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		return "freeboard/write";
 	}
 	@PostMapping("/freeboard/writePost.do")
-	public String writePostPost(Model model, HttpServletRequest req, HttpSession session) {
+	public String writePostPost(Model model, HttpServletRequest req, HttpServletResponse response, HttpSession session) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 폼값
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
-		// 세션에 저장된 로그인 아이디
-		String id = (String) session.getAttribute("userId");
-		boardDAO.writePost(title, content, id);
+		boardDAO.writePost(title, content, loginId);
 		return "redirect:../freeboard.do";
 	}
 	
 	@GetMapping("/freeboard/editPost.do")
-	public String editPostGet(Model model, BoardDTO boardDTO) {
+	public String editPostGet(Model model, HttpSession session, HttpServletResponse response, BoardDTO boardDTO) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		boardDTO = boardDAO.viewPost(boardDTO);
 		// 닉네임
 		String nickname = boardDAO.selectBoardNickname(boardDTO);
@@ -131,7 +156,13 @@ public class FreeboardController {
 	}
 	
 	@PostMapping("/freeboard/deletePost.do")
-	public String deletePostPost(HttpServletRequest req) {
+	public String deletePostPost(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		String board_idx = req.getParameter("board_idx");
 		boardDAO.deletePost(board_idx);
 		// 게시글 삭제에 의한 좋아요 및 신고 삭제
@@ -141,7 +172,13 @@ public class FreeboardController {
 	}
 	
 	@GetMapping("/freeboard/clickLike.do")
-	public String clickLikeGet(HttpServletRequest req, HttpSession session) {
+	public String clickLikeGet(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertBack(response, "로그인 후 이용해주세요");
+	        return null;
+	    }
 		// 좋아요 여부 확인
 		String id = (String) session.getAttribute("userId");
 		String board_idx = req.getParameter("board_idx");
@@ -158,7 +195,13 @@ public class FreeboardController {
 	}
 	
 	@GetMapping("/freeboard/clickReport.do")
-	public String clickReportGet(HttpServletRequest req, HttpSession session) {
+	public String clickReportGet(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertBack(response, "로그인 후 이용해주세요");
+	        return null;
+	    }
 		// 신고 여부 확인
 		String id = (String) session.getAttribute("userId");
 		String board_idx = req.getParameter("board_idx");
@@ -175,7 +218,13 @@ public class FreeboardController {
 	}
 	
 	@PostMapping("/freeboard/writeComment.do")
-	public String writeCommentPost(HttpServletRequest req, HttpSession session) {
+	public String writeCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertBack(response, "로그인 후 이용해주세요");
+	        return null;
+	    }
 		// 폼값
 		int board_idx = Integer.parseInt(req.getParameter("board_idx"));
 		String content = req.getParameter("content");
@@ -187,7 +236,13 @@ public class FreeboardController {
 	}
 	
 	@PostMapping("/freeboard/editComment.do")
-	public String editCommentPost(HttpServletRequest req) {
+	public String editCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertBack(response, "로그인 후 이용해주세요");
+	        return null;
+	    }
 		// 폼값
 		int board_ref = Integer.parseInt(req.getParameter("board_ref"));
 		String content = req.getParameter("content");
@@ -198,7 +253,13 @@ public class FreeboardController {
 	}
 
 	@PostMapping("/freeboard/deleteComment.do")
-	public String deleteCommentGet(HttpServletRequest req) {
+	public String deleteCommentGet(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertBack(response, "로그인 후 이용해주세요");
+	        return null;
+	    }
 		boardDAO.deleteComment(req.getParameter("comm_idx"));
 		return "redirect:../freeboard/viewPost.do?board_idx=" + req.getParameter("board_ref");
 	}

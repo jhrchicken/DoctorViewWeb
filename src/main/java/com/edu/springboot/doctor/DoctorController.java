@@ -22,9 +22,11 @@ import com.edu.springboot.board.ParameterDTO;
 import com.edu.springboot.hospital.HashtagDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import utils.FileUtil;
+import utils.JSFunction;
 import utils.PagingUtil;
 
 @Controller
@@ -83,8 +85,13 @@ public class DoctorController {
 	}
 	
 	@RequestMapping("/doctor/viewDoctor.do")
-	public String viewDoctorReq(Model model, DoctorDTO doctorDTO, HttpSession session) {
-		String id = (String) session.getAttribute("userId");
+	public String viewDoctorReq(Model model, HttpServletResponse response, DoctorDTO doctorDTO, HttpSession session) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 의사 정보 조회
 		doctorDTO = doctorDAO.viewDoctor(doctorDTO);
 		// 병원명
@@ -101,7 +108,7 @@ public class DoctorController {
 			int likecount = doctorDAO.countReviewLike(Integer.toString(review.getReview_idx()));
 			review.setLikecount(likecount);
 			// 리뷰 좋아요 클릭 여부
-			int reviewlikecheck = doctorDAO.checkReviewLike(id, Integer.toString(review.getReview_idx()));
+			int reviewlikecheck = doctorDAO.checkReviewLike(loginId, Integer.toString(review.getReview_idx()));
 			model.addAttribute("reviewlikecheck", reviewlikecheck);
 		}
 		// 의사 좋아요수
@@ -109,7 +116,7 @@ public class DoctorController {
 		doctorDTO.setLikecount(likecount);
 		model.addAttribute("reviewsList", reviewsList);
 		// 의사 좋아요 클릭 여부
-		int doclikecheck = doctorDAO.checkDocLike(id, Integer.toString(doctorDTO.getDoc_idx()));
+		int doclikecheck = doctorDAO.checkDocLike(loginId, Integer.toString(doctorDTO.getDoc_idx()));
 		model.addAttribute("doclikecheck", doclikecheck);
 		// 해시태그
 		ArrayList<HashtagDTO> hashtagList = doctorDAO.listHashtag();

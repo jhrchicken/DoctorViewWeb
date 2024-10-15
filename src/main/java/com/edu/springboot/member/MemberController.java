@@ -24,6 +24,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import utils.CookieManager;
 import utils.FileUtil;
+import utils.JSFunction;
 
 @Controller
 public class MemberController {
@@ -260,7 +261,13 @@ public class MemberController {
 	
 //	회원인증: 로그인 유저 비밀번호 인증
 	@GetMapping("/member/checkMember.do")
-	public String checkMemberGet() {
+	public String checkMemberGet(HttpSession session, HttpServletResponse response) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		return "member/checkMember";
 	}
 	@PostMapping("/member/checkMember.do")
@@ -283,7 +290,14 @@ public class MemberController {
 	
 //	회원정보 수정: user
 	@GetMapping("/member/editUser.do")
-	public String editUserGet(HttpSession session, Model model) {
+	public String editUserGet(Model model, HttpSession session, HttpServletResponse response) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
+	    
 		MemberDTO loginUser = memberDAO.loginMember((String) session.getAttribute("userId"), (String) session.getAttribute("userPassword"));
 		String[] tel =  loginUser.getTel().split("-");
 		String[] email =  loginUser.getEmail().split("@");
@@ -322,14 +336,19 @@ public class MemberController {
 
 //	회원정보 수정: hosp
 	@GetMapping("/member/editHosp.do")
-	public String editHospGet(MemberDTO memberDTO, DetailDTO detailDTO, HttpSession session, Model model) {
+	public String editHospGet(MemberDTO memberDTO, DetailDTO detailDTO, HttpSession session, Model model, HttpServletResponse response) {
 //		memberDTO.setId((String) session.getAttribute("userId"));
 //		memberDTO.setPassword((String) session.getAttribute("userPassword"));
 		
 		// member 
 //		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
-		String userId = (String) session.getAttribute("userId");
-		MemberDTO loginUser = memberDAO.loginMember(userId, (String) session.getAttribute("userPassword"));
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    } 
+		MemberDTO loginUser = memberDAO.loginMember(id, (String) session.getAttribute("userPassword"));
 		
 		String[] tel =  loginUser.getTel().split("-");
 		String[] taxid =  loginUser.getTaxid().split("-");
@@ -338,7 +357,7 @@ public class MemberController {
 		model.addAttribute("taxid", taxid);
 		
 		// hours
-		List<HoursDTO> hoursDTO = memberDAO.selectHospHours(userId);
+		List<HoursDTO> hoursDTO = memberDAO.selectHospHours(id);
 		String[] weeks = new String[hoursDTO.size()];
 		for (int i = 0; i < hoursDTO.size(); i++) {
 		    weeks[i] = hoursDTO.get(i).getWeek();
@@ -360,7 +379,7 @@ public class MemberController {
 		model.addAttribute("deadline", deadline);
 		
 		// detail
-		DetailDTO hospDatilInfo = memberDAO.selectHospDatail(userId);
+		DetailDTO hospDatilInfo = memberDAO.selectHospDatail(id);
 		model.addAttribute("hospDatilInfo", hospDatilInfo);
 		
 		
@@ -449,7 +468,13 @@ public class MemberController {
 	
 //	의료진 관리 (의사정보)
 	@GetMapping("/member/doctorInfo.do")
-	public String doctorInfoGet(HttpSession session, Model model) {
+	public String doctorInfoGet(Model model, HttpSession session, HttpServletResponse response) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setId((String) session.getAttribute("userId"));
 		List<DoctorDTO> doctorDTO = memberDAO.selectHospDoctor(memberDTO.getId());
@@ -462,7 +487,13 @@ public class MemberController {
 	
 //	출석체크
 	@GetMapping("/mypage/attend.do")
-	public String attendGet(HttpSession session, Model model) {
+	public String attendGet(Model model, HttpSession session, HttpServletResponse response) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 현재 날짜 가져오기
         LocalDate today = LocalDate.now();
         // 날짜 포맷팅
