@@ -6,6 +6,21 @@
 	
 <mapper namespace="com.edu.springboot.doctor.IDoctorService">
 
+	<!-- 의사 전체 목록 -->
+	<select id="getAllDoctors" resultType="com.edu.springboot.doctor.DoctorDTO">
+		SELECT * FROM doctor
+	</select>
+	<!-- 의사 리뷰 목록 -->
+	<select id="getAllDReviews" resultType="com.edu.springboot.doctor.DreviewDTO">
+		SELECT * FROM dreview where review_idx = original_idx 
+	</select>
+	<!-- 의사 리뷰의 답변 목록 -->
+	<select id="getAllDReplies" resultType="com.edu.springboot.doctor.DreviewDTO">
+		SELECT * FROM dreview where review_idx != original_idx 
+	</select>
+
+
+
 	<!-- 의사 목록: 의사의 게시글 개수를 카운트 -->
 	<select id="countDoctor"
 		resultType="int"

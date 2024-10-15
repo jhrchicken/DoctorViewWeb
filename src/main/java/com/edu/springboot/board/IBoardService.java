@@ -1,11 +1,17 @@
 package com.edu.springboot.board;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface IBoardService {
+	
+	// 게시판 목록
+	public List<BoardDTO> getAllBoards();
+	// 댓글 목록
+	public List<CommentsDTO> getAllComments();
 	
 	// 베스트 게시판: 베스트 게시판의 게시글 개수를 카운트
 	public int countBestPost();
