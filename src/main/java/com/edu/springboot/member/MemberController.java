@@ -34,7 +34,7 @@ public class MemberController {
 	@Autowired
 	EmailSending email;
 	
-//	회원가입 페이지로 진입
+//	회원가입 페이지로 진입 
 	@GetMapping("/member/join.do")
 	public String join() {
 		return "member/join";
