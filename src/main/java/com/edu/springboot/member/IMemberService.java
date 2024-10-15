@@ -8,6 +8,10 @@ import com.edu.springboot.emoji.EmojiDTO;
 
 @Mapper
 public interface IMemberService {
+	
+//	회원목록
+	public List<MemberDTO> getAllMember();
+	
 //	회원가입: 개인회원 
 	public int insertUser(MemberDTO memberDTO);
 	

@@ -207,7 +207,6 @@
 	
 		return true;
 	}
-	
 </script>
 
 </head>

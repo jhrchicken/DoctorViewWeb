@@ -56,8 +56,6 @@ public class ReserveController {
 		List<ReserveDTO> closeTime = reserveDAO.getReservationInfo(null, hospitalInfo.getId());
 		model.addAttribute("closeTime", closeTime);
 		
-		
-		
 		// 예약할 병원: 의사정보 
 		List<DoctorDTO> doctorInfo = reserveDAO.getDoctor(hospitalInfo.getId());
 		model.addAttribute("doctorInfo", doctorInfo);

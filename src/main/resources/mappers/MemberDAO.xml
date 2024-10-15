@@ -5,6 +5,14 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.edu.springboot.member.IMemberService">
+
+	<!-- 회원 전체 목록 -->
+	<select id="getAllMember"  resultType="com.edu.springboot.member.MemberDTO">
+        SELECT * FROM member 
+    </select>
+	
+
+
 	
 	<!-- 회원가입: user 데이터 insert  -->
 	<insert id="insertUser"
