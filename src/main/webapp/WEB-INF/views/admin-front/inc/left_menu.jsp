@@ -14,7 +14,7 @@
                 </span>
                 <span class="hide-menu">Dashboard</span>
               </a>
-            </li>  
+            </li>
             
             <!-- ##메뉴그룹1 시작## -->
             <li class="nav-small-cap">
