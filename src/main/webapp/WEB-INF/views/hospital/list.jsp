@@ -221,12 +221,6 @@ function searchHosp(event) {
 												</div>
 												<div class="depdis">
 													<p>${ row.department }</p>
-													<!-- 거리 정보가 있을 때만 쩜 나오게 처리해주세욧!!!!!!!!! -->
-													<!-- 검색하면 다시 생김 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠ -->
-													<%-- <c:if test="${ not empty row.distance }">
-														<p>•</p>
-														<p>${ row.distance }</p>
-													</c:if> --%>
 												</div>
 											</div>
 											<div class="detail">
