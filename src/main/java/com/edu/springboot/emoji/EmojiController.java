@@ -67,7 +67,10 @@ public class EmojiController {
 		
 		// 현재 로그인 한 유저의 emoji 컬럼 업데이트
 		emojiDAO.userEmojiUpdate(emojiDTO);
-		session.setAttribute("userEmoji", emojiDTO.getEmoji());
+		MemberDTO loginMember = (MemberDTO)session.getAttribute("loginMember");
+		loginMember.setEmoji(emojiDTO.getEmoji());
+		session.setAttribute("loginMember", loginMember);
+		// session.setAttribute("userEmoji", emojiDTO.getEmoji());
 		
 		return "redirect:/myEmoji.do";
 	}

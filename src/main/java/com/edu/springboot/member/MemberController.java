@@ -4,7 +4,6 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -170,26 +169,27 @@ public class MemberController {
 	@PostMapping("/member/login.do")
 	public String login(MemberDTO memberDTO, Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp) {
 //	    MemberDTO loginUser = memberDAO.loginMember(memberDTO);
-	    MemberDTO loginUser = memberDAO.loginMember(memberDTO.getId(), memberDTO.getPassword());
+	    MemberDTO loginMember = memberDAO.loginMember(memberDTO.getId(), memberDTO.getPassword());
 
-	    if(loginUser == null) {
+	    if(loginMember == null) {
 	        model.addAttribute("loginFailed", "아이디 혹은 비밀번호가 일치하지않습니다.");
 	        return "member/login";
 	    }
-	    if(loginUser.getEnable() == 0) {
+	    if(loginMember.getEnable() == 0) {
 	    	// 회원가입 승인 대기 처리 추가
 	    	model.addAttribute("loginFailed", "회원 승인 대기 상태입니다.");
 	    	return "member/login";
 	    }
-	    session.setAttribute("userId", loginUser.getId()); 
-	    session.setAttribute("userPassword", loginUser.getPassword()); 
-	    session.setAttribute("userName", loginUser.getName());
-	    session.setAttribute("userAuth", loginUser.getAuth());
-	    session.setAttribute("userEmoji", loginUser.getEmoji());
+	    session.setAttribute("userId", loginMember.getId()); 
+	    session.setAttribute("userPassword", loginMember.getPassword()); 
+	    session.setAttribute("userName", loginMember.getName());
+	    session.setAttribute("userAuth", loginMember.getAuth());
+	    session.setAttribute("userEmoji", loginMember.getEmoji());
+	    session.setAttribute("loginMember", loginMember);
 	    
 	    // 아이디 저장
-	    loginUser.setSaveId(memberDTO.getSaveId());
-	    if(loginUser.getSaveId() != null) {
+	    loginMember.setSaveId(memberDTO.getSaveId());
+	    if(loginMember.getSaveId() != null) {
 	    	model.addAttribute("checked", "checked");
 	        CookieManager.makeCookie(resp, "saveId", memberDTO.getId(), 86400);
 	    } else {
