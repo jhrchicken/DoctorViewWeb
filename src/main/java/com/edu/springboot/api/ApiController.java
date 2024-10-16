@@ -18,6 +18,7 @@ import com.edu.springboot.hospital.HreviewDTO;
 import com.edu.springboot.doctor.IDoctorService;
 import com.edu.springboot.hospital.DetailDTO;
 import com.edu.springboot.hospital.HashtagDTO;
+import com.edu.springboot.hospital.HospitalAppDTO;
 import com.edu.springboot.hospital.IHospitalService;
 import com.edu.springboot.member.HoursDTO;
 import com.edu.springboot.member.IMemberService;
@@ -56,6 +57,7 @@ public class ApiController {
 		List<MemberDTO> memberLists = memberDAO.getAllMembers();
 		return ResponseEntity.ok(memberLists);
 	}
+	// 커밋용 주석
 	
 	
 	// 전체 좋아요 목록
@@ -94,8 +96,8 @@ public class ApiController {
 	
 	// 병원 목록
 	@GetMapping("/hospital")
-	public ResponseEntity<List<HospitalDTO>> hospital() {
-		List<HospitalDTO> hospitalLists = hospitalDAO.getAllHospitals();
+	public ResponseEntity<List<HospitalAppDTO>> hospital() {
+		List<HospitalAppDTO> hospitalLists = hospitalDAO.getAllHospitals();
 		return ResponseEntity.ok(hospitalLists);
 	}
 	// 병원 상세정보 목록

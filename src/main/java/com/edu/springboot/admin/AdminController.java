@@ -76,7 +76,7 @@ public class AdminController {
 	    return returnStr;
 	}
 	
-//	로그아웃
+	//로그아웃
 	@GetMapping("/admin/logout.do")
 	public String logout(HttpSession session, Model model) {
 		session.invalidate();
@@ -101,19 +101,4 @@ public class AdminController {
 			
 		return "admin-front/main";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

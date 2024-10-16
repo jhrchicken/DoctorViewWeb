@@ -8,7 +8,7 @@
               <span class="hide-menu">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="../admin/index.do" aria-expanded="false">
+              <a class="sidebar-link" href="../admin/main.do" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -19,11 +19,11 @@
             <!-- ##메뉴그룹1 시작## -->
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">메뉴그룹1</span>
+              <span class="hide-menu">회원</span>
             </li>            
             <!-- 닥터뷰 메뉴 시작 -->
             <li class="sidebar-item">
-              <a class="sidebar-link" href="#1" aria-expanded="false">
+              <a class="sidebar-link" href="/admin/member_list.do" aria-expanded="false">
                 <span>
                   <i class="ti ti-article"></i>
                 </span>
@@ -35,15 +35,23 @@
             <!-- ##메뉴그룹2 시작## -->
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">메뉴그룹2</span>
+              <span class="hide-menu">게시판</span>
             </li>            
             <!-- 닥터뷰 메뉴 시작 -->
             <li class="sidebar-item">
-              <a class="sidebar-link" href="#2" aria-expanded="false">
+              <a class="sidebar-link" href="/admin/board_list.do?boardname=freeboard" aria-expanded="false">
                 <span>
                   <i class="ti ti-article"></i>
                 </span>
-                <span class="hide-menu">관리메뉴2</span>
+                <span class="hide-menu">자유게시판</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/board_list.do?boardname=qnaboard" aria-expanded="false">
+                <span>
+                  <i class="ti ti-article"></i>
+                </span>
+                <span class="hide-menu">상담게시판</span>
               </a>
             </li>
             <!-- ##메뉴그룹2 끝## -->

@@ -13,7 +13,7 @@
 	
 	<!-- 플러터 연동: 댓글 목록 -->
 	<select id="getAllComments" resultType="com.edu.springboot.board.CommentsDTO">
-		SELECT * FROM comment
+		SELECT * FROM comments
 	</select>
 	
 	
