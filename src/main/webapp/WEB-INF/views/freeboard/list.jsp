@@ -49,7 +49,7 @@
 						<c:choose>
 							<c:when test="${ empty postsList }">
 								<tr>
-									<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
+									<td colspan="6" align="center">등록된 게시물이 없습니다</td>
 								</tr>
 							</c:when>
 							<c:otherwise>
@@ -81,7 +81,7 @@
 				</c:if>
 				
 				<!-- 페이지네이션 -->
-				<c:if test="${ empty postsList }">
+				<c:if test="${ not empty postsList }">
 					<div class="pagination">
 						<div class="pagination_inner">
 							${ pagingImg }

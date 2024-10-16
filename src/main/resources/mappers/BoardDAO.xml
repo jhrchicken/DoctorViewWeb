@@ -5,17 +5,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.edu.springboot.board.IBoardService">
-
-	<!-- 게시판 전체 목록 -->
-	<select id="getAllBoards" resultType="com.edu.springboot.board.BoardDTO">
-		SELECT * FROM board
-	</select>
-	<!-- 댓글 전체 목록 -->
-	<select id="getAllComments" resultType="com.edu.springboot.board.CommentsDTO">
-		SELECT * FROM comment
-	</select>
 	
-	<!-- 베스트 게시판: 베스트 게시판의 게시글 개수를 카운트 -->
+	<!-- 베스트 게시판: 게시글 개수 카운트 -->
 	<select id="countBestPost">
 		SELECT COUNT(*)
 	    FROM (
@@ -27,7 +18,7 @@
 	    )
 	</select>
 	
-	<!-- 베스트 게시판: 베스트 게시판에서 한 페이지에 출력할 게시글을 인출 -->
+	<!-- 베스트 게시판: 한 페이지에 출력할 게시글 목록 인출 -->
 	<select id="listBestPost"
 		resultType="com.edu.springboot.board.BoardDTO"
 		parameterType="com.edu.springboot.board.ParameterDTO">
@@ -48,12 +39,12 @@
 
 
 	
-	<!-- 내가 쓴 글: 로그인 사용자가 작성한 게시글의 개수를 카운트 -->
+	<!-- 내가 쓴 글: 게시글 개수 카운트 -->
 	<select id="countMyPost">
 		SELECT COUNT(*) FROM board WHERE writer_ref=#{param1}
 	</select>
 	
-	<!-- 내가 쓴 글: 로그인 한 사용자가 작성한 게시글에서 한 페이지에 출력할 게시글을 인출 -->
+	<!-- 내가 쓴 글: 한 페이지에 출력할 게시글 목록 인출 -->
 	<select id="listMyPost"
 		resultType="com.edu.springboot.board.BoardDTO">
 		SELECT * FROM (
@@ -62,11 +53,12 @@
 				ORDER BY board_idx DESC
 			) Tb
 		)
-		WHERE rNum<![CDATA[>=]]>#{param2} AND rNum<![CDATA[<=]]>#{param3}
+		WHERE rNum<![CDATA[>=]]>#{param2.start} AND rNum<![CDATA[<=]]>#{param2.end}
 	</select>
 	
 	
-	<!-- 댓글 단 글: 로그인 사용자가 댓글을 작성한 게시물의 개수를 카운트 -->
+	
+	<!-- 댓글 단 글: 게시글 개수 카운트 -->
 	<select id="countMyComment">
 		SELECT COUNT(*)
 	    FROM (
@@ -77,7 +69,7 @@
 	    )
 	</select>
 	
-	<!-- 댓글 단 글: 로그인 사용자가 댓글을 작성한 게시글에서 한 페이지에 출력할 게시글을 인출 -->
+	<!-- 댓글 단 글: 한 페이지에 출력할 게시글 목록 인출 -->
 	<select id="listMyComment"
 		resultType="com.edu.springboot.board.BoardDTO">
 		SELECT * FROM (
@@ -92,17 +84,20 @@
 				ORDER BY board_idx DESC
 			) Tb
 		)
-		WHERE rNum<![CDATA[>=]]>#{param2} AND rNum<![CDATA[<=]]>#{param3}
+		WHERE rNum<![CDATA[>=]]>#{param2.start} AND rNum<![CDATA[<=]]>#{param2.end}
 	</select>
 	
-	<!-- 댓글을 기다리는 글: 댓글이 없는 게시물의 개수를 카운트 -->
+	
+	
+	<!-- 댓글을 기다리는 글: 게시글 개수 카운트 -->
 	<select id="countNoComment">
 		SELECT COUNT(*)
 	    FROM board b
 	    LEFT JOIN comments c ON b.board_idx = c.board_ref
 	    WHERE c.board_ref IS NULL AND b.boardname = 'qnaboard'
 	</select>
-	<!-- 댓글을 기다리는 글: 댓글이 없는 게시글에서 한 페이지에 출력할 게시글을 인출 -->
+	
+	<!-- 댓글을 기다리는 글: 한 페이지에 출력할 게시글 목록 인출 -->
 	<select id="listNoComment"
 		resultType="com.edu.springboot.board.BoardDTO"
 		parameterType="com.edu.springboot.board.ParameterDTO">
@@ -118,21 +113,41 @@
 	    WHERE rNum <![CDATA[>=]]> #{start} AND rNum <![CDATA[<=]]> #{end}
 	</select>
 	
+	
 
-	<!-- 닉네임 인출: 게시글 작성자 닉네임 인출 -->
+	<!-- 정보 표시: 게시글 작성자의 닉네임 인출 -->
 	<select id="selectBoardNickname"
 		parameterType="com.edu.springboot.board.BoardDTO">
 		SELECT nickname FROM member WHERE id=#{writer_ref}	
 	</select>
+	
+	<!-- 정보 표시: 게시글 작성자의 이모지 인출 -->
+	<select id="selectBoardEmoji"
+		parameterType="com.edu.springboot.board.BoardDTO">
+		SELECT emoji FROM member WHERE id=#{writer_ref}
+	</select>
 
-	<!-- 좋아요: 좋아요 수 조회 -->
+	<!-- 정보 표시: 좋아요 수 조회 -->
 	<select id="countLike">
 		SELECT COUNt(*) FROM likes WHERE tablename='board' AND recodenum=#{param1}
 	</select>
 	
-	<!-- 댓글: 댓글 수 조회 -->
+	<!-- 정보 표시: 댓글 수 조회 -->
 	<select id="countComment">
 		SELECT COUNT(*) FROM comments WHERE board_ref=#{board_idx}
+	</select>
+	
+	
+	
+	
+	<!-- 플러터 연동: 게시판 목록 -->
+	<select id="getAllBoards" resultType="com.edu.springboot.board.BoardDTO">
+		SELECT * FROM board
+	</select>
+	
+	<!-- 플러터 연동: 댓글 목록 -->
+	<select id="getAllComments" resultType="com.edu.springboot.board.CommentsDTO">
+		SELECT * FROM comments
 	</select>
 
 </mapper>

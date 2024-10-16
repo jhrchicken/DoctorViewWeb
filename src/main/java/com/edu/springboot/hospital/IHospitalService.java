@@ -12,7 +12,7 @@ import com.edu.springboot.doctor.DoctorDTO;
 public interface IHospitalService {
 	
 	// 병원 목록
-	public List<HospitalDTO> getAllHospitals();
+	public List<HospitalAppDTO> getAllHospitals();
 	// 병원 상세정보 목록
 	public List<DetailDTO> getAllHDetails();
 	// 병원 리뷰 목록

@@ -16,5 +16,6 @@ public class BoardDTO {
 	
 	private String nickname;
 	private int likecount;
+	private int reportcount;
 	private int commentcount;
 }
