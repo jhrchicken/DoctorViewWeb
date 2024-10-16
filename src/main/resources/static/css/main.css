@@ -1,0 +1,178 @@
+#container .content {
+  padding: 170px 0 80px;
+}
+#container .content_inner {
+  max-width: 1170px;
+  margin: 0 auto;
+}
+#container h2 {
+  font-size: 30px;
+  font-weight: 500;
+  padding-bottom: 10px;
+  color: var(--point-color2);
+}
+
+/*** 병원/의사 찾기 ***/
+#container .search {
+  padding: 50px 0 20px;
+}
+#container .search_wrap {
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  display: flex;
+  gap: 0 20px;
+}
+#container .searchForm_wrap {
+  width: 100%;
+}
+#container .title {
+  padding: 10px 0 30px;
+}
+#container .title .tip {
+  font-size: 35px;
+  font-weight: 700;
+  color: var(--point-color2);
+  margin-bottom: 10px;
+}
+#container .title p {
+  color: #bbb;
+}
+#container .searchField {
+  border: 2px solid #ddd;
+  height: 45px;
+  width: 20%;
+  color: var(--gray-400);
+  padding: 0 10px;
+  position: relative;
+  background: url(/images/drop_down_arrow.svg) no-repeat right 5px top 50%;
+  cursor: pointer;
+}
+#container .searchWord {
+  border: 2px solid #ddd;
+  background: none;
+  height: 45px;
+  width: 50%;
+}
+#container .search_btn {
+  border: 2px solid #ddd;
+  background: url(/images/search.svg) no-repeat 50%;
+  height: 45px;
+  width: 45px;
+  color: var(--gray-400);
+  cursor: pointer;
+}
+/*** 빠른 검색 ***/
+#container .tag {
+  padding-bottom: 30px; 
+}
+#container .tag .swiper-slide {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  background: var(--point-color1);
+  border: none;
+  border-radius: 10px;
+}
+#container .tag .swiper-slide:hover {
+  background: #fff;
+  border: 2px solid var(--point-color1);
+}
+#container .tag .swiper-slide a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;  
+  color: #fff;
+}
+#container .tag .swiper-slide:hover a {
+  color: var(--point-color1);
+}
+
+/*** 바로가기 ***/
+#container .link {
+  padding: 30px 0;
+}
+#container .link ul {
+  display: flex;
+  gap: 0 25px;
+  margin-top: 5px;
+}
+#container .link li {
+  width: calc((100% / 3) - 50px / 3);
+  height: 150px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--gray-600);
+}
+#container .link li:hover {
+  background: #ddd;
+}
+#container .link li>a {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#container .link p.go {
+  position: absolute;
+  right: 20px;
+  bottom: 15px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray-500);
+  display: flex;
+  vertical-align: center;
+}
+#container .link p.go::after {
+  content: '';
+  margin-left: 5px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url(/images/paging3.svg) no-repeat 0 0 / 100%;
+}
+/*** 공지사항 ***/
+#container .notify {
+  padding: 30px 0;
+}
+#container .notify .notice {
+  padding: 20px;
+  border: 2px solid #ffce32;
+  border-radius: 10px;
+  background: #fff;
+}
+#container .notify p {
+  font-size: 18px;
+  color: var(--gray-600);
+  line-height: 1.5em;
+}
+#container .notify p.title {
+  font-size: 20px;
+  font-weight: 500;
+  color: red;
+}
+#container .notify strong {
+  font-size: 20px;
+  line-height: 1.5em;
+}
+#container .notify span {
+  color: red;
+  font-weight: 500;
+}

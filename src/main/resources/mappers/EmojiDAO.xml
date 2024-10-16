@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.edu.springboot.emoji.IEmojiService">
+
+	<!-- 보유 이모지 목록 -->
+	<select id="myEmojiList"
+		resultType="com.edu.springboot.emoji.EmojiDTO">
+		SELECT e.*, s.title
+	    FROM emoji e  
+	    JOIN store s ON e.emoji = s.emoji
+	    WHERE e.user_ref = #{param1}
+	</select>
+	<!-- 이모지 비활성화 -->
+	<update id="deactivateEmoji">
+		UPDATE emoji SET use_emoji='F' WHERE user_ref=#{param1} and use_emoji='T'
+	</update>
+	
+	<!-- 이모지 변경(활성화) -->
+	<update id="activateEmoji"
+		parameterType="com.edu.springboot.emoji.EmojiDTO">
+		UPDATE emoji SET use_emoji='T' WHERE emoji_idx=#{emoji_idx}
+	</update>
+	
+	<!-- 유저 활성화 이모지 정보 업데이트 -->
+	<update id="userEmojiUpdate"
+		parameterType="com.edu.springboot.emoji.EmojiDTO">
+		UPDATE member 
+		SET emoji = (SELECT emoji FROM emoji WHERE use_emoji = 'T' AND user_ref = #{user_ref})
+		WHERE id = #{user_ref}
+	</update>
+	
+	<!-- 유저 이모지 구매 -->
+	<insert id="userBuyEmoji"
+		parameterType="com.edu.springboot.emoji.EmojiDTO">
+		INSERT INTO emoji (emoji_idx, user_ref, emoji) 
+		VALUES (seq_emoji_idx.nextval, #{user_ref}, #{emoji})
+	</insert>
+	
+
+	
+	
+</mapper>
