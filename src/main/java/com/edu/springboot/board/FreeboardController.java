@@ -377,5 +377,4 @@ public class FreeboardController {
 	    return resultMap;
 	}
 
-
 }
