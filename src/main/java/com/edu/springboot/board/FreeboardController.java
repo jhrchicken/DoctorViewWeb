@@ -197,7 +197,7 @@ public class FreeboardController {
 	}
 
 	
-	// == 댓글 작성 (Ajax) ==
+	// == 댓글 작성 (AJAX) ==
 	@PostMapping("/freeboard/writeComment.do")
 	@ResponseBody
 	public Map<String, Object> writeCommentPost(HttpSession session, CommentsDTO commentsDTO) {
@@ -243,9 +243,8 @@ public class FreeboardController {
 	    return resultMap;
 	}
 
-
 	
-	// == 댓글 수정 ==
+	// == 댓글 수정 (AJAX) ==
 	@PostMapping("/freeboard/editComment.do")
 	@ResponseBody
 	public Map<String, Object> editCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentsDTO commentsDTO) {

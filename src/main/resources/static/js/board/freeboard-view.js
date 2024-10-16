@@ -35,7 +35,7 @@ function writeComment() {
         success: function(response) {
             if (response.result === "success") {
                 var newComment = `
-                    <tr id="comment-${response.comment.comm_idx}">
+                    <tr id="comment-${response.comment.comm_idx}" align="center">
                         <td class="writer">${response.comment.nickname}</td>
                         <td class="comm_content" align="left">${response.comment.content}</td>
                         <td class="postdate">${response.comment.postdate}</td>
@@ -65,31 +65,52 @@ function writeComment() {
 }
 
 
-
-
-
-
-// 댓글 수정 모달 열기
-function openEditModal(board_ref, comm_idx, content, writer_ref) {
-    document.getElementById("board1_ref").value = board_ref;
-    document.getElementById("content").value = content;
-    document.getElementById("comm_idx").value = comm_idx;
-    document.getElementById("writer_ref").value = writer_ref;
+// 댓글 수정 모달창
+function openEditModal(comm_idx, content, writer_ref, board_ref) {
+    document.getElementById("comm_edit_comm_idx").value = comm_idx;
+    document.getElementById("comm_edit_content").value = content;
+    document.getElementById("comm_edit_writer_ref").value = writer_ref;
+    document.getElementById("comm_edit_board_ref").value = board_ref;
 }
 
-// 댓글 작성/수정 폼 유효성 검사
-/*
-function validateCommentForm(form) {
-    if (form.content.value.trim() === "") {
-        alert("내용을 입력하세요.");
-        form.content.focus();
+
+// 댓글 수정 (Ajax)
+function editComment() {
+    var comm_idx = $('#comm_edit_comm_idx').val();
+    var content = $('#comm_edit_content').val();
+    var writer_ref = $('#comm_edit_writer_ref').val();
+    var board_ref = $('#comm_edit_board_ref').val();
+	
+    if (!content.trim()) {
+        alert("내용을 입력하세요");
         return false;
     }
-    return true;
+
+    $.ajax({
+        url: "../freeboard/editComment.do",
+        type: "POST",
+        data: {
+			comm_idx: comm_idx,
+            content: content,
+			writer_ref: writer_ref,
+            board_ref: board_ref,
+        },
+        success: function(response) {
+            if (response.result === "success") {
+				$(`#comment-${comm_idx}`).find('.comm_content').text(content);
+                $('#editCommentModal').modal('hide');
+                $('#comm_edit_content').val('');
+            } else {
+                alert("댓글 수정에 실패했습니다.");
+            }
+        },
+        error: function() {
+            alert("댓글 수정에 실패했습니다.");
+        }
+    });
+	
+    return false;
 }
-*/
-
-
 
 
 // 댓글 삭제 (Ajax)

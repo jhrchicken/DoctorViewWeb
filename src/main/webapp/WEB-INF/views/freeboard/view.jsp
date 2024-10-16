@@ -125,7 +125,7 @@
 									  	<td class="comm_btn">
 											<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
 									            <button type="button" data-bs-toggle="modal" data-bs-target="#editCommentModal"
-									                    onclick="openEditModal(${ row.board_ref }, ${ row.comm_idx }, '${ row.content }', '${ row.writer_ref }')">
+									                    onclick="openEditModal(${ row.comm_idx }, '${ row.content }', '${ row.writer_ref }', ${ row.board_ref })">
 									                수정
 									            </button>
 												<button type="button" onclick="deleteComment(${ row.comm_idx }, '${ row.writer_ref }', ${ row.board_ref });">
@@ -144,32 +144,6 @@
 	</main>
     <%@include file="../common/main_footer.jsp" %>
     
-    
-    
-    <!-- == 댓글 작성 모달창 == -->
-<!-- 	<form method="post" action="../freeboard/writeComment.do" onsubmit="return validateCommentForm(this);">
-		<input type="hidden" id="comm_write_board_ref" name="board_ref" value="" />
-		<div class="modal" id="writeCommentModal" >
-			<div class="modal-dialog">
-				<div class="modal-content">
-				Modal Header
-				<div class="modal-header">
-					<h4 class="modal-title">댓글 작성</h4>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-				Modal Body
-				<div class="modal-body">
-					<textarea class="form-control" name="content" style="height: 100px;" placeholder="내용을 입력하세요"></textarea>
-				</div>
-				Modal Footer
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">작성하기</button>
-					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
-				</div>
-				</div>
-			</div>
-		</div>
-	</form> -->
 	
 	<!-- == 댓글 작성 모달창 == -->
 	<form id="writeCommentForm" onsubmit="return writeComment();">
@@ -193,24 +167,49 @@
 	    </div>
 	</form>
 
-	<!-- 댓글 수정 모달창 -->
+
+	<!-- == 댓글 수정 모달창 == -->
+	<form id="editCommentForm" onsubmit="return editComment();">
+		<input type="hidden" id="comm_edit_comm_idx" value="">
+		<input type="hidden" id="comm_edit_writer_ref" value="" />
+		<input type="hidden" id="comm_edit_board_ref" value="" />
+		<div class="modal" id="editCommentModal" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">댓글 수정</h4>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+					<div class="modal-body">
+						<textarea class="form-control" id="comm_edit_content" style="height: 100px;"></textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">수정하기</button>
+						<button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+<!-- 	
 	<form method="post" action="../freeboard/editComment.do" onsubmit="return validateCommentForm(this);">
 		<input type="hidden" id="writer_ref" name="writer_ref" value="" />
 		<input type="hidden" id="board1_ref" name="board_ref" value="" />
 		<div class="modal" id="editCommentModal" >
 			<div class="modal-dialog">
 				<div class="modal-content">
-				<!-- Modal Header -->
+				Modal Header
 				<div class="modal-header">
 					<h4 class="modal-title">댓글 수정</h4>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
-				<!-- Modal Body -->
+				Modal Body
 				<div class="modal-body">
 					<input type="hidden" id="comm_idx" name="comm_idx" value="">
 					<textarea class="form-control" id="content" name="content" style="height: 100px;"></textarea>
 				</div>
-				<!-- Modal Footer -->
+				Modal Footer
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">수정하기</button>
 					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
@@ -218,7 +217,7 @@
 				</div>
 			</div>
 		</div>
-	</form>
+	</form> -->
 	
 	
 </body>   
