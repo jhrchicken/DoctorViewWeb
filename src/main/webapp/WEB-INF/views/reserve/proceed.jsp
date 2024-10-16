@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page session="true" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -137,6 +138,17 @@
 		    
 // 		    선택한 날짜를 input에 설정
 		    document.getElementById("selectedDate").value = formattedDate;
+		    
+		    
+		    
+		    var closeList = JSON.parse('${fn:escapeXml(closeTime)}');
+		    console.log("closeList:", closeList);
+		    
+		    
+		    
+		    
+		    
+
 		}
 
 
@@ -207,6 +219,42 @@
 	
 		return true;
 	}
+	
+	
+	
+	/**************************** 사용자가 선택한 날짜 전달 ajax **************************/
+	$(function() {
+		$("#dateSubmit").click(function() {
+		    var seleted_date = $('#selectedDate').val();
+		    console.log(seleted_date);
+
+		    $.ajax({
+		        url: "/selectedDate.do",
+		        data: { seleted_date: seleted_date },
+		        success: function(response) {
+		            console.log("전송 성공:", response);
+		        },
+		        error: function(xhr, status, error) {
+		            console.log("전송 실패:", error);
+		        }
+		    });
+
+		    
+		});
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </script>
 
 </head>
@@ -345,16 +393,20 @@
 						    	<!-- 스크립트로 내용 채워넣음 -->
 						       
 								<!-- 선택한 예약 날짜 전달 input -->
-								<input type="hidden" id="selectedDate" name="postdate" value="">
+								<input type="hi-dden" id="selectedDate" name="postdate" value="">
 								
 								
 						    </tbody>
 						</table>
 					</div>
 					
+					<button type="button" id="dateSubmit">날짜 전송</button>
+					
+					
 					<div class="reserv_right">
 						<div class="time_select">
 				        	<div class="am">
+				              	
 				              	<!-- 12:00 이전만 출력 -->
 				            	<div class="time_title">오전</div>
 			              		<ul class="time_list">

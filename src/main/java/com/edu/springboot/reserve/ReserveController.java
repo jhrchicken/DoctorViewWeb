@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.springboot.doctor.DoctorDTO;
 import com.edu.springboot.member.HoursDTO;
@@ -193,6 +195,20 @@ public class ReserveController {
 	    System.err.println("post완료");
 		return "redirect:/reserve/setTime.do";
 	}
+	
+	
+//	@GetMapping("/selectedDate.do")
+//	@ResponseBody
+//	public void selectedDate(@RequestParam("seleted_date") String seletedDate, Model model) {
+//		model.addAttribute("seletedDate", seletedDate);
+//	    // 처리 로직 수행 후 응답
+//	}
+
+
+	
+	
+	
+	
 	
 }
 
