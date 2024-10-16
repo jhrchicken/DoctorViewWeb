@@ -31,6 +31,16 @@ function validateForm(form) {
 	}
 	return true;
 }
+
+//회원탈퇴 confirm
+function withdrawMemberConfirm(id) {
+    if (confirm("정말로 진짜로 ??? 진짜??? 탈퇴하시겠습니까?")) {
+    	var form = document.editForm;
+    	form.method = "post";
+        form.action = "/member/withdraw.do";
+        form.submit();
+    }
+}
 </script>
 </head>
 <body>
@@ -48,7 +58,7 @@ function validateForm(form) {
 	    </c:if>
 	        
 	        
-		<form name="joinFrm" method="post" enctype="multipart/form-data"
+		<form name="editForm" method="post" enctype="multipart/form-data"
 				action="../../member/editHosp.do" onsubmit="return validateForm(this);">
 				
 			<!-- member -->
@@ -308,6 +318,7 @@ function validateForm(form) {
 			</table>
 			<div class="btn_wrap">
 				<input type="submit" value="수정완료" />
+				<input type="button" onclick="withdrawMemberConfirm('${ loginUserInfo.id }');" value="회원탈퇴" />
 			</div>
 		</form>
   	  </div>

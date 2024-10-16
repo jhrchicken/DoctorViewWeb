@@ -162,6 +162,17 @@ public class MemberController {
         return randomNick;
     }
 
+//  회원탈퇴
+    @PostMapping("/member/withdraw.do") 
+    public String withdraw(HttpServletRequest req, HttpSession session) {
+		memberDAO.deleteMember(req.getParameter("id"));
+		session.invalidate();
+		
+    	return "redirect:/";
+    }
+    
+    
+    
 //	로그인
 	@GetMapping("/member/login.do")
 	public String login() {

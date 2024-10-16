@@ -30,6 +30,17 @@ function validateForm(form) {
 	return true;
 }
 
+// 회원탈퇴 confirm
+function withdrawMemberConfirm(id) {
+    if (confirm("정말로 진짜로 ??? 진짜??? 탈퇴하시겠습니까?")) {
+    	var form = document.editForm;
+    	form.method = "post";
+        form.action = "/member/withdraw.do";
+        form.submit();
+    }
+}
+
+
 $(function() {
 	// 닉네임 생성
 	$("#randomNickname").click(function() {
@@ -59,7 +70,7 @@ $(function() {
 	  		<p>${ editUserFaild }</p>
 	    </c:if>
         
-        <form name="joinFrm" method="post" action="../../member/editUser.do" onsubmit="return validateForm(this);">
+        <form name="editForm" method="post" action="../../member/editUser.do" onsubmit="return validateForm(this);">
           <p>*필수 입력사항</p>
           <table class="regist">
             <tr>
@@ -135,6 +146,7 @@ $(function() {
           </table>    
           <div class="btn_wrap">
             <input type="submit" value="수정하기" />
+            <input type="button" onclick="withdrawMemberConfirm('${ loginUserInfo.id }');" value="회원탈퇴" />
           </div>
         </form>
       </div>
