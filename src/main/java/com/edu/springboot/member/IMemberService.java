@@ -34,6 +34,9 @@ public interface IMemberService {
 //	회원가입: 랜덤 닉네임 생성
 	public String getNick();
 	
+//	회원탈퇴
+	public void deleteMember(String id);
+	
 //	로그인
 //	public MemberDTO loginMember(MemberDTO memberDTO);
 	public MemberDTO loginMember(String id, String passwd);
