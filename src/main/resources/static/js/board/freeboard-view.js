@@ -138,3 +138,55 @@ function deleteComment(comm_idx, writer_ref, board_ref) {
         });
     }
 }
+
+
+// 좋아요 (AJAX)
+function clickLike(boardIdx) {
+    $.ajax({
+        url: '/freeboard/clickLike.do',
+        type: 'POST',
+        data: { board_idx: boardIdx },
+        success: function(response) {
+            if (response.result === "success") {
+                $('#likeCount').text(response.likeCount);
+                if (response.likeCheck === 0) {
+                    $('#likeButton').addClass('push');
+                } else {
+                    $('#likeButton').removeClass('push');
+                }
+            } else {
+                alert("오류가 발생했습니다");
+            }
+        },
+        error: function() {
+        	alert("오류가 발생했습니다");
+        }
+    });
+}
+
+// 신고 클릭 함수
+function clickReport(boardIdx) {
+    $.ajax({
+        url: '/freeboard/clickReport.do',
+        type: 'POST',
+        data: { board_idx: boardIdx },
+        success: function(response) {
+            if (response.result === "success") {
+                $('#reportCount').text(response.reportCount);
+                if (response.reportCheck === 0) {
+                    $('#reportButton').addClass('push');
+                } else {
+                    $('#reportButton').removeClass('push');
+                }
+            } else {
+                alert("오류가 발생했습니다");
+            }
+        },
+        error: function() {
+            alert("오류가 발생했습니다");
+        }
+    });
+}
+
+
+

@@ -59,32 +59,16 @@
 				
 				<!-- 좋아요 및 신고 -->
 				<div class="like_btn">
-					<c:if test="${ likecheck == 0 }">
-						<button type="button" onclick="location.href='../freeboard/clickLike.do?board_idx=${ param.board_idx }';">
-							<p class="like"></p>
-							<span>${ boardDTO.likecount }</span>
-						</button>
-					</c:if>
-					<c:if test="${ likecheck == 1 }">
-						<button class="push" type="button" onclick="location.href='../freeboard/clickLike.do?board_idx=${ param.board_idx }';">
-							<p class="like"></p>
-							<span>${ boardDTO.likecount }</span>
-						</button>
-					</c:if>
-					<c:if test="${ reportcheck == 0 }">
-						<button type="button" onclick="location.href='../freeboard/clickReport.do?board_idx=${ param.board_idx }';">
-							<p class="dislike"></p>
-							<span>${ boardDTO.reportcount }</span>
-						</button>
-					</c:if>
-					<c:if test="${ reportcheck == 1 }">
-						<button class="push" type="button" onclick="location.href='../freeboard/clickReport.do?board_idx=${ param.board_idx }';">
-							<p class="dislike"></p>
-							<span>${ boardDTO.reportcount }</span>
-						</button>
-					</c:if>
+				    <button id="likeButton" type="button" onclick="clickLike(${param.board_idx});">
+				        <p class="like"></p>
+				        <span id="likeCount">${boardDTO.likecount}</span>
+				    </button>
+				    <button id="reportButton" type="button" onclick="clickReport(${param.board_idx});">
+				        <p class="dislike"></p>
+				        <span id="reportCount">${boardDTO.reportcount}</span>
+				    </button>
 				</div>
-				
+
 				<!-- 댓글 작성 -->
 				<div>
 			  		<c:if test="${ not empty sessionScope.userId }">
@@ -191,34 +175,6 @@
 			</div>
 		</div>
 	</form>
-	
-<!-- 	
-	<form method="post" action="../freeboard/editComment.do" onsubmit="return validateCommentForm(this);">
-		<input type="hidden" id="writer_ref" name="writer_ref" value="" />
-		<input type="hidden" id="board1_ref" name="board_ref" value="" />
-		<div class="modal" id="editCommentModal" >
-			<div class="modal-dialog">
-				<div class="modal-content">
-				Modal Header
-				<div class="modal-header">
-					<h4 class="modal-title">댓글 수정</h4>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-				Modal Body
-				<div class="modal-body">
-					<input type="hidden" id="comm_idx" name="comm_idx" value="">
-					<textarea class="form-control" id="content" name="content" style="height: 100px;"></textarea>
-				</div>
-				Modal Footer
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">수정하기</button>
-					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
-				</div>
-				</div>
-			</div>
-		</div>
-	</form> -->
-	
 	
 </body>   
 </html>

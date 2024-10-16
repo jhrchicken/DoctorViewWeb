@@ -1,6 +1,5 @@
 package com.edu.springboot.board;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.springboot.member.MemberDTO;
@@ -60,9 +60,11 @@ public class FreeboardController {
 		ArrayList<BoardDTO> postsList = boardDAO.listPost(parameterDTO);
 		for (BoardDTO post : postsList) {
 			String nickname = boardDAO.selectBoardNickname(post);
+			String emoji = boardDAO.selectBoardEmoji(post);
 			int likecount = boardDAO.countLike(Integer.toString(post.getBoard_idx()));
 			int commentcount = boardDAO.countComment(post);
-			post.setNickname(nickname);
+			if (emoji != null) post.setNickname(nickname + " " + emoji);
+			else post.setNickname(nickname);
 			post.setLikecount(likecount);
 			post.setCommentcount(commentcount);
 		}
@@ -117,6 +119,7 @@ public class FreeboardController {
 		int reportcheck = boardDAO.checkReport(id, Integer.toString(boardDTO.getBoard_idx()));
 		model.addAttribute("likecheck", likecheck);
 		model.addAttribute("reportcheck", reportcheck);
+		
 		return "freeboard/view";
 	}
 	
@@ -310,53 +313,69 @@ public class FreeboardController {
 
 	
 	// == 좋아요 기능 ==
-	@GetMapping("/freeboard/clickLike.do")
-	public String clickLikeGet(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
-		String loginId = (String) session.getAttribute("userId");
-	    // 로그인하지 않은 경우
-	    if (loginId == null) {
-	        JSFunction.alertBack(response, "로그인 후 이용해주세요");
-	        return null;
+	@PostMapping("/freeboard/clickLike.do")
+	@ResponseBody
+	public Map<String, Object> clickLike(HttpSession session, @RequestParam("board_idx") String boardIdx) {
+	    Map<String, Object> resultMap = new HashMap<>();
+
+	    // 로그인 여부 검증
+	    MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+	    if (loginMember == null) {
+	        resultMap.put("result", "error");
+	        resultMap.put("message", "로그인 후 이용해 주세요.");
+	        return resultMap;
 	    }
-		// 좋아요 여부 확인
-		String id = (String) session.getAttribute("userId");
-		String board_idx = req.getParameter("board_idx");
-		int likecheck = boardDAO.checkLike(id, board_idx);
-		if (likecheck == 0) {
-			// 좋아요 증가
-			boardDAO.plusLike(id, board_idx);
-		}
-		else {
-			// 좋아요 취소
-			boardDAO.minusLike(id, board_idx);
-		}
-		return "redirect:../freeboard/viewPost.do?board_idx=" + board_idx;
-	}
-	
-	
-	// == 싫어요 기능 ==
-	@GetMapping("/freeboard/clickReport.do")
-	public String clickReportGet(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
-		String loginId = (String) session.getAttribute("userId");
-	    // 로그인하지 않은 경우
-	    if (loginId == null) {
-	        JSFunction.alertBack(response, "로그인 후 이용해주세요");
-	        return null;
+
+	    // 좋아요 증가 및 감소
+	    String id = loginMember.getId();
+	    int likeCheck = boardDAO.checkLike(id, boardIdx);
+	    if (likeCheck == 0) {
+	        boardDAO.plusLike(id, boardIdx);
+	    } else {
+	        boardDAO.minusLike(id, boardIdx);
 	    }
-		// 신고 여부 확인
-		String id = (String) session.getAttribute("userId");
-		String board_idx = req.getParameter("board_idx");
-		int reportcheck = boardDAO.checkReport(id, board_idx);
-		if (reportcheck == 0) {
-			// 신고 수 증가
-			boardDAO.plusReport(id, board_idx);
-		}
-		else {
-			// 신고 수 감소
-			boardDAO.minusReport(id, board_idx);
-		}
-		return "redirect:../freeboard/viewPost.do?board_idx=" + board_idx;
+	    int likeCount = boardDAO.countLike(boardIdx);
+
+	    // 응답 데이터 준비
+	    resultMap.put("result", "success");
+	    resultMap.put("likeCount", likeCount);
+	    resultMap.put("likeCheck", likeCheck);
+
+	    return resultMap;
 	}
-	
-	
+
+
+	// == 신고 기능 ==
+	@PostMapping("/freeboard/clickReport.do")
+	@ResponseBody
+	public Map<String, Object> clickReport(HttpSession session, @RequestParam("board_idx") String boardIdx) {
+	    Map<String, Object> resultMap = new HashMap<>();
+
+	    // 로그인 여부 검증
+	    MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+	    if (loginMember == null) {
+	        resultMap.put("result", "error");
+	        resultMap.put("message", "로그인 후 이용해 주세요.");
+	        return resultMap; // 로그인 실패 응답
+	    }
+
+	    // 신고 증가 및 감소
+	    String id = loginMember.getId(); // 로그인한 사용자의 ID
+	    int reportCheck = boardDAO.checkReport(id, boardIdx);
+	    if (reportCheck == 0) {
+	        boardDAO.plusReport(id, boardIdx);
+	    } else {
+	        boardDAO.minusReport(id, boardIdx);
+	    }
+	    int reportCount = boardDAO.countReport(Integer.parseInt(boardIdx));
+
+	    // 응답 데이터 준비
+	    resultMap.put("result", "success");
+	    resultMap.put("reportCount", reportCount);
+	    resultMap.put("reportCheck", reportCheck);
+
+	    return resultMap;
+	}
+
+
 }

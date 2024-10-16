@@ -80,6 +80,7 @@
 		ORDER BY comm_idx DESC
 	</select>
 	
+	<!-- 댓글: 댓글 조회 -->
 	<select id="selectComments"
 		resultType="com.edu.springboot.board.CommentsDTO"
 		parameterType="com.edu.springboot.board.CommentsDTO">
@@ -88,7 +89,7 @@
 	
 	<!-- 댓글: 댓글 작성 -->
 	<insert id = "writeComment"
-		parameterType="com.edu.springboot.board.CommentsDTO"  useGeneratedKeys="true" keyProperty="comm_idx">
+		parameterType="com.edu.springboot.board.CommentsDTO" useGeneratedKeys="true" keyProperty="comm_idx">
 		<selectKey keyProperty="comm_idx" resultType="int" order="BEFORE">
 			SELECT seq_comments_idx.nextval FROM dual		
 		</selectKey>
