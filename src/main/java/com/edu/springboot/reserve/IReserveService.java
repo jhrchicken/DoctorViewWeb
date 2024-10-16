@@ -41,7 +41,7 @@ public interface IReserveService {
 	public int closeTime(ReserveDTO reserveDTO);
 	
 
-	
+	// ********** 특정 병원의 몯느 예약 정보 갖ㅇ기 ********* 
 	
 	
 	

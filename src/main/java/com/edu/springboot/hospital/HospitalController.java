@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.springboot.doctor.DoctorDTO;
+import com.edu.springboot.member.IMemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.JSFunction;
 import utils.PagingUtil;
 
 @Controller
@@ -199,8 +202,13 @@ public class HospitalController {
 	}
 	
 	@RequestMapping("/hospital/viewHosp.do")
-	public String viewHospReq(Model model, HttpSession session, HttpServletRequest req, HospitalDTO hospitalDTO) {
+	public String viewHospReq(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, HospitalDTO hospitalDTO) {
 		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 병원 API 정보
 		hospitalDTO = hospitalDAO.viewHospApi(hospitalDTO);
 		String hospId = hospitalDAO.selectHospId(hospitalDTO.getName());

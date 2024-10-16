@@ -4,7 +4,6 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,6 +24,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import utils.CookieManager;
 import utils.FileUtil;
+import utils.JSFunction;
 
 @Controller
 public class MemberController {
@@ -33,7 +34,7 @@ public class MemberController {
 	@Autowired
 	EmailSending email;
 	
-//	회원가입 페이지로 진입
+//	회원가입 페이지로 진입 
 	@GetMapping("/member/join.do")
 	public String join() {
 		return "member/join";
@@ -161,6 +162,16 @@ public class MemberController {
         return randomNick;
     }
 
+//  회원탈퇴
+    @PostMapping("/member/withdraw.do") 
+    public String withdraw(HttpServletRequest req, HttpSession session, RedirectAttributes redirectAttributes) {
+		memberDAO.deleteMember(req.getParameter("id"));
+		session.invalidate();
+		
+		redirectAttributes.addFlashAttribute("withdraw", "회원탈퇴가 완료되었습니다.");
+    	return "redirect:/";
+    }
+    
 //	로그인
 	@GetMapping("/member/login.do")
 	public String login() {
@@ -169,26 +180,27 @@ public class MemberController {
 	@PostMapping("/member/login.do")
 	public String login(MemberDTO memberDTO, Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp) {
 //	    MemberDTO loginUser = memberDAO.loginMember(memberDTO);
-	    MemberDTO loginUser = memberDAO.loginMember(memberDTO.getId(), memberDTO.getPassword());
+	    MemberDTO loginMember = memberDAO.loginMember(memberDTO.getId(), memberDTO.getPassword());
 
-	    if(loginUser == null) {
+	    if(loginMember == null) {
 	        model.addAttribute("loginFailed", "아이디 혹은 비밀번호가 일치하지않습니다.");
 	        return "member/login";
 	    }
-	    if(loginUser.getEnable() == 0) {
+	    if(loginMember.getEnable() == 0) {
 	    	// 회원가입 승인 대기 처리 추가
 	    	model.addAttribute("loginFailed", "회원 승인 대기 상태입니다.");
 	    	return "member/login";
 	    }
-	    session.setAttribute("userId", loginUser.getId()); 
-	    session.setAttribute("userPassword", loginUser.getPassword()); 
-	    session.setAttribute("userName", loginUser.getName());
-	    session.setAttribute("userAuth", loginUser.getAuth());
-	    session.setAttribute("userEmoji", loginUser.getEmoji());
+	    session.setAttribute("userId", loginMember.getId()); 
+	    session.setAttribute("userPassword", loginMember.getPassword()); 
+	    session.setAttribute("userName", loginMember.getName());
+	    session.setAttribute("userAuth", loginMember.getAuth());
+	    session.setAttribute("userEmoji", loginMember.getEmoji());
+	    session.setAttribute("loginMember", loginMember);
 	    
 	    // 아이디 저장
-	    loginUser.setSaveId(memberDTO.getSaveId());
-	    if(loginUser.getSaveId() != null) {
+	    loginMember.setSaveId(memberDTO.getSaveId());
+	    if(loginMember.getSaveId() != null) {
 	    	model.addAttribute("checked", "checked");
 	        CookieManager.makeCookie(resp, "saveId", memberDTO.getId(), 86400);
 	    } else {
@@ -260,7 +272,13 @@ public class MemberController {
 	
 //	회원인증: 로그인 유저 비밀번호 인증
 	@GetMapping("/member/checkMember.do")
-	public String checkMemberGet() {
+	public String checkMemberGet(HttpSession session, HttpServletResponse response) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		return "member/checkMember";
 	}
 	@PostMapping("/member/checkMember.do")
@@ -281,9 +299,17 @@ public class MemberController {
 		}
 	}
 	
+//	회원수정: user
 //	회원정보 수정: user
 	@GetMapping("/member/editUser.do")
-	public String editUserGet(HttpSession session, Model model) {
+	public String editUserGet(Model model, HttpSession session, HttpServletResponse response) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
+	    
 		MemberDTO loginUser = memberDAO.loginMember((String) session.getAttribute("userId"), (String) session.getAttribute("userPassword"));
 		String[] tel =  loginUser.getTel().split("-");
 		String[] email =  loginUser.getEmail().split("@");
@@ -298,7 +324,7 @@ public class MemberController {
 		return "member/editUser";
 	}
 	@PostMapping("/member/editUser.do")
-	public String editUserPost(MemberDTO memberDTO, Model model, HttpSession session, HttpServletRequest req) {
+	public String editUserPost(MemberDTO memberDTO, Model model, HttpSession session, HttpServletRequest req, RedirectAttributes redirectAttributes) {
 		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
 		String eamil = req.getParameter("email1") + "@" + req.getParameter("email2");
 		String rrn = req.getParameter("rrn1") + "-" + req.getParameter("rrn2") + "000000";
@@ -312,24 +338,30 @@ public class MemberController {
 		if (editUserResult == 1) {
 			// 새로운 비밀번호 session에 저장
 			session.setAttribute("userPassword", memberDTO.getPassword());
+			redirectAttributes.addFlashAttribute("editUserResult", "회원정보 수정에 성공했습니다.");
 			return "redirect:/member/editUser.do";
 		}
 		else {
-			model.addAttribute("editUserFaild", "회원정보 수정에 실패했습니다.");
+			redirectAttributes.addFlashAttribute("editUserResult", "회원정보 수정에 실패했습니다.");
 			return "member/editUser";
 		}
 	}
 
 //	회원정보 수정: hosp
 	@GetMapping("/member/editHosp.do")
-	public String editHospGet(MemberDTO memberDTO, DetailDTO detailDTO, HttpSession session, Model model) {
+	public String editHospGet(MemberDTO memberDTO, DetailDTO detailDTO, HttpSession session, Model model, HttpServletResponse response) {
 //		memberDTO.setId((String) session.getAttribute("userId"));
 //		memberDTO.setPassword((String) session.getAttribute("userPassword"));
 		
 		// member 
 //		MemberDTO loginUser = memberDAO.loginMember(memberDTO);
-		String userId = (String) session.getAttribute("userId");
-		MemberDTO loginUser = memberDAO.loginMember(userId, (String) session.getAttribute("userPassword"));
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    } 
+		MemberDTO loginUser = memberDAO.loginMember(id, (String) session.getAttribute("userPassword"));
 		
 		String[] tel =  loginUser.getTel().split("-");
 		String[] taxid =  loginUser.getTaxid().split("-");
@@ -338,7 +370,7 @@ public class MemberController {
 		model.addAttribute("taxid", taxid);
 		
 		// hours
-		List<HoursDTO> hoursDTO = memberDAO.selectHospHours(userId);
+		List<HoursDTO> hoursDTO = memberDAO.selectHospHours(id);
 		String[] weeks = new String[hoursDTO.size()];
 		for (int i = 0; i < hoursDTO.size(); i++) {
 		    weeks[i] = hoursDTO.get(i).getWeek();
@@ -360,7 +392,7 @@ public class MemberController {
 		model.addAttribute("deadline", deadline);
 		
 		// detail
-		DetailDTO hospDatilInfo = memberDAO.selectHospDatail(userId);
+		DetailDTO hospDatilInfo = memberDAO.selectHospDatail(id);
 		model.addAttribute("hospDatilInfo", hospDatilInfo);
 		
 		
@@ -449,7 +481,13 @@ public class MemberController {
 	
 //	의료진 관리 (의사정보)
 	@GetMapping("/member/doctorInfo.do")
-	public String doctorInfoGet(HttpSession session, Model model) {
+	public String doctorInfoGet(Model model, HttpSession session, HttpServletResponse response) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setId((String) session.getAttribute("userId"));
 		List<DoctorDTO> doctorDTO = memberDAO.selectHospDoctor(memberDTO.getId());
@@ -462,7 +500,13 @@ public class MemberController {
 	
 //	출석체크
 	@GetMapping("/mypage/attend.do")
-	public String attendGet(HttpSession session, Model model) {
+	public String attendGet(Model model, HttpSession session, HttpServletResponse response) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 현재 날짜 가져오기
         LocalDate today = LocalDate.now();
         // 날짜 포맷팅

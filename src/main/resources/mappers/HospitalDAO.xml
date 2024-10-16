@@ -97,16 +97,16 @@
            			SELECT hosp_ref FROM DETAIL
            			WHERE 1 = 1
            			<if test="param6.contains('parking')">
-           				AND parking = 'Y'
+           				AND parking = 'T'
            			</if>
            			<if test="param6.contains('pcr')">
-           				AND pcr = 'Y'
+           				AND pcr = 'T'
            			</if>
            			<if test="param6.contains('hospitalize')">
-           				AND hospitalize = 'Y'
+           				AND hospitalize = 'T'
            			</if>
            			<if test="param6.contains('system')">
-           				AND system = 'Y'
+           				AND system = 'T'
            			</if>
            		)
            	)
@@ -159,16 +159,16 @@
 	            			SELECT hosp_ref FROM DETAIL
 	            			WHERE 1 = 1
 	            			<if test="param6.contains('parking')">
-	            				AND parking = 'Y'
+	            				AND parking = 'T'
 	            			</if>
 	            			<if test="param6.contains('pcr')">
-	            				AND pcr = 'Y'
+	            				AND pcr = 'T'
 	            			</if>
 	            			<if test="param6.contains('hospitalize')">
-	            				AND hospitalize = 'Y'
+	            				AND hospitalize = 'T'
 	            			</if>
 	            			<if test="param6.contains('system')">
-	            				AND system = 'Y'
+	            				AND system = 'T'
 	            			</if>
 	            		)
 	            	)
