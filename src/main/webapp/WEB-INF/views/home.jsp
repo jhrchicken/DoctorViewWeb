@@ -12,6 +12,14 @@
 <link rel="stylesheet" href="/css/main.css" />
 </head>
 <body>
+
+<!-- 회원탈퇴 alert -->
+<c:if test="${not empty withdraw}">
+    <script>
+        alert("${withdraw}");
+    </script>
+</c:if>
+
 <%@include file="common/main_header.jsp" %>
 <main id="container">
 	<div class="content">

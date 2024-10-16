@@ -73,7 +73,7 @@
 							<c:if test="${ sessionScope.userAuth != 'ROLE_HOSP' }">
 								<li><a href="/mypage/myHosp.do">찜한 병원</a></li>
 								<li><a href="/mypage/myDoctor.do">찜한 의사</a></li>
-								<!-- <li><a href="#">작성한 리뷰</a></li> -->
+								<li><a href="#">작성한 리뷰</a></li>
 								<li><a href="/mypage/attend.do">출석체크</a></li>
 							</c:if>
 						</ul>
@@ -90,8 +90,7 @@
 				</c:if>
 				<!-- 로그인 한 상태 -->
 				<c:if test="${ not empty sessionScope.userId }">
-					<!-- user name 정보 추가했더염 -->
-					<li><p>${ userEmoji } ${ userId }</p></li>
+					<li><p>${ loginMember.nickname } ${ loginMember.emoji }</p></li>
 					<li><a href="/member/logout.do">로그아웃</a></li>
 					<li><a href="/reserve.do">나의 예약</a></li>
 				</c:if>

@@ -86,6 +86,11 @@
         SELECT COUNT(*) FROM member WHERE id = #{id}
     </select>
     
+    <!-- 회원탈퇴 -->
+    <delete id="deleteMember">
+		DELETE FROM member WHERE id=#{param1}
+	</delete>
+    
     <!-- 로그인 -->
     <select id="loginMember" 
     	parameterType="String"

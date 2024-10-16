@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,11 +31,22 @@ function validateForm(form) {
 	return true;
 }
 
+// 회원탈퇴 confirm
+function withdrawMemberConfirm(id) {
+    if (confirm("정말 탈퇴하시겠습니까?")) {
+    	var form = document.editForm;
+    	form.method = "post";
+        form.action = "/member/withdraw.do";
+        form.submit();
+    }
+}
+
+
 $(function() {
 	// 닉네임 생성
 	$("#randomNickname").click(function() {
 	    $.ajax({
-	        url: "../../member/join/getNick.do",
+	        url: "/member/join/getNick.do",
 	        success: function(responseData) {
 	            $('input[name="nickname"]').val(responseData);
 	        },
@@ -47,8 +59,15 @@ $(function() {
 </script>
 </head>
 <body>
-<%@ include file="../common/main_header.jsp" %>
 
+<!-- 회원정보 수정 성공 여부 -->
+<c:if test="${not empty editUserResult}">
+    <script>
+        alert("${editUserResult}");
+    </script>
+</c:if>
+
+<%@ include file="../common/main_header.jsp" %>
 <main id="container">
   <div class="content">
     <div class="content_inner">
@@ -59,7 +78,7 @@ $(function() {
 	  		<p>${ editUserFaild }</p>
 	    </c:if>
         
-        <form name="joinFrm" method="post" action="../../member/editUser.do" onsubmit="return validateForm(this);">
+        <form name="editForm" method="post" action="../../member/editUser.do" onsubmit="return validateForm(this);">
           <p>*필수 입력사항</p>
           <table class="regist">
             <tr>
@@ -85,7 +104,7 @@ $(function() {
               <td class="left">닉네임</td>
               <td class="nick">
                 <input type="text" name="nickname" value="${ loginUserInfo.nickname }" placeholder="닉네임*" />
-                <button class="random" type="button" name="randomNickname" id="randimNickname"><span class="blind">랜덤 추천</span></button>
+                <button class="random" type="button" name="randomNickname" id="randomNickname"><span class="blind">랜덤 추천</span></button>
               </td>
             </tr>
             <tr>
@@ -135,6 +154,7 @@ $(function() {
           </table>    
           <div class="btn_wrap">
             <input type="submit" value="수정하기" />
+            <input type="button" onclick="withdrawMemberConfirm('${ loginUserInfo.id }');" value="회원탈퇴" />
           </div>
         </form>
       </div>
