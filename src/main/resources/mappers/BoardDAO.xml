@@ -5,18 +5,6 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.edu.springboot.board.IBoardService">
-
-	<!-- 플러터 연동: 게시판 목록 -->
-	<select id="getAllBoards" resultType="com.edu.springboot.board.BoardDTO">
-		SELECT * FROM board
-	</select>
-	
-	<!-- 플러터 연동: 댓글 목록 -->
-	<select id="getAllComments" resultType="com.edu.springboot.board.CommentsDTO">
-		SELECT * FROM comments
-	</select>
-	
-	
 	
 	<!-- 베스트 게시판: 게시글 개수 카운트 -->
 	<select id="countBestPost">
@@ -147,6 +135,19 @@
 	<!-- 정보 표시: 댓글 수 조회 -->
 	<select id="countComment">
 		SELECT COUNT(*) FROM comments WHERE board_ref=#{board_idx}
+	</select>
+	
+	
+	
+	
+	<!-- 플러터 연동: 게시판 목록 -->
+	<select id="getAllBoards" resultType="com.edu.springboot.board.BoardDTO">
+		SELECT * FROM board
+	</select>
+	
+	<!-- 플러터 연동: 댓글 목록 -->
+	<select id="getAllComments" resultType="com.edu.springboot.board.CommentsDTO">
+		SELECT * FROM comments
 	</select>
 
 </mapper>

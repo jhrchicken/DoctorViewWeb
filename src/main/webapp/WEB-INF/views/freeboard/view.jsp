@@ -58,16 +58,6 @@
 				</form>
 				
 				<!-- 좋아요 및 신고 -->
-<%-- 				<div class="like_btn">
-				    <button id="likeButton" type="button" onclick="clickLike(${param.board_idx});">
-				        <p class="like"></p>
-				        <span id="likeCount">${boardDTO.likecount}</span>
-				    </button>
-				    <button id="reportButton" type="button" onclick="clickReport(${param.board_idx});">
-				        <p class="dislike"></p>
-				        <span id="reportCount">${boardDTO.reportcount}</span>
-				    </button>
-				</div> --%>
 				<div class="like_btn">
 			        <button id="likeButton" type="button" class="${likecheck == 1 ? 'push' : ''}" onclick="clickLike(${boardDTO.board_idx});">
 			            <p class="like"></p>

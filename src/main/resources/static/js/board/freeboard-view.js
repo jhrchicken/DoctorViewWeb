@@ -140,7 +140,7 @@ function deleteComment(comm_idx, writer_ref, board_ref) {
 }
 
 
-// 좋아요 (AJAX)
+// 좋아요 기능 (AJAX)
 function clickLike(boardIdx) {
     $.ajax({
         url: '/freeboard/clickLike.do',
@@ -164,7 +164,7 @@ function clickLike(boardIdx) {
     });
 }
 
-// 신고 클릭 함수
+// 신고 기능 (AJAX)
 function clickReport(boardIdx) {
     $.ajax({
         url: '/freeboard/clickReport.do',
