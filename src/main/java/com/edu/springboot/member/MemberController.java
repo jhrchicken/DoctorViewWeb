@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -161,6 +162,16 @@ public class MemberController {
         return randomNick;
     }
 
+//  회원탈퇴
+    @PostMapping("/member/withdraw.do") 
+    public String withdraw(HttpServletRequest req, HttpSession session, RedirectAttributes redirectAttributes) {
+		memberDAO.deleteMember(req.getParameter("id"));
+		session.invalidate();
+		
+		redirectAttributes.addFlashAttribute("withdraw", "회원탈퇴가 완료되었습니다.");
+    	return "redirect:/";
+    }
+    
 //	로그인
 	@GetMapping("/member/login.do")
 	public String login() {
@@ -288,6 +299,7 @@ public class MemberController {
 		}
 	}
 	
+//	회원수정: user
 //	회원정보 수정: user
 	@GetMapping("/member/editUser.do")
 	public String editUserGet(Model model, HttpSession session, HttpServletResponse response) {
@@ -312,7 +324,7 @@ public class MemberController {
 		return "member/editUser";
 	}
 	@PostMapping("/member/editUser.do")
-	public String editUserPost(MemberDTO memberDTO, Model model, HttpSession session, HttpServletRequest req) {
+	public String editUserPost(MemberDTO memberDTO, Model model, HttpSession session, HttpServletRequest req, RedirectAttributes redirectAttributes) {
 		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
 		String eamil = req.getParameter("email1") + "@" + req.getParameter("email2");
 		String rrn = req.getParameter("rrn1") + "-" + req.getParameter("rrn2") + "000000";
@@ -326,10 +338,11 @@ public class MemberController {
 		if (editUserResult == 1) {
 			// 새로운 비밀번호 session에 저장
 			session.setAttribute("userPassword", memberDTO.getPassword());
+			redirectAttributes.addFlashAttribute("editUserResult", "회원정보 수정에 성공했습니다.");
 			return "redirect:/member/editUser.do";
 		}
 		else {
-			model.addAttribute("editUserFaild", "회원정보 수정에 실패했습니다.");
+			redirectAttributes.addFlashAttribute("editUserResult", "회원정보 수정에 실패했습니다.");
 			return "member/editUser";
 		}
 	}
