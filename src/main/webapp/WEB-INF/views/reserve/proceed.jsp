@@ -193,7 +193,7 @@
 
 	    document.querySelector(".time_list_am").innerHTML = timeListHtmlAM;
 	    document.querySelector(".time_list_pm").innerHTML = timeListHtmlPM;
-	}
+	} 
 
 
      /*

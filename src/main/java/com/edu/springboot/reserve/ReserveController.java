@@ -92,7 +92,6 @@ public class ReserveController {
 	    Map<String, List<String>> reserveMap = new HashMap<>();
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	    
-	    
 	    for (ReserveDTO reserve : reserveList) {
 	    	 String postdate = dateFormat.format(reserve.getPostdate());
 	         String posttime = reserve.getPosttime();
