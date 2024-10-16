@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.mail.Session;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.JSFunction;
 import utils.PagingUtil;
 
 
@@ -65,8 +68,14 @@ public class QnaboardController {
 		return "qnaboard/list";
 	}
 	
-	@RequestMapping("/qnaboard/viewPost.do")
-	public String viewPostReq(Model model, BoardDTO boardDTO, HttpSession session) {
+	@GetMapping("/qnaboard/viewPost.do")
+	public String viewPostReq(Model model, HttpSession session, HttpServletResponse response, BoardDTO boardDTO) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 자유게시판의 게시글 조회
 		boardDTO = boardDAO.viewPost(boardDTO);
 		// 조회수 증가
@@ -92,7 +101,6 @@ public class QnaboardController {
 		model.addAttribute("reportcount", reportcount);
 		model.addAttribute("commentcount", commentcount);
 		// 좋아요 신고 클릭 여부
-		String id = (String) session.getAttribute("userId");
 		int likecheck = boardDAO.checkLike(id, Integer.toString(boardDTO.getBoard_idx()));
 		int reportcheck = boardDAO.checkReport(id, Integer.toString(boardDTO.getBoard_idx()));
 		model.addAttribute("likecheck", likecheck);
@@ -101,11 +109,17 @@ public class QnaboardController {
 	}
 	
 	@GetMapping("/qnaboard/writePost.do")
-	public String writePostGet(Model model) {
+	public String writePostGet(Model model, HttpSession session, HttpServletResponse response) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		return "qnaboard/write";
 	}
 	@PostMapping("/qnaboard/writePost.do")
-	public String writePostPost(Model model, HttpServletRequest req, HttpSession session) {
+	public String writePostPost(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response) {
 		// 폼값
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
@@ -116,7 +130,13 @@ public class QnaboardController {
 	}
 	
 	@GetMapping("/qnaboard/editPost.do")
-	public String editPostGet(Model model, BoardDTO boardDTO) {
+	public String editPostGet(Model model, HttpSession session, HttpServletResponse response, BoardDTO boardDTO) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		boardDTO = boardDAO.viewPost(boardDTO);
 		// 닉네임
 		String nickname = boardDAO.selectBoardNickname(boardDTO);
@@ -131,15 +151,26 @@ public class QnaboardController {
 	}
 	
 	@PostMapping("/qnaboard/deletePost.do")
-	public String deletePostPost(HttpServletRequest req) {
+	public String deletePostPost(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		boardDAO.deletePost(req.getParameter("board_idx"));
 		return "redirect:../qnaboard.do";
 	}
 	
 	@GetMapping("/qnaboard/clickLike.do")
-	public String clickLikeGet(HttpServletRequest req, HttpSession session) {
-		// 좋아요 여부 확인
+	public String clickLikeGet(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+		// 로그인 여부 확인
 		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
+		// 좋아요 여부 확인
 		String board_idx = req.getParameter("board_idx");
 		int likecheck = boardDAO.checkLike(id, board_idx);
 		if (likecheck == 0) {
@@ -154,9 +185,14 @@ public class QnaboardController {
 	}
 	
 	@GetMapping("/qnaboard/clickReport.do")
-	public String clickReportGet(HttpServletRequest req, HttpSession session) {
-		// 신고 여부 확인
+	public String clickReportGet(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+		// 로그인 여부 확인
 		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
+		// 신고 여부 확인
 		String board_idx = req.getParameter("board_idx");
 		int reportcheck = boardDAO.checkReport(id, board_idx);
 		if (reportcheck == 0) {
@@ -171,19 +207,29 @@ public class QnaboardController {
 	}
 	
 	@PostMapping("/qnaboard/writeComment.do")
-	public String writeCommentPost(HttpServletRequest req, HttpSession session) {
+	public String writeCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 폼값
 		int board_idx = Integer.parseInt(req.getParameter("board_idx"));
 		String content = req.getParameter("content");
-		// 세션에 저장된 로그인 아이디
-		String id = (String) session.getAttribute("userId");
 		// 댓글 작성
 		boardDAO.writeComment(id, board_idx, content);
 		return "redirect:../qnaboard/viewPost.do?board_idx=" + board_idx;
 	}
 	
 	@PostMapping("/qnaboard/editComment.do")
-	public String editCommentPost(HttpServletRequest req) {
+	public String editCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 폼값
 		int board_ref = Integer.parseInt(req.getParameter("board_ref"));
 		String content = req.getParameter("content");

@@ -19,7 +19,9 @@ import com.edu.springboot.hospital.HospitalDTO;
 import com.edu.springboot.hospital.IHospitalService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.JSFunction;
 import utils.PagingUtil;
 
 @Controller
@@ -41,10 +43,14 @@ public class MypageController {
 	@Autowired
 	IDoctorService doctorDAO;
 	
-	
 	@GetMapping("/mypage/myHosp.do")
-	public String myHospGet(Model model, HttpServletRequest req, HttpSession session, ParameterDTO parameterDTO) {
+	public String myHospGet(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, ParameterDTO parameterDTO) {
+		// 로그인 여부 확인
 		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 병원 API 레코드 개수
 		int total = mypageDAO.countMyHosp(id);
 		// 현재 페이지
@@ -105,13 +111,14 @@ public class MypageController {
 		return "mypage/myHosp";
 	}
 	
-	
-	
-	
-	
 	@GetMapping("/mypage/myDoctor.do")
-	public String myDoctorGet(Model model, HttpServletRequest req, HttpSession session, ParameterDTO parameterDTO) {
+	public String myDoctorGet(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, ParameterDTO parameterDTO) {
+		// 로그인 여부 확인
 		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 좋아요 한 의사의 게시글 개수
 		int total = mypageDAO.countMyDoctor(id);
 		// 현재 페이지

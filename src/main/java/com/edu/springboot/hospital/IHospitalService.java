@@ -10,7 +10,20 @@ import com.edu.springboot.doctor.DoctorDTO;
 
 @Mapper
 public interface IHospitalService {
-		
+	
+	// 병원 목록
+	public List<HospitalDTO> getAllHospitals();
+	// 병원 상세정보 목록
+	public List<DetailDTO> getAllHDetails();
+	// 병원 리뷰 목록
+	public List<HreviewDTO> getAllHReviews();
+	// 병원 리뷰의 답변 목록
+	public List<HreviewDTO> getAllHReplies();
+	// 전체 해시태그 목록
+	public List<HashtagDTO> getAllHashtags();
+	
+	
+	
 	// 병원 API 목록: 병원 API의 레코드 개수를 카운트
 	public int countHospApi(ParameterDTO parameterDTO);
 	// 병원 API 목록: 병원 API의 레코드에서 한 페이지에 출력할 레코드를 인출
@@ -27,6 +40,7 @@ public interface IHospitalService {
 	public int countSearchHosp(ParameterDTO parameterDTO);
 	// 병원 검색
 	public List<HospitalDTO> listSearchHosp(String searchSido, String searchGugun, String searchDong, String searchField, String searchWord, List<String> filterList, int start, int end);
+	
 	
 	// 병원 상세정보 조회
 	public DetailDTO selectDetail(String id);

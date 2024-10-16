@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.JSFunction;
 import utils.PagingUtil;
 
 @Controller
@@ -64,10 +66,15 @@ public class BoardController {
  	}
 	
 	@GetMapping("/board/myPost.do")
-	public String myPostGet(Model model, HttpServletRequest req, HttpSession session) {
-		String id = (String) session.getAttribute("userId");
+	public String myPostGet(Model model, HttpServletRequest req, HttpServletResponse response, HttpSession session) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 게시글의 개수
-		int total = boardDAO.countMyPost(id);
+		int total = boardDAO.countMyPost(loginId);
 		// 현재 페이지
 		int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
 				? 1 : Integer.parseInt(req.getParameter("pageNum"));
@@ -81,7 +88,7 @@ public class BoardController {
 		maps.put("pageNum", pageNum);
 		model.addAttribute("maps", maps);
 		// 게시글의 목록 저장
-		ArrayList<BoardDTO> postList = boardDAO.listMyPost(id, start, end);
+		ArrayList<BoardDTO> postList = boardDAO.listMyPost(loginId, start, end);
 		for (BoardDTO post : postList) {
 			String nickname = boardDAO.selectBoardNickname(post);
 			int likecount = boardDAO.countLike(Integer.toString(post.getBoard_idx()));
@@ -98,10 +105,15 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/myComment.do")
-	public String myCommentGet(Model model, HttpServletRequest req, HttpSession session) {
-		String id = (String) session.getAttribute("userId");
+	public String myCommentGet(Model model, HttpServletRequest req, HttpServletResponse response, HttpSession session) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 게시글의 개수
-		int total = boardDAO.countMyComment(id);
+		int total = boardDAO.countMyComment(loginId);
 		// 현재 페이지
 		int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
 				? 1 : Integer.parseInt(req.getParameter("pageNum"));
@@ -115,7 +127,7 @@ public class BoardController {
 		maps.put("pageNum", pageNum);
 		model.addAttribute("maps", maps);
 		// 게시글의 목록 저장
-		ArrayList<BoardDTO> postList = boardDAO.listMyComment(id, start, end);
+		ArrayList<BoardDTO> postList = boardDAO.listMyComment(loginId, start, end);
 		for (BoardDTO post : postList) {
 			String nickname = boardDAO.selectBoardNickname(post);
 			int likecount = boardDAO.countLike(Integer.toString(post.getBoard_idx()));
@@ -132,8 +144,13 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/waitComment.do")
-	public String WaitCommentGet(Model model, HttpServletRequest req, HttpSession session, ParameterDTO parameterDTO) {
-		String id = (String) session.getAttribute("userId");
+	public String WaitCommentGet(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse response, ParameterDTO parameterDTO) {
+		String loginId = (String) session.getAttribute("userId");
+	    // 로그인하지 않은 경우
+	    if (loginId == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
 		// 게시글의 개수
 		int total = boardDAO.countNoComment();
 		// 현재 페이지
