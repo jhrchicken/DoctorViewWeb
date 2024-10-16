@@ -430,8 +430,8 @@
               		</tr>
               	</table>
               	<div class="add">
-				<button id="addDoctor" class="plus" type="button"><span class="blind">의료진 추가</span></button>
-				<button id="addDoctor" class="delete" type="button"><span class="blind">의료진 삭제</span></button>
+					<button id="addDoctor" class="plus" type="button"><span class="blind">의료진 추가</span></button>
+					<button id="deleteDoctor" class="delete" type="button"><span class="blind">의료진 삭제</span></button>
               	</div>
               </td>
             </tr>
@@ -463,8 +463,21 @@
 	            const doctorContainer = document.getElementById("doctorContainer");
 	            doctorContainer.appendChild(newDoctorInfo);
 	            doctorContainer.appendChild(document.getElementById("addDoctor"));
+	            doctorContainer.appendChild(document.getElementById("deleteDoctor"));
 	          };
+	          
+	          document.getElementById("deleteDoctor").onclick = function() {
+	        	    const doctorContainer = document.getElementById("doctorContainer");
+	        	    const addedDoctors = doctorContainer.querySelectorAll(".doctor-info");
+	        	    
+	        	    // 추가된 테이블이 있는 경우 마지막 항목 삭제
+	        	    if (addedDoctors.length > 1) {
+	        	        doctorContainer.removeChild(addedDoctors[addedDoctors.length - 1]);
+	        	    }
+	        	};
+	        	
             </script>
+            
 
             <!-- 의료진 폼 끝 -->
           </table>    
