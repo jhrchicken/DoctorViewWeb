@@ -437,8 +437,8 @@
             </tr>
             
             <script>
+	         // 새로운 의료진 정보 추가
             document.getElementById("addDoctor").onclick = function() {
-	            // 새로운 의료진 정보 추가
 	            const newDoctorInfo = document.createElement("table");
 	            newDoctorInfo.className = "doctor-info";
 	            newDoctorInfo.innerHTML = `
@@ -466,11 +466,11 @@
 	            doctorContainer.appendChild(document.getElementById("deleteDoctor"));
 	          };
 	          
+	          // 의사 입력테이블 삭제
 	          document.getElementById("deleteDoctor").onclick = function() {
 	        	    const doctorContainer = document.getElementById("doctorContainer");
 	        	    const addedDoctors = doctorContainer.querySelectorAll(".doctor-info");
 	        	    
-	        	    // 추가된 테이블이 있는 경우 마지막 항목 삭제
 	        	    if (addedDoctors.length > 1) {
 	        	        doctorContainer.removeChild(addedDoctors[addedDoctors.length - 1]);
 	        	    }

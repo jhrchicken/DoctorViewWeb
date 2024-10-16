@@ -1,19 +1,27 @@
 package com.edu.springboot.reserve;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.springboot.doctor.DoctorDTO;
 import com.edu.springboot.member.HoursDTO;
 import com.edu.springboot.member.IMemberService;
 import com.edu.springboot.member.MemberDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,18 +38,43 @@ public class ReserveController {
 	// 예약 진행 페이지로 이동
 	@GetMapping("/reserve/proceed.do")
 	public String proceedGet(Model model, HttpSession session, ReserveDTO reserveDTO) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		
 		// 예약할 병원: 기본정보 
 		MemberDTO hospitalInfo  = reserveDAO.getHospital(reserveDTO);
 		model.addAttribute("hospitalInfo", hospitalInfo);
 		
+		/**************************************************/
+		
+		
+		
 		// 예약할 병원: 영업시간정보
-		List<HoursDTO> hoursInfo = memberDAO.selectHospHours(hospitalInfo.getId());
-		String[] weeks = new String[hoursInfo.size()];
-		for (int i = 0; i < hoursInfo.size(); i++) {
-		    HoursDTO hour = hoursInfo.get(i);
-		    weeks[i] = hour.getWeek(); 
+		// 병원의 근무요일,시간 정보
+		List<HoursDTO> hospHoursList = memberDAO.selectHospHours(hospitalInfo.getId());
+		// 병원의 근무시간 정보
+		List<String> stringHospHoursList = hospHoursList.get(0).generateTimeSlots().stream()
+            .map(LocalTime::toString) // 기본 형식 "HH:mm"
+            .collect(Collectors.toList());
+		try {
+			String hoursList = objectMapper.writeValueAsString(stringHospHoursList);
+			// 병원의 근무시간 정보
+			model.addAttribute("hoursList", hoursList);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
 		}
 		
+		
+		 
+		
+		
+		/**************************************************/
+//		model.addAttribute("hoursInfo", hoursInfo.get(0));
+		
+		String[] weeks = new String[hospHoursList.size()];
+		for (int i = 0; i < hospHoursList.size(); i++) {
+		    HoursDTO hour = hospHoursList.get(i);
+		    weeks[i] = hour.getWeek(); 
+		}
 		// js 배열로 사용하기 위한 작업
 		String week = "";
 		for(int i=0; i<weeks.length; i++) {
@@ -50,24 +83,56 @@ public class ReserveController {
 		else 
 			week += ",'"+weeks[i]+"'";
 		}
-		model.addAttribute("hoursInfo", hoursInfo.get(0));
 		model.addAttribute("week", week);
+		/**************************************************/
 		
 		// 예약할 병원: 예약불가 시간
 		// 해당하는 병원의 예약이 있는 시간
-		List<ReserveDTO> closeTime = reserveDAO.getReservationInfo(null, hospitalInfo.getId());
-		model.addAttribute("closeTime", closeTime);
+		List<ReserveDTO> reserveList = reserveDAO.getReservationInfo(null, hospitalInfo.getId());
+	    Map<String, List<String>> reserveMap = new HashMap<>();
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    
+	    
+	    for (ReserveDTO reserve : reserveList) {
+	    	 String postdate = dateFormat.format(reserve.getPostdate());
+	         String posttime = reserve.getPosttime();
+	         
+	         // 해당 날짜의 리스트가 존재하지 않으면 새로 생성
+	         if (!reserveMap.containsKey(postdate)) {
+	             reserveMap.put(postdate, new ArrayList<>());
+	         }
+	         
+	      // 해당 날짜의 리스트에 posttime 추가
+	         reserveMap.get(postdate).add(posttime);
+	     }
+	    try {
+			objectMapper.writeValueAsString(reserveMap);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+	    
+	    System.err.println(reserveMap);
+	    String hospReserveMap = null;
+	    try {
+	    	hospReserveMap = objectMapper.writeValueAsString(reserveMap);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+	    model.addAttribute("hospReserveMap", hospReserveMap);
+	    
+	    
+	    /**************************************************/
+	    // 예약할 병원: 의사정보 
+	    List<DoctorDTO> doctorInfo = reserveDAO.getDoctor(hospitalInfo.getId());
+	    model.addAttribute("doctorInfo", doctorInfo);
+	    
+	    // 예약하는 개인회원 정보
+	    MemberDTO userInfo = memberDAO.loginMember((String)session.getAttribute("userId"),(String)session.getAttribute("userPassword"));
+	    model.addAttribute("userInfo", userInfo);
+	    
+	    return "reserve/proceed";
+	    }
 		
-		// 예약할 병원: 의사정보 
-		List<DoctorDTO> doctorInfo = reserveDAO.getDoctor(hospitalInfo.getId());
-		model.addAttribute("doctorInfo", doctorInfo);
-//		
-		// 예약하는 개인회원 정보
-		MemberDTO userInfo = memberDAO.loginMember((String)session.getAttribute("userId"),(String)session.getAttribute("userPassword"));
-		model.addAttribute("userInfo", userInfo);
-		
-		return "reserve/proceed";
-	}
 	
 	// 예약하기
 	@PostMapping("/reserve/proceed.do")

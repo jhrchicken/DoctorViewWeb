@@ -113,43 +113,87 @@
 	           row = tbCalendar.insertRow(); // 주가 끝날 때마다 새 행 추가
 	       }
 	
-	       dom++;
-	    }
+	       dom++;}
 	}
 
 
-    	// 날짜 선택 함수 (기본적으로 오늘 선택)
-    	// 날짜 선택 함수 수정 (선택된 날짜를 hidden input에 설정)
-   	    function calendarChoiceDay(column) {
-		    if (document.getElementsByClassName("choiceDay")[0]) {
-		        // 이전에 선택된 날짜가 있을 경우 초기화
-		        document.getElementsByClassName("choiceDay")[0];  
-		        document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
-		    }
-		    // 선택한 날짜 강조
-		    column.classList.add("choiceDay");
-		
-		    // 선택한 날짜를 hidden input에 설정
-		    const year = document.getElementById("calYear").innerText;
-		    const month = document.getElementById("calMonth").innerText;
-		    const day = column.innerText.trim(); // 공백 제거
-		    
-		    const formattedDate = year + "-" + month + "-" +  day;
-		    
-// 		    선택한 날짜를 input에 설정
-		    document.getElementById("selectedDate").value = formattedDate;
-		    
-		    
-		    
-		    var closeList = JSON.parse('${fn:escapeXml(closeTime)}');
-		    console.log("closeList:", closeList);
-		    
-		    
-		    
-		    
-		    
+   		// 날짜 선택 함수 (기본적으로 오늘 선택)
+  	    function calendarChoiceDay(column) {
+	    if (document.getElementsByClassName("choiceDay")[0]) {
+	        // 이전에 선택된 날짜가 있을 경우 초기화
+	        document.getElementsByClassName("choiceDay")[0];  
+	        document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+	    }
+	    // 선택한 날짜 강조
+	    column.classList.add("choiceDay");
+	
+	    const year = document.getElementById("calYear").innerText;
+	    const month = document.getElementById("calMonth").innerText;
+	    const day = column.innerText.trim(); // 공백 제거
+	    
+	    const formattedDate = year + "-" + month + "-" +  day;
+	    
+// 	    선택한 날짜를 input에 설정
+	    document.getElementById("selectedDate").value = formattedDate;
+	    
+// 	    /*********************** 근무시간 ***********************/
+	    var hoursList = JSON.parse('${hoursList}');
+	    
+	    /*********************** 예약 날짜:시간 Map ***********************/
+	    var hospReserveMap = JSON.parse('${hospReserveMap}');
+	    
+	    // 예약목록 존재여부 판단 변수
+	    var isReserved = false;
+	
+	 	// 해당하는 날짜의 예약 시간 판단 변수
+	    var isReservedTime = false;
 
-		}
+	    document.querySelector(".time_list_am").innerHTML = '';  
+	    document.querySelector(".time_list_pm").innerHTML = '';  
+	    var timeListHtmlAM = '';  
+	    var timeListHtmlPM = '';  
+
+	    // hospReserveMap에 formattedDate에 해당하는 데이터가 있는지 판단
+	    if (hospReserveMap[formattedDate]) {
+	        isReserved = true;
+	        
+	        // 예약된 시간 리스트
+	        var reservedTimes = hospReserveMap[formattedDate];
+	        
+	        // hoursList에서 예약된 시간과 비교하여 오전/오후 나누어 출력
+	        hoursList.forEach(function(item, index) {
+	            var time = item.split(":"); 
+	            var hour = parseInt(time[0], 10);  // 시간을 정수로 변환
+
+	            // reservedTimes에 포함된 시간은 예약불가로 표시하고 radio 비활성화
+	            var radioButtonHtml = reservedTimes.includes(item) 
+	                ? "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"' disabled/><label class='block' for='"+ item +"'>" + item + "</label></li>"
+	                : "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
+	            
+	            if (hour < 12) {
+	                timeListHtmlAM += radioButtonHtml;
+	            } else {
+	                timeListHtmlPM += radioButtonHtml;
+	            }
+	        });
+	    } else {
+	        
+	        // 예약이 없으면 모든 hoursList 시간 출력
+	        hoursList.forEach(function(item, index) {
+	            var time = item.split(":");
+	            var hour = parseInt(time[0], 10);
+	            
+	            if (hour < 12) {
+	                timeListHtmlAM += "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
+	            } else {
+	                timeListHtmlPM += "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
+	            }
+	        });
+	    }
+
+	    document.querySelector(".time_list_am").innerHTML = timeListHtmlAM;
+	    document.querySelector(".time_list_pm").innerHTML = timeListHtmlPM;
+	}
 
 
      /*
@@ -243,18 +287,6 @@
 		});
 		
 	});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </script>
 
 </head>
@@ -400,77 +432,24 @@
 						</table>
 					</div>
 					
-					<button type="button" id="dateSubmit">날짜 전송</button>
-					
-					
 					<div class="reserv_right">
 						<div class="time_select">
 				        	<div class="am">
 				              	
 				              	<!-- 12:00 이전만 출력 -->
 				            	<div class="time_title">오전</div>
-			              		<ul class="time_list">
+			              		<ul class="time_list_am">
+			              		
 			
-<!-- ************ 코드 수정 예정 **************** -->
-<!-- 해당하는 시간에 예약이 있는 경우 예약불가 표시 -->
-<c:forEach items="${hoursInfo.generateTimeSlots()}" var="timeSlot" varStatus="loop">
-    <c:if test="${timeSlot lt '12:00'}">
-        <c:set var="isReserved" value="false" />
-        <c:forEach items="${closeTime}" var="close" varStatus="loop">
-            <c:if test="${close.posttime eq timeSlot}">
-                <c:set var="isReserved" value="true" />
-            </c:if>
-        </c:forEach>
-
-        <c:if test="${isReserved}">
-            <li class="time_item">
-            	<input disabled id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}">
-                <label class="block" for="${timeSlot}">${timeSlot}</label>
-            </li>
-        </c:if>
-        <c:if test="${not isReserved}">
-            <li class="time_item">
-                <input id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}">
-                <label for="${timeSlot}">${timeSlot}</label>
-            </li>
-        </c:if>
-    </c:if>
-</c:forEach>
 
 			              		</ul>
 			            	</div>
 			            	<div>
 				              	<!-- 12:00 이후만 출력 -->
 			              		<div class="time_title">오후</div>
-		             			<ul class="time_list">
+		             			<ul class="time_list_pm">
 		             			
-		             			
-<!-- ************ 코드 수정 예정 **************** -->
-<!-- 해당하는 시간에 예약이 있는 경우 예약불가 표시 -->
-<c:forEach items="${hoursInfo.generateTimeSlots()}" var="timeSlot" varStatus="loop">
-    <c:if test="${timeSlot ge '12:00'}">
-        <c:set var="isReserved" value="false" />
-        <c:forEach items="${closeTime}" var="close" varStatus="loop">
-            <c:if test="${close.posttime eq timeSlot}">
-                <c:set var="isReserved" value="true" />
-            </c:if>
-        </c:forEach>
-
-        <c:if test="${isReserved}">
-            <li class="time_item">
-                <input disabled id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}">
-                <label class="block" for="${timeSlot}">${timeSlot}</label>
-            </li>
-        </c:if>
-        <c:if test="${not isReserved}">
-            <li class="time_item">
-                <input id="${timeSlot}" type="radio" name="posttime" value="${timeSlot}">
-                <label for="${timeSlot}">${timeSlot}</label>
-            </li>
-        </c:if>
-    </c:if>
-</c:forEach>
-
+		            
 			              		</ul>
 		           			</div>
 		       			</div>
