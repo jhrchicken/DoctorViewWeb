@@ -7,9 +7,16 @@
 <mapper namespace="com.edu.springboot.hospital.IHospitalService">
 
 	<!-- 병원 목록 -->
-	<select id="getAllHospitals" resultType="com.edu.springboot.hospital.HospitalDTO">
-		SELECT * FROM api
+	<select id="getAllHospitals" resultType="com.edu.springboot.hospital.HospitalAppDTO">
+		SELECT
+			member.id, api.name, member.nickname, api.tel, api.address, member.department,
+			detail.pcr, detail.system
+		FROM detail
+		JOIN member ON detail.hosp_ref = member.id
+		JOIN api ON member.name = api.name
 	</select>
+	
+	
 	<!-- 병원 상세정보 목록 -->
 	<select id="getAllHDetails" resultType="com.edu.springboot.hospital.DetailDTO">
 		SELECT * FROM detail
