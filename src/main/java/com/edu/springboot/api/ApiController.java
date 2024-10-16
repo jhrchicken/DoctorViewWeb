@@ -57,6 +57,7 @@ public class ApiController {
 		List<MemberDTO> memberLists = memberDAO.getAllMembers();
 		return ResponseEntity.ok(memberLists);
 	}
+	// 커밋용 주석
 	
 	
 	// 전체 좋아요 목록
