@@ -12,7 +12,7 @@
 	</select>
 	<!-- 댓글 전체 목록 -->
 	<select id="getAllComments" resultType="com.edu.springboot.board.CommentsDTO">
-		SELECT * FROM comment
+		SELECT * FROM comments
 	</select>
 	
 	<!-- 베스트 게시판: 베스트 게시판의 게시글 개수를 카운트 -->

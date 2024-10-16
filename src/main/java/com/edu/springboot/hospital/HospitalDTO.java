@@ -18,7 +18,7 @@ public class HospitalDTO {
 	private String password;
 	private String nickname;
 	private String taxid;
-	
+	                                                                                                                       
 	// 상세 정보
 	private String photo;
 	private String introduce;
