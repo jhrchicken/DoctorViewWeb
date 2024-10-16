@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.edu.springboot.board.ParameterDTO;
 import com.edu.springboot.emoji.EmojiDTO;
 
 @Mapper
@@ -17,7 +18,9 @@ public interface IMemberService {
 	public List<LikesDTO> getAllLikes();
 	// 신고 목록
 	public List<ReportDTO> getAllReports();
-	
+	// 회원목록 페이징
+	public int countAllMembers(ParameterDTO parameterDTO);
+	public List<MemberDTO> pageAllMembers(ParameterDTO parameterDTO);
 	
 	
 //	회원가입: 개인회원 
@@ -40,6 +43,11 @@ public interface IMemberService {
 //	로그인
 //	public MemberDTO loginMember(MemberDTO memberDTO);
 	public MemberDTO loginMember(String id, String passwd);
+	
+	//회원정보 가져오기
+	public MemberDTO getMember(String id);
+	//회원정보 삭제하기
+	public int deleteUser(String id);
 	
 //	아이디찾기
 	public String findIdMember(MemberDTO memberDTO);
