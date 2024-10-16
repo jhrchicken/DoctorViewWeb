@@ -32,7 +32,7 @@ function validateForm(form) {
 
 // 회원탈퇴 confirm
 function withdrawMemberConfirm(id) {
-    if (confirm("정말로 진짜로 ??? 진짜??? 탈퇴하시겠습니까?")) {
+    if (confirm("정말 탈퇴하시겠습니까?")) {
     	var form = document.editForm;
     	form.method = "post";
         form.action = "/member/withdraw.do";
