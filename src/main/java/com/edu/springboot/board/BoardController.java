@@ -168,7 +168,7 @@ public class BoardController {
 		
 		// 로그인 여부 및 권한 검증
 		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
-		if (loginMember == null || loginMember.getAuth() != "ROLE_HOSP") {
+		if (loginMember == null) {
 			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
 			return null;
 		}
