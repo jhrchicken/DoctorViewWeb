@@ -353,6 +353,7 @@
 <script>
     const timeSelectIds = ['starttime', 'endtime', 'startbreak', 'endbreak', 'deadline'];
 
+    // 30분 단위로 선택 가능
     timeSelectIds.forEach(id => {
         const selectElement = document.getElementById(id);
         
@@ -366,6 +367,39 @@
             }
         }
     });
+    
+    
+ 	// 시간 비교 함수
+    function compareTimes(start, end) {
+        const startTime = document.getElementById(start).value;
+        const endTime = document.getElementById(end).value;
+
+        if (startTime && endTime && startTime >= endTime) {
+            alert('종료 시간은 시작 시간보다 늦어야 합니다.');
+            document.getElementById(end).value = '';
+        }
+    }
+
+    // 이벤트 리스너 추가
+    document.getElementById('starttime').addEventListener('change', () => {
+        compareTimes('starttime', 'endtime');
+    });
+
+    document.getElementById('endtime').addEventListener('change', () => {
+        compareTimes('starttime', 'endtime');
+    });
+
+    document.getElementById('startbreak').addEventListener('change', () => {
+        compareTimes('startbreak', 'endbreak');
+    });
+
+    document.getElementById('endbreak').addEventListener('change', () => {
+        compareTimes('startbreak', 'endbreak');
+    });
+    
+    
+    
+    
 </script>
 
 
