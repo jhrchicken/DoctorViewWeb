@@ -81,7 +81,7 @@
 				</c:if>
 				
 				<!-- 페이지네이션 -->
-				<c:if test="${ empty postsList }">
+				<c:if test="${ not empty postsList }">
 					<div class="pagination">
 						<div class="pagination_inner">
 							${ pagingImg }

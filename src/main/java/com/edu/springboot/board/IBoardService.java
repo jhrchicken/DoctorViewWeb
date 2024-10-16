@@ -8,12 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface IBoardService {
 	
-	// == 플러터 연동 ==
-	// 게시판 목록
-	public List<BoardDTO> getAllBoards();
-	// 댓글 목록
-	public List<CommentsDTO> getAllComments();
-	
 	// == 베스트 게시판 ==
 	// 게시글 개수 카운트
 	public int countBestPost();
@@ -51,5 +45,12 @@ public interface IBoardService {
 	public int countLike(String recodenum);
 	// 댓글 수 조회
 	public int countComment(BoardDTO boardDTO);
+	
+	
+	// == 플러터 연동 ==
+	// 게시판 목록
+	public List<BoardDTO> getAllBoards();
+	// 댓글 목록
+	public List<CommentsDTO> getAllComments();
 	
 }
