@@ -84,7 +84,7 @@
 				ORDER BY board_idx DESC
 			) Tb
 		)
-		WHERE rNum<![CDATA[>=]]>#{param2.end} AND rNum<![CDATA[<=]]>#{param2.end}
+		WHERE rNum<![CDATA[>=]]>#{param2.start} AND rNum<![CDATA[<=]]>#{param2.end}
 	</select>
 	
 	

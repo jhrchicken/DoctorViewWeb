@@ -78,7 +78,7 @@
 				</table>
 
 				<!-- 페이지네이션 -->
-				<c:if test="${ not empty postsList }">
+				<c:if test="${ not empty postList }">
 					<div class="pagination">
 						<div class="pagination_inner">
 							${ pagingImg }
