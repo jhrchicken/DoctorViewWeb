@@ -1,5 +1,6 @@
 package com.edu.springboot.board;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -194,41 +195,81 @@ public class FreeboardController {
 		
 		return "redirect:../freeboard.do";
 	}
+
 	
-	
-	// == 댓글 작성 ==
+	// == 댓글 작성 (Ajax) ==
 	@PostMapping("/freeboard/writeComment.do")
-	public String writeCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentsDTO commentsDTO) {
-		
-		// 로그인 여부 검증
-		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
-		if (loginMember == null) {
-			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
-			return null;
-		}
-		String id = loginMember.getId();
-		
-		commentsDTO.setWriter_ref(id);
-		boardDAO.writeComment(commentsDTO);
-		
-		return "redirect:../freeboard/viewPost.do?board_idx=" + commentsDTO.getBoard_ref();
+	@ResponseBody
+	public Map<String, Object> writeCommentPost(HttpSession session, CommentsDTO commentsDTO) {
+	    Map<String, Object> resultMap = new HashMap<>();
+
+	    // 로그인 여부 검증
+	    MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+	    if (loginMember == null) {
+	        resultMap.put("result", "error");
+	        resultMap.put("message", "로그인 후 이용해 주세요.");
+	        return resultMap;
+	    }
+
+	    // 댓글 작성
+	    String id = loginMember.getId();
+	    commentsDTO.setWriter_ref(id);
+	    try {
+	        boardDAO.writeComment(commentsDTO);
+	        resultMap.put("result", "success");
+	        resultMap.put("message", "댓글이 성공적으로 작성되었습니다.");
+
+	        commentsDTO = boardDAO.selectComments(commentsDTO);
+	        commentsDTO.setNickname(loginMember.getNickname());
+	        String nickname = boardDAO.selectCommNickname(commentsDTO);
+			String emoji = boardDAO.selectCommEmoji(commentsDTO);
+			if (emoji != null) commentsDTO.setNickname(nickname + " " + emoji);
+			else commentsDTO.setNickname(nickname);
+			
+	        // 댓글 정보 추가
+	        resultMap.put("comment", Map.of(
+	            "comm_idx", commentsDTO.getComm_idx(),
+	            "nickname", commentsDTO.getNickname(),
+	            "content", commentsDTO.getContent(),
+	            "postdate", commentsDTO.getPostdate()
+	        ));
+	        
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	        resultMap.put("result", "error");
+	        resultMap.put("message", "댓글 작성에 실패했습니다.");
+	    }
+
+	    return resultMap;
 	}
-	
+
+
 	
 	// == 댓글 수정 ==
 	@PostMapping("/freeboard/editComment.do")
-	public String editCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentsDTO commentsDTO) {
-		
-		// 로그인 여부 검증
-		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
-		if (loginMember == null) {
-			JSFunction.alertBack(response, "비정상적인 접근입니다");
-			return null;
-		}
-		
-		// 댓글 수정
-		boardDAO.editComment(commentsDTO);
-		return "redirect:../freeboard/viewPost.do?board_idx=" + commentsDTO.getBoard_ref();
+	@ResponseBody
+	public Map<String, Object> editCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentsDTO commentsDTO) {
+	    
+		Map<String, Object> resultMap = new HashMap<>();
+	    
+	    // 로그인 여부 검증
+	    MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+	    if (loginMember == null) {
+	    	resultMap.put("result", "error");
+	        return resultMap;
+	    }
+	    
+	    // 댓글 수정
+	    try {
+	        boardDAO.editComment(commentsDTO);
+	        resultMap.put("result", "success");
+	        resultMap.put("comment", commentsDTO);
+	    }
+	    catch (Exception e) {
+	    	resultMap.put("result", "error");
+	    }
+	    
+	    return resultMap;
 	}
 	
 	

@@ -29,6 +29,8 @@ public interface IFreeboardService {
 	public int countComment(BoardDTO boardDTO);
 	// 댓글 목록 조회
 	public ArrayList<CommentsDTO> listComments(BoardDTO boardDTO);
+	// 댓글 조회
+	public CommentsDTO selectComments(CommentsDTO commentsDTO);
 	// 댓글 작성
 	public int writeComment(CommentsDTO commentsDTO);
 	// 댓글 수정

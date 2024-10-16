@@ -147,21 +147,21 @@
     
     
     <!-- == 댓글 작성 모달창 == -->
-	<form method="post" action="../freeboard/writeComment.do" onsubmit="return validateCommentForm(this);">
-		<input type="hidden" id="board_ref" name="board_ref" value="" />
+<!-- 	<form method="post" action="../freeboard/writeComment.do" onsubmit="return validateCommentForm(this);">
+		<input type="hidden" id="comm_write_board_ref" name="board_ref" value="" />
 		<div class="modal" id="writeCommentModal" >
 			<div class="modal-dialog">
 				<div class="modal-content">
-				<!-- Modal Header -->
+				Modal Header
 				<div class="modal-header">
 					<h4 class="modal-title">댓글 작성</h4>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
-				<!-- Modal Body -->
+				Modal Body
 				<div class="modal-body">
 					<textarea class="form-control" name="content" style="height: 100px;" placeholder="내용을 입력하세요"></textarea>
 				</div>
-				<!-- Modal Footer -->
+				Modal Footer
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">작성하기</button>
 					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
@@ -169,6 +169,28 @@
 				</div>
 			</div>
 		</div>
+	</form> -->
+	
+	<!-- == 댓글 작성 모달창 == -->
+	<form id="writeCommentForm" onsubmit="return writeComment();">
+	    <input type="hidden" id="comm_write_board_ref" value="" />
+	    <div class="modal" id="writeCommentModal">
+	        <div class="modal-dialog">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h4 class="modal-title">댓글 작성</h4>
+	                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+	                </div>
+	                <div class="modal-body">
+	                    <textarea class="form-control" id="comm_write_content" style="height: 100px;" placeholder="내용을 입력하세요"></textarea>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="submit" class="btn btn-primary">작성하기</button>
+	                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 	</form>
 
 	<!-- 댓글 수정 모달창 -->
