@@ -1,5 +1,7 @@
 # DoctorViewWeb
-지역 기반 의료 서비스 매칭 플랫폼
+![logo](https://github.com/user-attachments/assets/c5e1fdac-5180-4c98-8458-aca9a9918288)
+<br />
+<b>지역 기반 의료 서비스 매칭 플랫폼</b>
 <br />
 <br />
 
