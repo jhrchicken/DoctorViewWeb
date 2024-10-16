@@ -41,6 +41,10 @@ public class BoardController {
 		int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
 				? 1 : Integer.parseInt(req.getParameter("pageNum"));
 		Map<String, Object> maps = new HashMap<String, Object>();
+		int start = (pageNum - 1) * postsPerPage + 1;
+		int end = pageNum * postsPerPage;
+		parameterDTO.setStart(start);
+		parameterDTO.setEnd(end);
 		maps.put("total", total);
 		maps.put("postsPerPage", postsPerPage);
 		maps.put("pageNum", pageNum);
@@ -82,6 +86,10 @@ public class BoardController {
 		int total = boardDAO.countMyPost(id);
 		int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
 				? 1 : Integer.parseInt(req.getParameter("pageNum"));
+		int start = (pageNum - 1) * postsPerPage + 1;
+		int end = pageNum * postsPerPage;
+		parameterDTO.setStart(start);
+		parameterDTO.setEnd(end);
 		Map<String, Object> maps = new HashMap<String, Object>();
 		maps.put("total", total);
 		maps.put("postsPerPage", postsPerPage);
@@ -124,6 +132,10 @@ public class BoardController {
 		int total = boardDAO.countMyComment(id);
 		int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
 				? 1 : Integer.parseInt(req.getParameter("pageNum"));
+		int start = (pageNum - 1) * postsPerPage + 1;
+		int end = pageNum * postsPerPage;
+		parameterDTO.setStart(start);
+		parameterDTO.setEnd(end);
 		Map<String, Object> maps = new HashMap<String, Object>();
 		maps.put("total", total);
 		maps.put("postsPerPage", postsPerPage);
@@ -165,6 +177,10 @@ public class BoardController {
 		int total = boardDAO.countNoComment();
 		int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
 				? 1 : Integer.parseInt(req.getParameter("pageNum"));
+		int start = (pageNum - 1) * postsPerPage + 1;
+		int end = pageNum * postsPerPage;
+		parameterDTO.setStart(start);
+		parameterDTO.setEnd(end);
 		Map<String, Object> maps = new HashMap<String, Object>();
 		maps.put("total", total);
 		maps.put("postsPerPage", postsPerPage);

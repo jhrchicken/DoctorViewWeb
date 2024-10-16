@@ -20,7 +20,7 @@ public interface IBoardService {
 	// 한 페이지에 출력할 게시글 목록 인출
 	public ArrayList<BoardDTO> listBestPost(ParameterDTO parameterDTO);
 	
-	
+
 	// == 내가 쓴 글 ==
 	// 게시글 개수 카운트
 	public int countMyPost(String id);

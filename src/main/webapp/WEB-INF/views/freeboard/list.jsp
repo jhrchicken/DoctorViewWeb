@@ -49,7 +49,7 @@
 						<c:choose>
 							<c:when test="${ empty postsList }">
 								<tr>
-									<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
+									<td colspan="6" align="center">등록된 게시물이 없습니다</td>
 								</tr>
 							</c:when>
 							<c:otherwise>

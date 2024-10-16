@@ -6,63 +6,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰 | 자유게시판</title>
+<title>닥터뷰</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="/js/board/freeboard-view.js"></script>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/board-view.css" />
-<script>
-function deletePost(board_idx) {
-	if (confirm("정말로 삭제하시겠습니까?")) {
-		var form = document.deletePostForm;
-		form.method = "post";
-		form.action = "/freeboard/deletePost.do";
-		form.submit();
-	}
-}
-function deleteComment(board_ref, comm_idx) {
-	if (confirm("댓글을 삭제하시겠습니까?")) {
-		var form = document.deleteCommentForm;
-		// hidden 필드에 값을 동적으로 설정
-        form.board_ref.value = board_ref;
-        form.comm_idx.value = comm_idx;
-		form.method = "post";
-		form.action = "/freeboard/deleteComment.do";
-		form.submit();
-	}
-}
-function openWriteModal(board_idx) {
-	document.getElementById("board_idx").value = board_idx;
-}
-function openEditModal(board_ref, comm_idx, content) {
-	document.getElementById("board_ref").value = board_ref;
-    document.getElementById("content").value = content;
-    document.getElementById("comm_idx").value = comm_idx;
-}
-function validateCommentForm(form) {
-	if (form.content.value == "") {
-		alert("내용을 입력하세요.");
-		form.content.focus();
-		return false;
-	}
-}
-</script>
 </head>
+
 <body>
 	<%@include file="../common/main_header.jsp" %>
 	
 	<main id="container">
 		<div class="content">
 			<div class="content_inner">
-				<!-- 게시글 -->
 				<h2>게시글 상세보기</h2>	
-				<form name="deletePostForm">
-					<input type="hidden" name="board_idx" value="${ boardDTO.board_idx }" />
-				</form>
 				
+				<!-- == 게시글 == -->
 				<table class="board">
-					<!-- 게시글 정보 -->
 					<tr>
 						<td class="left">제목</td>
 						<td colspan="3">${ boardDTO.title }</td>
@@ -79,54 +41,52 @@ function validateCommentForm(form) {
 						<td class="left">내용</td>
 						<td class="board_content" colspan="3">${ boardDTO.content }</td>
 					</tr>
-					<!-- 하단 메뉴(버튼) -->
 				</table>
+				
+				<!--  게시글 수정/삭제 -->
 				<div class="board_btn">
 					<button type="button" onclick="location.href='../freeboard.do';">뒤로가기</button>
-					<!-- 로그인 사용자와 글 작성자가 일치하는 경우 수정 삭제 버튼 -->
 					<c:if test="${ boardDTO.writer_ref == sessionScope.userId }">
 						<button type="button" onclick="location.href='../freeboard/editPost.do?board_idx=${ param.board_idx }';">수정하기</button>
 						<button type="button" onclick="deletePost(${ param.board_idx });">삭제하기</button>
 					</c:if>
 				</div>
 				
+				<!-- 게시글 삭제를 위한 폼 -->
+				<form name="deletePostForm">
+					<input type="hidden" name="board_idx" value="${ boardDTO.board_idx }" />
+				</form>
+				
+				<!-- 좋아요 및 신고 -->
 				<div class="like_btn">
-					<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
 					<c:if test="${ likecheck == 0 }">
 						<button type="button" onclick="location.href='../freeboard/clickLike.do?board_idx=${ param.board_idx }';">
 							<p class="like"></p>
-							<span>${ likecount }</span>
+							<span>${ boardDTO.likecount }</span>
 						</button>
 					</c:if>
-					<!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
 					<c:if test="${ likecheck == 1 }">
 						<button class="push" type="button" onclick="location.href='../freeboard/clickLike.do?board_idx=${ param.board_idx }';">
 							<p class="like"></p>
-							<span>${ likecount }</span>
+							<span>${ boardDTO.likecount }</span>
 						</button>
 					</c:if>
-					<!-- 로그인 한 사용자가 신고를 누르지 않은 경우 -->
-					<c:if test="${ reportcount == 0 }">
+					<c:if test="${ reportcheck == 0 }">
 						<button type="button" onclick="location.href='../freeboard/clickReport.do?board_idx=${ param.board_idx }';">
 							<p class="dislike"></p>
-							<span>${ reportcount }</span>
+							<span>${ boardDTO.reportcount }</span>
 						</button>
 					</c:if>
-					<!-- 로그인 한 사용자가 신고를 누른 경우 -->
-					<c:if test="${ reportcount == 1 }">
+					<c:if test="${ reportcheck == 1 }">
 						<button class="push" type="button" onclick="location.href='../freeboard/clickReport.do?board_idx=${ param.board_idx }';">
 							<p class="dislike"></p>
-							<span>${ reportcount }</span>
+							<span>${ boardDTO.reportcount }</span>
 						</button>
 					</c:if>
 				</div>
-			
-				<form name="deleteCommentForm" method="post">
-				    <input type="hidden" name="board_ref" value="" />
-				    <input type="hidden" name="comm_idx" value="" />
-				</form>
+				
+				<!-- 댓글 작성 -->
 				<div>
-					<!-- 로그인 한 경우 댓글 작성 버튼 -->
 			  		<c:if test="${ not empty sessionScope.userId }">
 				  		<div class="comment_btn">
 					  		<button type="button" data-bs-toggle="modal" data-bs-target="#writeCommentModal"
@@ -136,6 +96,8 @@ function validateCommentForm(form) {
 			  			</div>
 			  		</c:if>
 				</div>
+				
+				<!-- == 댓글 == -->
 				<table class="comment">
 					<thead align="center">
 						<th width="150px">작성자</th>
@@ -154,18 +116,19 @@ function validateCommentForm(form) {
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${ commentsList }" var="row" varStatus="loop">
-									<tr align="center">
+									<tr id="comment-${row.comm_idx}" align="center">
 							            <td class="writer">${ row.nickname }</td>
 							            <td class="comm_content" align="left">${ row.content }</td> 
 							            <td class="postdate">${ row.postdate }</td>
+							            
+							            <!-- 댓글 수정/삭제 버튼 -->
 									  	<td class="comm_btn">
-									  		<!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->
 											<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
 									            <button type="button" data-bs-toggle="modal" data-bs-target="#editCommentModal"
-									                    onclick="openEditModal(${ row.board_ref }, ${ row.comm_idx }, '${ row.content }')">
+									                    onclick="openEditModal(${ row.board_ref }, ${ row.comm_idx }, '${ row.content }', '${ row.writer_ref }')">
 									                수정
 									            </button>
-												<button type="button" onclick="deleteComment(${ row.board_ref }, ${ row.comm_idx });">
+												<button type="button" onclick="deleteComment(${ row.comm_idx }, '${ row.writer_ref }', ${ row.board_ref });">
 													삭제
 												</button>
 											</c:if>
@@ -181,9 +144,11 @@ function validateCommentForm(form) {
 	</main>
     <%@include file="../common/main_footer.jsp" %>
     
-    <!-- 댓글 작성 모달창 -->
+    
+    
+    <!-- == 댓글 작성 모달창 == -->
 	<form method="post" action="../freeboard/writeComment.do" onsubmit="return validateCommentForm(this);">
-		<input type="hidden" id="board_idx" name="board_idx" value="" />
+		<input type="hidden" id="board_ref" name="board_ref" value="" />
 		<div class="modal" id="writeCommentModal" >
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -208,7 +173,8 @@ function validateCommentForm(form) {
 
 	<!-- 댓글 수정 모달창 -->
 	<form method="post" action="../freeboard/editComment.do" onsubmit="return validateCommentForm(this);">
-		<input type="hidden" id="board_ref" name="board_ref" value="" />
+		<input type="hidden" id="writer_ref" name="writer_ref" value="" />
+		<input type="hidden" id="board1_ref" name="board_ref" value="" />
 		<div class="modal" id="editCommentModal" >
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -231,5 +197,7 @@ function validateCommentForm(form) {
 			</div>
 		</div>
 	</form>
+	
+	
 </body>   
 </html>
