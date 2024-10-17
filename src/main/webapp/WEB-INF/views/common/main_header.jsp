@@ -73,7 +73,7 @@
 							<c:if test="${ sessionScope.userAuth != 'ROLE_HOSP' }">
 								<li><a href="/mypage/myHosp.do">찜한 병원</a></li>
 								<li><a href="/mypage/myDoctor.do">찜한 의사</a></li>
-								<li><a href="#">작성한 리뷰</a></li>
+								<li><a href="/mypage/myReview.do">작성한 리뷰</a></li>
 								<li><a href="/mypage/attend.do">출석체크</a></li>
 							</c:if>
 						</ul>
