@@ -115,6 +115,7 @@
 /*** 완료 버튼 ***/
 #container .btn_wrap {
   display: flex;
+  gap: 0 20px;
   justify-content: center;
   margin-top: 20px;
 }
