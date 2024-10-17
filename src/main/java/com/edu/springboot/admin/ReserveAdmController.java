@@ -77,11 +77,15 @@ public class ReserveAdmController {
 	public String reserve_change(HttpSession session, ParameterDTO parameterDTO, HttpServletRequest req, Model model, HttpServletResponse response) {
 		
 		String app_id = req.getParameter("app_id");
-		String hide = req.getParameter("hide");
-		if(hide.equals("T"))
+		String cancel = req.getParameter("cancel");
+		if(cancel.equals("T")) {
 			reserveDAO.changeReserve(app_id, "F");
-		else
+			System.out.println("F로변경");
+		}
+		else {
 			reserveDAO.changeReserve(app_id, "T");
+			System.out.println("T로변경");
+		}
 						
 		return "redirect:reserve_list.do";
 	}

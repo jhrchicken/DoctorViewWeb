@@ -30,7 +30,7 @@ public interface IReserveService {
 	//예약 목록 페이징(관리자모드)
 	public int getCountReservationInfo();
 	public List<ReserveDTO> getAllReservationInfo(ParameterDTO parameterDTO);
-	public int changeReserve(String app_id, String hide);
+	public int changeReserve(String app_id, String cancel);
 	
 	// 선택한 예약 정보 가져옴
 	public ReserveDTO getReservationDetails(int app_id);

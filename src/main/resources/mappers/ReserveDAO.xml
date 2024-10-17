@@ -77,7 +77,7 @@
 		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}	
 	</select>
 	<update id="changeReserve">
-		UPDATE appointment SET hide=#{param2} WHERE app_id=#{param1}
+		UPDATE appointment SET cancel=#{param2} WHERE app_id=#{param1}
 	</update>
 	
 	<!-- 에약정보 한개 가져오기  -->

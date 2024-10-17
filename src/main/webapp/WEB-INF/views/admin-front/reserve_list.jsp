@@ -43,7 +43,7 @@
 <c:choose>
 	<c:when test="${ not empty reserveList }">
 		<c:forEach items="${ reserveList }" var="row" varStatus="loop">
-			<tr <c:if test="${ row.hide eq 'T' }">class="table-dark"</c:if>>
+			<tr <c:if test="${ row.cancel eq 'T' }">class="table-dark"</c:if>>
 				<td>${ maps.total - (((maps.pageNum-1) * maps.postsPerPage)	+ loop.index)}</td>
 				<td>${ row.hospname }</td>
 				<td>${ row.doctorname }</td>
@@ -51,10 +51,10 @@
 				<td>${ row.tel }</td>
 				<td>${ row.rrn }</td>
 				<td>${ row.postdate }</td>
-				<td>${ row.hide }</td>
+				<td>${ row.cancel eq 'T' ? '예약취소' : '예약' }</td>
 				<td>
 					<%-- <button type="button" class="btn btn-warning" onclick="location.href='board_edit.do?boardname=${param.boardname}&board_idx=${row.board_idx}';">수정</button> --%>
-					<button type="button" class="btn btn-danger" onclick="reserveChange('${row.app_id}','${ row.hide }');">예약변경</button>
+					<button type="button" class="btn btn-danger" onclick="reserveChange('${row.app_id}','${ row.cancel }');">예약변경</button>
 				</td>
 			</tr>
 		</c:forEach>
@@ -75,9 +75,9 @@
 	</div>
 </div>
 <script>
-let reserveChange = function(app_id, hide){
+let reserveChange = function(app_id, cancel){
 	if(confirm('변경할까요?')){
-		location.href='reserve_change.do?app_id='+app_id+'&hide='+hide ;
+		location.href='reserve_change.do?app_id='+app_id+'&cancel='+cancel ;
 	}
 }
 </script>
