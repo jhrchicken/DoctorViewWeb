@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.edu.springboot.doctor.DoctorDTO;
 import com.edu.springboot.member.HoursDTO;
@@ -264,7 +265,7 @@ public class ReserveController {
 	}
 	
 	@PostMapping("/reserve/setTime.do")
-	public String setTimePost(HttpServletRequest req, ReserveDTO reserveDTO) {
+	public String setTimePost(HttpServletRequest req, ReserveDTO reserveDTO, RedirectAttributes redirectAttributes) {
 		String[] posttimez = req.getParameterValues("posttimez");
 		
 		int setCloseTime;
@@ -272,6 +273,7 @@ public class ReserveController {
 	    	reserveDTO.setPosttime(posttimez[i]);
 	    	setCloseTime = reserveDAO.closeTime(reserveDTO);
 	    }
+	    redirectAttributes.addFlashAttribute("setTimeResult", "예약 시간 설정이 완료되었습니다.");
 		return "redirect:/reserve/setTime.do";
 	}
 	

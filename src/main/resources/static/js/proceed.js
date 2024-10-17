@@ -53,8 +53,8 @@ function autoLeftPad(num, digit) {
     return num;
 }
 
-// 폼값 검증
-function validateForm(form) {
+// proceed 폼값 검증
+function proceedValidateForm(form) {
 	// 의사 선택 검증
     const doctorname = form.doctorname;  
     let doctorChecked = false;
@@ -105,4 +105,6 @@ function validateForm(form) {
 	}
 
 	return true;
+
 }
+

@@ -10,7 +10,6 @@
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/reserve-setTime.css" />
 <script src="/js/proceed.js"></script>
-
 <script>
 	var toDay = new Date(); // 오늘 날짜 (내 컴퓨터 로컬 기준)
 	var nowDate = new Date();  // 실제 오늘날짜 고정값
@@ -135,77 +134,24 @@
 	   document.querySelector(".time_list_am").innerHTML = timeListHtmlAM;
 	   document.querySelector(".time_list_pm").innerHTML = timeListHtmlPM;
 	}
-	
-//  ****************** 폼값 검증 ******************  
-	function validateForm(form) {
-		
-		// 의사 선택 검증
-	    const doctorname = form.doctorname;  
-	    let doctorChecked = false;
-	    if (doctorname.length) {
-	        for (let i = 0; i < doctorname.length; i++) {
-	            if (doctorname[i].checked) {
-	                doctorChecked = true;
-	                break;
-	            }
-	        }
-	    } else {
-	        doctorChecked = doctorname.checked;
-	    }
-	    if (!doctorChecked) {
-	        alert("진료받을 의사를 선택하세요.");
-	        return false;
-	    }
-		 
-		// 시간 선택 검증
-		const posttime = form.posttime;  
-		let timeChecked = false;
-		for (let i = 0; i < posttime.length; i++) {
-		    if (posttime[i].checked) {
-		    	timeChecked = true;
-		        break;
-		    }
-		}
-		if (!timeChecked) {
-			alert("진료받을 시간을 선택하세요.");
-			return false;
-		}
-		
-		// 예약자 정보 검증
-		if (form.username.value == '') {
-			alert("방문자 이름을 입력하세요.");
-			form.username.focus();
-			return false;
-		}
-		if (form.tel.value == '') {
-			alert("방문자 전화번호를 입력하세요.");
-			form.tel.focus();
-			return false;
-		}
-		if (form.rrn.value == '') {
-			alert("방문자 주민등록번호 입력하세요.");
-			form.rrn.focus();
-			return false;
-		}
-	
-		return true;
-	}
-	
-	
 </script>
 	
 </head>
 <body>
+<!-- 예약관리 성공 여부 -->
+<c:if test="${not empty setTimeResult}">
+    <script>
+        alert("${setTimeResult}");
+    </script>
+</c:if>
+
 <%@include file="../common/main_header.jsp" %>
 <main id="container">
 	<div class="content">
 		<div class="content_inner">
 			<h2>병원 예약관리</h2>
 			
-			<form name="setTimeFrm" method="post" 
-				action="/reserve/setTime.do">
-			
-
+			<form name="setTimeFrm" method="post" action="/reserve/setTime.do">
 				<!-- 병원명/아이디 전달 -->
 				<input type="hidden" name="hosp_ref" value="${ hospitalInfo.id }" placeholder="" readonly/>
 				<input type="hidden" name="hospname" value="${ hospitalInfo.name }" placeholder="" readonly/>
@@ -265,18 +211,13 @@
 		           			</div>
 		       			</div>
 		       			
-		       			
-		       			
 		       			<div class="btn_wrap">
 			            	<button type="submit">예약 닫기</button>
 			            </div>
 		       			
-		       			
 					</div>
-				        
 	   			</div>
 	   		</form>
-	   		
    		</div>
 	</div>
 </main>

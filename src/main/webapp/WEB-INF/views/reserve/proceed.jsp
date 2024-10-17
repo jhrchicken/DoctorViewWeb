@@ -150,7 +150,7 @@
 			
 			<!-- form -->
 			<form name="proceedFrm" method="post" 
-				action="/reserve/proceed.do" onsubmit="return validateForm(this);">
+				action="/reserve/proceed.do" onsubmit="return proceedValidateForm(this);">
 
 				<!-- 병원 정보 -->
 				<div class="hosp_info">
