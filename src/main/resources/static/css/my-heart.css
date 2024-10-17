@@ -1,0 +1,181 @@
+#container .content {
+  padding: 170px 0;
+}
+#container .content_inner {
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+#container .list_title {
+  text-align: center;
+  padding: 80px 0 50px;
+}
+#container h2 {
+  font-size: 40px;
+  color: var(--point-color2);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+#container .list_title>p {
+  font-size: 20px;
+  color: var(--gray-500);
+}
+
+#container .hospital>li {
+  width: 100%;
+  height: 270px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: flex;
+  margin-bottom: 30px;
+}
+#container .hospital li:last-child {
+  margin-bottom: 0;
+}
+#container .hospital li a {
+  display: block;
+  width: 100%;
+  height: 270px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+/*** 사진 ***/
+#container .hospital>li>.img {
+  width: 210px;
+  height: 210px;
+  border: 2px solid #ddd;
+}
+#container .hospital>li.not>.img {
+  width: 160px;
+  height: 160px;
+}
+/*** 병원 정보 ***/
+#container .hospital .info {
+  padding: 0 30px;
+}
+/*** 병원 이름, 인증마크 ***/
+#container .hospital .hosp_name {
+  display: flex;
+  gap: 0 10px;
+}
+#container .hospital .hosp_name h3 {
+  font-size: 32px;
+  font-weight: 700;
+}
+#container .hospital .approve {
+  display: block;
+  width: 38px;
+  height: 38px;
+  background: url(/images/approve.svg) no-repeat 0 0 / 100%;
+}
+#container .hospital .info_top p {
+  font-size: 25px;
+  color: var(--gray-400);
+  font-weight: 500;
+  display: block;
+  margin-top: 10px;
+}
+#container .hospital .depdis {
+  display: flex;
+  gap: 0 10px;
+}
+/*** 병원 추가 정보 ***/
+#container .hospital .detail {
+  margin-top: 20px;
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 1.5em;
+}
+#container .hospital .details {
+  display: flex;
+  gap: 0 10px;
+}
+#container .hospital .blue {
+  color: var(--point-color2);
+}
+#container .hospital .address {
+  width: 600px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/*** 별점, 좋아요/댓글 수 ***/
+#container .hospital .info_right {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  display: flex;
+  gap: 0 50px;
+  justify-content: right;
+}
+#container .hospital .info_right p {
+  font-size: 27px;
+  position: relative;
+}
+#container .hospital .info_right p::before {
+  content: '';
+  display: block;
+  width: 27px;
+  height: 27px;
+  position: absolute;
+  left: -35px;
+  top: 2px;
+}
+#container .hospital .info_right p.like::before {
+  background: url(/images/mark_full.svg) no-repeat 50% 50% / 100%;
+}
+#container .hospital .info_right p.star::before {
+  background: url(/images/star.svg) no-repeat 50% 50% / 100%;
+}
+/*** 해시태그 ***/
+#container .hospital .hashtag>ul {
+  display: flex;
+  gap: 0 10px;
+  margin-top: 10px;
+}
+#container .hospital .hash {
+  font-size: 20px;
+  background: var(--point-color1);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+#container .hospital .hash>p::before {
+  content: '#';
+  margin-right: 5px;
+}
+/*** 게시판 - 페이지네이션 ***/
+#container .pagination {
+  margin-top: 30px;  
+  width: 100%;
+}
+#container .pagination_inner {
+  display: flex;
+  justify-content: center;
+  vertical-align: center;
+  text-align: center;
+  gap: 0 20px;
+}
+#container .pagination a {
+  font-weight: 700;
+  font-size: 18px;
+  color: #bbb;
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+#container .pagination a:hover {
+  color: var(--point-color2);
+}
+#container .pagination p {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--point-color2);
+  display: block;
+  width: 24px;
+  height: 24px;
+}
