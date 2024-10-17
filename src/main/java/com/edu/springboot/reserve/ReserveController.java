@@ -263,7 +263,6 @@ public class ReserveController {
 
 		return "reserve/setTime";
 	}
-	
 	@PostMapping("/reserve/setTime.do")
 	public String setTimePost(HttpServletRequest req, ReserveDTO reserveDTO, RedirectAttributes redirectAttributes) {
 		String[] posttimez = req.getParameterValues("posttimez");
@@ -276,10 +275,6 @@ public class ReserveController {
 	    redirectAttributes.addFlashAttribute("setTimeResult", "예약 시간 설정이 완료되었습니다.");
 		return "redirect:/reserve/setTime.do";
 	}
-	
-	
-	
-	
 	
 }
 
