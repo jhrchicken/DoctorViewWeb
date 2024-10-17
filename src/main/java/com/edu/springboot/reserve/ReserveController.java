@@ -45,15 +45,12 @@ public class ReserveController {
 		model.addAttribute("hospitalInfo", hospitalInfo);
 		
 		/**************************************************/
-		
-		
-		
 		// 예약할 병원: 영업시간정보
 		// 병원의 근무요일,시간 정보
 		List<HoursDTO> hospHoursList = memberDAO.selectHospHours(hospitalInfo.getId());
 		// 병원의 근무시간 정보
 		List<String> stringHospHoursList = hospHoursList.get(0).generateTimeSlots().stream()
-            .map(LocalTime::toString) // 기본 형식 "HH:mm"
+            .map(LocalTime::toString)
             .collect(Collectors.toList());
 		try {
 			String hoursList = objectMapper.writeValueAsString(stringHospHoursList);
@@ -62,14 +59,7 @@ public class ReserveController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
-		
-		 
-		
-		
 		/**************************************************/
-//		model.addAttribute("hoursInfo", hoursInfo.get(0));
-		
 		String[] weeks = new String[hospHoursList.size()];
 		for (int i = 0; i < hospHoursList.size(); i++) {
 		    HoursDTO hour = hospHoursList.get(i);
@@ -84,7 +74,6 @@ public class ReserveController {
 			week += ",'"+weeks[i]+"'";
 		}
 		model.addAttribute("week", week);
-		/**************************************************/
 		
 		// 예약할 병원: 예약불가 시간
 		// 해당하는 병원의 예약이 있는 시간
@@ -110,7 +99,6 @@ public class ReserveController {
 			e.printStackTrace();
 		}
 	    
-	    System.err.println(reserveMap);
 	    String hospReserveMap = null;
 	    try {
 	    	hospReserveMap = objectMapper.writeValueAsString(reserveMap);
@@ -118,8 +106,6 @@ public class ReserveController {
 			e.printStackTrace();
 		}
 	    model.addAttribute("hospReserveMap", hospReserveMap);
-	    
-	    
 	    /**************************************************/
 	    // 예약할 병원: 의사정보 
 	    List<DoctorDTO> doctorInfo = reserveDAO.getDoctor(hospitalInfo.getId());

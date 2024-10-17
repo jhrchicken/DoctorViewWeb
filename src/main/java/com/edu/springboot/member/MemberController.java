@@ -396,11 +396,10 @@ public class MemberController {
 		model.addAttribute("hospDatilInfo", hospDatilInfo);
 		
 		
-		
 		return "member/editHosp";
 	}
 	@PostMapping("/member/editHosp.do")
-	public String editHospPost(MemberDTO memberDTO, HoursDTO hoursDTO, DetailDTO detailDTO, HttpServletRequest req, HttpSession session, Model model) {
+	public String editHospPost(MemberDTO memberDTO, HoursDTO hoursDTO, DetailDTO detailDTO, HttpServletRequest req, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
 		// member
 		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
 		String taxid = req.getParameter("taxid1") + "-" + req.getParameter("taxid2") + "-" + req.getParameter("taxid3");
@@ -471,12 +470,14 @@ public class MemberController {
 	    
 		if (hospMemberResult == 1 && hospHoursResult == 1 && hospDatailResult == 1) {
 			session.setAttribute("userPassword", memberDTO.getPassword());
+			redirectAttributes.addFlashAttribute("editUserResult", "회원정보 수정에 성공했습니다.");
 			return "redirect:/member/editHosp.do";
 		}
 		else {
-			model.addAttribute("editUserFaild", "회원정보 수정에 실패했습니다.");
+			redirectAttributes.addFlashAttribute("editUserResult", "회원정보 수정에 실패했습니다.");
 			return "member/editHosp";
 		}
+		
 	} 
 	
 //	의료진 관리 (의사정보)
