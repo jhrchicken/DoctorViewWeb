@@ -1,8 +1,6 @@
 package com.edu.springboot.reserve;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.edu.springboot.doctor.DoctorDTO;
 import com.edu.springboot.member.HoursDTO;
@@ -45,15 +44,12 @@ public class ReserveController {
 		model.addAttribute("hospitalInfo", hospitalInfo);
 		
 		/**************************************************/
-		
-		
-		
 		// 예약할 병원: 영업시간정보
 		// 병원의 근무요일,시간 정보
 		List<HoursDTO> hospHoursList = memberDAO.selectHospHours(hospitalInfo.getId());
 		// 병원의 근무시간 정보
 		List<String> stringHospHoursList = hospHoursList.get(0).generateTimeSlots().stream()
-            .map(LocalTime::toString) // 기본 형식 "HH:mm"
+            .map(LocalTime::toString)
             .collect(Collectors.toList());
 		try {
 			String hoursList = objectMapper.writeValueAsString(stringHospHoursList);
@@ -62,14 +58,7 @@ public class ReserveController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
-		
-		 
-		
-		
 		/**************************************************/
-//		model.addAttribute("hoursInfo", hoursInfo.get(0));
-		
 		String[] weeks = new String[hospHoursList.size()];
 		for (int i = 0; i < hospHoursList.size(); i++) {
 		    HoursDTO hour = hospHoursList.get(i);
@@ -84,7 +73,6 @@ public class ReserveController {
 			week += ",'"+weeks[i]+"'";
 		}
 		model.addAttribute("week", week);
-		/**************************************************/
 		
 		// 예약할 병원: 예약불가 시간
 		// 해당하는 병원의 예약이 있는 시간
@@ -110,7 +98,6 @@ public class ReserveController {
 			e.printStackTrace();
 		}
 	    
-	    System.err.println(reserveMap);
 	    String hospReserveMap = null;
 	    try {
 	    	hospReserveMap = objectMapper.writeValueAsString(reserveMap);
@@ -118,8 +105,6 @@ public class ReserveController {
 			e.printStackTrace();
 		}
 	    model.addAttribute("hospReserveMap", hospReserveMap);
-	    
-	    
 	    /**************************************************/
 	    // 예약할 병원: 의사정보 
 	    List<DoctorDTO> doctorInfo = reserveDAO.getDoctor(hospitalInfo.getId());
@@ -209,20 +194,32 @@ public class ReserveController {
 	@GetMapping("/reserve/setTime.do")
 	public String setTimeGet(Model model, HttpSession session, ReserveDTO reserveDTO, MemberDTO memberDTO) {
 		
-		// ************* 수정 예정 *************
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		// 병원정보
 		memberDTO.setId((String)session.getAttribute("userId"));
-		// 병원 기본 정보
 		MemberDTO hospitalInfo  = reserveDAO.getMyHospital(memberDTO);
 		model.addAttribute("hospitalInfo", hospitalInfo);
 		
-		// 예약할 병원: 영업시간정보
-		List<HoursDTO> hoursInfo = memberDAO.selectHospHours(hospitalInfo.getId());
-		String[] weeks = new String[hoursInfo.size()];
-		for (int i = 0; i < hoursInfo.size(); i++) {
-		    HoursDTO hour = hoursInfo.get(i);
-		    weeks[i] = hour.getWeek(); 
+		// 병원의 근무요일,시간 정보
+		List<HoursDTO> hospHoursList = memberDAO.selectHospHours(hospitalInfo.getId());
+		// 병원의 근무시간 정보
+		List<String> stringHospHoursList = hospHoursList.get(0).generateTimeSlots().stream()
+            .map(LocalTime::toString)
+            .collect(Collectors.toList());
+		try {
+			String hoursList = objectMapper.writeValueAsString(stringHospHoursList);
+			// 병원의 근무시간 정보
+			model.addAttribute("hoursList", hoursList);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
 		}
 		
+		String[] weeks = new String[hospHoursList.size()];
+		for (int i = 0; i < hospHoursList.size(); i++) {
+		    HoursDTO hour = hospHoursList.get(i);
+		    weeks[i] = hour.getWeek(); 
+		}
 		// js 배열로 사용하기 위한 작업
 		String week = "";
 		for(int i=0; i<weeks.length; i++) {
@@ -231,23 +228,43 @@ public class ReserveController {
 		else 
 			week += ",'"+weeks[i]+"'";
 		}
-		
-		// 예약할 병원: 예약불가 시간
-		// 해당하는 병원의 예약이 있는 시간
-		List<ReserveDTO> closeTime = reserveDAO.getReservationInfo(null, hospitalInfo.getId());
-		
-		model.addAttribute("closeTime", closeTime);
-		model.addAttribute("hoursInfo", hoursInfo.get(0));
 		model.addAttribute("week", week);
-		System.err.println("setTiem get완료");
+		
+		// 예약목록
+		List<ReserveDTO> reserveList = reserveDAO.getReservationInfo(null, hospitalInfo.getId());
+	    Map<String, List<String>> reserveMap = new HashMap<>();
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    
+	    for (ReserveDTO reserve : reserveList) {
+	    	 String postdate = dateFormat.format(reserve.getPostdate());
+	         String posttime = reserve.getPosttime();
+	         
+	         // 해당 날짜의 리스트가 존재하지 않으면 새로 생성
+	         if (!reserveMap.containsKey(postdate)) {
+	             reserveMap.put(postdate, new ArrayList<>());
+	         }
+	         
+	         // 해당 날짜의 리스트에 posttime 추가
+	         reserveMap.get(postdate).add(posttime);
+	     }
+	    try {
+			objectMapper.writeValueAsString(reserveMap);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+	    
+	    String hospReserveMap = null;
+	    try {
+	    	hospReserveMap = objectMapper.writeValueAsString(reserveMap);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+	    model.addAttribute("hospReserveMap", hospReserveMap);
 
 		return "reserve/setTime";
 	}
-	
 	@PostMapping("/reserve/setTime.do")
-	public String setTimePost(HttpServletRequest req, ReserveDTO reserveDTO) {
-		System.err.println("post진입");
-
+	public String setTimePost(HttpServletRequest req, ReserveDTO reserveDTO, RedirectAttributes redirectAttributes) {
 		String[] posttimez = req.getParameterValues("posttimez");
 		
 		int setCloseTime;
@@ -255,24 +272,9 @@ public class ReserveController {
 	    	reserveDTO.setPosttime(posttimez[i]);
 	    	setCloseTime = reserveDAO.closeTime(reserveDTO);
 	    }
-		
-	    System.err.println("post완료");
+	    redirectAttributes.addFlashAttribute("setTimeResult", "예약 시간 설정이 완료되었습니다.");
 		return "redirect:/reserve/setTime.do";
 	}
-	
-	
-//	@GetMapping("/selectedDate.do")
-//	@ResponseBody
-//	public void selectedDate(@RequestParam("seleted_date") String seletedDate, Model model) {
-//		model.addAttribute("seletedDate", seletedDate);
-//	    // 처리 로직 수행 후 응답
-//	}
-
-
-	
-	
-	
-	
 	
 }
 

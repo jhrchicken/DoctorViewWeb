@@ -42,8 +42,18 @@ function withdrawMemberConfirm(id) {
     }
 }
 </script>
+
 </head>
 <body>
+
+<!-- 회원정보 수정 성공 여부 -->
+<c:if test="${not empty editUserResult}">
+    <script>
+        alert("${editUserResult}");
+    </script>
+</c:if>
+
+
 <%@ include file="../common/main_header.jsp" %>
 	
 <main id="container">
@@ -51,13 +61,6 @@ function withdrawMemberConfirm(id) {
     <div class="content_inner">
       <div class="login_wrap">
       	<h2>병원정보 수정</h2>
-    
-	    <c:if test="${ not empty editUserFaild }">
-			<!-- 글자색 css 변경필요 -->
-	  		<p class="fail">${ editUserFaild }</p>
-	    </c:if>
-	        
-	        
 		<form name="editForm" method="post" enctype="multipart/form-data"
 				action="../../member/editHosp.do" onsubmit="return validateForm(this);">
 				
