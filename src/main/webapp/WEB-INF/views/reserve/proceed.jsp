@@ -14,132 +14,129 @@
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/reserve-proceed.css" />
 <script>
-var toDay = new Date(); // 오늘 날짜 (내 컴퓨터 로컬 기준)
-var nowDate = new Date();  // 실제 오늘날짜 고정값
-     
-var weeks = [${week}]; // 병원의 근무요일 데이터
-
-function buildCalendar() {
-   let doMonth = new Date(toDay.getFullYear(), toDay.getMonth(), 1); // 이번 달의 첫 번째 날
-   let lastDate = new Date(toDay.getFullYear(), toDay.getMonth() + 1, 0); // 이번 달의 마지막 날
-
-   let tbCalendar = document.querySelector(".scriptCalendar > tbody"); // 캘린더 테이블 본문
-   document.getElementById("calYear").innerText = toDay.getFullYear(); // 년도 표시
-   document.getElementById("calMonth").innerText = autoLeftPad((toDay.getMonth() + 1), 2); // 월 표시
-
-   // 이전 캘린더 데이터를 삭제
-   while (tbCalendar.rows.length > 0) {
-       tbCalendar.deleteRow(tbCalendar.rows.length - 1);
-   }
-
-   let row = tbCalendar.insertRow(); // 첫 번째 행
-   let dom = 1; // 요일 카운터
-   let daysLength = (Math.ceil((doMonth.getDay() + lastDate.getDate()) / 7) * 7) - doMonth.getDay(); // 캘린더에 표시할 총 일 수
-
-   for (let day = 1 - doMonth.getDay(); daysLength >= day; day++) {
-       let column = row.insertCell();
-
-       // 현재 달의 유효한 날
-       if (Math.sign(day) == 1 && lastDate.getDate() >= day) {
-           column.innerText = autoLeftPad(day, 2); // 날짜 표시
-
-           let currentDate = new Date(toDay.getFullYear(), toDay.getMonth(), day); // 현재 날짜
-
-           let dayOfWeek = new Date(toDay.getFullYear(), toDay.getMonth(), day).getDay(); // 0: 일요일, 1: 월요일, ..., 6: 토요일
-           let korWeekday = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"][dayOfWeek];
-
-           // 오늘 이후 날짜일 경우 && 선택 가능한 요일인지 확인
-           if (currentDate >= nowDate && weeks.includes(korWeekday)) {
-               column.onclick = function () { calendarChoiceDay(this); };
-               // 오늘 이후 날짜 배경 색상
-               column.classList.add("future")
-           } else {
-               // 오늘 이전 날짜 또는 선택 불가능한 요일
-               column.classList.add("past");
-           }
-
-           // 오늘 날짜일 경우
-           if (day === nowDate.getDate() && toDay.getMonth() === nowDate.getMonth() && toDay.getFullYear() === nowDate.getFullYear()) {
-               column.onclick = function () { calendarChoiceDay(column); }; // 오늘 날짜도 선택 가능
-        	   column.classList.add("past"); 
-               calendarChoiceDay(column); // 오늘 날짜 자동 선택
-           }
-       } else {
-           // 이전, 다음 달 날짜 처리
-           let exceptDay = new Date(doMonth.getFullYear(), doMonth.getMonth(), day);
-           column.innerText = autoLeftPad(exceptDay.getDate(), 2);
-           column.classList.add("prevnext")
-       }
-
-       // 일요일
-       if (dom % 7 == 1) {
-    	   column.classList.add("sunday");
-       }
-
-       // 토요일
-       if (dom % 7 == 0) {
-    	   column.classList.add("saturday");
-           row = tbCalendar.insertRow(); // 주가 끝날 때마다 새 행 추가
-       }
-
-       dom++;
-   }
-}
-
-   	
-function setUnavailableTime(formattedDate) {
-    var hoursList = JSON.parse('${hoursList}'); // 병원 진료시간 데이터
-    
-    var hospReserveMap = JSON.parse('${hospReserveMap}'); // 병원 예약목록 날짜:시간 Map 데이터
-    
-    var isReserved = false;  // 예약목록 존재여부 판단 변수
-    var isReservedTime = false; // 해당하는 날짜의 예약 가능시간 판단 변수
-
-    document.querySelector(".time_list_am").innerHTML = '';  
-    document.querySelector(".time_list_pm").innerHTML = '';  
-    var timeListHtmlAM = '';  
-    var timeListHtmlPM = '';  
-
-	// hospReserveMap에 formattedDate(사용자가 선택한 날짜)에 해당하는 데이터가 있는지 판단
-	if (hospReserveMap[formattedDate]) {
-	    isReserved = true;
-	    
-	    var reservedTimes = hospReserveMap[formattedDate]; // 선택한 날짜에 해당하는 예약의 시간데이터 리스트
-	    hoursList.forEach(function(item, index) {
-	        var time = item.split(":"); 
-	        var hour = parseInt(time[0], 10);  // 시간을 정수로 변환
+	var toDay = new Date(); // 오늘 날짜 (내 컴퓨터 로컬 기준)
+	var nowDate = new Date();  // 실제 오늘날짜 고정값
+	     
+	var weeks = [${week}]; // 병원의 근무요일 데이터
 	
-	        // reservedTimes에 포함된 시간은 예약불가로 표시하고 선택 비활성화
-	        var radioButtonHtml = reservedTimes.includes(item) 
-	            ? "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"' disabled/><label class='block' for='"+ item +"'>" + item + "</label></li>"
-	            : "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
-	        
-	        if (hour < 12) {
-	            timeListHtmlAM += radioButtonHtml;
-	        } else {
-	            timeListHtmlPM += radioButtonHtml;
-	        }
-	    });
-	} else {
-	    // 예약이 없으면 모든 hoursList 시간 출력
-	    hoursList.forEach(function(item, index) {
-	        var time = item.split(":");
-	        var hour = parseInt(time[0], 10);
-	        
-	        if (hour < 12) {
-	            timeListHtmlAM += "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
-	        } else {
-	            timeListHtmlPM += "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
-	        }
-	    });
+	function buildCalendar() {
+	   let doMonth = new Date(toDay.getFullYear(), toDay.getMonth(), 1); // 이번 달의 첫 번째 날
+	   let lastDate = new Date(toDay.getFullYear(), toDay.getMonth() + 1, 0); // 이번 달의 마지막 날
+	
+	   let tbCalendar = document.querySelector(".scriptCalendar > tbody"); // 캘린더 테이블 본문
+	   document.getElementById("calYear").innerText = toDay.getFullYear(); // 년도 표시
+	   document.getElementById("calMonth").innerText = autoLeftPad((toDay.getMonth() + 1), 2); // 월 표시
+	
+	   // 이전 캘린더 데이터를 삭제
+	   while (tbCalendar.rows.length > 0) {
+	       tbCalendar.deleteRow(tbCalendar.rows.length - 1);
+	   }
+	
+	   let row = tbCalendar.insertRow(); // 첫 번째 행
+	   let dom = 1; // 요일 카운터
+	   let daysLength = (Math.ceil((doMonth.getDay() + lastDate.getDate()) / 7) * 7) - doMonth.getDay(); // 캘린더에 표시할 총 일 수
+	
+	   for (let day = 1 - doMonth.getDay(); daysLength >= day; day++) {
+	       let column = row.insertCell();
+	
+	       // 현재 달의 유효한 날
+	       if (Math.sign(day) == 1 && lastDate.getDate() >= day) {
+	           column.innerText = autoLeftPad(day, 2); // 날짜 표시
+	
+	           let currentDate = new Date(toDay.getFullYear(), toDay.getMonth(), day); // 현재 날짜
+	
+	           let dayOfWeek = new Date(toDay.getFullYear(), toDay.getMonth(), day).getDay(); // 0: 일요일, 1: 월요일, ..., 6: 토요일
+	           let korWeekday = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"][dayOfWeek];
+	
+	           // 오늘 이후 날짜일 경우 && 선택 가능한 요일인지 확인
+	           if (currentDate >= nowDate && weeks.includes(korWeekday)) {
+	               column.onclick = function () { calendarChoiceDay(this); };
+	               // 오늘 이후 날짜 배경 색상
+	               column.classList.add("future")
+	           } else {
+	               // 오늘 이전 날짜 또는 선택 불가능한 요일
+	               column.classList.add("past");
+	           }
+	
+	           // 오늘 날짜일 경우
+	           if (day === nowDate.getDate() && toDay.getMonth() === nowDate.getMonth() && toDay.getFullYear() === nowDate.getFullYear()) {
+	               column.onclick = function () { calendarChoiceDay(column); }; // 오늘 날짜도 선택 가능
+	        	   column.classList.add("past"); 
+	               calendarChoiceDay(column); // 오늘 날짜 자동 선택
+	           }
+	       } else {
+	           // 이전, 다음 달 날짜 처리
+	           let exceptDay = new Date(doMonth.getFullYear(), doMonth.getMonth(), day);
+	           column.innerText = autoLeftPad(exceptDay.getDate(), 2);
+	           column.classList.add("prevnext")
+	       }
+	
+	       // 일요일
+	       if (dom % 7 == 1) {
+	    	   column.classList.add("sunday");
+	       }
+	
+	       // 토요일
+	       if (dom % 7 == 0) {
+	    	   column.classList.add("saturday");
+	           row = tbCalendar.insertRow(); // 주가 끝날 때마다 새 행 추가
+	       }
+	
+	       dom++;
+	   }
 	}
 	
-   document.querySelector(".time_list_am").innerHTML = timeListHtmlAM;
-   document.querySelector(".time_list_pm").innerHTML = timeListHtmlPM;
-}
-
-
-     
+	   	
+	function setUnavailableTime(formattedDate) {
+	    var hoursList = JSON.parse('${hoursList}'); // 병원 진료시간 데이터
+	    
+	    var hospReserveMap = JSON.parse('${hospReserveMap}'); // 병원 예약목록 날짜:시간 Map 데이터
+	    
+	    var isReserved = false;  // 예약목록 존재여부 판단 변수
+	    var isReservedTime = false; // 해당하는 날짜의 예약 가능시간 판단 변수
+	
+	    document.querySelector(".time_list_am").innerHTML = '';  
+	    document.querySelector(".time_list_pm").innerHTML = '';  
+	    var timeListHtmlAM = '';  
+	    var timeListHtmlPM = '';  
+	
+		// hospReserveMap에 formattedDate(사용자가 선택한 날짜)에 해당하는 데이터가 있는지 판단
+		if (hospReserveMap[formattedDate]) {
+		    isReserved = true;
+		    
+		    var reservedTimes = hospReserveMap[formattedDate]; // 선택한 날짜에 해당하는 예약의 시간데이터 리스트
+		    hoursList.forEach(function(item, index) {
+		        var time = item.split(":"); 
+		        var hour = parseInt(time[0], 10);  // 시간을 정수로 변환
+		
+		        // reservedTimes에 포함된 시간은 예약불가로 표시하고 선택 비활성화
+		        var radioButtonHtml = reservedTimes.includes(item) 
+		            ? "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"' disabled/><label class='block' for='"+ item +"'>" + item + "</label></li>"
+		            : "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
+		        
+		        if (hour < 12) {
+		            timeListHtmlAM += radioButtonHtml;
+		        } else {
+		            timeListHtmlPM += radioButtonHtml;
+		        }
+		    });
+		} else {
+		    // 예약이 없으면 모든 hoursList 시간 출력
+		    hoursList.forEach(function(item, index) {
+		        var time = item.split(":");
+		        var hour = parseInt(time[0], 10);
+		        
+		        if (hour < 12) {
+		            timeListHtmlAM += "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
+		        } else {
+		            timeListHtmlPM += "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
+		        }
+		    });
+		}
+		
+	   document.querySelector(".time_list_am").innerHTML = timeListHtmlAM;
+	   document.querySelector(".time_list_pm").innerHTML = timeListHtmlPM;
+	}
 </script>
 </head>
 <body>
