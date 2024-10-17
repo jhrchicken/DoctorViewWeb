@@ -72,7 +72,11 @@
 	<!-- 의사 정보 수정 -->
 	<update id="editDoctor"
 		parameterType="com.edu.springboot.doctor.DoctorDTO">
-		UPDATE doctor SET name=#{name}, major=#{major}, career=#{career}, photo=#{photo}, hours=#{hours}
+		UPDATE doctor SET name=#{name}, major=#{major}, career=#{career}, 
+		photo=
+		 <if test="photo != null">#{photo}</if>
+            <if test="photo == null">NULL</if>,  
+		hours=#{hours}
 		WHERE doc_idx=#{doc_idx}
 	</update>
 	

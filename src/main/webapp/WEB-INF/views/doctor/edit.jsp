@@ -44,6 +44,9 @@
 			<form name="writeFrm" method="post" enctype="multipart/form-data"
 				action="../doctor/editDoctor.do" onsubmit="return validateWriteForm(this);">
 				
+				<!-- 의사 idx 전달 -->
+				<input type="hidden" name="doc_idx" value="${ doctorDTO.doc_idx }" />
+						
 				<div class="doc_info">
 					<div class="doc_img">
 						<!-- 사진 있을 때 없을 때 처리해야 함! -->
