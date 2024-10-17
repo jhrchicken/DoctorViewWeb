@@ -59,6 +59,27 @@
 	    ORDER BY postdate
 	</select>
 	
+	<!-- 예약목록 페이징 -->
+	<select id="getCountReservationInfo">
+		SELECT COUNT(*)
+	    FROM appointment
+	</select>
+	<select id="getAllReservationInfo"
+	    resultType="com.edu.springboot.reserve.ReserveDTO"
+	    parameterType="com.edu.springboot.board.ParameterDTO">
+	    SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM appointment
+				WHERE 1=1
+				ORDER BY postdate DESC
+			) Tb
+		)
+		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}	
+	</select>
+	<update id="changeReserve">
+		UPDATE appointment SET hide=#{param2} WHERE app_id=#{param1}
+	</update>
+	
 	<!-- 에약정보 한개 가져오기  -->
 	<select id="getReservationDetails"
 		resultType="com.edu.springboot.reserve.ReserveDTO">
