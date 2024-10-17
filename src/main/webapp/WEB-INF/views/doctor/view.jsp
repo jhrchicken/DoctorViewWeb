@@ -25,7 +25,7 @@ function deleteDoctor(doc_idx) {
 
 // 리뷰 작성 모달창 열기
 function openReviewWriteModal(doc_idx) {
-   document.getElementById("review_write_doc_idx").value = doc_idx;
+   document.getElementById("review_write_doc_ref").value = doc_idx;
    document.getElementById("review_write_score").value = 1;
    // 별점 UI 업데이트 (1점을 선택된 상태로 설정)
     document.querySelectorAll('.star').forEach(function(star) {
@@ -256,14 +256,14 @@ document.addEventListener('DOMContentLoaded', function () {
                <div class="like_wrap">
                   <!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
                   <c:if test="${ doclikecheck == 0 }">
-                     <button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';">
+                     <button type="button" onclick="location.href='../doctor/clickDocLike.do?doc_idx=${ param.doc_idx }';">
                         <img src="/images/mark.svg" alt="" style="width: 30px; height: 30px;" />
                         ${ doctorDTO.likecount }
                      </button>
                   </c:if>
                   <!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
                   <c:if test="${ doclikecheck == 1 }">
-                     <button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';">
+                     <button type="button" onclick="location.href='../doctor/clickDocLike.do?doc_idx=${ param.doc_idx }';">
                         <img src="/images/mark_full.svg" alt="" style="width: 30px; height: 30px;" />
                         ${ doctorDTO.likecount }
                      </button>
@@ -428,7 +428,7 @@ document.addEventListener('DOMContentLoaded', function () {
    
 <!-- 리뷰 작성 모달창 -->
 <form method="post" action="../doctor/writeReview.do" onsubmit="return validateReviewForm(this);">
-   <input type="hidden" id="review_write_doc_idx" name="doc_ref" value="" />
+   <input type="hidden" id="review_write_doc_ref" name="doc_ref" value="" />
    <input type="hidden" name="hashtags" id="review_write_hashtags" />
     <input type="hidden" id="review_write_score" name="score" value="" />
    <div class="modal" id="writeReviewModal" >

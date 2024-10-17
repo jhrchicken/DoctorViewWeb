@@ -35,62 +35,62 @@ import utils.PagingUtil;
 @Controller
 public class DoctorController {
    
-   @Autowired
-   IDoctorService doctorDAO;
+	@Autowired
+	IDoctorService doctorDAO;
    
-   // 페이지당 출력할 게시물 수
-   @Value("#{doctorprops['doctor.postsPerPage']}")
-   private int postsPerPage;
-   // 한 블록당 출력할 페이지 번호 수
-   @Value("#{doctorprops['doctor.pagesPerBlock']}")
-   private int pagesPerBlock;
+	// 페이지당 출력할 게시물 수
+	@Value("#{doctorprops['doctor.postsPerPage']}")
+	private int postsPerPage;
+	// 한 블록당 출력할 페이지 번호 수
+	@Value("#{doctorprops['doctor.pagesPerBlock']}")
+	private int pagesPerBlock;
    
    
-   // == 의사 목록 ==
-   @GetMapping("/doctor.do")
-   public String doctor(Model model, HttpServletRequest req, ParameterDTO parameterDTO) {
+	// == 의사 목록 ==
+	@GetMapping("/doctor.do")
+	public String doctor(Model model, HttpServletRequest req, ParameterDTO parameterDTO) {
+
+		// 의사의 개수를 통해 페이징 기능 구현
+		int total = doctorDAO.countDoctor(parameterDTO);
+		int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
+				? 1 : Integer.parseInt(req.getParameter("pageNum"));
+		int start = (pageNum - 1) * postsPerPage + 1;
+		int end = pageNum * postsPerPage;
+		parameterDTO.setStart(start);
+		parameterDTO.setEnd(end);
+		Map<String, Object> maps = new HashMap<String, Object>();
+		maps.put("total", total);
+		maps.put("postsPerPage", postsPerPage);
+		maps.put("pageNum", pageNum);
+		model.addAttribute("maps", maps);
+		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/doctor.do?");
+		model.addAttribute("pagingImg", pagingImg);
       
-      // 의사의 개수를 통해 페이징 기능 구현
-      int total = doctorDAO.countDoctor(parameterDTO);
-      int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
-            ? 1 : Integer.parseInt(req.getParameter("pageNum"));
-      int start = (pageNum - 1) * postsPerPage + 1;
-      int end = pageNum * postsPerPage;
-      parameterDTO.setStart(start);
-      parameterDTO.setEnd(end);
-      Map<String, Object> maps = new HashMap<String, Object>();
-      maps.put("total", total);
-      maps.put("postsPerPage", postsPerPage);
-      maps.put("pageNum", pageNum);
-      model.addAttribute("maps", maps);
-      String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/doctor.do?");
-      model.addAttribute("pagingImg", pagingImg);
-      
-      // 의사의 목록
-      ArrayList<DoctorDTO> doctorsList = doctorDAO.listDoctor(parameterDTO);
-      for (DoctorDTO doctor : doctorsList) {
-         String hospname = doctorDAO.selectHospName(doctor);
-         int doclikecount = doctorDAO.countDocLike(Integer.toString(doctor.getDoc_idx()));
-         int reviewcount = doctorDAO.countReview(Integer.toString(doctor.getDoc_idx()));
-         int scoresum = doctorDAO.sumScore(Integer.toString(doctor.getDoc_idx()));
-         doctor.setHospname(hospname);
-         doctor.setLikecount(doclikecount);
-         doctor.setReviewcount(reviewcount);
-         if (reviewcount != 0) {
-            doctor.setScore(scoresum / reviewcount);
-         }
-         else {
-            doctor.setScore(0);
-         }
-      }
-      model.addAttribute("doctorsList", doctorsList);
-      
-      return "doctor/list";
-   }
+		// 의사의 목록
+		ArrayList<DoctorDTO> doctorsList = doctorDAO.listDoctor(parameterDTO);
+		for (DoctorDTO doctor : doctorsList) {
+			String hospname = doctorDAO.selectHospName(doctor);
+			int doclikecount = doctorDAO.countDocLike(Integer.toString(doctor.getDoc_idx()));
+			int reviewcount = doctorDAO.countReview(Integer.toString(doctor.getDoc_idx()));
+			int scoresum = doctorDAO.sumScore(Integer.toString(doctor.getDoc_idx()));
+			doctor.setHospname(hospname);
+			doctor.setLikecount(doclikecount);
+			doctor.setReviewcount(reviewcount);
+			if (reviewcount != 0) {
+				doctor.setScore(scoresum / reviewcount);
+			}
+			else {
+				doctor.setScore(0);
+			}
+		}
+		model.addAttribute("doctorsList", doctorsList);
+	      
+		return "doctor/list";
+	}
    
    
    // == 의사 상세보기 ==
-   @RequestMapping("/doctor/viewDoctor.do")
+   @GetMapping("/doctor/viewDoctor.do")
    public String viewDoctorReq(Model model, HttpServletResponse response, DoctorDTO doctorDTO, HttpSession session) {
       
       // 로그인 여부 검증
@@ -110,8 +110,10 @@ public class DoctorController {
       // 리뷰 목록
       ArrayList<DreviewDTO> reviewsList = doctorDAO.listReview(doctorDTO);
       for (DreviewDTO review : reviewsList) {
-         // 리뷰 작성자 닉네임
          String nickname = doctorDAO.selectReviewNickname(review);
+         String emoji = doctorDAO.selectReviewEmoji(review);
+         	if (emoji != null) post.setNickname(nickname + " " + emoji);
+			else post.setNickname(nickname);
          review.setNickname(nickname);
          // 리뷰 좋아요 수
          int likecount = doctorDAO.countReviewLike(Integer.toString(review.getReview_idx()));
@@ -248,35 +250,24 @@ public class DoctorController {
    }
    
    
-   
-   // ================================================================
+
    @PostMapping("/doctor/writeReview.do")
-   public String writeReviewPost(HttpServletRequest req, HttpSession session) {
-      // 폼값
-      int doc_idx = Integer.parseInt(req.getParameter("doc_idx"));
-      int score = Integer.parseInt(req.getParameter("score")) ;
-      String content = req.getParameter("content");
+   public String writeReviewPost(HttpServletRequest req, HttpSession session, DreviewDTO dreviewDTO) {
       // 세션에 저장된 로그인 아이디
       String loginId = (String) session.getAttribute("userId");
+      dreviewDTO.setWriter_ref(loginId);
       // 리뷰 작성
-      Map<String, Object> params = new HashMap<>();
-      params.put("score", score);
-       params.put("content", content);
-       params.put("loginId", loginId);
-       params.put("doc_idx", doc_idx);
-       doctorDAO.writeReview(params);
-       // 생성된 review_idx
-       int review_idx = (int) params.get("review_idx");
+       doctorDAO.writeReview(dreviewDTO);
+       dreviewDTO = doctorDAO.selectReview(dreviewDTO);
        // 해시태그 처리
        String hashtags = req.getParameter("hashtags");
-       System.err.println(review_idx);
        if (hashtags != null && !hashtags.isEmpty()) {
           String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
           for (String hashtag : hashtagArray) {
-             doctorDAO.writeReviewHashtag(review_idx, hashtag.trim());
+             doctorDAO.writeReviewHashtag(dreviewDTO.getReview_idx(), hashtag.trim());
           }
        }
-       return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_idx;
+       return "redirect:../doctor/viewDoctor.do?doc_idx=" + dreviewDTO.getDoc_ref();
    }
    
    @PostMapping("/doctor/editReview.do")
@@ -325,7 +316,7 @@ public class DoctorController {
       // 세션에 저장된 로그인 아이디
       String id = (String) session.getAttribute("userId");
       // 답변 작성
-      doctorDAO.writeReply(review_idx, content, id, doc_ref);
+      // doctorDAO.writeReply(review_idx, content, id, doc_ref);
       return "redirect:../doctor/viewDoctor.do?doc_idx=" + doc_ref;
    }
    
