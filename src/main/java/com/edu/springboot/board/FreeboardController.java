@@ -210,7 +210,6 @@ public class FreeboardController {
 	    MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 	    if (loginMember == null) {
 	        resultMap.put("result", "error");
-	        resultMap.put("message", "로그인 후 이용해 주세요.");
 	        return resultMap;
 	    }
 
@@ -220,7 +219,6 @@ public class FreeboardController {
 	    try {
 	        boardDAO.writeComment(commentsDTO);
 	        resultMap.put("result", "success");
-	        resultMap.put("message", "댓글이 성공적으로 작성되었습니다.");
 
 	        commentsDTO = boardDAO.selectComments(commentsDTO);
 	        commentsDTO.setNickname(loginMember.getNickname());
@@ -240,7 +238,6 @@ public class FreeboardController {
 	    } catch (Exception e) {
 	    	e.printStackTrace();
 	        resultMap.put("result", "error");
-	        resultMap.put("message", "댓글 작성에 실패했습니다.");
 	    }
 
 	    return resultMap;
@@ -286,14 +283,12 @@ public class FreeboardController {
 	    MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 	    if (loginMember == null) {
 	        resultMap.put("result", "error");
-	        resultMap.put("message", "로그인 후 이용해 주세요.");
-	        return resultMap; // 로그인 실패 응답
+	        return resultMap;
 	    }
 	    
 	    // 본인 확인
 	    if (!loginMember.getId().equals(commentsDTO.getWriter_ref())) {
 	        resultMap.put("result", "error");
-	        resultMap.put("message", "본인이 작성한 댓글만 삭제할 수 있습니다.");
 	        return resultMap;
 	    }
 	    
@@ -301,11 +296,9 @@ public class FreeboardController {
 	    try {
 	        boardDAO.deleteComment(Integer.toString(commentsDTO.getComm_idx()));
 	        resultMap.put("result", "success");
-	        resultMap.put("message", "댓글이 성공적으로 삭제되었습니다.");
 	    }
 	    catch (Exception e) {
 	        resultMap.put("result", "error");
-	        resultMap.put("message", "댓글 삭제에 실패했습니다.");
 	    }
 	    
 	    return resultMap;
@@ -322,7 +315,6 @@ public class FreeboardController {
 	    MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 	    if (loginMember == null) {
 	        resultMap.put("result", "error");
-	        resultMap.put("message", "로그인 후 이용해 주세요.");
 	        return resultMap;
 	    }
 
@@ -355,12 +347,11 @@ public class FreeboardController {
 	    MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 	    if (loginMember == null) {
 	        resultMap.put("result", "error");
-	        resultMap.put("message", "로그인 후 이용해 주세요.");
-	        return resultMap; // 로그인 실패 응답
+	        return resultMap;
 	    }
 
 	    // 신고 증가 및 감소
-	    String id = loginMember.getId(); // 로그인한 사용자의 ID
+	    String id = loginMember.getId();
 	    int reportCheck = boardDAO.checkReport(id, boardIdx);
 	    if (reportCheck == 0) {
 	        boardDAO.plusReport(id, boardIdx);
