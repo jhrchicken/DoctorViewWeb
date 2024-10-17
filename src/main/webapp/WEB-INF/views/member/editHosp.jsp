@@ -42,8 +42,18 @@ function withdrawMemberConfirm(id) {
     }
 }
 </script>
+
 </head>
 <body>
+
+<!-- 회원정보 수정 성공 여부 -->
+<c:if test="${not empty editUserResult}">
+    <script>
+        alert("${editUserResult}");
+    </script>
+</c:if>
+
+
 <%@ include file="../common/main_header.jsp" %>
 	
 <main id="container">
@@ -51,13 +61,6 @@ function withdrawMemberConfirm(id) {
     <div class="content_inner">
       <div class="login_wrap">
       	<h2>병원정보 수정</h2>
-    
-	    <c:if test="${ not empty editUserFaild }">
-			<!-- 글자색 css 변경필요 -->
-	  		<p class="fail">${ editUserFaild }</p>
-	    </c:if>
-	        
-	        
 		<form name="editForm" method="post" enctype="multipart/form-data"
 				action="../../member/editHosp.do" onsubmit="return validateForm(this);">
 				
@@ -184,6 +187,7 @@ function withdrawMemberConfirm(id) {
 				     ~ 
 				    <select class="searchField" id="endtime" name="endtime">
 					    <option value="${ endtime }">${ endtime }</option>
+					    <option value="">종료 시간 선택</option>
 					</select>
 				  </td>
 				</tr>
@@ -192,10 +196,12 @@ function withdrawMemberConfirm(id) {
 				    휴게 시간
 				    <select class="searchField" id="startbreak" name="startbreak">
 					    <option value="${ startbreak }">${ startbreak }</option>
+					    
 					</select>
 				     ~ 
 				    <select class="searchField" id="endbreak" name="endbreak">
 					    <option value="${ endbreak }">${ endbreak }</option>
+					    <option value="">종료 시간 선택</option>
 					</select>
 				  </td>
 				</tr>
@@ -207,9 +213,11 @@ function withdrawMemberConfirm(id) {
 					</select>
 				  </td>
 				</tr>
+				
 				<script>
 				    const timeSelectIds = ['starttime', 'endtime', 'startbreak', 'endbreak', 'deadline'];
 				
+				    // 30분 단위로 선택 가능
 				    timeSelectIds.forEach(id => {
 				        const selectElement = document.getElementById(id);
 				        
@@ -223,7 +231,50 @@ function withdrawMemberConfirm(id) {
 				            }
 				        }
 				    });
+				    
+				    
+				 	// 시간 비교 함수
+				    function compareTimes(start, end) {
+				        const startTime = document.getElementById(start).value;
+				        const endTime = document.getElementById(end).value;
+				
+				        if (startTime && endTime && startTime >= endTime) {
+				            alert('종료 시간은 시작 시간보다 늦어야 합니다.');
+				            document.getElementById(end).value = '';
+				        }
+				    }
+				
+				    // 이벤트 리스너 추가
+				    document.getElementById('starttime').addEventListener('change', () => {
+				        compareTimes('starttime', 'endtime');
+				    });
+				
+				    document.getElementById('endtime').addEventListener('change', () => {
+				        compareTimes('starttime', 'endtime');
+				    });
+				
+				    document.getElementById('startbreak').addEventListener('change', () => {
+				        compareTimes('startbreak', 'endbreak');
+				    });
+				
+				    document.getElementById('endbreak').addEventListener('change', () => {
+				        compareTimes('startbreak', 'endbreak');
+				    });
+				    
 				</script>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 		    
 			    <!-- 추가사항 -->
 			    <!-- ********* 병원 이미지 추가 필요 ********* -->

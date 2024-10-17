@@ -41,7 +41,7 @@ function writeComment() {
                         <td class="postdate">${response.comment.postdate}</td>
                         <td class="comm_btn">
                             <button type="button" data-bs-toggle="modal" data-bs-target="#editCommentModal"
-                                    onclick="openEditModal(${response.comment.board_ref}, ${response.comment.comm_idx}, '${response.comment.content}', '${response.comment.writer_ref}')">
+                                    onclick="openEditModal(${response.comment.comm_idx}, '${response.comment.content}', '${response.comment.writer_ref}', ${response.comment.board_ref})">
                                 수정
                             </button>
                             <button type="button" onclick="deleteComment(${response.comment.comm_idx}, '${response.comment.writer_ref}', ${response.comment.board_ref});">

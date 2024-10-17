@@ -50,6 +50,10 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	// 자동 재빌드를 위한 의존성 추가
 	implementation 'org.springframework.boot:spring-boot-devtools'
+	
+	// java object -> json 변환 
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+	
 }
 
 tasks.named('test') {

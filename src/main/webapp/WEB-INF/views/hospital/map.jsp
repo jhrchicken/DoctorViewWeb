@@ -444,9 +444,8 @@ function traffic() {
 					<form class="searchForm" name="searchForm">
 						<select class="searchField" name="searchField">
 							<option value="name">병원명</option>
-							<option value="major">전공</option>
 						</select>
-						<input name="searchWord" class="searchKeyword" type="text" placeholder="검색어를 입력하세요.">
+						<input name="searchWord" class="searchKeyword" type="text" placeholder="병원명으로 검색하세요">
 						<input type="submit" class="search_btn" value="">
 					</form>
 				</div>

@@ -353,6 +353,7 @@
 <script>
     const timeSelectIds = ['starttime', 'endtime', 'startbreak', 'endbreak', 'deadline'];
 
+    // 30분 단위로 선택 가능
     timeSelectIds.forEach(id => {
         const selectElement = document.getElementById(id);
         
@@ -366,6 +367,39 @@
             }
         }
     });
+    
+    
+ 	// 시간 비교 함수
+    function compareTimes(start, end) {
+        const startTime = document.getElementById(start).value;
+        const endTime = document.getElementById(end).value;
+
+        if (startTime && endTime && startTime >= endTime) {
+            alert('종료 시간은 시작 시간보다 늦어야 합니다.');
+            document.getElementById(end).value = '';
+        }
+    }
+
+    // 이벤트 리스너 추가
+    document.getElementById('starttime').addEventListener('change', () => {
+        compareTimes('starttime', 'endtime');
+    });
+
+    document.getElementById('endtime').addEventListener('change', () => {
+        compareTimes('starttime', 'endtime');
+    });
+
+    document.getElementById('startbreak').addEventListener('change', () => {
+        compareTimes('startbreak', 'endbreak');
+    });
+
+    document.getElementById('endbreak').addEventListener('change', () => {
+        compareTimes('startbreak', 'endbreak');
+    });
+    
+    
+    
+    
 </script>
 
 
@@ -396,15 +430,15 @@
               		</tr>
               	</table>
               	<div class="add">
-				<button id="addDoctor" class="plus" type="button"><span class="blind">의료진 추가</span></button>
-				<button id="addDoctor" class="delete" type="button"><span class="blind">의료진 삭제</span></button>
+					<button id="addDoctor" class="plus" type="button"><span class="blind">의료진 추가</span></button>
+					<button id="deleteDoctor" class="delete" type="button"><span class="blind">의료진 삭제</span></button>
               	</div>
               </td>
             </tr>
             
             <script>
+	         // 새로운 의료진 정보 추가
             document.getElementById("addDoctor").onclick = function() {
-	            // 새로운 의료진 정보 추가
 	            const newDoctorInfo = document.createElement("table");
 	            newDoctorInfo.className = "doctor-info";
 	            newDoctorInfo.innerHTML = `
@@ -429,8 +463,21 @@
 	            const doctorContainer = document.getElementById("doctorContainer");
 	            doctorContainer.appendChild(newDoctorInfo);
 	            doctorContainer.appendChild(document.getElementById("addDoctor"));
+	            doctorContainer.appendChild(document.getElementById("deleteDoctor"));
 	          };
+	          
+	          // 의사 입력테이블 삭제
+	          document.getElementById("deleteDoctor").onclick = function() {
+	        	    const doctorContainer = document.getElementById("doctorContainer");
+	        	    const addedDoctors = doctorContainer.querySelectorAll(".doctor-info");
+	        	    
+	        	    if (addedDoctors.length > 1) {
+	        	        doctorContainer.removeChild(addedDoctors[addedDoctors.length - 1]);
+	        	    }
+	        	};
+	        	
             </script>
+            
 
             <!-- 의료진 폼 끝 -->
           </table>    
