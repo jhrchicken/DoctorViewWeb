@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ page session="true" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<script>
+// 채팅
+function openChatList(userId, hospId) {
+	window.open('/chat/index.html#/chat/list?user=' + userId,
+			'', 'width=500, height=650')
+}
+</script>
 <header id="header">
 	<div class="inner">
 		<h1 class="logo">
@@ -73,7 +80,7 @@
 							<c:if test="${ sessionScope.userAuth != 'ROLE_HOSP' }">
 								<li><a href="/mypage/myHosp.do">찜한 병원</a></li>
 								<li><a href="/mypage/myDoctor.do">찜한 의사</a></li>
-								<li><a href="#">작성한 리뷰</a></li>
+								<li><a href="/mypage/myReview.do">작성한 리뷰</a></li>
 								<li><a href="/mypage/attend.do">출석체크</a></li>
 							</c:if>
 						</ul>
@@ -101,7 +108,7 @@
 					</c:if>
 					<!-- 로그인 한 상태 -->
 					<c:if test="${ not empty sessionScope.userId }">
-						<li><button class="chat_btn" type="button"><span class="blind">채팅</span></button></li>
+						<li><button class="chat_btn" type="button" onclick="openChatList('${ sessionScope.userName }', '${ hospitalDTO.name }');"><span class="blind">채팅</span></button></li>
 						<li><button class="my_btn" type="button"><span class="blind">마이</span></button></li>
 					</c:if>
 				</div>

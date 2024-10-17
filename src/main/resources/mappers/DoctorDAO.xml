@@ -16,7 +16,7 @@
    </select>
    <!-- 의사 리뷰의 답변 목록 -->
    <select id="getAllDReplies" resultType="com.edu.springboot.doctor.DreviewDTO">
-      SELECT * FROM dreview where review_idx != original_idx 
+      SELECT * FROM dreview where review_idx != original_idx
    </select>
 
 

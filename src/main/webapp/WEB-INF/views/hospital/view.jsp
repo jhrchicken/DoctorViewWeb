@@ -16,9 +16,9 @@
 <link rel="stylesheet" href="/css/hosp-view.css" />
 <script>
 // 채팅
-function chat(userId, hospId) {
-	window.open('/chat/index.html#/chat/talk?room=' + hospId + ' - ' + userId + '&user=' + userId,
-			hospId + '-' + userId, 'width=500, height=650')
+function openChatRoom(userId, hospId) {
+	window.open('/chat/index.html#/chat/view?room=' + userId + '-' + hospId + '&user=' + userId,
+			userId + '-' + hospId, 'width=500, height=650')
 }
 
 // 리뷰 작성 모달창 열기
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						
 					<!-- 사용자가 로그인 했고 입점한 병원인 경우에만 채팅 가능 -->
 					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null }">
-					    <button onclick="chat('${ sessionScope.userName }', '${ hospitalDTO.name }');">채팅하기</button>
+					    <button onclick="openChatRoom('${ sessionScope.userName }', '${ hospitalDTO.name }');">채팅하기</button>
 					</c:if>
 					</div>
 						

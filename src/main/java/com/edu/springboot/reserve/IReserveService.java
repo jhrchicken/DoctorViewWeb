@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.edu.springboot.board.ParameterDTO;
 import com.edu.springboot.doctor.DoctorDTO;
 import com.edu.springboot.member.MemberDTO;
 
@@ -25,6 +26,11 @@ public interface IReserveService {
 	
 	// 예약 목록 가져옴
 	public List<ReserveDTO> getReservationInfo(@Param("user_ref") String user_ref, @Param("hosp_ref") String hosp_ref);
+	
+	//예약 목록 페이징(관리자모드)
+	public int getCountReservationInfo();
+	public List<ReserveDTO> getAllReservationInfo(ParameterDTO parameterDTO);
+	public int changeReserve(String app_id, String cancel);
 	
 	// 선택한 예약 정보 가져옴
 	public ReserveDTO getReservationDetails(int app_id);

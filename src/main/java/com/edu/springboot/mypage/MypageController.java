@@ -158,6 +158,9 @@ public class MypageController {
 		return "mypage/myDoctor";
 	}
 	
-	
+	@GetMapping("/mypage/myReview.do")
+	public String myReviewGet() {
+		return "mypage/myReview";
+	}
 
 }

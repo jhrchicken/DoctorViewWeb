@@ -56,13 +56,28 @@
             </li>
             <!-- ##메뉴그룹2 끝## -->
             
+            <!-- ##메뉴그룹2 시작## -->
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">예약</span>
+            </li>            
+            <!-- 닥터뷰 메뉴 시작 -->
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/reserve_list.do" aria-expanded="false">
+                <span>
+                  <i class="ti ti-article"></i>
+                </span>
+                <span class="hide-menu">예약관리</span>
+              </a>
+            </li>
+            <!-- ##메뉴그룹2 끝## -->
             
             
             
              
             
             <!-- ################################################################### -->
-            <li class="nav-small-cap">
+            <!-- <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">템플릿기본메뉴(삭제예정)</span>
             </li>
@@ -122,7 +137,7 @@
                 <span class="hide-menu">Typography</span>
               </a>
             </li>
-          </ul>
+          </ul> -->
           <!-- <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
             <div class="d-flex">
               <div class="unlimited-access-title me-3">
