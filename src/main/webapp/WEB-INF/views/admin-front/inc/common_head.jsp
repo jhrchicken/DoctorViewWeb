@@ -12,17 +12,33 @@
   <style>
   #boardTr{ background-color:silver;}
   
-/*** 게시판 - 페이지네이션 ***/
+/*** 페이지네이션 ***/
+body p {
+	margin: 0;
+}
+body .table {
+	margin-bottom: 0;
+}
+body .table td {
+	text-align: center;
+}
+body .table td.table_btn_wrap {
+	display: flex;
+	gap: 0 10px;
+	justify-content: center;
+}
+body .card {
+	margin-bottom: 0;
+}
+body img {
+	vertical-align: baseline;
+}
 body .pagination {
-  margin-top: 30px;  
-  width: 100%;
-  display: flex;
+  margin-bottom: 30px;  
   justify-content: center;
 }
 body .pagination_inner {
   display: flex;
-  justify-content: center;
-  vertical-align: center;
   text-align: center;
   gap: 0 20px;
 }
@@ -45,5 +61,14 @@ body .pagination p {
   width: 24px;
   height: 24px;
 }
+/*** 수정 버튼 ***/
+body .btn_wrap {
+	display: flex;
+	gap: 0 20px;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+
   </style>  
 </head>

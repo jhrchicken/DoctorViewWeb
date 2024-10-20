@@ -24,11 +24,11 @@
       <%@ include file="./inc/header_alert.jsp" %>
       <div class="container-fluid">
 <!-- ############ 컨텐츠는 여기부터 Start ########## -->
+<form name="frm" method="post" action="member_edit.do">
 <div class="card">
 	<div class="card-body">
 		<h5 class="card-title fw-semibold mb-4">회원관리</h5>
 		<div class="card">
-    	<form name="frm" method="post" action="member_edit.do">
     	<table class="table table-bordered">
     		<tr class="text-center">
     			<th>아이디</th>
@@ -93,16 +93,14 @@
     			</td>
 			</tr>   		
 			</table>
-			<div class="pagination">
-				<div class="pagination_inner">
-					<button type="submit" class="btn btn-primary">전송</button>
-					<button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
-				</div>
-			</div>
-    	</form>	
     	</div>
 	</div>
+	<div class="btn_wrap">
+		<button type="submit" class="btn btn-primary">전송</button>
+		<button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
+	</div>
 </div>
+</form>	
 <script>
 let deleteMember = function(user_id){
 	if(confirm('삭제할까요?')){

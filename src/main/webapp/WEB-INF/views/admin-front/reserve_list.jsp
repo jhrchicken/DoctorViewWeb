@@ -26,18 +26,18 @@
 <!-- ############ 컨텐츠는 여기부터 Start ########## -->
 <div class="card">
 	<div class="card-body">
-		<h5 class="card-title fw-semibold mb-4">예약관리</h5>
+		<h5 class="card-title fw-semibold mb-4">예약 관리</h5>
 		<div class="card">
     	<table class="table table-bordered">
     		<tr class="text-center" id="boardTr">
     			<th>No</th>
     			<th>병원명</th>
-    			<th>의사이름</th>
-    			<th>회원이름</th>
+    			<th>의사 이름</th>
+    			<th>회원 이름</th>
     			<th>전화번호</th>
     			<th>주민번호</th>
     			<th>날짜</th>
-    			<th>예약상태</th>
+    			<th>예약 상태</th>
     			<th></th>
 			</tr>	
 <c:choose>
@@ -66,13 +66,13 @@
 	</c:otherwise>
 </c:choose>              		
 			</table>
-			<div class="pagination">
-				<div class="pagination_inner">
-					${ pagingImg }
-				</div>
-			</div>	
     	</div>
 	</div>
+	<div class="pagination">
+		<div class="pagination_inner">
+			${ pagingImg }
+		</div>
+	</div>	
 </div>
 <script>
 let reserveChange = function(app_id, cancel){

@@ -24,13 +24,13 @@
       <%@ include file="./inc/header_alert.jsp" %>
       <div class="container-fluid">
 <!-- ############ 컨텐츠는 여기부터 Start ########## -->
+<form name="frm" method="post" action="board_edit.do">
 <div class="card">
 	<div class="card-body">
 		<h5 class="card-title fw-semibold mb-4">게시판관리</h5>
 		<div class="card">
-		<form name="frm" method="post" action="board_edit.do">
-		<input type="hid-den" name="boardname" value="${ param.boardname }" />
-		<input type="hid-den" name="board_idx" value="${ param.board_idx }" />
+		<input type="hidden" name="boardname" value="${ param.boardname }" />
+		<input type="hidden" name="board_idx" value="${ param.board_idx }" />
     	<table class="table table-bordered">
     		<tr class="text-center">
     			<th>제목</th>
@@ -40,18 +40,15 @@
     			<th>내용</th>
     			<td><textarea name="content" cols="30" rows="10"  class="form-control">${ boardDTO.content }</textarea></td>    			
 			</tr>	
-      		
-			</table>
-			<div class="pagination">
-				<div class="pagination_inner">
-					<button type="submit" class="btn btn-primary">전송</button>
-					<button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
-				</div>
-			</div>
-		</form>	
+		</table>
     	</div>    
 	</div>
+	<div class="btn_wrap">
+		<button type="submit" class="btn btn-primary">전송</button>
+		<button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
+	</div>
 </div>
+</form>	
 <script>
 let deletePost = function(board_idx){
 	if(confirm('삭제할까요?')){
