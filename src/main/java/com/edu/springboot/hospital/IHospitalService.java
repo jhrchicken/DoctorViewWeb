@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.edu.springboot.doctor.DoctorDTO;
+import com.edu.springboot.member.HoursDTO;
 
 @Mapper
 public interface IHospitalService {
@@ -112,5 +113,7 @@ public interface IHospitalService {
 	
 	// 지도에 표시할 병원 목록
 	public ArrayList<HospitalDTO> listHospMark(ParameterDTO parameterDTO);
+	// 시간
+	public ArrayList<HoursDTO> selectHours(String hosp_ref);
 	
 }

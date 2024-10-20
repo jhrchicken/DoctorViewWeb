@@ -1,7 +1,9 @@
 package com.edu.springboot.hospital;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.springboot.doctor.DoctorDTO;
-import com.edu.springboot.member.IMemberService;
+import com.edu.springboot.member.HoursDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -422,13 +424,44 @@ public class HospitalController {
 	
 	
 	
-	
 	// 지도
 	@GetMapping("/hospital/map.do")
 	public String map(Model model, ParameterDTO parameterDTO) {
-		ArrayList<HospitalDTO> hospList = hospitalDAO.listHospMark(parameterDTO);
-		model.addAttribute("hospList", hospList);
-		return "/hospital/map";
+	    ArrayList<HospitalDTO> hospList = hospitalDAO.listHospMark(parameterDTO);
+	    Date date = new Date();
+	    SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
+	    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+	    String currentDay = dayFormat.format(date);
+	    String currentTime = timeFormat.format(date);
+	    // 운영여부/야간진료/주말진료
+	    for (HospitalDTO hospital : hospList) {
+	        String id = hospitalDAO.selectHospId(hospital.getName());
+	        hospital.setOpen("F");
+	        hospital.setNight("F");
+	        hospital.setWeekend("F");
+	        // 입점
+	        if (id != null) {
+	            hospital.setEnter("T");
+	            hospital.setId(id);
+	            // 입점 병원 시간 정보
+	            ArrayList<HoursDTO> hoursList = hospitalDAO.selectHours(id);
+	            for (HoursDTO hour : hoursList) {
+	                if (hour.getWeek().equals(currentDay)) {
+                        hospital.setNight(hour.getNight());
+                        hospital.setWeekend(hour.getWeekend());
+	                    if (currentTime.compareTo(hour.getStarttime()) > 0 && currentTime.compareTo(hour.getEndtime()) < 0) {
+	                        hospital.setOpen("T");
+	                    }
+	                }
+	            }
+	        }
+	        // 미입점
+	        else {
+	            hospital.setEnter("F");
+	        }
+	    }
+	    model.addAttribute("hospList", hospList);
+	    return "/hospital/map";
 	}
 	
 }

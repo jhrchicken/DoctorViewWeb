@@ -9,7 +9,7 @@
 <title>닥터뷰</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/hosp-map.css" />
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=15a2c1c344d439b437c885c0fadd2798&libraries=services"></script>
+<script type="text/javascript" src="dapi.kakao.com/v2/maps/sdk.js?appkey=180faac08934e4d166ad99d93ab66f27&libraries=services"></script>
 <script>
 // 지도 전역변수로 선언
 var map;
@@ -65,6 +65,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	        	tel: '${row.tel}',
 	        	photo: '${row.photo}',
 	            address: '${row.address}',
+	            open: '${row.open}',
+	            night: '${row.night}',
+	            weekend: '${row.weekend}'
 	        }<c:if test="${!loop.last}">,</c:if>
 	    </c:forEach>
 	];
@@ -72,13 +75,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // 배열의 각 병원에 대해 조건에 따라 분류
     hospList.forEach(function(hospital) {
     	allHospitals.push(hospital);
-    	if (true) {
+    	if (hospital.open != null && hospital.open == "T") {
     		openHospitals.push(hospital);
     	}
-    	if (true) {
+    	if (hospital.night != null && hospital.night == "T") {
     		nightHospitals.push(hospital);
     	}
-    	if (true) {
+    	if (hospital.weekend != null && hospital.weekend == "T") {
     		weekendHospitals.push(hospital);
     	}
     });
