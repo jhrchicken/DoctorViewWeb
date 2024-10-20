@@ -21,16 +21,8 @@
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   display: flex;
+  align-items: center;
   margin-bottom: 30px;
-}
-#container .user .no_login {
-  font-size: 25px;
-  padding: 20px 0;
-}
-#container .user .now_emoji {
-  display: block;
-  width: 100px;
-  height: 100px;
 }
 #container .user .none {
   font-size: 25px;
@@ -39,7 +31,6 @@
 }
 #container .user .user_emoji {
   font-size: 50px;
-  padding: 20px 0;
 }
 #container .user .user_info {
   padding: 20px 30px;

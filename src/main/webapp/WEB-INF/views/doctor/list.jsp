@@ -24,7 +24,7 @@
 			<div class="list_search">
 				<form class="search_city" name="searchForm">
 					<select class="searchField" name="searchField">
-						<option value="">--- 조건 선택 ---</option>
+						<option value="name">--- 조건 선택 ---</option>
 						<option value="name">이름</option>
 						<option value="major">전공</option>
 					</select>

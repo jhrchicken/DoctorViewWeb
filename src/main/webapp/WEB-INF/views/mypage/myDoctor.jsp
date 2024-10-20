@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>닥터뷰 | 찜한 의사</title>
 <%@include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/my-heart.css" />
+<link rel="stylesheet" href="/css/my-heart-doctor.css" />
 </head>
 <body>
 <%@include file="../common/main_header.jsp" %>
@@ -32,10 +32,10 @@
 							<c:forEach items="${ doctorList }" var="row" varStatus="loop">
 								<li>
 									<span class="img">
-										<c:if test="${ row.photo == 'NULL' }">
+										<c:if test="${ row.photo == NULL }">
 											<img src="/images/doctor.png" alt="" />
 										</c:if>
-										<c:if test="${ row.photo != 'NULL' }">
+										<c:if test="${ row.photo != NULL }">
 											<img src="/uploads/${ row.photo }" />
 										</c:if>
 									</span>
