@@ -72,12 +72,15 @@ document.addEventListener('DOMContentLoaded', function() {
    var hospList = [
        <c:forEach items="${ hospList }" var="row" varStatus="loop">
            {
-              api_idx: ${ row.api_idx },
-               name: '${row.name}',
-              department: '${row.department}',
-              tel: '${row.tel}',
-              photo: '${row.photo}',
-               address: '${row.address}',
+				api_idx: ${ row.api_idx },
+				name: '${row.name}',
+				department: '${row.department}',
+				tel: '${row.tel}',
+				photo: '${row.photo}',
+				address: '${row.address}',
+				open: '${row.open}',
+				night: '${row.night}',
+				weekend: '${row.weekend}'
            }<c:if test="${!loop.last}">,</c:if>
        </c:forEach>
    ];
@@ -85,13 +88,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // 배열의 각 병원에 대해 조건에 따라 분류
     hospList.forEach(function(hospital) {
        allHospitals.push(hospital);
-       if (true) {
+       if (hospital.open != null && hospital.open == "T") {
           openHospitals.push(hospital);
        }
-       if (true) {
+       if (hospital.night != null && hospital.night == "T") {
           nightHospitals.push(hospital);
        }
-       if (true) {
+       if (hospital.weekend != null && hospital.weekend == "T") {
           weekendHospitals.push(hospital);
        }
     });

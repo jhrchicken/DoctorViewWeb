@@ -1,7 +1,9 @@
 package com.edu.springboot.hospital;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.springboot.doctor.DoctorDTO;
+import com.edu.springboot.member.HoursDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -413,21 +416,46 @@ public class HospitalController {
       }
       return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
    }
+ 
    
+	// 지도
+	@GetMapping("/hospital/map.do")
+	public String map(Model model, ParameterDTO parameterDTO) {
+		ArrayList<HospitalDTO> hospList = hospitalDAO.listHospMark(parameterDTO);
+		for (HospitalDTO hospital : hospList) {
+			String id = hospitalDAO.selectHospId(hospital.getName());
+			hospital.setOpen("F");
+			hospital.setNight("F");
+			hospital.setWeekend("F");
+			// 입점
+			if (id != null) {
+				hospital.setEnter("T");
+				hospital.setId(id);
+				ArrayList<HoursDTO> hoursList = hospitalDAO.selectHours(id);
+				// 현재 요일
+		        Date now = new Date();
+		        SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
+		        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		        for (HoursDTO hour : hoursList) {
+		        	if (hour.getWeek().equals(dayFormat.format(now))) {
+		        		hospital.setNight(hour.getNight());
+		        		hospital.setWeekend(hour.getWeekend());
+		        		if (hour.getStarttime() != "00:00") {
+		        			if (timeFormat.format(now).compareTo(hour.getStarttime()) > 0 && timeFormat.format(now).compareTo(hour.getEndtime()) < 0) {
+		        				hospital.setOpen("T");
+		        			}
+		        		}
+		        	}
+		        }
+			}
+			// 미입점
+			else {
+				hospital.setEnter("F");
+			}
+		}
+		model.addAttribute("hospList", hospList);
+		return "/hospital/map";
+	}
    
-   
-   
-   
-   
-   
-   
-   
-   // 지도
-   @GetMapping("/hospital/map.do")
-   public String map(Model model, ParameterDTO parameterDTO) {
-      ArrayList<HospitalDTO> hospList = hospitalDAO.listHospMark(parameterDTO);
-      model.addAttribute("hospList", hospList);
-      return "/hospital/map";
-   }
-   
+
 }
