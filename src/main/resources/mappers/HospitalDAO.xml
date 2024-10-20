@@ -438,6 +438,13 @@
 		ORDER BY api_idx DESC
 	</select>
 	
+	<!-- 시간 정보 -->
+	<select id="selectHours"
+		parameterType="com.edu.springboot.hospital.HospitalDTO"
+		resultType="com.edu.springboot.member.HoursDTO">
+		SELECT * FROM hours WHERE hosp_ref=#{param1}
+	</select>
+	
 	
 	
 	
