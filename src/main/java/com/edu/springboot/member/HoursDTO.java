@@ -36,8 +36,6 @@ public class HoursDTO {
 			}
 			currentTime = currentTime.plusMinutes(30);
         }
-        System.err.println("마감시간: "  + deadline);
-        System.err.println(timeSlots);
 		
         return timeSlots;
     }
