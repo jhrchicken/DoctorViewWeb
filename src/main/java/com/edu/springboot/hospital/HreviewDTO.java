@@ -21,4 +21,7 @@ public class HreviewDTO {
 	private String nickname;
 	private int likecheck;
 	private int likecount;
+	
+	//api용 추가 컬럼
+	private String hosp_ref;
 }
