@@ -18,12 +18,7 @@
     		<h2>나의 이모지</h2>
 	        <!-- user 정보 및 상점이동 -->
 	        <div class="user">
-	        	<c:if test="${ empty emojiDTO }">
-	        		<p class="now_emoji none">없음</p>
-	        	</c:if>
-	        	<c:if test="${ not empty emojiDTO }">
-				    <p class="now_emoji user_emoji">${ userEmoji }</p>
-	        	</c:if>
+				<p class="now_emoji user_emoji">${ userEmoji }</p>
 			    <div class="user_info">
 				    <div class="user_name">
 			        	<p>${ userId }님</p>
@@ -35,7 +30,7 @@
 						</c:if>
 						<c:if test="${ empty memberDTO.point }">
 						    <p class="point">0</p>
-						</c:if>
+						</c:if> 
 				    </div>
 				    <a href="/store.do">상점으로<br />이동</a>
 			    </div>
