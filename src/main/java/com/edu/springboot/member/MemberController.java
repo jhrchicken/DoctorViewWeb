@@ -195,6 +195,8 @@ public class MemberController {
 	    session.setAttribute("userPassword", loginMember.getPassword()); 
 	    session.setAttribute("userName", loginMember.getName());
 	    session.setAttribute("userAuth", loginMember.getAuth());
+	    System.err.println(loginMember.getEmoji());
+	    System.err.println(loginMember);
 	    session.setAttribute("userEmoji", loginMember.getEmoji());
 	    session.setAttribute("loginMember", loginMember);
 	    
@@ -202,7 +204,7 @@ public class MemberController {
 	    loginMember.setSaveId(memberDTO.getSaveId());
 	    if(loginMember.getSaveId() != null) {
 	    	model.addAttribute("checked", "checked");
-	        CookieManager.makeCookie(resp, "saveId", memberDTO.getId(), 86400);
+	        CookieManager.makeCookie(resp, "saveId", loginMember.getId(), 86400);
 	    } else {
 	        CookieManager.deleteCookie(resp, "saveId");
 	    }
