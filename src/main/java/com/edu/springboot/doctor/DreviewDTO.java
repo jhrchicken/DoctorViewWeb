@@ -18,4 +18,5 @@ public class DreviewDTO {
 	// 추가
 	private String nickname;
 	private int likecount;
+	private int likecheck;
 }
