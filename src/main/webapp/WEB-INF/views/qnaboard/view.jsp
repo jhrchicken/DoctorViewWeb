@@ -58,7 +58,7 @@
 					<input type="hidden" name="board_idx" value="${ boardDTO.board_idx }" />
 				</form>
 				
-				<!-- 좋아요 및 신고 -->
+				<!-- 좋아요 및 신고 --> 
 				<div class="like_btn">
 			        <button id="likeButton" type="button" class="${likecheck == 1 ? 'push' : ''}" onclick="clickLike(${boardDTO.board_idx});">
 			            <p class="like"></p>
