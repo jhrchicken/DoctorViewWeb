@@ -102,7 +102,9 @@ public class QnaboardController {
 		ArrayList<CommentsDTO> commentsList = boardDAO.listComments(boardDTO);
 		for (CommentsDTO comment : commentsList) {
 			nickname = boardDAO.selectCommNickname(comment);
-			comment.setNickname(nickname);
+			emoji = boardDAO.selectCommEmoji(comment);
+			if (emoji != null) comment.setNickname(nickname + " " + emoji);
+			else comment.setNickname(nickname);
 		}
 		model.addAttribute("commentsList", commentsList);
 		
