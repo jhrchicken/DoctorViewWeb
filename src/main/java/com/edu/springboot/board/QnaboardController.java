@@ -112,9 +112,9 @@ public class QnaboardController {
 		int likecount = boardDAO.countLike(Integer.toString(boardDTO.getBoard_idx()));
 		int reportcount = boardDAO.countReport(boardDTO.getBoard_idx());
 		int commentcount = boardDAO.countComment(boardDTO);
-		model.addAttribute("likecount", likecount);
-		model.addAttribute("reportcount", reportcount);
-		model.addAttribute("commentcount", commentcount);
+		boardDTO.setLikecount(likecount);
+		boardDTO.setReportcount(reportcount);
+		boardDTO.setCommentcount(commentcount);
 		
 		// 좋아요 신고 클릭 여부
 		int likecheck = boardDAO.checkLike(id, Integer.toString(boardDTO.getBoard_idx()));
@@ -317,7 +317,7 @@ public class QnaboardController {
 	
 	
 	// == 좋아요 기능 ==
-	@GetMapping("/qnaboard/clickLike.do")
+	@PostMapping("/qnaboard/clickLike.do")
 	@ResponseBody
 	public Map<String, Object> clickLike(HttpSession session, @RequestParam("board_idx") String boardIdx) {
 	    Map<String, Object> resultMap = new HashMap<>();
@@ -350,7 +350,7 @@ public class QnaboardController {
 	
 	
 	// == 신고 기능 ==
-	@GetMapping("/qnaboard/clickReport.do")
+	@PostMapping("/qnaboard/clickReport.do")
 	@ResponseBody
 	public Map<String, Object> clickReport(HttpSession session, @RequestParam("board_idx") String boardIdx) {
 	    Map<String, Object> resultMap = new HashMap<>();
