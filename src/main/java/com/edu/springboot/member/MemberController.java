@@ -175,7 +175,7 @@ public class MemberController {
 //	로그인
 	@GetMapping("/member/login.do")
 	public String login() {
-		return "member/login";
+		return "member/login"; 
 	}
 	@PostMapping("/member/login.do")
 	public String login(MemberDTO memberDTO, Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp) {
@@ -195,8 +195,6 @@ public class MemberController {
 	    session.setAttribute("userPassword", loginMember.getPassword()); 
 	    session.setAttribute("userName", loginMember.getName());
 	    session.setAttribute("userAuth", loginMember.getAuth());
-	    System.err.println(loginMember.getEmoji());
-	    System.err.println(loginMember);
 	    session.setAttribute("userEmoji", loginMember.getEmoji());
 	    session.setAttribute("loginMember", loginMember);
 	    
