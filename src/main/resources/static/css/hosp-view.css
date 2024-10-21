@@ -356,7 +356,7 @@
 	border-radius: 5px 5px 0 0;
 	color: #fff;
 }
-/*** 좋아요, 답글달기 ***/
+/*** 좋아요, 답글 달기 ***/
 #container .review_other {
   display: flex;
   gap: 0 10px;
