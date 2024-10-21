@@ -110,6 +110,7 @@ public class ApiController {
 	@GetMapping("/hreview")
 	public ResponseEntity<List<HreviewDTO>> hreview() {
 		List<HreviewDTO> hreviewLists = hospitalDAO.getAllHReviews();
+		System.err.println(hreviewLists);
 		return ResponseEntity.ok(hreviewLists);
 	}
 	// 병원 리뷰의 답변 목록

@@ -412,9 +412,36 @@
 	</select>
 	
 	<!-- 플러터 연동: 병원 리뷰 목록 -->
+<!-- 	<select id="getAllHReviews" resultType="com.edu.springboot.hospital.HreviewDTO"> -->
+<!-- 		SELECT * FROM hreview WHERE review_idx = original_idx -->
+<!-- 	</select> -->
 	<select id="getAllHReviews" resultType="com.edu.springboot.hospital.HreviewDTO">
-		SELECT * FROM hreview WHERE review_idx = original_idx
+	    SELECT 
+	        h.review_idx,
+	        h.original_idx,
+	        h.postdate,
+	        h.score,
+	        h.content,
+	        h.cost,
+	        h.treat,
+	        h.doctor,
+	        h.rewrite,
+	        h.writer_ref,
+	        h.api_ref,
+	        m.id AS hosp_ref
+	    FROM 
+	        hreview h
+	    JOIN 
+	        api a ON h.api_ref = a.api_idx
+	    JOIN 
+	        member m ON a.name = m.name
+	    WHERE 
+	        h.review_idx = h.original_idx
 	</select>
+
+	
+	
+	
 	
 	<!-- 플러터 연동: 병원 리뷰의 답변 목록 -->
 	<select id="getAllHReplies" resultType="com.edu.springboot.hospital.HreviewDTO">
