@@ -462,6 +462,16 @@ document.addEventListener('DOMContentLoaded', function () {
 												</c:forEach>
 											</ul>
 										</c:if>
+										<!-- ************** 이거 추가됨 **************** -->
+										<div class="review_content">
+											<p>담당의 ${ row.doctor }</p>					
+										</div>
+										<div class="review_content">
+											<p>치료 내용 ${ row.treat }</p>					
+										</div>
+										<div class="review_content">
+											<p>비용 ${ row.cost }</p>					
+										</div>
 										<div class="review_content">
 											<p>${ row.content }</p>					
 										</div>
