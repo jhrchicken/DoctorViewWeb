@@ -26,7 +26,7 @@
 		<div class="content_inner">
 			<section class="search">
 				<div class="search_wrap">
-					<img src="/images/doctor.png" alt="캐릭터" style="width: 160px; height: 160px;"/>
+					<img src="/images/main_search.png" alt="캐릭터" style="width: 160px; height: 160px;"/>
 					
 					<div class="searchForm_wrap">
 						<div class="title">
@@ -35,7 +35,7 @@
 						</div>
 						<form class="searchForm" name="searchForm">
 							<select name="searchField" class="searchField">
-								<option value="">--- 조건 선택 ---</option>
+								<option value="hospital">--- 조건 선택 ---</option>
 								<option value="hospital">병원</option>
 								<option value="doctor">의사</option>
 							</select>							
