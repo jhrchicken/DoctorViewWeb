@@ -319,6 +319,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						
 					<div class="btn_wrap">
 					<!-- 사용자가 로그인 했고 임점한 병원인 경우에만 예약 가능 -->
+					<!-- ****************** 수정 필요 ****************** -->
 					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null && sessionScope.userAuth != 'ROLE_HOSP' }">
 						<button type="button" onclick="location.href='/reserve/proceed.do?api_idx=${ param.api_idx }';">예약하기</button>
 					</c:if>
@@ -399,18 +400,33 @@ document.addEventListener('DOMContentLoaded', function () {
 			</div>
 			
 			<!-- 시간 정보 -->
-			<c:forEach items="${ hourList }" var="row" varStatus="loop">
-					<c:if test="${ row.starttime != '00:00' }">
-						<div class="doc_detail">
-							<p class="blue">${ row.week }</p>
-							<p>${ row.starttime } - ${ row.endtime }</p>
-							<c:if test="${ row.startbreak != '00:00' }">
-								<p>${ row.startbreak } - ${ row.endbreak } 휴게시간</p>
-							</c:if>
-							<p>${ row.deadline } 접수마감</p>
-						</div>
-					</c:if>
-			</c:forEach>	
+			<div class="time">
+				<div class="swiper">
+					<div class="swiper-wrapper">
+						<c:forEach items="${ hourList }" var="row" varStatus="loop">
+								<c:if test="${ row.starttime != '00:00' }">
+									<div class="swiper-slide li">
+										<p class="day">${ row.week }</p>
+										<div class="time_detail">
+											<p class="blue">영업시간</p>
+											<p>${ row.starttime }-${ row.endtime }</p>
+										</div>
+										<c:if test="${ row.startbreak != '00:00' }">
+											<div class="time_detail">
+												<p class="blue">휴게시간</p>
+												<p>${ row.startbreak }-${ row.endbreak }</p>
+											</div>
+										</c:if>
+										<div class="time_detail">
+											<p class="blue">접수마감</p>
+											<p>${ row.deadline }</p>
+										</div>
+									</div>
+								</c:if>
+						</c:forEach>	
+					</div>
+				</div>
+			</div>
 		</div>
 		
 		<div class="comment_inner">
@@ -475,21 +491,13 @@ document.addEventListener('DOMContentLoaded', function () {
 												</c:forEach>
 											</ul>
 										</c:if>
-										<!-- ************** 이거 추가됨 **************** -->
-										<!-- ************** 이거 추가됨 **************** -->
-										<!-- ************** 이거 추가됨 **************** -->
-										<!-- ************** 이거 추가됨 **************** -->
 										<div class="review_content">
-											<p>담당의 ${ row.doctor }</p>					
-										</div>
-										<div class="review_content">
-											<p>치료 내용 ${ row.treat }</p>					
-										</div>
-										<div class="review_content">
-											<p>비용 ${ row.cost }</p>					
-										</div>
-										<div class="review_content">
-											<p>${ row.content }</p>					
+											<div class="review_extra">
+												<p>담당의 | ${ row.doctor }</p>
+												<p>치료내용 | ${ row.treat }</p>			
+												<p>비용 | ${ row.cost }원</p>					
+											</div>	
+											<p>${ row.content }</p>	
 										</div>
 										<div class="review_other">
 											<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->

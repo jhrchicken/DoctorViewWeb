@@ -165,11 +165,11 @@
 }
 
 /*** 의사 리스트 ***/
-#container .swiper {
+#container .doctor .swiper {
   height: 190px;
   padding: 5px 10px;
 }
-#container .swiper-wrapper {
+#container .doctor .swiper-wrapper {
   margin-top: 10px;
 }
 #container .doctor .li {
@@ -236,6 +236,31 @@
   color: var(--point-color2);
   font-weight: 500;
 }
+/*** 영업시간 ***/
+#container .time .swiper {
+	height: 170px;
+	padding: 10px 12px;
+}
+#container .time .li {
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+	width: calc(100% - 60px / 4);
+	padding: 20px;
+	height: 150px;
+}
+#container .time .day {
+	font-size: 20px;
+	font-weight: 500;
+	margin-bottom: 10px;
+}
+#container .time .time_detail {
+	display: flex;
+	gap: 0 8px;
+}
+#container .time .time_detail .blue {
+	font-weight: 500;
+}
+
 /*** 리뷰 ***/
 #container .review_wrapper {
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
@@ -310,9 +335,26 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 8px;
   color: var(--gray-500);
   min-height: 100px;
+  position: relative;
+}
+/*** 추가정보 ***/
+#container .review_extra {
+	display: flex;
+	gap: 0 1px;
+	font-size: 18px;
+	position: absolute;
+	right: 0;
+	top: -37px;
+}
+#container .review_extra p {
+	display: block;
+	padding: 5px 10px;	
+	background: #ddd;
+	border-radius: 5px 5px 0 0;
+	color: #fff;
 }
 /*** 좋아요, 답글달기 ***/
 #container .review_other {
