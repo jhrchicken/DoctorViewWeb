@@ -14,7 +14,7 @@ public class HoursDTO {
 	private String endtime;
 	private String startbreak;
 	private String endbreak;
-	private String deadline;
+	private String deadline; 
 	private String hosp_ref;
 	private String open_week;
 	private String weekend;
