@@ -69,10 +69,10 @@
 			            <span id="reportCount">${boardDTO.reportcount}</span>
 			        </button>
 			    </div>
-			
+			    
 				<!-- 댓글 작성 -->
 				<div>
-			  		<c:if test="${ not empty sessionScope.userId }">
+			  		<c:if test="${ not empty sessionScope.userId && sessionScope.userAuth == 'ROLE_HOSP' }">
 				  		<div class="comment_btn">
 					  		<button type="button" data-bs-toggle="modal" data-bs-target="#writeCommentModal"
 					  			onclick="openWriteModal(${ param.board_idx })">
