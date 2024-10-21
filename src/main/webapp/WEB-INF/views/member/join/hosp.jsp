@@ -347,7 +347,7 @@
     <select class="searchField" id="deadline" name="deadline">
 	    <option value="">종료 시간 선택</option>
 	</select>
-  <p class="caution">*접수 마감시간이 오후 8시 이후이면<br />&nbsp;&nbsp;'야간 진료 가능'으로 표시됩니다. </p>
+  <p class="caution">*접수 마감시간이 오후 8시 이후이면 '야간 진료 가능'으로 표시됩니다.</p>
   </td>
 </tr>
 <script>

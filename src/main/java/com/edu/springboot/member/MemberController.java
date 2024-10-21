@@ -255,9 +255,11 @@ public class MemberController {
 //			랜덤생성된 비밀번호로 변경
 			memberDAO.updateNewPass(newPassword, findPass.getId(), findPass.getEmail());
 			
+			String name = findPass.getName();
+			
 			infoDTO.setTo(findPass.getEmail());
-			infoDTO.setSubject("비밀번호 찾기");
-			infoDTO.setContent("임시 비밀번호는 " + newPassword + "입니다. 로그인 후 비밀번호 변경을 진행하세요.");
+			infoDTO.setSubject("[닥터뷰] 임시 비밀번호 안내");
+			infoDTO.setContent("안녕하세요 " + name + "님!\n닥터뷰에서 회원님의 임시 비밀번호를 알려드립니다.\n로그인 후 비밀번호를 재설정해주세요.\n\n- 임시 비밀번호 : " + newPassword);
 			infoDTO.setFormat("text");
 			email.myEmailSender(infoDTO);
 			
@@ -538,7 +540,7 @@ public class MemberController {
 		}
 		
 		// 10포인트 추가
-		memberDTO.setPoint(memberDTO.getPoint()+200);
+		memberDTO.setPoint(memberDTO.getPoint() + 10);
 		memberDAO.userAttend(memberDTO);
 		
 		return "mypage/attend";

@@ -27,7 +27,7 @@
                 <span>
                   <i class="ti ti-article"></i>
                 </span>
-                <span class="hide-menu">회원관리</span>
+                <span class="hide-menu">회원 관리</span>
               </a>
             </li>
             <!-- ##메뉴그룹1 끝## -->
@@ -67,7 +67,7 @@
                 <span>
                   <i class="ti ti-article"></i>
                 </span>
-                <span class="hide-menu">예약관리</span>
+                <span class="hide-menu">예약 관리</span>
               </a>
             </li>
             <!-- ##메뉴그룹2 끝## -->

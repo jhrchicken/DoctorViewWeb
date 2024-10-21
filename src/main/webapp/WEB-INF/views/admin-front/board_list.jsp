@@ -26,7 +26,7 @@
 <!-- ############ 컨텐츠는 여기부터 Start ########## -->
 <div class="card">
 	<div class="card-body">
-		<h5 class="card-title fw-semibold mb-4">게시판관리</h5>
+		<h5 class="card-title fw-semibold mb-4">게시판 관리</h5>
 		<div class="card">
     	<table class="table table-bordered">
     		<tr class="text-center" id="boardTr">
@@ -48,7 +48,7 @@
 				<td>${ row.postdate }</td>
 				<td>${ row.likecount }</td>
 				<td>${ row.commentcount }</td>
-				<td>
+				<td class="table_btn_wrap">
 					<button type="button" class="btn btn-warning" onclick="location.href='board_edit.do?boardname=${param.boardname}&board_idx=${row.board_idx}';">수정</button>
 					<button type="button" class="btn btn-danger" onclick="deletePost('${row.board_idx}');">삭제</button>
 				</td>
@@ -62,13 +62,13 @@
 	</c:otherwise>
 </c:choose>              		
 			</table>
-			<div class="pagination">
-				<div class="pagination_inner">
-					${ pagingImg }
-				</div>
-			</div>	
     	</div>
 	</div>
+	<div class="pagination">
+		<div class="pagination_inner">
+			${ pagingImg }
+		</div>
+	</div>	
 </div>
 <script>
 let deletePost = function(board_idx){

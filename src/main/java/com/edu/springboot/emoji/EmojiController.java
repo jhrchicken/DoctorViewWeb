@@ -70,7 +70,7 @@ public class EmojiController {
 		MemberDTO loginMember = (MemberDTO)session.getAttribute("loginMember");
 		loginMember.setEmoji(emojiDTO.getEmoji());
 		session.setAttribute("loginMember", loginMember);
-		// session.setAttribute("userEmoji", emojiDTO.getEmoji());
+		session.setAttribute("userEmoji", emojiDTO.getEmoji());
 		
 		return "redirect:/myEmoji.do";
 	}

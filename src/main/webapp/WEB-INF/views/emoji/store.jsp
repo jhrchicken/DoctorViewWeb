@@ -46,8 +46,8 @@
 						    <p class="point">0</p>
 						</c:if>
 				    </div>
-				    <a href="/myEmoji.do">나의 이모지<br />확인</a>
 			    </div>
+			    <a href="/myEmoji.do">나의 이모지<br />확인</a>
 	    	</div>
         </c:if>
         <c:if test="${ empty userId }">

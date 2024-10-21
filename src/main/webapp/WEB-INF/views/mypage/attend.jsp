@@ -82,7 +82,7 @@
     	                column.onclick = function () { calendarChoiceDay(this); };
     	                // 오늘 날짜 자동 선택
     	                calendarChoiceDay(column);
-    	            } else {
+    	            } else if (day < nowDate.getDate()) {
     	            	column.classList.add("past");
     	            }
     	        } else {

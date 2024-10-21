@@ -58,7 +58,7 @@
 					<input type="hidden" name="board_idx" value="${ boardDTO.board_idx }" />
 				</form>
 				
-				<!-- 좋아요 및 신고 -->
+				<!-- 좋아요 및 신고 --> 
 				<div class="like_btn">
 			        <button id="likeButton" type="button" class="${likecheck == 1 ? 'push' : ''}" onclick="clickLike(${boardDTO.board_idx});">
 			            <p class="like"></p>
@@ -69,10 +69,10 @@
 			            <span id="reportCount">${boardDTO.reportcount}</span>
 			        </button>
 			    </div>
-			
+			    
 				<!-- 댓글 작성 -->
 				<div>
-			  		<c:if test="${ not empty sessionScope.userId }">
+			  		<c:if test="${ not empty sessionScope.userId && sessionScope.userAuth == 'ROLE_HOSP' }">
 				  		<div class="comment_btn">
 					  		<button type="button" data-bs-toggle="modal" data-bs-target="#writeCommentModal"
 					  			onclick="openWriteModal(${ param.board_idx })">
