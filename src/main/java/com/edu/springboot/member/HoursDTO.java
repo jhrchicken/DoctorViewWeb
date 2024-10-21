@@ -30,12 +30,14 @@ public class HoursDTO {
 	    LocalTime startBreak = LocalTime.parse(startbreak);
 	    LocalTime endBreak = LocalTime.parse(endbreak);
 		
-        while (currentTime.isBefore(LocalTime.parse(deadline)) || currentTime.equals(deadline)) {
+        while (currentTime.isBefore(LocalTime.parse(deadline)) || currentTime.equals(LocalTime.parse(deadline))) {
 			if (currentTime.isBefore(startBreak) || currentTime.isAfter(endBreak) || currentTime.equals(endBreak)) {
 				timeSlots.add(currentTime);
 			}
 			currentTime = currentTime.plusMinutes(30);
         }
+        System.err.println("마감시간: "  + deadline);
+        System.err.println(timeSlots);
 		
         return timeSlots;
     }
