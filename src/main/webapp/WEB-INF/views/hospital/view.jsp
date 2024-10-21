@@ -421,7 +421,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	  		</c:if>
 	  		<c:choose>
 				<c:when test="${ empty reviewList }">
-					<!-- ********** 입점한 병원 이거 안뜸 ********* -->
 					<p>리뷰를 남겨보세요.</p>
 				</c:when>
 				<c:otherwise>
@@ -479,10 +478,12 @@ document.addEventListener('DOMContentLoaded', function () {
 							                    	<img src="/images/heart_full.svg" style="width: 24px; height: 24px;" /> ${ row.likecount }
 						                        </button>
 							                </c:if>
-											<button class="re_btn" type="button" data-bs-toggle="modal" data-bs-target="#writeReplyModal"
-						                        	onclick="openReplyWriteModal(${ row.api_ref }, ${ row.review_idx })">
-						                        답변 작성하기
-					                        </button>
+							                <c:if test="${ (sessionScope.userId).equals(hospitalDTO.id) }">
+												<button class="re_btn" type="button" data-bs-toggle="modal" data-bs-target="#writeReplyModal"
+							                        	onclick="openReplyWriteModal(${ row.api_ref }, ${ row.review_idx })">
+							                        답변 작성하기
+						                        </button>
+						                    </c:if>
 										</div>
 									</div>
 									<!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->
