@@ -229,6 +229,9 @@ public class HospitalController {
 			hospitalDTO.setPassword(basicDTO.getPassword());
 			hospitalDTO.setNickname(basicDTO.getNickname());
 			hospitalDTO.setTaxid(basicDTO.getTaxid());
+			// 입점 병원 시간 정보
+			ArrayList<HoursDTO> hourList = hospitalDAO.selectHours(hospId);
+			model.addAttribute("hourList", hourList);
 			// 입점 병원 상세 정보
 			DetailDTO detailDTO = hospitalDAO.selectDetail(hospId);
 			if (detailDTO != null) {

@@ -398,6 +398,20 @@ document.addEventListener('DOMContentLoaded', function () {
 			        </c:choose>
 			    </div>
 			</div>
+			
+			<!-- 시간 정보 -->
+			<c:forEach items="${ hourList }" var="row" varStatus="loop">
+					<c:if test="${ row.starttime != '00:00' }">
+						<div class="doc_detail">
+							<p class="blue">${ row.week }</p>
+							<p>${ row.starttime } - ${ row.endtime }</p>
+							<c:if test="${ row.startbreak != '00:00' }">
+								<p>${ row.startbreak } - ${ row.endbreak } 휴게시간</p>
+							</c:if>
+							<p>${ row.deadline } 접수마감</p>
+						</div>
+					</c:if>
+			</c:forEach>	
 		</div>
 		
 		<div class="comment_inner">
