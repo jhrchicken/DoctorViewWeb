@@ -184,7 +184,7 @@ public class MemberController {
 
 	    if(loginMember == null) {
 	        model.addAttribute("loginFailed", "아이디 혹은 비밀번호가 일치하지않습니다.");
-	        return "member/login";
+	        return "member/login"; 
 	    }
 	    if(loginMember.getEnable() == 0) {
 	    	// 회원가입 승인 대기 처리 추가
