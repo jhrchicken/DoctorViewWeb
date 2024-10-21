@@ -56,14 +56,10 @@
 	               // 오늘 이후 날짜 배경 색상
 	               column.classList.add("future")
 	               
-	               
 	                // 근무하는 가장 가까운 날을 찾음
 	                if (!nearestFutureDay && currentDate >= nowDate) {
 	                    nearestFutureDay = column;
 	                }
-	               
-	               
-	               
 	           } else {
 	               // 오늘 이전 날짜 또는 선택 불가능한 요일
 	               column.classList.add("past");
@@ -77,19 +73,10 @@
 	                    column.classList.add("future");
 	                    calendarChoiceDay(column); // 오늘 날짜 자동 선택
 	                    
-	                    
-	                    
-	                    
-	                    
 	                    // 근무하는 가장 가까운 날을 찾음
 	                    if (!nearestFutureDay && currentDate >= nowDate) {
 	                        nearestFutureDay = column;
 	                    }
-	                    
-	                    
-	                    
-	                    
-	                    
 	                    
 	                } else {
 	                    column.classList.add("past"); // 오늘이 근무하지 않는 요일이면 선택 불가
@@ -117,8 +104,6 @@
 	
 	       dom++;
 	   }   
-	   
-	   
 	   
 	   // 오늘이 근무하지 않는 요일이라면, 가장 가까운 근무일을 자동 선택
 	    if (!weeks.includes(new Date().toLocaleString('ko-KR', { weekday: 'long' }))) {

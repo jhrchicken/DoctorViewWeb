@@ -195,8 +195,6 @@ public class MemberController {
 	    session.setAttribute("userPassword", loginMember.getPassword()); 
 	    session.setAttribute("userName", loginMember.getName());
 	    session.setAttribute("userAuth", loginMember.getAuth());
-	    System.err.println(loginMember.getEmoji());
-	    System.err.println(loginMember);
 	    session.setAttribute("userEmoji", loginMember.getEmoji());
 	    session.setAttribute("loginMember", loginMember);
 	    
