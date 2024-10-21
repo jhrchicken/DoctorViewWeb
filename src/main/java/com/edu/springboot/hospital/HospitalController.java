@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.springboot.doctor.DoctorDTO;
 import com.edu.springboot.member.HoursDTO;
+import com.edu.springboot.member.MemberDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -203,184 +204,213 @@ public class HospitalController {
       return maps;
    }
    
-   @RequestMapping("/hospital/viewHosp.do")
-   public String viewHospReq(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, HospitalDTO hospitalDTO) {
-      String loginId = (String) session.getAttribute("userId");
-       // 로그인하지 않은 경우
-       if (loginId == null) {
-           JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
-           return null;
-       }
-      // 병원 API 정보
-      hospitalDTO = hospitalDAO.viewHospApi(hospitalDTO);
-      String hospId = hospitalDAO.selectHospId(hospitalDTO.getName());
-      if (hospId != null) {
-         hospitalDTO.setEnter("T");
-         hospitalDTO.setId(hospId);
-         // 입점 병원 기본 정보
-         BasicDTO basicDTO = hospitalDAO.viewHosp(hospId);
-         hospitalDTO.setNickname(basicDTO.getNickname());
-         hospitalDTO.setPassword(basicDTO.getPassword());
-         hospitalDTO.setNickname(basicDTO.getNickname());
-         hospitalDTO.setTaxid(basicDTO.getTaxid());
-         // 입점 병원 상세 정보
-         DetailDTO detailDTO = hospitalDAO.selectDetail(hospId);
-         if (detailDTO != null) {
-            if (detailDTO.getPhoto() != null) {
-               hospitalDTO.setPhoto(detailDTO.getPhoto());
-            }
-            if (detailDTO.getIntroduce() != null) {
-               hospitalDTO.setIntroduce(detailDTO.getIntroduce());
-            }
-            if (detailDTO.getParking() != null) {
-               hospitalDTO.setParking(detailDTO.getParking());
-            }
-            if (detailDTO.getPcr() != null) {
-               hospitalDTO.setPcr(detailDTO.getPcr());
-            }
-            if (detailDTO.getHospitalize() != null) {
-               hospitalDTO.setHospitalize(detailDTO.getHospitalize());
-            }
-            if (detailDTO.getSystem() != null) {
-               hospitalDTO.setSystem(detailDTO.getSystem());
-            }
-         }
-         ArrayList<DoctorDTO> doctorList = hospitalDAO.listDoctor(hospitalDTO);
-         model.addAttribute("doctorList", doctorList);
-         // 해시태그
-         ArrayList<HashtagDTO> hospHashtagList = hospitalDAO.selectHospHashtag(hospId);
-         model.addAttribute("hospHashtagList", hospHashtagList);
-      }
-      // 병원 좋아요 수
-      int likecount = hospitalDAO.countHospLike(hospitalDTO.getApi_idx());
-      hospitalDTO.setLikecount(likecount);
-      // 병원 좋아요 클릭 여부
-      int hosplikecheck = hospitalDAO.checkHospLike(loginId, hospitalDTO.getApi_idx());
-      model.addAttribute("hosplikecheck", hosplikecheck);
-      // 리뷰 처리
-      ArrayList<HreviewDTO> reviewList = hospitalDAO.listReview(hospitalDTO);
-      for (HreviewDTO review : reviewList) {
-         // 리뷰 작성자 닉네임
-         String nickname = hospitalDAO.selectReviewNickname(review);
-         review.setNickname(nickname);
-         // 리뷰 좋아요 수
-         likecount = hospitalDAO.countReviewLike(Integer.toString(review.getReview_idx()));
-         review.setLikecount(likecount);
-         // 리뷰 좋아요 클릭 여부
-         int reviewlikecheck = hospitalDAO.checkReviewLike(loginId, Integer.toString(review.getReview_idx()));
-         model.addAttribute("reviewlikecheck", reviewlikecheck);
-      }
-      // 해시태그
-      ArrayList<HashtagDTO> hashtagList = hospitalDAO.listHashtag();
-      model.addAttribute("hashtagList", hashtagList);
-      model.addAttribute("reviewList", reviewList);
-      model.addAttribute("hospitalDTO", hospitalDTO);
-      return "hospital/view";
-   }
    
-   @PostMapping("/hospital/writeReview.do")
-   public String writeReviewPost(HttpServletRequest req, HttpSession session) {
-       // 폼값
-      int api_idx = Integer.parseInt(req.getParameter("api_idx"));
-      int score = Integer.parseInt(req.getParameter("score"));
-      String content = req.getParameter("content");
-      String cost = req.getParameter("cost");
-      String treat = req.getParameter("treat");
-      String doctor = req.getParameter("doctor");
-       // 세션에 저장된 로그인 아이디
-       String loginId = (String) session.getAttribute("userId");
-       // 리뷰 작성
-       Map<String, Object> params = new HashMap<>();
-       params.put("score", score);
-       params.put("content", content);
-       params.put("cost", cost);
-       params.put("treat", treat);
-       params.put("doctor", doctor);
-       params.put("loginId", loginId);
-       params.put("api_idx", api_idx);
-       hospitalDAO.writeReview(params);
-       // 생성된 review_idx
-       int review_idx = (int) params.get("review_idx");  
-       // 해시태그 처리
-       String hashtags = req.getParameter("hashtags");
-       if (hashtags != null && !hashtags.isEmpty()) {
-          String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
-          for (String hashtag : hashtagArray) {
-             hospitalDAO.writeReviewHashtag(review_idx, hashtag.trim());
-          }
-       }
-       return "redirect:../hospital/viewHosp.do?api_idx=" + api_idx;
-   }
-
-   @PostMapping("/hospital/editReview.do")
-   public String editReviewPost(HttpServletRequest req, HttpSession session) {
-      // 폼값
-      int api_ref = Integer.parseInt(req.getParameter("api_ref"));
-      int review_idx = Integer.parseInt(req.getParameter("review_idx"));
-      int score = Integer.parseInt(req.getParameter("score"));
-      String content = req.getParameter("content");
-      String cost = req.getParameter("cost");
-      String treat = req.getParameter("treat");
-      String doctor = req.getParameter("doctor");
-      // 리뷰 수정
-      Map<String, Object> params = new HashMap<>();
-       params.put("score", score);
-       params.put("content", content);
-       params.put("cost", cost);
-       params.put("treat", treat);
-       params.put("doctor", doctor);
-       params.put("review_idx", review_idx);
-       hospitalDAO.editReview(params);
-      // 해시태그 처리
-       String hashtags = req.getParameter("hashtags");
-       if (hashtags != null && !hashtags.isEmpty()) {
-          String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
-          hospitalDAO.deleteAllReviewHashtag(review_idx);
-          for (String hashtag : hashtagArray) {
-             hospitalDAO.writeReviewHashtag(review_idx, hashtag.trim());
-          }
-       }
-      return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
-   }
+   	// == 병원 상세보기 ==
+   	@RequestMapping("/hospital/viewHosp.do")
+   	public String viewHospReq(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, HospitalDTO hospitalDTO) {
+		
+   		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+		String id = loginMember.getId();
+		
+		// 병원 API 정보
+		hospitalDTO = hospitalDAO.viewHospApi(hospitalDTO);
+		String hospId = hospitalDAO.selectHospId(hospitalDTO.getName());
+		if (hospId != null) {
+			hospitalDTO.setEnter("T");
+			hospitalDTO.setId(hospId);
+			// 입점 병원 기본 정보
+			BasicDTO basicDTO = hospitalDAO.viewHosp(hospId);
+			hospitalDTO.setNickname(basicDTO.getNickname());
+			hospitalDTO.setPassword(basicDTO.getPassword());
+			hospitalDTO.setNickname(basicDTO.getNickname());
+			hospitalDTO.setTaxid(basicDTO.getTaxid());
+			// 입점 병원 상세 정보
+			DetailDTO detailDTO = hospitalDAO.selectDetail(hospId);
+			if (detailDTO != null) {
+				if (detailDTO.getPhoto() != null) {
+					hospitalDTO.setPhoto(detailDTO.getPhoto());
+				}
+				if (detailDTO.getIntroduce() != null) {
+					hospitalDTO.setIntroduce(detailDTO.getIntroduce());
+				}
+				if (detailDTO.getParking() != null) {
+					hospitalDTO.setParking(detailDTO.getParking());
+				}
+				if (detailDTO.getPcr() != null) {
+					hospitalDTO.setPcr(detailDTO.getPcr());
+				}
+				if (detailDTO.getHospitalize() != null) {
+					hospitalDTO.setHospitalize(detailDTO.getHospitalize());
+				}
+				if (detailDTO.getSystem() != null) {
+					hospitalDTO.setSystem(detailDTO.getSystem());
+				}
+			}
+			ArrayList<DoctorDTO> doctorList = hospitalDAO.listDoctor(hospitalDTO);
+			model.addAttribute("doctorList", doctorList);
+			// 해시태그
+			ArrayList<HashtagDTO> hospHashtagList = hospitalDAO.selectHospHashtag(hospId);
+			model.addAttribute("hospHashtagList", hospHashtagList);
+		}
+		// 병원 좋아요 수
+		int likecount = hospitalDAO.countHospLike(hospitalDTO.getApi_idx());
+		hospitalDTO.setLikecount(likecount);
+		// 병원 좋아요 클릭 여부
+		int hosplikecheck = hospitalDAO.checkHospLike(id, hospitalDTO.getApi_idx());
+		model.addAttribute("hosplikecheck", hosplikecheck);
+		// 리뷰 처리
+		ArrayList<HreviewDTO> reviewList = hospitalDAO.listReview(hospitalDTO);
+		for (HreviewDTO review : reviewList) {
+			String nickname = hospitalDAO.selectReviewNickname(review);
+			String emoji = hospitalDAO.selectReviewEmoji(review);
+			if (emoji != null) review.setNickname(nickname + " " + emoji);
+			else review.setNickname(nickname);
+			// 리뷰 좋아요 수
+			likecount = hospitalDAO.countReviewLike(Integer.toString(review.getReview_idx()));
+			review.setLikecount(likecount);
+			// 리뷰 좋아요 클릭 여부
+			int reviewlikecheck = hospitalDAO.checkReviewLike(id, Integer.toString(review.getReview_idx()));
+			model.addAttribute("reviewlikecheck", reviewlikecheck);
+		}
+		// 해시태그
+		ArrayList<HashtagDTO> hashtagList = hospitalDAO.listHashtag();
+		model.addAttribute("hashtagList", hashtagList);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("hospitalDTO", hospitalDTO);
+		return "hospital/view";
+	}
    
-   @PostMapping("/hospital/deleteReview.do")
-   public String deleteReviewGet(HttpServletRequest req) {
-      int review_idx = Integer.parseInt(req.getParameter("review_idx"));
-      hospitalDAO.deleteReview(review_idx);
-      hospitalDAO.deleteAllReply(review_idx);
-      hospitalDAO.deleteAllLike(review_idx);
-      return "redirect:../hospital/viewHosp.do?api_idx=" + req.getParameter("api_ref");
-   }
+   	
+   	
+   	// == 리뷰 작성 ==
+   	@PostMapping("/hospital/writeReview.do")
+   	public String writeReviewPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, HreviewDTO hreviewDTO) {
+		
+   		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+		String id = loginMember.getId();
+		
+		hreviewDTO.setWriter_ref(id);
+		hospitalDAO.writeReview(hreviewDTO);
+		hreviewDTO = hospitalDAO.selectReview(hreviewDTO);
+		
+		// 해시태그 처리
+		String hashtags = req.getParameter("hashtags");
+		if (hashtags != null && !hashtags.isEmpty()) {
+			String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
+			for (String hashtag : hashtagArray) {
+				hospitalDAO.writeReviewHashtag(hreviewDTO.getReview_idx(), hashtag.trim());
+			}
+		}
+		return "redirect:../hospital/viewHosp.do?api_idx=" + hreviewDTO.getApi_ref();
+	}
+   	
+   	
+   	// == 리뷰 수정 ==
+   	@PostMapping("/hospital/editReview.do")
+   	public String editReviewPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, HreviewDTO hreviewDTO) {
+   		
+   		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+		
+		// 댓글 수정
+   		hospitalDAO.editReview(hreviewDTO);
+   		
+   		// 해시태그 처리
+   		String hashtags = req.getParameter("hashtags");
+   		if (hashtags != null && !hashtags.isEmpty()) {
+   			String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
+   			hospitalDAO.deleteAllReviewHashtag(hreviewDTO.getReview_idx());
+   			for (String hashtag : hashtagArray) {
+   				hospitalDAO.writeReviewHashtag(hreviewDTO.getReview_idx(), hashtag.trim());
+   			}
+   		}
+   		return "redirect:../hospital/viewHosp.do?api_idx=" + hreviewDTO.getApi_ref();
+   	}
+   	
+   	
+   	// == 리뷰 삭제 ==
+   	@PostMapping("/hospital/deleteReview.do")
+   	public String deleteReviewGet(HttpServletRequest req) {
+   		int review_idx = Integer.parseInt(req.getParameter("review_idx"));
+   		hospitalDAO.deleteReview(review_idx);
+   		hospitalDAO.deleteAllReply(review_idx);
+   		hospitalDAO.deleteAllHospReviewLike(review_idx);
+   		return "redirect:../hospital/viewHosp.do?api_idx=" + req.getParameter("api_ref");
+   	}
+   	
+   	
+   	// == 답변 작성 ==
+   	@PostMapping("/hospital/writeReply.do")
+   	public String writeReplyPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, HreviewDTO hreviewDTO) {
+   		
+   		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+		String id = loginMember.getId();
+		
+		// 답변 작성
+		hreviewDTO.setWriter_ref(id);
+		hospitalDAO.writeReply(hreviewDTO);
+		
+		return "redirect:../hospital/viewHosp.do?api_idx=" + hreviewDTO.getApi_ref();
+	}
+   	
+   	
+   	// == 답변 수정 ==
+   	@PostMapping("/hospital/editReply.do")
+   	public String editReplyPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, HreviewDTO hreviewDTO) {
+   		
+   		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+		
+		// 답변 수정
+		hospitalDAO.editReply(hreviewDTO);
+		
+		return "redirect:../hospital/viewHosp.do?api_idx=" + hreviewDTO.getApi_ref();
+	}
+   	
+   	
+   	// == 답변 삭제 ==
+   	@PostMapping("/hospital/deleteReply.do")
+   	public String deleteReplyGet(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+   		
+   		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+   		
+   		hospitalDAO.deleteReply(Integer.parseInt(req.getParameter("review_idx")));
+   		return "redirect:../hospital/viewHosp.do?api_idx=" + req.getParameter("api_ref");
+   	}
    
-   @PostMapping("/hospital/writeReply.do")
-   public String writeReplyPost(HttpServletRequest req, HttpSession session) {
-      // 폼값
-      int api_ref = Integer.parseInt(req.getParameter("api_ref"));
-      int review_idx = Integer.parseInt(req.getParameter("review_idx"));
-      String content = req.getParameter("content");
-      // 세션에 저장된 로그인 아이디
-      String id = (String) session.getAttribute("userId");
-      // 답변 작성
-      hospitalDAO.writeReply(review_idx, content, id, api_ref);
-      return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
-   }
    
-   @PostMapping("/hospital/editReply.do")
-   public String editReplyPost(HttpServletRequest req) {
-      // 폼값
-      int api_ref = Integer.parseInt(req.getParameter("api_ref"));
-      int review_idx = Integer.parseInt(req.getParameter("review_idx"));
-      String content = req.getParameter("content");
-      // 답변 수정
-      hospitalDAO.editReply(review_idx, content);
-      return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
-   }
    
-   @PostMapping("/hospital/deleteReply.do")
-   public String deleteReplyGet(HttpServletRequest req) {
-      hospitalDAO.deleteReply(Integer.parseInt(req.getParameter("review_idx")));
-      return "redirect:../hospital/viewHosp.do?api_idx=" + req.getParameter("api_ref");
-   }
+   
+   
+   
    
    @GetMapping("hospital/clickHospLike.do")
    public String clickLikeGet(HttpServletRequest req, HttpSession session) {

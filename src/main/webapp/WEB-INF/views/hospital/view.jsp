@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', function () {
    
 <!-- 리뷰 작성 모달창 -->
 <form method="post" action="../hospital/writeReview.do" onsubmit="return validateReviewForm(this);">
-    <input type="hidden" id="review_write_api_idx" name="api_idx" value="" />
+    <input type="hidden" id="review_write_api_idx" name="api_ref" value="" />
     <input type="hidden" id="review_write_hashtags" name="hashtags" />
     <input type="hidden" id="review_write_score" name="score" value="" />
     <div class="modal" id="writeReviewModal">

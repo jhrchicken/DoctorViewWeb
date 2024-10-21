@@ -6,42 +6,14 @@
 
 <mapper namespace="com.edu.springboot.hospital.IHospitalService">
 
-	<!-- 병원 목록 -->
-	<select id="getAllHospitals" resultType="com.edu.springboot.hospital.HospitalAppDTO">
-		SELECT
-			member.id, api.name, member.nickname, api.tel, api.address, member.department,
-			detail.pcr, detail.system
-		FROM detail
-		JOIN member ON detail.hosp_ref = member.id
-		JOIN api ON member.name = api.name
-	</select>	
-	
-	<!-- 병원 상세정보 목록 -->
-	<select id="getAllHDetails" resultType="com.edu.springboot.hospital.DetailDTO">
-		SELECT * FROM detail
-	</select>
-	<!-- 병원 리뷰 목록 -->
-	<select id="getAllHReviews" resultType="com.edu.springboot.hospital.HreviewDTO">
-		SELECT * FROM hreview WHERE review_idx = original_idx
-	</select>	
-	<!-- 병원 리뷰의 답변 목록 -->
-	<select id="getAllHReplies" resultType="com.edu.springboot.hospital.HreviewDTO">
-		SELECT * FROM hreview WHERE review_idx != original_idx
-	</select>
-	<!-- 전체 해시태그 목록 -->
-	<select id="getAllHashtags" resultType="com.edu.springboot.hospital.HashtagDTO">
-		SELECT * FROM hashtag
-	</select>
-	
-	
-	<!-- 병원 API 목록: 병원 API의 레코드 개수를 카운트 -->
+	<!-- 병원 API: 병원 API 개수 카운트 -->
 	<select id="countHospApi"
 		resultType="int"
 		parameterType="com.edu.springboot.hospital.ParameterDTO">
 		SELECT COUNT(*) FROM api
 	</select>
 
-	<!-- 병원 API 목록: 병원 API에서 한 페이지에 출력할 레코드를 인출 -->
+	<!-- 병원 API: 한 페이지에 출력할 레코드를 인출 -->
 	<select id="listHospApi"
 			resultType="com.edu.springboot.hospital.HospitalDTO"
 			parameterType="com.edu.springboot.hospital.ParameterDTO">
@@ -54,19 +26,36 @@
 		WHERE rNum <![CDATA[>=]]> #{start} AND rNum <![CDATA[<=]]> #{end}
 	</select>
 	
-	<!-- 병원 검색: 검색에 만족하는 병원 개수 카운트 -->
-	<select id="countSearchHosp"
-		resultType="int"
-		parameterType="com.edu.springboot.hospital.ParameterDTO">
-		SELECT COUNT(*) FROM api
+	<!-- 병원 API 조회 -->
+	<select id="viewHospApi"
+		resultType="com.edu.springboot.hospital.HospitalDTO"
+		parameterType="com.edu.springboot.hospital.HospitalDTO">
+		SELECT * FROM api WHERE api_idx=#{api_idx}
 	</select>
 	
 	
 	
+	<!-- 병원: 병원 입점 여부 확인 -->
+	<select id="selectHospId">
+		SELECT id FROM member WHERE name=#{param1}
+	</select>
+	
+	<!-- 병원: 병원 기본 정보 조회 -->
+	<select id="viewHosp"
+		resultType="com.edu.springboot.hospital.BasicDTO">
+		SELECT * FROM member WHERE id=#{id}
+	</select>
+	
+	<!-- 병원: 병원 상세 정보 조회 -->
+	<select id="selectDetail"
+		resultType="com.edu.springboot.hospital.DetailDTO">
+		SELECT * FROM detail WHERE hosp_ref=#{id}
+	</select>
 	
 	
-	<!-- 병원 검색 개수 -->
-	<select id="countSelectHosp"
+	
+	<!-- 병원 검색: 검색된 병원의 개수를 카운트 -->
+	<select id="countSearchHosp"
 		resultType="int"
 		parameterType="com.edu.springboot.hospital.ParameterDTO">
 		SELECT COUNT(*) FROM api
@@ -113,7 +102,7 @@
            ORDER BY api_idx DESC
 	</select>
 	
-	<!-- 병원 검색 -->
+	<!-- 병원 검색: 병원 검색 -->
 	<select id="listSearchHosp"
 		parameterType="map"
 		resultType="com.edu.springboot.hospital.HospitalDTO">
@@ -178,76 +167,33 @@
 	   	WHERE rNum <![CDATA[>=]]> #{param7} AND rNum <![CDATA[<=]]> #{param8}
 	</select>
 	
-	<!-- 병원 API 조회 -->
-	<select id="viewHospApi"
-		resultType="com.edu.springboot.hospital.HospitalDTO"
-		parameterType="com.edu.springboot.hospital.HospitalDTO">
-		SELECT * FROM api WHERE api_idx=#{api_idx}
-	</select>
 	
 	
-	
-	<!-- 병원 입점 여부 확인: 병원이름으로 입점 여부를 확인하여 아이디 추출 -->
-	<select id="selectHospId">
-		SELECT id FROM member WHERE name=#{param1}
-	</select>
-	
-	<!-- 입점 병원 기본정보 조회 -->
-	<select id="viewHosp"
-		resultType="com.edu.springboot.hospital.BasicDTO">
-		SELECT * FROM member WHERE id=#{id}
-	</select>
-	
-	
-	
-	<!-- 해시태그 목록: 해시태그 목록 -->
-	<select id="listHashtag"
-		resultType="com.edu.springboot.hospital.HashtagDTO">
-		SELECT * FROM hashtag
-	</select>
-	
-	<!-- 병원 해시태그: 특정 병원 해시태그 목록 -->
-	<select id="selectHospHashtag"
-		resultType="com.edu.springboot.hospital.HashtagDTO">
-		SELECT * FROM hashtag WHERE hosp_ref=#{id}
-	</select>
-	
-	
-	
-	
-	<!-- 입점 병원 상세정보 조회 -->
-	<select id="selectDetail"
-		resultType="com.edu.springboot.hospital.DetailDTO">
-		SELECT * FROM detail WHERE hosp_ref=#{id}
-	</select>
-	
-	
+	<!-- 의사: 병원에 소속된 의사 조회 -->
 	<select id="listDoctor"
 		resultType="com.edu.springboot.doctor.DoctorDTO">
 		SELECT * FROM doctor WHERE hosp_ref=#{id}
 	</select>
 	
-	<insert id="writeDoctor" parameterType="com.edu.springboot.member.DoctorDTO">
-	    INSERT INTO doctor (doc_idx, name, major, career, photo, hours, hosp_ref)
-	    VALUES (seq_doctor_idx.nextval, #{name}, #{major}, #{career}, 
-            <if test="photo != null">#{photo}</if>
-            <if test="photo == null">NULL</if>, 
-        #{hours}, #{hosp_ref})
-	</insert>
 	
 	
-	
-	
-	<!-- 리뷰 목록: 병원에 해당하는 리뷰를 인출 -->
+	<!-- 병원 리뷰: 리뷰 목록 조회 -->
 	<select id="listReview"
 		resultType="com.edu.springboot.hospital.HreviewDTO"
 		parameterType="com.edu.springboot.hospital.HospitalDTO">
 		SELECT * FROM hreview WHERE api_ref=#{api_idx}
 		ORDER BY review_idx DESC
 	</select>
+	
+	<!-- 병원 리뷰: 리뷰 조회 -->
+	<select id="selectReview"
+		resultType="com.edu.springboot.hospital.HreviewDTO"
+		parameterType="com.edu.springboot.hospital.HreviewDTO">
+		SELECT * FROM hreview WHERE review_idx=#{review_idx}
+	</select>
 
-	<!-- 리뷰 작성 -->
-	<insert id="writeReview" parameterType="map" useGeneratedKeys="true" keyProperty="review_idx">
+	<!-- 병원 리뷰: 리뷰 작성 -->
+	<insert id="writeReview" parameterType="com.edu.springboot.hospital.HreviewDTO" useGeneratedKeys="true" keyProperty="review_idx">
 	    <selectKey keyProperty="review_idx" resultType="int" order="BEFORE">
 	        SELECT seq_hreview_idx.nextval FROM dual
 	    </selectKey>
@@ -259,28 +205,12 @@
 	        <if test="treat == null">NULL</if>,
 	        <if test="doctor != null">#{doctor}</if>
 	        <if test="doctor == null">NULL</if>,
-	        #{loginId}, #{api_idx}
+	        #{writer_ref}, #{api_ref}
 	    )
 	</insert>
-
-
-	<!-- 리뷰 해시태그 작성 -->
-	<insert id="writeReviewHashtag">
-		INSERT INTO hashtag (tag_idx, hreview_ref, tag) VALUES (seq_hashtag_idx.nextval, #{param1}, #{param2})
-	</insert>
-	
-	<!-- 리뷰의 모든 해시태그 삭제 -->
-	<delete id="deleteAllReviewHashtag">
-		DELETE FROM hashtag WHERE hreview_ref=#{param1}
-	</delete>
-	
-	
-	
-
-
 	
 	<!-- 리뷰 수정 -->
-	<update id="editReview" parameterType="map" >
+	<update id="editReview" parameterType="com.edu.springboot.hospital.HreviewDTO" >
 		UPDATE hreview SET score=#{score}, content=#{content}
 			<if test="cost != null">, cost=#{cost}</if>
 			<if test="treat != null">, treat=#{treat}</if>
@@ -294,113 +224,140 @@
 		DELETE FROM dreview WHERE review_idx=#{param1}
 	</delete>
 	
-	<!-- 답변 작성 -->
-	<insert id="writeReply">
+	
+	
+	<!-- 병원 답변: 답변 작성 -->
+	<insert id="writeReply"
+		parameterType="com.edu.springboot.hospital.HreviewDTO">
 		INSERT INTO hreview (review_idx, original_idx, content, writer_ref, api_ref)
-		VALUES (seq_hreview_idx.nextval, #{param1}, #{param2}, #{param3}, #{param4})
+		VALUES (seq_hreview_idx.nextval, #{review_idx}, #{content}, #{writer_ref}, #{api_ref})
 	</insert>
 	
-	<!-- 답변 수정 -->
-	<update id="editReply">
-		UPDATE hreview SET content=#{param2}, rewrite='T'
-		WHERE review_idx=#{param1}
+	<!-- 병원 답변: 답변 수정 -->
+	<update id="editReply"
+		parameterType="com.edu.springboot.hospital.HreviewDTO">
+		UPDATE hreview SET content=#{content}, rewrite='T'
+		WHERE review_idx=#{review_idx}
 	</update>
 	
-	<!-- 답변 삭제 -->
+	<!-- 병원 답변: 답변 삭제 -->
 	<delete id="deleteReply">
 		DELETE FROM hreview WHERE review_idx=#{param1}
 	</delete>
 	
-	<!-- 리뷰 삭제에 대한 답변 삭제 -->
+	<!-- 병원 답변: 리뷰의 모든 답변 삭제 -->
 	<delete id="deleteAllReply">
 		DELETE FROM hreview WHERE original_idx=#{param1}
 	</delete>
 	
 	
 	
-	<!-- 닉네임 인출: 리뷰 작성자 닉네임 인출 -->
+	<!-- 정보 표시: 리뷰 수 조회 -->
+	<select id="countReview">
+		SELECT COUNT(*) FROM hreview WHERE review_idx=original_idx AND api_ref=#{param1}
+	</select>
+	
+	<!-- 정보 표시: 별점 합계 조회 -->
+	<select id="sumScore" resultType="int">
+		SELECT COALESCE(SUM(score), 0)
+		FROM hreview WHERE api_ref=#{param1}
+	</select>
+	
+	<!-- 정보 표시: 리뷰 작성자 닉네임 인출 -->
 	<select id="selectReviewNickname"
 		parameterType="com.edu.springboot.hospital.HreviewDTO">
 		SELECT nickname FROM member WHERE id=#{writer_ref}
 	</select>
 	
+	<!-- 정보 표시: 리뷰 작성자 이모지 인출 -->
+	<select id="selectReviewEmoji"
+		parameterType="com.edu.springboot.hospital.HreviewDTO">
+		SELECT emoji FROM member WHERE id=#{writer_ref}
+	</select>
 	
 	
-	<!-- 병원 좋아요: 병원 좋아요 수 조회 -->
+		
+	<!-- 병원 좋아요: 병원 좋아요 수 카운트 -->
 	<select id="countHospLike">
 		SELECT COUNT(*) FROM likes WHERE tablename='hospital' AND recodenum=#{param1}
 	</select>
 	
-	<!-- 병원 좋아요: 병원 졸아요 레코드 존재 여부 확인 -->
+	<!-- 병원 좋아요: 좋아요 표시 여부 확인 -->
 	<select id="checkHospLike">
 		SELECT COUNT(*) FROM likes WHERE tablename='hospital' AND member_ref=#{param1} AND recodenum=#{param2}
 	</select>
 	
-	<!-- 병원 좋아요: 병원 좋아요 수 증가 -->
+	<!-- 병원 좋아요: 병원 좋아요 증가 -->
 	<insert id="plusHospLike">
 		INSERT INTO likes VALUES (seq_likes_idx.nextval, #{param1}, 'hospital', #{param2})
 	</insert>
 	
-	<!-- 병원 좋아요: 병원 좋아요 수 감소 -->
+	<!-- 병원 좋아요: 병원 좋아요 감소 -->
 	<delete id="minusHospLike">
 		DELETE FROM likes WHERE tablename='hospital' AND member_ref=#{param1} AND recodenum=#{param2}
 	</delete>
 	
 	
 	
-	<!-- 리뷰 좋아요: 리뷰 좋아요 수 조회 -->
+	<!-- 리뷰 좋아요: 리뷰 좋아요 수 카운트 -->
 	<select id="countReviewLike">
 		SELECT COUNT(*) FROM likes WHERE tablename='hreview' AND recodenum=#{param1}
 	</select>
 	
-	<!-- 리뷰 좋아요: 리뷰 좋아요 레코드 존재 여부 확인 -->
+	<!-- 리뷰 좋아요: 리뷰 좋아요 표시 여부 확인 -->
 	<select id="checkReviewLike">
 		SELECT COUNT(*) FROM likes WHERE tablename='hreview' AND member_ref=#{param1} AND recodenum=#{param2}
 	</select>
 	
-	<!-- 리뷰 좋아요: 리뷰 좋아요 수 증가 -->
+	<!-- 리뷰 좋아요: 리뷰 좋아요 증가 -->
 	<insert id="plusReviewLike">
 		INSERT INTO likes VALUES (seq_likes_idx.nextval, #{param1}, 'hreview', #{param2})
 	</insert>
 	
-	<!-- 리뷰 좋아요: 리뷰 좋아요 수 감소 -->
+	<!-- 리뷰 좋아요: 리뷰 좋아요 감소 -->
 	<delete id="minusReviewLike">
 		DELETE FROM likes WHERE tablename='hreview' AND member_ref=#{param1} AND recodenum=#{param2}
 	</delete>
 	
-	<!-- 리뷰 좋아요: 리뷰 삭제에 의한 리뷰 좋아요 일괄 삭제 -->
-	<delete id="deleteAllLike">
+	<!-- 리뷰 좋아요: 리뷰의 모든 좋아요 삭제 -->
+	<delete id="deleteAllHospReviewLike">
 		DELETE FROM likes WHERE tablename='hreview' AND recodenum=#{param1}
+	</delete>
+
+
+
+	<!-- 해시태그: 해시태그 목록 -->
+	<select id="listHashtag"
+		resultType="com.edu.springboot.hospital.HashtagDTO">
+		SELECT * FROM hashtag
+	</select>
+	
+	<!-- 해시태그: 해시태그 목록 조회 -->
+	<select id="selectHospHashtag"
+		resultType="com.edu.springboot.hospital.HashtagDTO">
+		SELECT * FROM hashtag WHERE hosp_ref=#{id}
+	</select>
+
+	<!-- 해시태그: 리뷰 해시태그 작성 -->
+	<insert id="writeReviewHashtag">
+		INSERT INTO hashtag (tag_idx, hreview_ref, tag) VALUES (seq_hashtag_idx.nextval, #{param1}, #{param2})
+	</insert>
+	
+	<!-- 리뷰의 모든 해시태그 삭제 -->
+	<delete id="deleteAllReviewHashtag">
+		DELETE FROM hashtag WHERE hreview_ref=#{param1}
 	</delete>
 	
 	
 	
-	<!-- 리뷰 수 조회 -->
-	<select id="countReview">
-		SELECT COUNT(*) FROM hreview WHERE review_idx=original_idx AND api_ref=#{param1}
-	</select>
-	
-	<!-- 별점 합계 조회 -->
-	<select id="sumScore" resultType="int">
-		SELECT COALESCE(SUM(score), 0)
-		FROM hreview WHERE api_ref=#{param1}
-	</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- 주소 동적 셀렉트: 시도를 인출 -->
+	<!-- 주소: 시도 인출 -->
 	<select id="selectSido"
 		resultType="com.edu.springboot.hospital.AddressDTO">
 		SELECT sido FROM address
 		GROUP BY sido ORDER BY sido ASC	
 	</select>
 	
-	<!-- 주소 동적 셀렉트: 시도에 해당하는 시구군을 인출 -->
+	<!-- 주소: 시도에 해당하는 시구군을 인출 -->
 	<select id="selectGugun"
 		parameterType="com.edu.springboot.hospital.AddressDTO"
 		resultType="com.edu.springboot.hospital.AddressDTO">
@@ -409,7 +366,7 @@
 		GROUP BY gugun ORDER BY gugun DESC
 	</select>
 	
-	<!-- 주소 동적 셀렉트: 시구군에 해당하는 읍면동을 인출 -->
+	<!-- 주소: 시구군에 해당하는 읍면동을 인출 -->
 	<select id="selectDong"
 		parameterType="com.edu.springboot.hospital.AddressDTO"
 		resultType="com.edu.springboot.hospital.AddressDTO">
@@ -419,15 +376,7 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- 지도에 표시할 병원 목록 -->
+	<!-- 지도: 지도에 표시할 병원 목록 -->
 	<select id="listHospMark"
 		parameterType="com.edu.springboot.hospital.ParameterDTO"
 		resultType="com.edu.springboot.hospital.HospitalDTO">
@@ -438,7 +387,7 @@
 		ORDER BY api_idx DESC
 	</select>
 	
-	<!-- 시간 정보 -->
+	<!-- 지도: 병원의 진료시간 정보 -->
 	<select id="selectHours"
 		parameterType="com.edu.springboot.hospital.HospitalDTO"
 		resultType="com.edu.springboot.member.HoursDTO">
@@ -446,9 +395,35 @@
 	</select>
 	
 	
+
+	<!-- 플러터 연동: 병원 목록 -->
+	<select id="getAllHospitals" resultType="com.edu.springboot.hospital.HospitalAppDTO">
+		SELECT
+			member.id, api.name, member.nickname, api.tel, api.address, member.department,
+			detail.pcr, detail.system
+		FROM detail
+		JOIN member ON detail.hosp_ref = member.id
+		JOIN api ON member.name = api.name
+	</select>	
 	
+	<!-- 플러터 연동: 병원 상세정보 목록 -->
+	<select id="getAllHDetails" resultType="com.edu.springboot.hospital.DetailDTO">
+		SELECT * FROM detail
+	</select>
 	
+	<!-- 플러터 연동: 병원 리뷰 목록 -->
+	<select id="getAllHReviews" resultType="com.edu.springboot.hospital.HreviewDTO">
+		SELECT * FROM hreview WHERE review_idx = original_idx
+	</select>
 	
+	<!-- 플러터 연동: 병원 리뷰의 답변 목록 -->
+	<select id="getAllHReplies" resultType="com.edu.springboot.hospital.HreviewDTO">
+		SELECT * FROM hreview WHERE review_idx != original_idx
+	</select>
 	
+	<!-- 플러터 연동: 전체 해시태그 목록 -->
+	<select id="getAllHashtags" resultType="com.edu.springboot.hospital.HashtagDTO">
+		SELECT * FROM hashtag
+	</select>
 
 </mapper>
