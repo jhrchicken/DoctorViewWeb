@@ -38,7 +38,7 @@ public class HospitalController {
    // 페이지당 출력할 레코드 수
    @Value("#{hospitalprops['hospital.postsPerPage']}")
    private int postsPerPage;
-   // 한 블록당 출력할 페이지 번호 수
+   // 한 블록 당 출력할 페이지 번호 수
    @Value("#{hospitalprops['hospital.pagesPerBlock']}")
    private int pagesPerBlock;
 
