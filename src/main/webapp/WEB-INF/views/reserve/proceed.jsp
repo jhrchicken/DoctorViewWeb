@@ -35,6 +35,7 @@
 	   let row = tbCalendar.insertRow(); // 첫 번째 행
 	   let dom = 1; // 요일 카운터
 	   let daysLength = (Math.ceil((doMonth.getDay() + lastDate.getDate()) / 7) * 7) - doMonth.getDay(); // 캘린더에 표시할 총 일 수
+	   let nearestFutureDay = null; // 가장 가까운 요일
 	
 	   for (let day = 1 - doMonth.getDay(); daysLength >= day; day++) {
 	       let column = row.insertCell();
@@ -51,19 +52,51 @@
 	           // 오늘 이후 날짜일 경우 && 선택 가능한 요일인지 확인
 	           if (currentDate >= nowDate && weeks.includes(korWeekday)) {
 	               column.onclick = function () { calendarChoiceDay(this); };
+	               
 	               // 오늘 이후 날짜 배경 색상
 	               column.classList.add("future")
+	               
+	               
+	                // 근무하는 가장 가까운 날을 찾음
+	                if (!nearestFutureDay && currentDate >= nowDate) {
+	                    nearestFutureDay = column;
+	                }
+	               
+	               
+	               
 	           } else {
 	               // 오늘 이전 날짜 또는 선택 불가능한 요일
 	               column.classList.add("past");
 	           }
-	
-	           // 오늘 날짜일 경우
-	           if (day === nowDate.getDate() && toDay.getMonth() === nowDate.getMonth() && toDay.getFullYear() === nowDate.getFullYear()) {
-	               column.onclick = function () { calendarChoiceDay(column); }; // 오늘 날짜도 선택 가능
-	        	   column.classList.add("past"); 
-	               calendarChoiceDay(column); // 오늘 날짜 자동 선택
-	           }
+      
+	           // 오늘 날짜일 경우, 병원이 근무하는 요일인지 확인
+	            if (day === nowDate.getDate() && toDay.getMonth() === nowDate.getMonth() && toDay.getFullYear() === nowDate.getFullYear()) {
+	                if (weeks.includes(korWeekday)) {
+	                    // 오늘이 병원이 근무하는 요일이면 기본으로 선택됨
+	                    column.onclick = function () { calendarChoiceDay(column); };
+	                    column.classList.add("future");
+	                    calendarChoiceDay(column); // 오늘 날짜 자동 선택
+	                    
+	                    
+	                    
+	                    
+	                    
+	                    // 근무하는 가장 가까운 날을 찾음
+	                    if (!nearestFutureDay && currentDate >= nowDate) {
+	                        nearestFutureDay = column;
+	                    }
+	                    
+	                    
+	                    
+	                    
+	                    
+	                    
+	                } else {
+	                    column.classList.add("past"); // 오늘이 근무하지 않는 요일이면 선택 불가
+	                }
+	            }
+   
+	           
 	       } else {
 	           // 이전, 다음 달 날짜 처리
 	           let exceptDay = new Date(doMonth.getFullYear(), doMonth.getMonth(), day);
@@ -83,7 +116,21 @@
 	       }
 	
 	       dom++;
-	   }
+	   }   
+	   
+	   
+	   
+	   // 오늘이 근무하지 않는 요일이라면, 가장 가까운 근무일을 자동 선택
+	    if (!weeks.includes(new Date().toLocaleString('ko-KR', { weekday: 'long' }))) {
+	        if (nearestFutureDay) {
+	            calendarChoiceDay(nearestFutureDay); // 가장 가까운 근무일을 선택
+	        }
+	    }
+	   
+	   
+	   
+	   
+	   
 	}
 	
 	   	
