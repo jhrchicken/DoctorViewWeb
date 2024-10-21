@@ -320,12 +320,12 @@ document.addEventListener('DOMContentLoaded', function () {
 					<div class="btn_wrap">
 					<!-- 사용자가 로그인 했고 임점한 병원인 경우에만 예약 가능 -->
 					<!-- ****************** 수정 필요 ****************** -->
-					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null }">
+					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null && sessionScope.userAuth != 'ROLE_HOSP' }">
 						<button type="button" onclick="location.href='/reserve/proceed.do?api_idx=${ param.api_idx }';">예약하기</button>
 					</c:if>
 						
 					<!-- 사용자가 로그인 했고 입점한 병원인 경우에만 채팅 가능 -->
-					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null }">
+					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null && sessionScope.userAuth != 'ROLE_HOSP' }">
 					    <button onclick="openChatRoom('${ sessionScope.userName }', '${ hospitalDTO.name }');">채팅하기</button>
 					</c:if>
 					</div>
@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', function () {
    
 <!-- 리뷰 작성 모달창 -->
 <form method="post" action="../hospital/writeReview.do" onsubmit="return validateReviewForm(this);">
-    <input type="hidden" id="review_write_api_idx" name="api_idx" value="" />
+    <input type="hidden" id="review_write_api_idx" name="api_ref" value="" />
     <input type="hidden" id="review_write_hashtags" name="hashtags" />
     <input type="hidden" id="review_write_score" name="score" value="" />
     <div class="modal" id="writeReviewModal">

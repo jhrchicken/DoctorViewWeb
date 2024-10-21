@@ -29,7 +29,7 @@ public interface IDoctorService {
 	// == 의사 리뷰 ==
 	// 리뷰 수 조회
 	public int countReview(String doc_ref);
-	// 의사의 리뷰 목록 조회
+	// 리뷰 목록 조회
 	public ArrayList<DreviewDTO> listReview(DoctorDTO doctorDTO);
 	// 리뷰 조회
 	public DreviewDTO selectReview(DreviewDTO dreviewDTO);
@@ -74,7 +74,7 @@ public interface IDoctorService {
 	public int deleteAllDocLike(int doc_idx);
 	
 	
-	// == 리뷰 ==
+	// == 리뷰 좋아요 ==
 	// 리뷰 좋아요 수 카운트
 	public int countReviewLike(String recodenum);
 	// 리뷰 좋아요 표시 여부 확인

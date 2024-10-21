@@ -17,7 +17,7 @@
   display: flex;
   justify-content: space-between;
 }
-/*** 게시판 - 총 게시글 수 ***/
+/*** 게시판 - 총 게시글 갯수 ***/
 #container .board_total {
   color: var(--gray-400);
   margin-top: 17px;
