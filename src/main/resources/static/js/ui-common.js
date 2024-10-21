@@ -22,4 +22,10 @@ document.addEventListener("DOMContentLoaded", function () {
     spaceBetween: 20,
     centeredSlides: false,
   });
+  var swiperTime = new Swiper('.time .swiper', {
+	loop: false,
+	slidesPerView: 4,  
+    spaceBetween: 20,
+    centeredSlides: false,
+  });
 });
