@@ -272,7 +272,7 @@ public class HospitalController {
 			String nickname = hospitalDAO.selectReviewNickname(review);
 			String emoji = hospitalDAO.selectReviewEmoji(review);
 			if (emoji != null) review.setNickname(nickname + " " + emoji);
-			else review.setNickname(nickname);
+			else review.setNickname(nickname + "==");
 			// 리뷰 좋아요 수
 			likecount = hospitalDAO.countReviewLike(Integer.toString(review.getReview_idx()));
 			review.setLikecount(likecount);
