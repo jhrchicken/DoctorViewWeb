@@ -112,10 +112,8 @@ public class DoctorController {
 		for (DreviewDTO review : reviewsList) {
 			String nickname = doctorDAO.selectReviewNickname(review);
 			String emoji = doctorDAO.selectReviewEmoji(review);
-			if (emoji != null) review.setNickname(nickname + " " + emoji);
+			if (emoji != null) review.setNickname(nickname + emoji);
 			else review.setNickname(nickname);
-			review.setNickname(nickname);
-			System.err.println(nickname);
 			// 리뷰 좋아요 수
 			int likecount = doctorDAO.countReviewLike(Integer.toString(review.getReview_idx()));
 			review.setLikecount(likecount);
