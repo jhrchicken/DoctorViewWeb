@@ -171,7 +171,7 @@ public class MypageController {
 	
 	// == 작성한 리뷰 ==
 	@GetMapping("/mypage/myReview.do")
-	public String myReviewGet(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, HospitalDTO hospitalDTO) {
+	public String myReviewGet(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, HospitalDTO hospitalDTO, DoctorDTO doctorDTO) {
 		
 		// 로그인 여부 검증
 		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
@@ -193,6 +193,12 @@ public class MypageController {
 		model.addAttribute("hashtagList", hashtagList);
 	      
 		ArrayList<DreviewDTO> dreviewList = mypageDAO.listMyDreview(id);
+		for (DreviewDTO dreview : dreviewList) {
+			doctorDTO.setDoc_idx(dreview.getDoc_ref());
+			doctorDTO = doctorDAO.viewDoctor(doctorDTO);
+			dreview.setDoc_name(doctorDTO.getName());
+			dreview.setHospname(doctorDTO.getHospname());
+		}
 		
 		model.addAttribute("hreviewList", hreviewList);
 		model.addAttribute("dreviewList", dreviewList);
@@ -202,7 +208,7 @@ public class MypageController {
 	
 	
    	// == 리뷰 수정 ==
-   	@PostMapping("/mypage/editReview.do")
+   	@PostMapping("/mypage/editHreview.do")
    	public String editReviewPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, HreviewDTO hreviewDTO) {
    		
    		// 로그인 여부 검증
@@ -229,7 +235,7 @@ public class MypageController {
 	
 	
    	// == 리뷰 삭제 ==
-   	@PostMapping("/mypage/deleteReview.do")
+   	@PostMapping("/mypage/deleteHreview.do")
    	public String deleteReviewGet(HttpServletRequest req) {
    		int review_idx = Integer.parseInt(req.getParameter("review_idx"));
    		hospitalDAO.deleteReview(review_idx);
