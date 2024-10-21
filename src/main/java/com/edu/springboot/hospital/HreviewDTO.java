@@ -22,6 +22,10 @@ public class HreviewDTO {
 	private int likecheck;
 	private int likecount;
 	
-	//api용 추가 컬럼
+	// api용 추가 컬럼
 	private String hosp_ref;
+	
+	// 작성한 리뷰용 추가 컬럼
+	private String hosp_name;
+	private String hosp_department;
 }
