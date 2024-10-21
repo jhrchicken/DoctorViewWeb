@@ -119,8 +119,7 @@ public class DoctorController {
 			int likecount = doctorDAO.countReviewLike(Integer.toString(review.getReview_idx()));
 			review.setLikecount(likecount);
 			// 리뷰 좋아요 클릭 여부
-			int reviewlikecheck = doctorDAO.checkReviewLike(id, Integer.toString(review.getReview_idx()));
-			model.addAttribute("reviewlikecheck", reviewlikecheck);
+			review.setLikecheck(doctorDAO.checkReviewLike(id, Integer.toString(review.getReview_idx())));
 		}
 		model.addAttribute("reviewsList", reviewsList);
       
@@ -179,7 +178,7 @@ public class DoctorController {
 		String id = ((MemberDTO) session.getAttribute("loginMember")).getId();
 		doctorDTO.setHosp_ref(id);
 		doctorDAO.writeDoctor(doctorDTO);
-      
+
 		return "redirect:../doctor.do";
 	}
 	
