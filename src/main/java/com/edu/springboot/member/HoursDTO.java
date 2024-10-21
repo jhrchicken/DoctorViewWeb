@@ -14,7 +14,7 @@ public class HoursDTO {
 	private String endtime;
 	private String startbreak;
 	private String endbreak;
-	private String deadline;
+	private String deadline; 
 	private String hosp_ref;
 	private String open_week;
 	private String weekend;
@@ -30,7 +30,7 @@ public class HoursDTO {
 	    LocalTime startBreak = LocalTime.parse(startbreak);
 	    LocalTime endBreak = LocalTime.parse(endbreak);
 		
-        while (currentTime.isBefore(LocalTime.parse(deadline)) || currentTime.equals(deadline)) {
+        while (currentTime.isBefore(LocalTime.parse(deadline)) || currentTime.equals(LocalTime.parse(deadline))) {
 			if (currentTime.isBefore(startBreak) || currentTime.isAfter(endBreak) || currentTime.equals(endBreak)) {
 				timeSlots.add(currentTime);
 			}
