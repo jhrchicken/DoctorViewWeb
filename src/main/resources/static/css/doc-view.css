@@ -188,6 +188,7 @@
   padding: 10px;
   margin-top: 10px;
   color: var(--gray-500);
+  min-height: 135px;
 }
 /*** 좋아요, 답글달기 ***/
 #container .review_other {
