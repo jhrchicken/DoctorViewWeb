@@ -16,13 +16,14 @@
   padding: 30px 0 20px;
 }
 #container .user {
-  width: 50%;
+  width: 100%;
   padding: 30px 40px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   margin-bottom: 30px;
+  position: relative;
 }
 #container .user .none {
   font-size: 25px;
@@ -31,11 +32,12 @@
 }
 #container .user .user_emoji {
   font-size: 50px;
+  text-align: center;
+  display: block;
+  width: 250px;
 }
 #container .user .user_info {
   padding: 20px 30px;
-  position: relative;
-  width: 100%;
 }
 #container .user_name {
   font-size: 30px;
@@ -56,9 +58,9 @@
   color: #000;
   font-weight: 400;
 }
-#container .user_info a {
+#container .user a {
   position: absolute;
-  right: 0;
+  right: 30px;
   top: 50%;
   transform: translateY(-50%);
   width: 100px;

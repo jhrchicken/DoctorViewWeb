@@ -32,8 +32,8 @@
 						    <p class="point">0</p>
 						</c:if> 
 				    </div>
-				    <a href="/store.do">상점으로<br />이동</a>
 			    </div>
+			    <a href="/store.do">상점으로<br />이동</a>
 	    	</div>
 			 
 			
