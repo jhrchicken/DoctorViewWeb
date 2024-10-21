@@ -19,5 +19,6 @@ public class HreviewDTO {
 	private int api_ref;
 	
 	private String nickname;
+	private int likecheck;
 	private int likecount;
 }
