@@ -175,7 +175,7 @@ public class MemberController {
 //	로그인
 	@GetMapping("/member/login.do")
 	public String login() {
-		return "member/login";
+		return "member/login"; 
 	}
 	@PostMapping("/member/login.do")
 	public String login(MemberDTO memberDTO, Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp) {
