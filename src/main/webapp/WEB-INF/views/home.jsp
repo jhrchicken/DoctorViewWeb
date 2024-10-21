@@ -26,7 +26,7 @@
 		<div class="content_inner">
 			<section class="search">
 				<div class="search_wrap">
-					<img src="/images/doctor.png" alt="캐릭터" style="width: 160px; height: 160px;"/>
+					<img src="/images/main_search.png" alt="캐릭터" style="width: 160px; height: 160px;"/>
 					
 					<div class="searchForm_wrap">
 						<div class="title">
@@ -35,7 +35,7 @@
 						</div>
 						<form class="searchForm" name="searchForm">
 							<select name="searchField" class="searchField">
-								<option value="">--- 조건 선택 ---</option>
+								<option value="hospital">--- 조건 선택 ---</option>
 								<option value="hospital">병원</option>
 								<option value="doctor">의사</option>
 							</select>							
@@ -51,34 +51,40 @@
 				<div class="swiper">
 	            	<div class="swiper-wrapper">
 	            		<div class="swiper-slide">
-	                  		<a href="#"># 감기</a>
+	                  		<a href="#">#감기/몸살</a>
 	            		</div>
 	                  	<div class="swiper-slide">
-	                  		<a href="#"># 이비인후과</a>
+	                  		<a href="#">#코로나</a>
 	            		</div>
 	            		<div class="swiper-slide">
-	                  		<a href="#"># 복통</a>
+	                  		<a href="#">#소아과</a>
 	            		</div>
 	                  	<div class="swiper-slide">
-	                  		<a href="#"># 기침</a>
+	                  		<a href="#">#위염</a>
 	            		</div>
 	            		<div class="swiper-slide">
-	                  		<a href="#"># 소아과</a>
+	                  		<a href="#">#탈모</a>
 	            		</div>
 	                  	<div class="swiper-slide">
-	                  		<a href="#"># 피부염</a>
+	                  		<a href="#">#다이어트</a>
 	            		</div>
 	            		<div class="swiper-slide">
-	                  		<a href="#"># 두통</a>
+	                  		<a href="#">#여드름</a>
 	            		</div>
 	                  	<div class="swiper-slide">
-	                  		<a href="#"># 무릎</a>
+	                  		<a href="#">#인공눈물</a>
 	            		</div>
 	            		<div class="swiper-slide">
-	                  		<a href="#"># 충치</a>
+	                  		<a href="#">#소화불량</a>
 	            		</div>
 	                  	<div class="swiper-slide">
-	                  		<a href="#"># 시술</a>
+	                  		<a href="#">#내과</a>
+	            		</div>
+	            		<div class="swiper-slide">
+	                  		<a href="#">#산부인과</a>
+	            		</div>
+	                  	<div class="swiper-slide">
+	                  		<a href="#">#무좀</a>
 	            		</div>
 	              	</div>
 	            </div>
