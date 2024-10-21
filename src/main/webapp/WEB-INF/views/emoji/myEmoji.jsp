@@ -30,7 +30,7 @@
 						</c:if>
 						<c:if test="${ empty memberDTO.point }">
 						    <p class="point">0</p>
-						</c:if>
+						</c:if> 
 				    </div>
 				    <a href="/store.do">상점으로<br />이동</a>
 			    </div>
