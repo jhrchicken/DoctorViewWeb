@@ -229,6 +229,9 @@ public class HospitalController {
 			hospitalDTO.setPassword(basicDTO.getPassword());
 			hospitalDTO.setNickname(basicDTO.getNickname());
 			hospitalDTO.setTaxid(basicDTO.getTaxid());
+			// 입점 병원 시간 정보
+			ArrayList<HoursDTO> hourList = hospitalDAO.selectHours(hospId);
+			model.addAttribute("hourList", hourList);
 			// 입점 병원 상세 정보
 			DetailDTO detailDTO = hospitalDAO.selectDetail(hospId);
 			if (detailDTO != null) {
@@ -274,8 +277,7 @@ public class HospitalController {
 			likecount = hospitalDAO.countReviewLike(Integer.toString(review.getReview_idx()));
 			review.setLikecount(likecount);
 			// 리뷰 좋아요 클릭 여부
-			int reviewlikecheck = hospitalDAO.checkReviewLike(id, Integer.toString(review.getReview_idx()));
-			model.addAttribute("reviewlikecheck", reviewlikecheck);
+			review.setLikecheck(hospitalDAO.checkReviewLike(id, Integer.toString(review.getReview_idx())));	
 		}
 		// 해시태그
 		ArrayList<HashtagDTO> hashtagList = hospitalDAO.listHashtag();
@@ -405,47 +407,59 @@ public class HospitalController {
    		hospitalDAO.deleteReply(Integer.parseInt(req.getParameter("review_idx")));
    		return "redirect:../hospital/viewHosp.do?api_idx=" + req.getParameter("api_ref");
    	}
-   
-   
-   
-   
-   
-   
-   
-   @GetMapping("hospital/clickHospLike.do")
-   public String clickLikeGet(HttpServletRequest req, HttpSession session) {
-      // 좋아요 여부 확인
-      String id = (String) session.getAttribute("userId");
-      String api_idx = req.getParameter("api_idx");
-      int likecheck = hospitalDAO.checkHospLike(id, Integer.parseInt(api_idx));
-      if (likecheck == 0) {
-         // 좋아요 증가
-         hospitalDAO.plusHospLike(id, Integer.parseInt(api_idx));
-      }
-      else {
-         // 좋아요 취소
-         hospitalDAO.minusHospLike(id, Integer.parseInt(api_idx));
-      }
-      return "redirect:../hospital/viewHosp.do?api_idx=" + api_idx;
-   }
-   
-   @GetMapping("/hospital/clickReviewLike.do")
-   public String clickReviewGet(HttpServletRequest req, HttpSession session) {
-      // 좋아요 여부 확인
-      String id = (String) session.getAttribute("userId");
-      String api_ref = req.getParameter("api_ref");
-      String review_idx = req.getParameter("review_idx");
-      int likecheck = hospitalDAO.checkReviewLike(id, review_idx);
-      if (likecheck == 0) {
-         // 좋아요 증가
-         hospitalDAO.plusReviewLike(id, review_idx);
-      }
-      else {
-         // 좋아요 취소
-         hospitalDAO.minusReviewLike(id, review_idx);
-      }
-      return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
-   }
+   	
+   	
+   	// == 병원 좋아요 ==
+   	@GetMapping("hospital/clickHospLike.do")
+   	public String clickLikeGet(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+   		
+   		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+		String id = loginMember.getId();
+		
+		// 병원 좋아요
+   		String api_idx = req.getParameter("api_idx");
+   		int likecheck = hospitalDAO.checkHospLike(id, Integer.parseInt(api_idx));
+   		if (likecheck == 0) {
+   			hospitalDAO.plusHospLike(id, Integer.parseInt(api_idx));
+   		}
+   		else {
+   			hospitalDAO.minusHospLike(id, Integer.parseInt(api_idx));
+   		}
+   		return "redirect:../hospital/viewHosp.do?api_idx=" + api_idx;
+   	}
+   	
+   	
+   	// == 리뷰 좋아요 ==
+   	@GetMapping("/hospital/clickReviewLike.do")
+   	public String clickReviewGet(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
+   		
+   		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+		String id = loginMember.getId();
+   		
+		// 리뷰 좋아요
+   		String api_ref = req.getParameter("api_ref");
+   		String review_idx = req.getParameter("review_idx");
+   		int likecheck = hospitalDAO.checkReviewLike(id, review_idx);
+   		if (likecheck == 0) {
+   			// 좋아요 증가
+   			hospitalDAO.plusReviewLike(id, review_idx);
+   		}
+   		else {
+   			// 좋아요 취소
+   			hospitalDAO.minusReviewLike(id, review_idx);
+   		}
+   		return "redirect:../hospital/viewHosp.do?api_idx=" + api_ref;
+   	}
  
    
 	// 지도
@@ -486,6 +500,5 @@ public class HospitalController {
 		model.addAttribute("hospList", hospList);
 		return "/hospital/map";
 	}
-   
 
 }

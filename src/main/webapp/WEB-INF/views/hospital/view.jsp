@@ -319,7 +319,6 @@ document.addEventListener('DOMContentLoaded', function () {
 						
 					<div class="btn_wrap">
 					<!-- 사용자가 로그인 했고 임점한 병원인 경우에만 예약 가능 -->
-					<!-- ****************** 수정 필요 ****************** -->
 					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null && sessionScope.userAuth != 'ROLE_HOSP' }">
 						<button type="button" onclick="location.href='/reserve/proceed.do?api_idx=${ param.api_idx }';">예약하기</button>
 					</c:if>
@@ -398,6 +397,20 @@ document.addEventListener('DOMContentLoaded', function () {
 			        </c:choose>
 			    </div>
 			</div>
+			
+			<!-- 시간 정보 -->
+			<c:forEach items="${ hourList }" var="row" varStatus="loop">
+					<c:if test="${ row.starttime != '00:00' }">
+						<div class="doc_detail">
+							<p class="blue">${ row.week }</p>
+							<p>${ row.starttime } - ${ row.endtime }</p>
+							<c:if test="${ row.startbreak != '00:00' }">
+								<p>${ row.startbreak } - ${ row.endbreak } 휴게시간</p>
+							</c:if>
+							<p>${ row.deadline } 접수마감</p>
+						</div>
+					</c:if>
+			</c:forEach>	
 		</div>
 		
 		<div class="comment_inner">
@@ -462,18 +475,28 @@ document.addEventListener('DOMContentLoaded', function () {
 												</c:forEach>
 											</ul>
 										</c:if>
+										<!-- ************** 이거 추가됨 **************** -->
+										<div class="review_content">
+											<p>담당의 ${ row.doctor }</p>					
+										</div>
+										<div class="review_content">
+											<p>치료 내용 ${ row.treat }</p>					
+										</div>
+										<div class="review_content">
+											<p>비용 ${ row.cost }</p>					
+										</div>
 										<div class="review_content">
 											<p>${ row.content }</p>					
 										</div>
 										<div class="review_other">
 											<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
-							                <c:if test="${ reviewlikecheck == 0 }">
+							                <c:if test="${ row.likecheck == 0 }">
 							                    <button class="comm_like_btn" type="button" onclick="location.href='../hospital/clickReviewLike.do?api_ref=${ row.api_ref }&review_idx=${ row.review_idx }';">
 							                    	<img src="/images/heart.svg" style="width: 24px; height: 24px;" /> ${ row.likecount }
 							                	</button>
 							                </c:if>
 							                <!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
-							                <c:if test="${ reviewlikecheck == 1 }">
+							                <c:if test="${ row.likecheck == 1 }">
 							                    <button class="comm_like_btn" type="button" onclick="location.href='../hospital/clickReviewLike.do?api_ref=${ row.api_ref }&review_idx=${ row.review_idx }';">
 							                    	<img src="/images/heart_full.svg" style="width: 24px; height: 24px;" /> ${ row.likecount }
 						                        </button>
