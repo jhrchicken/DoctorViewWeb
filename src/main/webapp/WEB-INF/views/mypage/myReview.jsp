@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="/css/my-review.css" />
 
 <script>
-//리뷰 수정 모달창 열기
+// 병원 리뷰 수정 모달창 열기
 function openHreviewEditModal(api_ref, review_idx, score, content, cost, treat, doctor) {
     document.getElementById("hreview_edit_api_ref").value = api_ref;
     document.getElementById("hreview_edit_score").value = score;
@@ -33,7 +33,7 @@ function openHreviewEditModal(api_ref, review_idx, score, content, cost, treat, 
     });
 }
 
-//리뷰 삭제
+// 병원 리뷰 삭제
 function deleteHreview(api_ref, review_idx) {
 	if (confirm("댓글을 삭제하시겠습니까?")) {
 		var form = document.deleteHreviewForm;
@@ -55,7 +55,7 @@ function validateReviewForm(form) {
 	}
 }
 
-//리뷰 수정 해시태그
+// 병원 리뷰 수정 해시태그
 document.addEventListener('DOMContentLoaded', function () {
     const hashtagButtons = document.querySelectorAll('#hashtag-list button');
     const hashtagsHiddenInput = document.getElementById('hreview_edit_hashtags');
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-//리뷰 수정 별점
+// 병원 리뷰 수정 별점
 document.addEventListener('DOMContentLoaded', function () {
     const stars = document.querySelectorAll('#star-rating .star');
     const scoreInput = document.getElementById('hreview_edit_score');
@@ -106,6 +106,87 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// 의사 리뷰 수정 모달창 열기
+function openDreviewEditModal(doc_ref, review_idx, score, content) {
+   document.getElementById("dreview_edit_doc_ref").value = doc_ref;
+    document.getElementById("dreview_edit_score").value = score;
+    document.getElementById("dreview_edit_content").value = content;
+    document.getElementById("dreview_edit_dreview_idx").value = review_idx;
+    // 별점 이미지 업데이트
+    document.querySelectorAll('.star').forEach(function(star) {
+        if (star.getAttribute('data-value') <= score) {
+            star.src = '/images/star.svg';
+        } else {
+            star.src = '/images/star_empty.svg';
+        }
+    });
+}
+
+// 의사 리뷰 삭제
+function deleteDreview(doc_ref, review_idx) {
+   if (confirm("댓글을 삭제하시겠습니까?")) {
+      var form = document.deleteDreviewForm;
+      // hidden 필드에 값을 동적으로 설정
+      form.doc_ref.value = doc_ref;
+      form.dreview_idx.value = review_idx;
+      form.method = "post";
+      form.action = "/mypage/deleteDreview.do";
+      form.submit();
+   }
+}
+
+// 의사 리뷰 수정 해시태그
+document.addEventListener('DOMContentLoaded', function () {
+    const hashtagButtons = document.querySelectorAll('#hashtag-list button');
+    const hashtagsHiddenInput = document.getElementById('dreview_edit_hashtags');
+    let selectedHashtags = [];
+    // 해시태그 버튼 클릭 시 처리
+    hashtagButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const tag = button.textContent.trim();
+            // 이미 선택된 해시태그인 경우 색상 원래대로 되돌리기
+            if (selectedHashtags.includes(tag)) {
+                selectedHashtags = selectedHashtags.filter(h => h !== tag);
+                button.style.backgroundColor = ''; // 원래 색상으로 변경
+                button.style.color = ''; // 원래 텍스트 색상으로 변경
+            } else {
+                // 선택되지 않은 해시태그인 경우 추가
+                selectedHashtags.push(tag);
+                button.style.backgroundColor = '#005ad5'; // 선택된 색상으로 변경
+                button.style.color = '#fff'; // 텍스트 색상 변경
+            }
+            // 히든 필드에 선택된 해시태그 값을 저장
+            updateHiddenInput();
+        });
+    });
+    // 히든 필드에 선택된 해시태그 값을 저장
+    function updateHiddenInput() {
+        hashtagsHiddenInput.value = selectedHashtags.join(',');
+    }
+});
+
+
+// 의사 리뷰 수정 별점
+document.addEventListener('DOMContentLoaded', function () {
+    const stars = document.querySelectorAll('#star-rating .star');
+    const scoreInput = document.getElementById('dreview_edit_score');
+    stars.forEach(star => {
+        star.addEventListener('click', function () {
+            const rating = this.getAttribute('data-value');
+            scoreInput.value = rating; // 히든 필드에 점수 저장
+            // 선택된 별의 색상 변경
+            stars.forEach(s => {
+                if (s.getAttribute('data-value') <= rating) {
+                    s.src = '/images/star.svg'; // 선택된 별의 색상
+                } else {
+                    s.src = '/images/star_empty.svg'; // 선택되지 않은 별의 색상
+                }
+            });
+        });
+    });
+});
+
 </script>
 
 </head>
@@ -118,10 +199,14 @@ document.addEventListener('DOMContentLoaded', function () {
       
 		<!-- 삭제를 위한 폼 -->
 		<form name="deleteHreviewForm" method="post">
-		<input type="hidden" name="api_ref" value="" />
-			<input type="hidden" name="review_idx" value="" />
+			<input type="hidden" name="api_ref" value="" />
+			<input type="hidden" name="hreview_idx" value="" />
 		</form>
-      
+        <form name="deleteDreviewForm" method="post">
+             <input type="hidden" name="doc_ref" value="" />
+             <input type="hidden" name="dreview_idx" value="" />
+         </form>
+         
 		<c:choose>
 			<c:when test="${ empty hreviewList && empty hreviewList }">
 				<p>작성한 리뷰가 없습니다</p>
@@ -237,13 +322,13 @@ document.addEventListener('DOMContentLoaded', function () {
 				              <p>${ row.content }</p>					
 				            </div>
 				            <div class="btn_wrap">
-  				           		<%-- <button type="button" data-bs-toggle="modal" data-bs-target="#editDreviewModal"
-									onclick="openDreviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', '${ row.cost }', '${ row.treat }', '${ row.doctor }')">
-									수정하기
-								</button>
-								<button type="button" onclick="deleteDreview(${ row.api_ref }, ${ row.review_idx });">
-									삭제하기
-								</button> --%>
+  				           		<button type="button" data-bs-toggle="modal" data-bs-target="#editDreviewModal"
+                                             onclick="openDreviewEditModal(${ row.doc_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }')">
+                                          수정하기
+                                       </button>
+                                 <button type="button" onclick="deleteDreview(${ row.doc_ref }, ${ row.review_idx });">
+                                    삭제하기
+                                 </button>
 				            </div> 
 				          </div>
 				          <a href="">
@@ -261,8 +346,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-<!-- 리뷰 수정 모달창 -->
-<form method="post" action="../mypage/editHreview.do" onsubmit="return validateHreviewForm(this);">
+<!-- 병원 리뷰 수정 모달창 -->
+<form method="post" action="../mypage/editHreview.do" onsubmit="return validateReviewForm(this);">
 	<input type="hidden" id="hreview_edit_api_ref" name="api_ref" value="" />
 	<input type="hidden" name="hashtags" id="hreview_edit_hashtags" />
     <input type="hidden" id="hreview_edit_score" name="score" value="" />
@@ -316,7 +401,57 @@ document.addEventListener('DOMContentLoaded', function () {
 	</div>
 </form>
 
-
+<!-- 의사 리뷰 수정 모달창 -->
+<form method="post" action="../mypage/editDreview.do" onsubmit="return validateReviewForm(this);">
+   <input type="hidden" id="dreview_edit_doc_ref" name="doc_ref" value="" />
+   <input type="hidden" id="dreview_edit_hashtags" name="hashtags" />
+    <input type="hidden" id="dreview_edit_score" name="score" value="" />
+   <div class="modal" id="editDreviewModal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+               <h4 class="modal-title">의사 리뷰 수정</h4>
+               <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+               <input type="hidden" id="dreview_edit_dreview_idx" name="review_idx" value="">
+               <!-- 해시태그 선택 영역 -->
+               <div class="form-group">
+                  <label>해시태그 선택:</label>
+                  <div id="hashtag-list">
+                     <!-- 해시태그 목록 -->
+                     <button type="button" class="btn btn-secondary">친절해요</button>
+                     <button type="button" class="btn btn-secondary">전문적이예요</button>
+                     <button type="button" class="btn btn-secondary">청결해요</button>
+                     <button type="button" class="btn btn-secondary">신속해요</button>
+                  </div>
+               </div>
+               <!-- 별 점수 선택 영역 -->
+               <div class="form-group">
+                  <label>점수 선택:</label>
+                  <div id="star-rating" style="cursor: pointer;">
+                     <!-- 별 아이콘 -->
+                     <img src="/images/star_empty.svg" class="star" data-value="1" />
+                     <img src="/images/star_empty.svg" class="star" data-value="2" />
+                     <img src="/images/star_empty.svg" class="star" data-value="3" />
+                     <img src="/images/star_empty.svg" class="star" data-value="4" />
+                     <img src="/images/star_empty.svg" class="star" data-value="5" />
+                  </div>
+               </div>
+               <!-- 폼 입력 -->
+               <textarea class="form-control" id="dreview_edit_content" name="content" style="height: 100px;" placeholder="내용을 입력해주세요 (필수입력)"></textarea>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+               <button type="submit" class="btn btn-primary">수정하기</button>
+               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</form>
 
 
 </body>

@@ -207,7 +207,7 @@ public class MypageController {
 	}
 	
 	
-   	// == 리뷰 수정 ==
+   	// == 병원 리뷰 수정 ==
    	@PostMapping("/mypage/editHreview.do")
    	public String editReviewPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, HreviewDTO hreviewDTO) {
    		
@@ -234,14 +234,60 @@ public class MypageController {
    	}
 	
 	
-   	// == 리뷰 삭제 ==
+   	// == 병원 리뷰 삭제 ==
    	@PostMapping("/mypage/deleteHreview.do")
    	public String deleteReviewGet(HttpServletRequest req) {
-   		int review_idx = Integer.parseInt(req.getParameter("review_idx"));
+   		int review_idx = Integer.parseInt(req.getParameter("hreview_idx"));
    		hospitalDAO.deleteReview(review_idx);
    		hospitalDAO.deleteAllReply(review_idx);
    		hospitalDAO.deleteAllHospReviewLike(review_idx);
    		return "redirect:../mypage/myReview.do";
    	}
+   	
+   	
+	// == 의사 리뷰 수정 ==
+	@PostMapping("/mypage/editDreview.do")
+	public String editReviewPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, DreviewDTO dreviewDTO) {
+		
+		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+		
+		// 댓글 수정
+      	doctorDAO.editReview(dreviewDTO);
+      	
+      	// 해시태그 처리
+      	String hashtags = req.getParameter("hashtags");
+      	if (hashtags != null && !hashtags.isEmpty()) {
+      		String[] hashtagArray = hashtags != null ? hashtags.split(",") : new String[0];
+      		doctorDAO.deleteAllReviewHashtag(dreviewDTO.getReview_idx());
+      		for (String hashtag : hashtagArray) {
+      			doctorDAO.writeReviewHashtag(dreviewDTO.getReview_idx(), hashtag.trim());
+      		}
+      	}
+      	return "redirect:../mypage/myReview.do";
+	}
+
+	
+	// == 의사 리뷰 삭제 ==
+	@PostMapping("/mypage/deleteDreview.do")
+	public String deleteReviewGet(HttpSession session, HttpServletRequest req, HttpServletResponse  response) {
+		
+		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+		
+		int review_idx = Integer.parseInt(req.getParameter("dreview_idx"));
+		doctorDAO.deleteReview(review_idx);
+		doctorDAO.deleteAllReply(review_idx);
+		doctorDAO.deleteAllReviewLike(review_idx);
+		return "redirect:../mypage/myReview.do";
+	}
 
 }
