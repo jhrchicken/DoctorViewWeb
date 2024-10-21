@@ -313,22 +313,39 @@
 #container .review_title .edit {
   color: var(--gray-400);
 }
-/*** 리뷰 해시태그 ***/
+/*** 리뷰 해시태그, 추가정보 ***/
+#container .extra_wrap {
+	display: flex;
+	gap: 0 5px;
+  	margin-top: 5px;
+}
 #container .review_hash {
   display: flex;
   gap: 0 5px;
-  margin-top: 5px;
 }
 #container .review_hash p {
-  display: block;
   padding: 5px 10px;
   background: #bbb;
+  border: 1px solid #bbb;
   border-radius: 5px;
   color: #fff;
+  font-size: 18px;
 }
 #container .review_hash p::before {
   content: '#';
   margin-right: 5px;
+}
+#container .review_extra {
+	display: flex;
+	gap: 0 5px;
+	font-size: 18px;
+}
+#container .extra_detail {
+	display: flex;
+	gap: 0 5px;
+	padding: 5px 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
 }
 /*** 댓글 내용 ***/
 #container .review_content {
@@ -338,23 +355,6 @@
   margin-top: 8px;
   color: var(--gray-500);
   min-height: 100px;
-  position: relative;
-}
-/*** 추가정보 ***/
-#container .review_extra {
-	display: flex;
-	gap: 0 1px;
-	font-size: 18px;
-	position: absolute;
-	right: 0;
-	top: -37px;
-}
-#container .review_extra p {
-	display: block;
-	padding: 5px 10px;	
-	background: #ddd;
-	border-radius: 5px 5px 0 0;
-	color: #fff;
 }
 /*** 좋아요, 답글 달기 ***/
 #container .review_other {

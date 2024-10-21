@@ -479,24 +479,35 @@ document.addEventListener('DOMContentLoaded', function () {
 												<p class="edit">(수정됨)</p>
 											</c:if>
 										</div>
-										<!-- 해시태그 -->
-										<c:if test="${ not empty hashtagList }">
-											<ul class="review_hash">
-												<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
-													<c:if test="${ hashrow.hreview_ref == row.review_idx }">
-														<li class="hash">
-															<p>${ hashrow.tag }</p>
-														</li>
-													</c:if>
-												</c:forEach>
-											</ul>
-										</c:if>
-										<div class="review_content">
+										<div class="extra_wrap">
 											<div class="review_extra">
-												<p>담당의 | ${ row.doctor }</p>
-												<p>치료내용 | ${ row.treat }</p>			
-												<p>비용 | ${ row.cost }원</p>					
+												<div class="extra_detail">
+													<p class="blue">담당의</p>
+													<p>${ row.doctor }</p>
+												</div>
+												<div class="extra_detail">
+													<p class="blue">치료내용</p>
+													<p>${ row.treat }</p>			
+												</div>
+												<div class="extra_detail">
+													<p class="blue">비용</p>
+													<p>${ row.cost }원</p>					
+												</div>
 											</div>	
+											<!-- 해시태그 -->
+											<c:if test="${ not empty hashtagList }">
+												<ul class="review_hash">
+													<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
+														<c:if test="${ hashrow.hreview_ref == row.review_idx }">
+															<li>
+																<p>${ hashrow.tag }</p>
+															</li>
+														</c:if>
+													</c:forEach>
+												</ul>
+											</c:if>
+										</div>
+										<div class="review_content">
 											<p>${ row.content }</p>	
 										</div>
 										<div class="review_other">
