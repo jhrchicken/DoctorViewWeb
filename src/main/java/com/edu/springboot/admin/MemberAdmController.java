@@ -1,6 +1,5 @@
 package com.edu.springboot.admin;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.edu.springboot.board.BoardDTO;
 import com.edu.springboot.board.ParameterDTO;
 import com.edu.springboot.member.IMemberService;
 import com.edu.springboot.member.MemberDTO;
@@ -164,7 +162,7 @@ public class MemberAdmController {
 		model.addAttribute("memberList", memberList);
 		
 		// 페이지번호
-		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/admin/member_list.do?");
+		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/admin/hospital_list.do?");
 		model.addAttribute("pagingImg", pagingImg);
 		
 		return "admin-front/hospital_list";

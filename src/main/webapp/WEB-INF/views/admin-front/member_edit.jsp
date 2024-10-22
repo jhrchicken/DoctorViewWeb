@@ -25,7 +25,7 @@
       <div class="container-fluid">
 <!-- ############ 컨텐츠는 여기부터 Start ########## -->
 <form name="frm" method="post" action="member_edit.do">
-<input type="hid-den" name="auth" value="${ memberDTO.auth }" />
+<input type="hidden" name="auth" value="${ memberDTO.auth }" />
 <div class="card">
 	<div class="card-body">
 		<h5 class="card-title fw-semibold mb-4">일반회원수정</h5>
