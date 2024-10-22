@@ -26,53 +26,40 @@
 <!-- ############ 컨텐츠는 여기부터 Start ########## -->
 <div class="card">
 	<div class="card-body">
-		<h5 class="card-title fw-semibold mb-4">회원 관리</h5>
+		<h5 class="card-title fw-semibold mb-4">병원회원 승인관리</h5>
 		<div class="card">
     	<table class="table table-bordered">
     		<tr class="text-center" id="boardTr">
     			<th>No</th>
     			<th>아이디</th>
-    			<th>이름</th>
-    			<th>닉네임</th>
+    			<th>병원명</th>
     			<th>전화번호</th>
-    			<th>이메일</th>
-    			<th>등급</th>
+    			<th>승인여부</th>
     			<th></th>
 			</tr>
 <c:choose>
 	<c:when test="${ not empty memberList }">
 		<c:forEach items="${ memberList }" var="row" varStatus="loop">
-			<tr>
+			<tr <c:if test="${ row.enable eq 0 }">class="table-dark"</c:if>>
 				<td>${ maps.total - (((maps.pageNum-1) * maps.postsPerPage)	+ loop.index)}</td>
 				<td>${ row.id }</td>
 				<td>${ row.name }</td>
-				<td>${ row.nickname }</td>
 				<td>${ row.tel }</td>
-				<td>${ row.email }</td>
 				<td>
 					<c:choose>
-						<c:when test="${ row.auth eq 'ROLE_ADMIN' }">
-							관리자
+						<c:when test="${ row.enable eq 0 }">
+							승인안됨
 						</c:when>	
-						<c:when test="${ row.auth eq 'ROLE_USER' }">
-							일반회원
-						</c:when>
-						<c:when test="${ row.auth eq 'ROLE_HOSP' }">
-							병원회원
+						<c:when test="${ row.enable eq 1 }">
+							승인됨
 						</c:when>
 					</c:choose>
 				</td>
 				<td class="table_btn_wrap">
-					<c:choose>
-						<c:when test="${ row.auth eq 'ROLE_USER' }">
-							<button type="button" class="btn btn-warning" onclick="location.href='member_edit.do?id=${row.id}';">수정</button>
-							<button type="button" class="btn btn-danger" onclick="deleteMember('${row.id}');">삭제</button>
-						</c:when>
-						<c:when test="${ row.auth eq 'ROLE_HOSP' }">
-							<button type="button" class="btn btn-info" onclick="location.href='member_edit.do?id=${row.id}';">수정</button>
-							<button type="button" class="btn btn-danger" onclick="deleteMember('${row.id}');">삭제</button>
-						</c:when>
-					</c:choose>
+				<c:if test="${ row.enable eq 0 }">
+					<button type="button" class="btn btn-danger" onclick="enabledChange('${ row.id }','1');">승인</button>
+					<button type="button" class="btn btn-primary" onclick="enabledChange('${ row.id }','delete');">거절</button>
+				</c:if>
 				</td>
 			</tr>
 		</c:forEach>
@@ -93,9 +80,17 @@
 	</div>	
 </div>
 <script>
-let deleteMember = function(user_id){
-	if(confirm('삭제할까요?')){
-		location.href='member_delete.do?id='+user_id ;
+let enabledChange = function(id, enabled){
+	let msg = "";
+	if(enabled==1){
+		msg = "승인으로 변경할까요?";
+	}
+	else if(enabled=='delete'){
+		msg = "선택한 병원회원을 삭제할까요?";
+	}
+	
+	if(confirm(msg)){
+		location.href='hospital_change.do?id='+id+'&enabled='+enabled ;
 	}
 }
 </script>

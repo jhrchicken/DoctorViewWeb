@@ -28,7 +28,7 @@
 <input type="hid-den" name="auth" value="${ memberDTO.auth }" />
 <div class="card">
 	<div class="card-body">
-		<h5 class="card-title fw-semibold mb-4">일반회원수정</h5>
+		<h5 class="card-title fw-semibold mb-4">병원회원수정</h5>
 		<div class="card">
     	<table class="table table-bordered">
     		<tr class="text-center">
@@ -40,13 +40,9 @@
     			<td><input type="password" name="password" value="${ memberDTO.password }" class="form-control" /></td>
 			</tr>         		
     		<tr class="text-center">
-    			<th>이름</th>
+    			<th>병원명</th>
     			<td><input type="text" name="name" value="${ memberDTO.name }" class="form-control" /></td>
-			</tr>         		
-    		<tr class="text-center">
-    			<th>닉네임</th>
-    			<td><input type="text" name="nickname" value="${ memberDTO.nickname }" class="form-control" /></td>
-			</tr>         		
+			</tr>    		
     		<tr class="text-center">
     			<th>전화번호</th>
     			<td>
@@ -62,37 +58,15 @@
 	    			</div>
     			</div>
     			</td>
-			</tr>         		
-    		<tr class="text-center">
-    			<th>이메일</th>
-    			<td>
-    			<div class="row">
-	    			<div class="col">    			
-	    				<input type="text" name="email1" value="${ email[0] }" class="form-control" />
-	    			</div>
-					<div class="col">    				
-	    				<input type="text" name="email2" value="${ email[1] }" class="form-control" />
-	    			</div>
-    			</div>
-    			</td>
-			</tr>  
+			</tr>
 			<tr class="text-center">
     			<th>주소</th>
     			<td><input type="text" name="address" value="${ memberDTO.address }" class="form-control" /></td>
 			</tr>      
 			<tr class="text-center">
-    			<th>주민등록번호</th>
-    			<td>
-    			<div class="row">
-	    			<div class="col">    			
-	    				<input type="text" name="rrn1" value="${ rrn1 }" class="form-control" />
-	    			</div>
-					<div class="col">    				
-	    				<input type="text" name="rrn2" value="${ rrn2 }" class="form-control" />
-	    			</div>
-    			</div>
-    			</td>
-			</tr>   		
+    			<th>진료과목</th>
+    			<td><input type="text" name="department" value="${ memberDTO.department }" class="form-control" /></td>
+			</tr>      
 			</table>
     	</div>
 	</div>

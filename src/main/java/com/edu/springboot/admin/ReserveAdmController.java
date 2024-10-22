@@ -37,12 +37,8 @@ public class ReserveAdmController {
 			
 	@GetMapping("/admin/reserve_list.do")
 	public String reserve_list(HttpSession session, ParameterDTO parameterDTO, HttpServletRequest req, Model model, HttpServletResponse response) {
-		
-//		postsPerPage = 2;
-//		pagesPerBlock = 2;
-		
 		if(session.getAttribute("adminId")==null) {
-			JSFunction.alertLocation(response, "로그인 해 주세요.", "../admin/index.do");
+			JSFunction.alertLocation(response, "관리자로 로그인 해 주세요.", "../admin/index.do");
 			return null;
 		}
 		
@@ -75,6 +71,10 @@ public class ReserveAdmController {
 	
 	@GetMapping("/admin/reserve_change.do")
 	public String reserve_change(HttpSession session, ParameterDTO parameterDTO, HttpServletRequest req, Model model, HttpServletResponse response) {
+		if(session.getAttribute("adminId")==null) {
+			JSFunction.alertLocation(response, "관리자로 로그인 해 주세요.", "../admin/index.do");
+			return null;
+		}
 		
 		String app_id = req.getParameter("app_id");
 		String cancel = req.getParameter("cancel");

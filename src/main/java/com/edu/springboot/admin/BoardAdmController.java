@@ -40,7 +40,7 @@ public class BoardAdmController {
 	@GetMapping("/admin/board_list.do")
 	public String board_list(HttpSession session, Model model, HttpServletRequest req, ParameterDTO parameterDTO, HttpServletResponse response) {
 		if(session.getAttribute("adminId")==null) {
-			JSFunction.alertLocation(response, "로그인 해 주세요.", "../admin/index.do");
+			JSFunction.alertLocation(response, "관리자로 로그인 해 주세요.", "../admin/index.do");
 			return null;
 		}
 		
@@ -98,7 +98,7 @@ public class BoardAdmController {
 	@GetMapping("/admin/board_edit.do")
 	public String board_edit(HttpSession session, Model model, HttpServletRequest req, ParameterDTO parameterDTO, BoardDTO boardDTO, HttpServletResponse response) {
 		if(session.getAttribute("adminId")==null) {
-			JSFunction.alertLocation(response, "로그인 해 주세요.", "../admin/index.do");
+			JSFunction.alertLocation(response, "관리자로 로그인 해 주세요.", "../admin/index.do");
 			return null;
 		}
 		
@@ -123,7 +123,7 @@ public class BoardAdmController {
 	@PostMapping("/admin/board_edit.do")
 	public String board_edit(HttpSession session, HttpServletRequest req, ParameterDTO parameterDTO, BoardDTO boardDTO, HttpServletResponse response) {
 		if(session.getAttribute("adminId")==null) {
-			JSFunction.alertLocation(response, "로그인 해 주세요.", "../admin/index.do");
+			JSFunction.alertLocation(response, "관리자로 로그인 해 주세요.", "../admin/index.do");
 			return null;
 		}
 		
@@ -142,7 +142,7 @@ public class BoardAdmController {
 	@GetMapping("/admin/board_delete.do")
 	public String deletePostPost(HttpSession session, HttpServletRequest req, HttpServletResponse response) {
 		if(session.getAttribute("adminId")==null) {
-			JSFunction.alertLocation(response, "로그인 해 주세요.", "../admin/index.do");
+			JSFunction.alertLocation(response, "관리자로 로그인 해 주세요.", "../admin/index.do");
 			return null;
 		}
 	 

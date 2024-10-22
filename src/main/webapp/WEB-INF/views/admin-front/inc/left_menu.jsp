@@ -30,6 +30,14 @@
                 <span class="hide-menu">회원 관리</span>
               </a>
             </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/admin/hospital_list.do" aria-expanded="false">
+                <span>
+                  <i class="ti ti-article"></i>
+                </span>
+                <span class="hide-menu">병원 회원 승인</span>
+              </a>
+            </li>
             <!-- ##메뉴그룹1 끝## -->
             
             <!-- ##메뉴그룹2 시작## -->

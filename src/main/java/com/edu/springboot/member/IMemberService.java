@@ -21,6 +21,10 @@ public interface IMemberService {
 	// 회원목록 페이징
 	public int countAllMembers(ParameterDTO parameterDTO);
 	public List<MemberDTO> pageAllMembers(ParameterDTO parameterDTO);
+	// 병원회원 승인 페이징
+	public int countHospMembers(ParameterDTO parameterDTO);
+	public List<MemberDTO> pageHospMembers(ParameterDTO parameterDTO);
+	public int changeEnabled(String id, String enabled);
 	
 	
 //	회원가입: 개인회원 

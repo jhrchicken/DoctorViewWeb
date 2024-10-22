@@ -45,6 +45,31 @@
 		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}
     </select>
 	
+	<!-- 회원 목록 페이징 -->
+	<select id="countHospMembers"
+		resultType="int"
+		parameterType="com.edu.springboot.board.ParameterDTO">
+		SELECT COUNT(*) FROM member WHERE auth='ROLE_HOSP'
+		<!-- 검색어가 있는 경우 -->
+		<if test="searchWord!=null and !searchWord.equals('')">
+			 AND ${searchField} LIKE '%'||#{searchWord}||'%'
+		</if>
+	</select>
+	<select id="pageHospMembers" resultType="com.edu.springboot.member.MemberDTO"
+		parameterType="com.edu.springboot.board.ParameterDTO">
+        SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM member WHERE auth='ROLE_HOSP'
+				<if test="searchWord!=null and !searchWord.equals('')">
+					AND ${searchField} LIKE '%'||#{searchWord}||'%'
+				</if>				
+			) Tb
+		)
+		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}
+    </select>
+    <update id="changeEnabled">
+    	UPDATE member SET enable=#{param2} WHERE id=#{param1} 
+    </update>
 
 
 	
