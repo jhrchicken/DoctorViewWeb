@@ -66,9 +66,9 @@
 
 /*** 의사 정보 ***/
 #container .swiper {
-  height: 210px;
-  padding: 0 10px;
-  margin-bottom: 30px;
+  height: 220px;
+  padding: 5px 10px;
+  margin-bottom: 20px;
 }
 #container .swiper-wrapper {
   margin-top: 10px;
