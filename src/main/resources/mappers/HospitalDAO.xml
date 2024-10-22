@@ -61,39 +61,51 @@
 		SELECT COUNT(*) FROM api
 		WHERE 1 = 1
 		<!-- 검색어 -->
-		<if test="param5 != null and param5.trim() != ''">
-			AND ${param4} LIKE '%' || #{param5} || '%'
-		</if>
+	    <if test="searchWord != null and searchWord.trim() != ''">
+	        <if test="searchField != 'hashtag'">
+	            AND ${searchField} LIKE '%' || #{searchWord} || '%'
+	        </if>
+	        <if test="searchField == 'hashtag'">
+	            AND api_idx IN (
+	            	SELECT api.api_idx FROM member
+            		INNER JOIN api on member.name = api.name
+            		WHERE member.id IN (
+            			SELECT hosp_ref FROM hashtag
+            			WHERE tag LIKE '%' || #{searchWord} || '%'
+            		)
+	            )
+	        </if>
+	    </if>
 		<!-- 시도 선택 -->
-		<if test="param1 != null and param1.trim() != ''">
-			AND address LIKE '%' || #{param1} || '%'
+		<if test="searchSido != null and searchSido.trim() != ''">
+			AND address LIKE '%' || #{searchSido} || '%'
 		</if>
 		<!-- 시군구 선택 -->
-		<if test="param2 != null and param2.trim() != ''">
-			AND address LIKE '%' || #{param2} || '%'
+		<if test="searchGugun != null and searchGugun.trim() != ''">
+			AND address LIKE '%' || #{searchGugun} || '%'
 		</if>
 		<!-- 읍면동 선택 -->
-		<if test="param3 != null and param3.trim() != ''">
-			AND address LIKE '%' || #{param3} || '%'
+		<if test="searchDong != null and searchDong.trim() != ''">
+			AND address LIKE '%' || #{searchDong} || '%'
 		</if>
            <!-- 필터 처리 -->
-           <if test="param6 != null and param6.size() != 0">
+           <if test="filters != null and filters.size() != 0">
            	AND api_idx IN (
            		SELECT api.api_idx FROM member
            		INNER JOIN api on member.name = api.name
            		WHERE member.id IN (
            			SELECT hosp_ref FROM DETAIL
            			WHERE 1 = 1
-           			<if test="param6.contains('parking')">
+           			<if test="filters.contains('parking')">
            				AND parking = 'T'
            			</if>
-           			<if test="param6.contains('pcr')">
+           			<if test="filters.contains('pcr')">
            				AND pcr = 'T'
            			</if>
-           			<if test="param6.contains('hospitalize')">
+           			<if test="filters.contains('hospitalize')">
            				AND hospitalize = 'T'
            			</if>
-           			<if test="param6.contains('system')">
+           			<if test="filters.contains('system')">
            				AND system = 'T'
            			</if>
            		)
