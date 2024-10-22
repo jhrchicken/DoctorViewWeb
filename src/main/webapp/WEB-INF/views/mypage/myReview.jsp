@@ -217,74 +217,75 @@ document.addEventListener('DOMContentLoaded', function () {
 					<c:forEach items="${ hreviewList }" var="row" varStatus="loop">
 						<li>
 				          <div class="info">
-				            <div class="info_right">
-				                <div class="info_top">
-				                  <h4>${ row.hosp_name }</h4>
-				                  <p>${ row.hosp_department }</p>
-				                </div>
-				            </div>
+			                  <h4>${ row.hosp_name }</h4>
+			                  <p>${ row.hosp_department }</p>
 				          </div>
 				          <div class="review">
-	            			<div class="review_score">
-								<div class="star">
-									<c:forEach var="i" begin="0" end="${row.score - 1}">
-									    <img src="/images/star.svg" alt="Star" />
-									</c:forEach>
-									<c:forEach var="i" begin="${row.score}" end="4">
-									    <img src="/images/star_empty.svg" alt="Empty Star" />
-									</c:forEach>
-								</div>
-								<p>${ row.score }</p>
-							</div>
-				            <div class="taginfo">
-	              				<!-- 해시태그 -->
-								<c:if test="${ not empty hashtagList }">
-									<ul class="review_hash">
-										<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
-											<c:if test="${ hashrow.hreview_ref == row.review_idx }">
-												<li>
-													<p>${ hashrow.tag }</p>
-												</li>
-											</c:if>
+	            				<div class="review_score">
+									<div class="star">
+										<c:forEach var="i" begin="0" end="${row.score - 1}">
+										    <img src="/images/star.svg" alt="Star" />
 										</c:forEach>
-									</ul>
-								</c:if>
-				              <div class="review_title">
-				                <p>${ row.postdate }</p>
-				                <c:if test="${ row.rewrite == 'T' }">
-				                	<p class="edit">수정됨</p>
-				                </c:if>
-				              </div>
-				            </div>
-				            <c:if test="${ row.doctor != null }">
+										<c:forEach var="i" begin="${row.score}" end="4">
+										    <img src="/images/star_empty.svg" alt="Empty Star" />
+										</c:forEach>
+									</div>
+									<p>${ row.score }</p>
+								</div>
+				            	<div class="review_title">
+					                <p>${ row.postdate }</p>
+					                <c:if test="${ row.rewrite == 'T' }">
+					                	<p class="edit">(수정됨)</p>
+					                </c:if>
+				              	</div>
+					          	<div class="extra_wrap">
+					          		<div class="review_extra">
+							            <c:if test="${ row.doctor != null }">
+								            <div class="extra_detail">
+								            	<p class="blue">담당의</p>
+								              	<p>${ row.doctor }</p>					
+								            </div>
+								        </c:if>
+								        <c:if test="${ row.treat != null }">
+								            <div class="extra_detail">
+								            	<p class="blue">치료내용</p>
+								              	<p>${ row.treat }</p>					
+								            </div>
+								        </c:if>
+								        <c:if test="${ row.cost != null }">
+								            <div class="extra_detail">
+								            	<p class="blue">비용</p>
+								              	<p>${ row.cost }원</p>					
+								            </div>
+								        </c:if>
+							        </div>
+		              				<!-- 해시태그 -->
+									<c:if test="${ not empty hashtagList }">
+										<ul class="review_hash">
+											<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
+												<c:if test="${ hashrow.hreview_ref == row.review_idx }">
+													<li>
+														<p>${ hashrow.tag }</p>
+													</li>
+												</c:if>
+											</c:forEach>
+										</ul>
+									</c:if>
+					          	</div>
 					            <div class="review_content">
-					              <p>의료진 ${ row.doctor }</p>					
+					              <p>${ row.content }</p>					
 					            </div>
-					        </c:if>
-					        <c:if test="${ row.treat != null }">
-					            <div class="review_content">
-					              <p>치료 내용 ${ row.treat }</p>					
-					            </div>
-					        </c:if>
-					        <c:if test="${ row.cost != null }">
-					            <div class="review_content">
-					              <p>비용 ${ row.cost }</p>					
-					            </div>
-					        </c:if>
-				            <div class="review_content">
-				              <p>${ row.content }</p>					
-				            </div>
+							</div>
 				            <div class="btn_wrap">
-				              <button type="button" data-bs-toggle="modal" data-bs-target="#editHreviewModal"
-								onclick="openHreviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', '${ row.cost }', '${ row.treat }', '${ row.doctor }')">
+				              	<button type="button" data-bs-toggle="modal" data-bs-target="#editHreviewModal"
+									onclick="openHreviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', '${ row.cost }', '${ row.treat }', '${ row.doctor }')">
 									수정하기
 								</button>
 								<button type="button" onclick="deleteHreview(${ row.api_ref }, ${ row.review_idx });">
 									삭제하기
 								</button>
-				            </div> 
-				          </div>
-				            <a href="../hospital/viewHosp.do?api_idx=${ row.api_ref }"><span class="blind">리뷰 바로가기</span></a>
+				            </div>
+			            	<a href="../hospital/viewHosp.do?api_idx=${ row.api_ref }"><span class="blind">리뷰 바로가기</span></a>
 				        </li>
 					</c:forEach>
 					
@@ -311,7 +312,13 @@ document.addEventListener('DOMContentLoaded', function () {
 								</div>
 								<p>${ row.score }</p>
 							</div>
-				            <div class="taginfo">
+							<div class="review_title">
+				                <p>${ row.postdate }</p>
+				                <c:if test="${ row.rewrite == 'T' }">
+				                	<p class="edit">수정됨</p>
+				                </c:if>
+			              </div>
+				            <div class="extra_wrap">
 	              				<!-- 해시태그 -->
 								<c:if test="${ not empty hashtagList }">
 									<ul class="review_hash">
@@ -324,12 +331,6 @@ document.addEventListener('DOMContentLoaded', function () {
 										</c:forEach>
 									</ul>
 								</c:if>
-				              <div class="review_title">
-				                <p>${ row.postdate }</p>
-				                <c:if test="${ row.rewrite == 'T' }">
-				                	<p class="edit">수정됨</p>
-				                </c:if>
-				              </div>
 				            </div>
 				            <div class="review_content">
 				              <p>${ row.content }</p>					

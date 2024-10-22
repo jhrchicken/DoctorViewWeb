@@ -16,7 +16,7 @@
 
 
 #container .my>li {
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   position: relative;
@@ -25,53 +25,24 @@
 /* 병원/의사 */
 #container .info {
   display: flex;
-  gap: 0 15px;
-}
-#container .info img {
-  width: 100px;
-  height: auto;
-}
-#container .info_top {
-  display: flex;
   gap: 0 10px;
   align-items: baseline;
 }
-#container .info_top h4 {
+#container .info h4 {
   font-size: 28px;
   font-weight: 700;
 }
-#container .info_top p {
+#container .info p {
   font-size: 18px;
   font-weight: 500;
   color: var(--gray-400);
 }
-#container .info_bottom {
-  margin-top: 15px;
-}
-#container .info_bottom p {
-  font-size: 18px;
-  line-height: 1.5em;
-}
-#container .detail {
-  display: flex;
-  gap: 0 5px;
-  font-weight: 500;
-}
-#container .detail .blue {
-  color: var(--point-color2);
-  font-weight: 700;
-}
-
 
 /* 리뷰 */
 #container .review {
-  margin-top: 10px;
+  margin-top: 20px;
   border-top: 2px solid #ddd;
-  padding-top: 15px;
-}
-#container .review_top {
-  display: flex;
-  gap: 0 15px;
+  padding-top: 10px;
 }
 #container .review_score {
   display: flex;
@@ -83,31 +54,51 @@
   font-size: 18px;
 }
 #container .review_title {
-  display: flex;
-  gap: 0 5px;
+	display: flex;
+	gap: 0 10px;
+	align-items: center;
+  color: var(--gray-500);
+  margin-top: 5px;
+  margin-left: 2px;
+}
+#container .review_titme .edit {
   color: var(--gray-400);
 }
 /* 해시태그 */
-#container .taginfo {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
+#container .extra_wrap {
+	display: flex;
+	gap: 0 5px;
+	margin-top: 5px;
 }
 #container .review_hash {
   display: flex;
   gap: 0 5px;
-  margin-top: 5px;
 }
 #container .review_hash p {
-  display: block;
   padding: 5px 10px;
   background: #bbb;
+  border: 1px solid #bbb;
   border-radius: 5px;
+  font-size: 18px;
   color: #fff;
 }
 #container .review_hash p::before {
   content: '#';
   margin-right: 5px;
+}
+#container .review_extra {
+	display: flex;
+	gap: 0 5px;
+}
+#container .extra_detail {
+	display: flex;
+	gap: 0 5px;
+	padding: 5px 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+#container .extra_detail .blue {
+	color: var(--point-color2);
 }
 #container .review_content {
   margin-top: 8px;
@@ -127,8 +118,8 @@
 }
 #container .btn_wrap {
   position: absolute;
-  right: 20px;
-  top: 20px;
+  right: 30px;
+  top: 30px;
   z-index: 10;
   display: flex;
   gap: 0 10px;
@@ -139,4 +130,5 @@
   border-radius: 10px;
   padding: 5px 10px;
   color: #fff;
+  font-size: 18px;
 }
