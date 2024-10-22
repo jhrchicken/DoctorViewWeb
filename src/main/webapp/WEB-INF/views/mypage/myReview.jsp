@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				        </li>
 					</c:forEach>
 					
-					<!-- 작성한 의사 리뷰 -->
+					<!-- 작성한 의사 리 뷰 -->
 					<c:forEach items="${ dreviewList }" var="row" varStatus="loop">
 						<li>
 				          <div class="info">
