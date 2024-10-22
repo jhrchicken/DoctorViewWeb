@@ -20,6 +20,7 @@
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   position: relative;
+  margin-bottom: 20px;
 }
 /* 병원/의사 */
 #container .info {
@@ -64,7 +65,7 @@
 
 /* 리뷰 */
 #container .review {
-  margin-top: 20px;
+  margin-top: 10px;
   border-top: 2px solid #ddd;
   padding-top: 15px;
 }
@@ -135,9 +136,7 @@
 #container button {
   background: var(--point-color1);
   border: none;
-  border-radius: 50%;
+  border-radius: 10px;
   padding: 5px 10px;
   color: #fff;
-  width: 50px;
-  height: 50px;
 }

@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
   				           		<button type="button" data-bs-toggle="modal" data-bs-target="#editDreviewModal"
                                              onclick="openDreviewEditModal(${ row.doc_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }')">
                                           수정하기
-                                       </button>
+                                 </button>
                                  <button type="button" onclick="deleteDreview(${ row.doc_ref }, ${ row.review_idx });">
                                     삭제하기
                                  </button>
