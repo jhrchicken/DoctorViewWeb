@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
          </form>
          
 		<c:choose>
-			<c:when test="${ empty hreviewList && empty hreviewList }">
+			<c:when test="${ empty hreviewList && empty dreviewList }">
 				<p>작성한 리뷰가 없습니다</p>
 			</c:when>
 			<c:otherwise>
@@ -256,15 +256,21 @@ document.addEventListener('DOMContentLoaded', function () {
 				                </c:if>
 				              </div>
 				            </div>
-				            <div class="review_content">
-				              <p>의료진 ${ row.doctor }</p>					
-				            </div>
-				            <div class="review_content">
-				              <p>치료 내용 ${ row.treat }</p>					
-				            </div>
-				            <div class="review_content">
-				              <p>비용 ${ row.cost }</p>					
-				            </div>
+				            <c:if test="${ row.doctor != null }">
+					            <div class="review_content">
+					              <p>의료진 ${ row.doctor }</p>					
+					            </div>
+					        </c:if>
+					        <c:if test="${ row.treat != null }">
+					            <div class="review_content">
+					              <p>치료 내용 ${ row.treat }</p>					
+					            </div>
+					        </c:if>
+					        <c:if test="${ row.cost != null }">
+					            <div class="review_content">
+					              <p>비용 ${ row.cost }</p>					
+					            </div>
+					        </c:if>
 				            <div class="review_content">
 				              <p>${ row.content }</p>					
 				            </div>

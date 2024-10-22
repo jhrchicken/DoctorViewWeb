@@ -238,6 +238,7 @@ public class MypageController {
    	@PostMapping("/mypage/deleteHreview.do")
    	public String deleteReviewGet(HttpServletRequest req) {
    		int review_idx = Integer.parseInt(req.getParameter("hreview_idx"));
+   		System.err.println(review_idx);
    		hospitalDAO.deleteReview(review_idx);
    		hospitalDAO.deleteAllReply(review_idx);
    		hospitalDAO.deleteAllHospReviewLike(review_idx);

@@ -481,18 +481,24 @@ document.addEventListener('DOMContentLoaded', function () {
 										</div>
 										<div class="extra_wrap">
 											<div class="review_extra">
-												<div class="extra_detail">
-													<p class="blue">담당의</p>
-													<p>${ row.doctor }</p>
-												</div>
-												<div class="extra_detail">
-													<p class="blue">치료내용</p>
-													<p>${ row.treat }</p>			
-												</div>
-												<div class="extra_detail">
-													<p class="blue">비용</p>
-													<p>${ row.cost }원</p>					
-												</div>
+												<c:if test="${ row.doctor != null }">
+													<div class="extra_detail">
+														<p class="blue">담당의</p>
+														<p>${ row.doctor }</p>
+													</div>
+												</c:if>
+												<c:if test="${ row.treat != null }">
+													<div class="extra_detail">
+														<p class="blue">치료내용</p>
+														<p>${ row.treat }</p>			
+													</div>
+												</c:if>
+												<c:if test="${ row.cost != null }">
+													<div class="extra_detail">
+														<p class="blue">비용</p>
+														<p>${ row.cost }원</p>					
+													</div>
+												</c:if>
 											</div>	
 											<!-- 해시태그 -->
 											<c:if test="${ not empty hashtagList }">
