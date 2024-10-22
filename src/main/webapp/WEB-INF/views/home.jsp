@@ -11,6 +11,44 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <link rel="stylesheet" href="/css/main.css" />
+
+<script>
+function searchHosp() {
+	var form = document.searchForm;
+	if (form.searchWord.value == "") {
+		alert("검색어를 입력하세요");
+		return false;
+	}
+	else {
+		var searchField = form.searchField.value;
+		var searchWord = form.searchWord.value;
+		if (searchField == "hospital") {
+			window.location.href = "hospital.do";
+			/* $.ajax({
+		        url: "../hospital/searchHosp.do",
+		        type: "POST",
+		        data: formData,
+		        contentType: false,
+		        processData: false,
+		        dataType: "html",
+		        success: function(response) {
+		            const listElement = document.querySelector('.search_result');
+		            listElement.innerHTML = '';
+		            listElement.innerHTML = response;
+		        },
+		        error: function(e) {
+		            alert("오류 발생: " + e.status + ": " + e.statusText);
+		        }
+		    }); */
+			return false;
+		}
+		else if (searchField == "doctor") {
+			window.location.href = "doctor.do?searchField=name&searchWord=" + searchWord;
+			return false;
+		}
+	}
+}
+</script>
 </head>
 <body>
 
@@ -34,7 +72,7 @@
 							<p class="tip">병원, 의사를 검색해보세요.</p>
 							<p>검색 결과는 좋아요 순으로 출력됩니다.</p>
 						</div>
-						<form class="searchForm" name="searchForm">
+						<form class="searchForm" name="searchForm" onSubmit="return searchHosp();">
 							<select name="searchField" class="searchField">
 								<option value="hospital">--- 조건 선택 ---</option>
 								<option value="hospital">병원</option>
