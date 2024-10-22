@@ -60,7 +60,7 @@
 		parameterType="com.edu.springboot.hospital.ParameterDTO">
 		SELECT COUNT(*) FROM api
 		WHERE 1 = 1
-		<!-- 검색어 -->
+		<!-- 검색어  -->
 	    <if test="searchWord != null and searchWord.trim() != ''">
 	        <if test="searchField != 'hashtag'">
 	            AND ${searchField} LIKE '%' || #{searchWord} || '%'
