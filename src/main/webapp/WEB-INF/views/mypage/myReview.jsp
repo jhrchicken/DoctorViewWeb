@@ -257,6 +257,15 @@ document.addEventListener('DOMContentLoaded', function () {
 				              </div>
 				            </div>
 				            <div class="review_content">
+				              <p>의료진 ${ row.doctor }</p>					
+				            </div>
+				            <div class="review_content">
+				              <p>치료 내용 ${ row.treat }</p>					
+				            </div>
+				            <div class="review_content">
+				              <p>비용 ${ row.cost }</p>					
+				            </div>
+				            <div class="review_content">
 				              <p>${ row.content }</p>					
 				            </div>
 				            <div class="btn_wrap">
