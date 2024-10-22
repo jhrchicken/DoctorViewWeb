@@ -284,13 +284,11 @@ document.addEventListener('DOMContentLoaded', function () {
 								</button>
 				            </div> 
 				          </div>
-				          <a href="">
-				            <span class="blind">리뷰 바로가기</span>
-				          </a>
+				            <a href="../hospital/viewHosp.do?api_idx=${ row.api_ref }"><span class="blind">리뷰 바로가기</span></a>
 				        </li>
 					</c:forEach>
 					
-					<!-- 작성한 의사 리 뷰 -->
+					<!-- 작성한 의사 리뷰 -->
 					<c:forEach items="${ dreviewList }" var="row" varStatus="loop">
 						<li>
 				          <div class="info">
@@ -346,9 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                  </button>
 				            </div> 
 				          </div>
-				          <a href="">
-				            <span class="blind">리뷰 바로가기</span>
-				          </a>
+				            <a href="../doctor/viewDoctor.do?doc_idx=${ row.doc_ref }"><span class="blind">리뷰 바로가기</span></a>
 				        </li>
 					</c:forEach>
 				</ul>
