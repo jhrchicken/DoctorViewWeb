@@ -17,7 +17,7 @@
 
 <body>
 	<%@include file="../common/main_header.jsp" %>
-	
+	<!--  -->
 	<main id="container">
 		<div class="content">
 			<div class="content_inner">
