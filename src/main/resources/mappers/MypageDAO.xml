@@ -57,7 +57,19 @@
 	</select>
 	
 	
+	<!-- 작성한 리뷰: 작성한 병원 리뷰 -->
+	<select id="listMyHreview"
+		resultType="com.edu.springboot.hospital.HreviewDTO">
+		SELECT * FROM hreview WHERE writer_ref=#{param1}
+		ORDER BY review_idx DESC
+	</select>
 	
+	<!-- 작성한 리뷰: 작성한 의사 리뷰 -->
+	<select id="listMyDreview"
+		resultType="com.edu.springboot.doctor.DreviewDTO">
+		SELECT * FROM dreview WHERE writer_ref=#{param1}
+		ORDER BY review_idx DESC
+	</select>
 	
 	
 	

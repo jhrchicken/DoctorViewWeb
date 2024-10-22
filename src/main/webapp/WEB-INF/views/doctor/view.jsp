@@ -360,10 +360,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                             <img src="/images/heart_full.svg" style="width: 24px; height: 24px;" /> ${ row.likecount }
                                           </button>
                                      </c:if>
-                                 <button class="re_btn" type="button" data-bs-toggle="modal" data-bs-target="#writeReplyModal"
-                                             onclick="openReplyWriteModal(${ row.doc_ref }, ${ row.review_idx })">
-                                          댓글 달기
-                                       </button>
+                                 <c:if test="${ doctorDTO.hosp_ref == sessionScope.loginMember.id }">
+	                                 <button class="re_btn" type="button" data-bs-toggle="modal" data-bs-target="#writeReplyModal"
+	                                       onclick="openReplyWriteModal(${ row.doc_ref }, ${ row.review_idx })">
+	                                    댓글 달기
+	                                 </button>
+                                 </c:if>
+
                               </div>
                            </div>
                            <!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->

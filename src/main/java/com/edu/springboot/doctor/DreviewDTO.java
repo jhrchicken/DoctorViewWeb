@@ -19,4 +19,8 @@ public class DreviewDTO {
 	private String nickname;
 	private int likecount;
 	private int likecheck;
+	
+	// 작성한 리뷰
+	private String doc_name;
+	private String hospname;
 }
