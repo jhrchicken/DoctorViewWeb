@@ -340,6 +340,9 @@ public class MemberController {
 		if (editUserResult == 1) {
 			// 새로운 비밀번호 session에 저장
 			session.setAttribute("userPassword", memberDTO.getPassword());
+			memberDTO.setEmoji((String) session.getAttribute("userEmoji"));
+			session.setAttribute("loginMember", memberDTO);
+			
 			redirectAttributes.addFlashAttribute("editUserResult", "회원정보 수정에 성공했습니다.");
 			return "redirect:/member/editUser.do";
 		}
