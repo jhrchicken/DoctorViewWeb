@@ -481,13 +481,24 @@ public class HospitalController {
 		        SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
 		        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		        for (HoursDTO hour : hoursList) {
+		        	// 오늘 요일
 		        	if (hour.getWeek().equals(dayFormat.format(now))) {
 		        		hospital.setNight(hour.getNight());
-		        		hospital.setWeekend(hour.getWeekend());
 		        		if (hour.getStarttime() != "00:00") {
 		        			if (timeFormat.format(now).compareTo(hour.getStarttime()) > 0 && timeFormat.format(now).compareTo(hour.getEndtime()) < 0) {
 		        				hospital.setOpen("T");
 		        			}
+		        		}
+		        	}
+		        	// 토요일 일요일
+		        	if (hour.getWeek().equals("토요일")) {
+		        		if (hour.getStarttime() != "00:00") {
+		        			hospital.setWeekend("T");
+		        		}
+		        	}
+		        	if (hour.getWeek().equals("일요일")) {
+		        		if (hour.getStarttime() != "00:00") {
+		        			hospital.setWeekend("T");
 		        		}
 		        	}
 		        }
