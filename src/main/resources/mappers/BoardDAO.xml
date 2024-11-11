@@ -146,7 +146,7 @@
 	</select>
 	
 	<!-- 플러터 연동: 댓글 목록 -->
-	<select id="getAllComments" resultType="com.edu.springboot.board.CommentsDTO">
+	<select id="getAllComments" resultType="com.edu.springboot.board.CommentDTO">
 		SELECT * FROM comments
 	</select>
 

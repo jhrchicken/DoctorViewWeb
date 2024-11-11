@@ -54,7 +54,7 @@ public class FreeboardController {
 		maps.put("pageNum", pageNum);
 		model.addAttribute("maps", maps);
 		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/freeboard.do?");
-		model.addAttribute("pagingImg", pagingImg);
+		model.addAttribute(pagingImg);
 		
 		// 게시물의 목록
 		ArrayList<BoardDTO> postsList = boardDAO.listPost(parameterDTO);
@@ -68,7 +68,7 @@ public class FreeboardController {
 			post.setLikecount(likecount);
 			post.setCommentcount(commentcount);
 		}
-		model.addAttribute("postsList", postsList);
+		model.addAttribute(postsList);
 		
 		return "freeboard/list";
 	}
@@ -97,14 +97,14 @@ public class FreeboardController {
 		model.addAttribute("boardDTO", boardDTO);
 		
 		// 댓글 목록
-		ArrayList<CommentsDTO> commentsList = boardDAO.listComments(boardDTO);
-		for (CommentsDTO comment : commentsList) {
+		ArrayList<CommentDTO> commentList = boardDAO.listComments(boardDTO);
+		for (CommentDTO comment : commentList) {
 			nickname = boardDAO.selectCommNickname(comment);
 			emoji = boardDAO.selectCommEmoji(comment);
 			if (emoji != null) comment.setNickname(nickname + " " + emoji);
 			else comment.setNickname(nickname);
 		}
-		model.addAttribute("commentsList", commentsList);
+		model.addAttribute(commentList);
 		
 		// 좋아요수 신고수 댓글수
 		int likecount = boardDAO.countLike(Integer.toString(boardDTO.getBoard_idx()));
@@ -203,7 +203,7 @@ public class FreeboardController {
 	// == 댓글 작성 (AJAX) ==
 	@PostMapping("/freeboard/writeComment.do")
 	@ResponseBody
-	public Map<String, Object> writeCommentPost(HttpSession session, CommentsDTO commentsDTO) {
+	public Map<String, Object> writeCommentPost(HttpSession session, CommentDTO commentDTO) {
 	    Map<String, Object> resultMap = new HashMap<>();
 
 	    // 로그인 여부 검증
@@ -215,24 +215,24 @@ public class FreeboardController {
 
 	    // 댓글 작성
 	    String id = loginMember.getId();
-	    commentsDTO.setWriter_ref(id);
+	    commentDTO.setWriter_ref(id);
 	    try {
-	        boardDAO.writeComment(commentsDTO);
+	        boardDAO.writeComment(commentDTO);
 	        resultMap.put("result", "success");
 
-	        commentsDTO = boardDAO.selectComments(commentsDTO);
-	        commentsDTO.setNickname(loginMember.getNickname());
-	        String nickname = boardDAO.selectCommNickname(commentsDTO);
-			String emoji = boardDAO.selectCommEmoji(commentsDTO);
-			if (emoji != null) commentsDTO.setNickname(nickname + " " + emoji);
-			else commentsDTO.setNickname(nickname);
+	        commentDTO = boardDAO.selectComments(commentDTO);
+	        commentDTO.setNickname(loginMember.getNickname());
+	        String nickname = boardDAO.selectCommNickname(commentDTO);
+			String emoji = boardDAO.selectCommEmoji(commentDTO);
+			if (emoji != null) commentDTO.setNickname(nickname + " " + emoji);
+			else commentDTO.setNickname(nickname);
 			
 	        // 댓글 정보 추가
 	        resultMap.put("comment", Map.of(
-	            "comm_idx", commentsDTO.getComm_idx(),
-	            "nickname", commentsDTO.getNickname(),
-	            "content", commentsDTO.getContent(),
-	            "postdate", commentsDTO.getPostdate()
+	            "comm_idx", commentDTO.getComm_idx(),
+	            "nickname", commentDTO.getNickname(),
+	            "content", commentDTO.getContent(),
+	            "postdate", commentDTO.getPostdate()
 	        ));
 	        
 	    } catch (Exception e) {
@@ -247,7 +247,7 @@ public class FreeboardController {
 	// == 댓글 수정 (AJAX) ==
 	@PostMapping("/freeboard/editComment.do")
 	@ResponseBody
-	public Map<String, Object> editCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentsDTO commentsDTO) {
+	public Map<String, Object> editCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentDTO commentDTO) {
 	    
 		Map<String, Object> resultMap = new HashMap<>();
 	    
@@ -260,9 +260,9 @@ public class FreeboardController {
 	    
 	    // 댓글 수정
 	    try {
-	        boardDAO.editComment(commentsDTO);
+	        boardDAO.editComment(commentDTO);
 	        resultMap.put("result", "success");
-	        resultMap.put("comment", commentsDTO);
+	        resultMap.put("comment", commentDTO);
 	    }
 	    catch (Exception e) {
 	    	resultMap.put("result", "error");
@@ -275,7 +275,7 @@ public class FreeboardController {
 	// == 댓글 삭제 (AJAX) ==
 	@PostMapping("/freeboard/deleteComment.do")
 	@ResponseBody
-	public Map<String, String> deleteComment(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentsDTO commentsDTO) {
+	public Map<String, String> deleteComment(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentDTO commentDTO) {
 	    
 	    Map<String, String> resultMap = new HashMap<>();
 	    
@@ -287,14 +287,14 @@ public class FreeboardController {
 	    }
 	    
 	    // 본인 확인
-	    if (!loginMember.getId().equals(commentsDTO.getWriter_ref())) {
+	    if (!loginMember.getId().equals(commentDTO.getWriter_ref())) {
 	        resultMap.put("result", "error");
 	        return resultMap;
 	    }
 	    
 	    // 댓글 삭제
 	    try {
-	        boardDAO.deleteComment(Integer.toString(commentsDTO.getComm_idx()));
+	        boardDAO.deleteComment(Integer.toString(commentDTO.getComm_idx()));
 	        resultMap.put("result", "success");
 	    }
 	    catch (Exception e) {

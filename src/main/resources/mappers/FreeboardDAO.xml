@@ -73,7 +73,7 @@
 	
 	<!-- 댓글: 댓글 목록 조회 -->
 	<select id="listComments"
-		resultType="com.edu.springboot.board.CommentsDTO"
+		resultType="com.edu.springboot.board.CommentDTO"
 		parameterType="com.edu.springboot.board.BoardDTO">
 		SELECT * FROM comments WHERE board_ref=#{board_idx}
 		ORDER BY comm_idx DESC
@@ -81,14 +81,14 @@
 	
 	<!-- 댓글: 댓글 조회 -->
 	<select id="selectComments"
-		resultType="com.edu.springboot.board.CommentsDTO"
-		parameterType="com.edu.springboot.board.CommentsDTO">
+		resultType="com.edu.springboot.board.CommentDTO"
+		parameterType="com.edu.springboot.board.CommentDTO">
 		SELECT * FROM comments WHERE comm_idx=#{comm_idx}
 	</select>
 	
 	<!-- 댓글: 댓글 작성 -->
 	<insert id = "writeComment"
-		parameterType="com.edu.springboot.board.CommentsDTO" useGeneratedKeys="true" keyProperty="comm_idx">
+		parameterType="com.edu.springboot.board.CommentDTO" useGeneratedKeys="true" keyProperty="comm_idx">
 		<selectKey keyProperty="comm_idx" resultType="int" order="BEFORE">
 			SELECT seq_comments_idx.nextval FROM dual		
 		</selectKey>
@@ -98,7 +98,7 @@
 
 	<!-- 댓글: 댓글 수정 -->
 	<update id="editComment"
-		parameterType="com.edu.springboot.board.CommentsDTO">
+		parameterType="com.edu.springboot.board.CommentDTO">
 		UPDATE comments SET content=#{content}
 		WHERE comm_idx=#{comm_idx}
 	</update>
@@ -124,13 +124,13 @@
 	
 	<!-- 정보 표시: 댓글 작성자 닉네임 인출 -->
 	<select id="selectCommNickname"
-		parameterType="com.edu.springboot.board.CommentsDTO">
+		parameterType="com.edu.springboot.board.CommentDTO">
 		SELECT nickname FROM member WHERE id=#{writer_ref}
 	</select>
 	
 	<!-- 정보 표시: 댓글 작성자 이모지 인출 -->
 	<select id="selectCommEmoji"
-		parameterType="com.edu.springboot.board.CommentsDTO">
+		parameterType="com.edu.springboot.board.CommentDTO">
 		SELECT emoji FROM member WHERE id=#{writer_ref}
 	</select>
 	

@@ -99,8 +99,8 @@ public class QnaboardController {
 		model.addAttribute("boardDTO", boardDTO);
 		
 		// 댓글 목록
-		ArrayList<CommentsDTO> commentsList = boardDAO.listComments(boardDTO);
-		for (CommentsDTO comment : commentsList) {
+		ArrayList<CommentDTO> commentsList = boardDAO.listComments(boardDTO);
+		for (CommentDTO comment : commentsList) {
 			nickname = boardDAO.selectCommNickname(comment);
 			emoji = boardDAO.selectCommEmoji(comment);
 			if (emoji != null) comment.setNickname(nickname + " " + emoji);
@@ -207,7 +207,7 @@ public class QnaboardController {
 	// == 댓글 작성 (AJAx) ==
 	@PostMapping("/qnaboard/writeComment.do")
 	@ResponseBody
-	public Map<String, Object> writeCommentPost(HttpSession session, CommentsDTO commentsDTO) {
+	public Map<String, Object> writeCommentPost(HttpSession session, CommentDTO commentsDTO) {
 	    Map<String, Object> resultMap = new HashMap<>();
 
 	    // 로그인 여부 검증
@@ -254,7 +254,7 @@ public class QnaboardController {
 	// == 댓글 수정 (AJAX) ==
 	@PostMapping("/qnaboard/editComment.do")
 	@ResponseBody
-	public Map<String, Object> editCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentsDTO commentsDTO) {
+	public Map<String, Object> editCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentDTO commentsDTO) {
 	    
 		Map<String, Object> resultMap = new HashMap<>();
 	    
@@ -282,7 +282,7 @@ public class QnaboardController {
 	// == 댓글 삭제 (AJAX) ==
 	@PostMapping("/qnaboard/deleteComment.do")
 	@ResponseBody
-	public Map<String, String> deleteComment(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentsDTO commentsDTO) {
+	public Map<String, String> deleteComment(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentDTO commentsDTO) {
 	    
 	    Map<String, String> resultMap = new HashMap<>();
 	    

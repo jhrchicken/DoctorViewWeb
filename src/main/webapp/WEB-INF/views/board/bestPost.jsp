@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰 | 베스트게시판</title>
+<title>닥터뷰</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/board-list.css" />
 </head>
@@ -84,7 +84,8 @@
 							${ pagingImg }
 						</div>
 					</div>	
-				</c:if>	
+				</c:if>
+				
 			</div>
 		</div>
 	</main>

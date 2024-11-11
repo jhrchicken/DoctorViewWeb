@@ -91,7 +91,7 @@
 					</thead>
 					<tbody>
 						<c:choose>
-							<c:when test="${ empty commentsList }">
+							<c:when test="${ empty commentList }">
 								<tr>
 									<td colspan="4" align="center">
 										댓글을 남겨보세요
@@ -99,7 +99,7 @@
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<c:forEach items="${ commentsList }" var="row" varStatus="loop">
+								<c:forEach items="${ commentList }" var="row" varStatus="loop">
 									<tr id="comment-${row.comm_idx}" align="center">
 							            <td class="writer">${ row.nickname }</td>
 							            <td class="comm_content" align="left">${ row.content }</td> 

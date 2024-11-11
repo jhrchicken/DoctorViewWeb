@@ -5,7 +5,7 @@ import java.sql.Date;
 import lombok.Data;
 
 @Data
-public class CommentsDTO {
+public class CommentDTO {
 	private int comm_idx;
 	private Date postdate;
 	private String content;

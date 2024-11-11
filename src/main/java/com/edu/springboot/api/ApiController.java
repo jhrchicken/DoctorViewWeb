@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.springboot.board.BoardDTO;
-import com.edu.springboot.board.CommentsDTO;
+import com.edu.springboot.board.CommentDTO;
 import com.edu.springboot.board.IBoardService;
 import com.edu.springboot.doctor.DoctorDTO;
 import com.edu.springboot.doctor.DreviewDTO;
@@ -88,8 +88,8 @@ public class ApiController {
 	}
 	// 댓글 목록
 	@GetMapping("/comment")
-	public ResponseEntity<List<CommentsDTO>> comment() {
-		List<CommentsDTO> commentLists = boardDAO.getAllComments();
+	public ResponseEntity<List<CommentDTO>> comment() {
+		List<CommentDTO> commentLists = boardDAO.getAllComments();
 		return ResponseEntity.ok(commentLists);
 	}
 	

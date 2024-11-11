@@ -51,6 +51,6 @@ public interface IBoardService {
 	// 게시판 목록
 	public List<BoardDTO> getAllBoards();
 	// 댓글 목록
-	public List<CommentsDTO> getAllComments();
+	public List<CommentDTO> getAllComments();
 	
 }
