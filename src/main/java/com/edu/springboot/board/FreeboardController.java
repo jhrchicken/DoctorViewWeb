@@ -50,15 +50,15 @@ public class FreeboardController {
 		parameterDTO.setEnd(end);
 		Map<String, Object> maps = new HashMap<String, Object>();
 		maps.put("total", total);
-		maps.put("postsPerPage", postsPerPage);
+		maps.put("postsPerPage", postsPerPage); 
 		maps.put("pageNum", pageNum);
 		model.addAttribute("maps", maps);
 		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/freeboard.do?");
-		model.addAttribute(pagingImg);
+		model.addAttribute("pagingImg", pagingImg);
 		
 		// 게시물의 목록
-		ArrayList<BoardDTO> postsList = boardDAO.listPost(parameterDTO);
-		for (BoardDTO post : postsList) {
+		ArrayList<BoardDTO> postList = boardDAO.listPost(parameterDTO);
+		for (BoardDTO post : postList) {
 			String nickname = boardDAO.selectBoardNickname(post);
 			String emoji = boardDAO.selectBoardEmoji(post);
 			int likecount = boardDAO.countLike(Integer.toString(post.getBoard_idx()));
@@ -68,7 +68,7 @@ public class FreeboardController {
 			post.setLikecount(likecount);
 			post.setCommentcount(commentcount);
 		}
-		model.addAttribute(postsList);
+		model.addAttribute("postList", postList);
 		
 		return "freeboard/list";
 	}
@@ -104,7 +104,7 @@ public class FreeboardController {
 			if (emoji != null) comment.setNickname(nickname + " " + emoji);
 			else comment.setNickname(nickname);
 		}
-		model.addAttribute(commentList);
+		model.addAttribute("commentList", commentList);
 		
 		// 좋아요수 신고수 댓글수
 		int likecount = boardDAO.countLike(Integer.toString(boardDTO.getBoard_idx()));
