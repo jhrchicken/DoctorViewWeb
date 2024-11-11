@@ -48,13 +48,13 @@
 					</thead>
 					<tbody>
 						<c:choose>
-							<c:when test="${ empty postsList }">
+							<c:when test="${ empty postList }">
 								<tr>
 									<td colspan="5" align="center">등록된 게시물이 없습니다.</td>
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<c:forEach items="${ postsList }" var="row" varStatus="loop">
+								<c:forEach items="${ postList }" var="row" varStatus="loop">
 									<tr>
 										<td class="num">${ maps.total - (((maps.pageNum-1) * maps.postsPerPage)	+ loop.index)}</td>
 										<td class="name">${ row.nickname }</td>
@@ -82,7 +82,7 @@
 				</c:if>
 				
 				<!-- 페이지네이션 -->
-				<c:if test="${ not empty postsList }">
+				<c:if test="${ not empty postList }">
 					<div class="pagination">
 						<div class="pagination_inner">
 							${ pagingImg }

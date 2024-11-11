@@ -71,7 +71,7 @@
 	</select>
 	
 	<!-- 댓글: 댓글 목록 조회 -->
-	<select id="listComments"
+	<select id="listComment"
 		resultType="com.edu.springboot.board.CommentDTO"
 		parameterType="com.edu.springboot.board.BoardDTO">
 		SELECT * FROM comments WHERE board_ref=#{board_idx}

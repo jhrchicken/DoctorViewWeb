@@ -59,8 +59,8 @@ public class QnaboardController {
 		model.addAttribute("pagingImg", pagingImg);
 		
 		// 게시물의 목록
-		ArrayList<BoardDTO> postsList = boardDAO.listPost(parameterDTO);
-		for (BoardDTO post : postsList) {
+		ArrayList<BoardDTO> postList = boardDAO.listPost(parameterDTO);
+		for (BoardDTO post : postList) {
 			String nickname = boardDAO.selectBoardNickname(post);
 			String emoji = boardDAO.selectBoardEmoji(post);
 			int likecount = boardDAO.countLike(Integer.toString(post.getBoard_idx()));
@@ -70,7 +70,7 @@ public class QnaboardController {
 			post.setLikecount(likecount);
 			post.setCommentcount(commentcount);
 		}
-		model.addAttribute("postsList", postsList);
+		model.addAttribute("postList", postList);
 		
 		return "qnaboard/list";
 	}
@@ -99,14 +99,14 @@ public class QnaboardController {
 		model.addAttribute("boardDTO", boardDTO);
 		
 		// 댓글 목록
-		ArrayList<CommentDTO> commentsList = boardDAO.listComments(boardDTO);
-		for (CommentDTO comment : commentsList) {
+		ArrayList<CommentDTO> commentList = boardDAO.listComment(boardDTO);
+		for (CommentDTO comment : commentList) {
 			nickname = boardDAO.selectCommNickname(comment);
 			emoji = boardDAO.selectCommEmoji(comment);
 			if (emoji != null) comment.setNickname(nickname + " " + emoji);
 			else comment.setNickname(nickname);
 		}
-		model.addAttribute("commentsList", commentsList);
+		model.addAttribute("commentList", commentList);
 		
 		// 좋아요수 신고수 댓글수
 		int likecount = boardDAO.countLike(Integer.toString(boardDTO.getBoard_idx()));
@@ -204,10 +204,10 @@ public class QnaboardController {
 	
 
 	
-	// == 댓글 작성 (AJAx) ==
+	// == 댓글 작성 (AJAX) ==
 	@PostMapping("/qnaboard/writeComment.do")
 	@ResponseBody
-	public Map<String, Object> writeCommentPost(HttpSession session, CommentDTO commentsDTO) {
+	public Map<String, Object> writeCommentPost(HttpSession session, CommentDTO commentDTO) {
 	    Map<String, Object> resultMap = new HashMap<>();
 
 	    // 로그인 여부 검증
@@ -220,25 +220,25 @@ public class QnaboardController {
 
 	    // 댓글 작성
 	    String id = loginMember.getId();
-	    commentsDTO.setWriter_ref(id);
+	    commentDTO.setWriter_ref(id);
 	    try {
-	        boardDAO.writeComment(commentsDTO);
+	        boardDAO.writeComment(commentDTO);
 	        resultMap.put("result", "success");
 	        resultMap.put("message", "댓글이 성공적으로 작성되었습니다.");
 
-	        commentsDTO = boardDAO.selectComment(commentsDTO);
-	        commentsDTO.setNickname(loginMember.getNickname());
-	        String nickname = boardDAO.selectCommNickname(commentsDTO);
-			String emoji = boardDAO.selectCommEmoji(commentsDTO);
-			if (emoji != null) commentsDTO.setNickname(nickname + " " + emoji);
-			else commentsDTO.setNickname(nickname);
+	        commentDTO = boardDAO.selectComment(commentDTO);
+	        commentDTO.setNickname(loginMember.getNickname());
+	        String nickname = boardDAO.selectCommNickname(commentDTO);
+			String emoji = boardDAO.selectCommEmoji(commentDTO);
+			if (emoji != null) commentDTO.setNickname(nickname + " " + emoji);
+			else commentDTO.setNickname(nickname);
 			
 	        // 댓글 정보 추가
 	        resultMap.put("comment", Map.of(
-	            "comm_idx", commentsDTO.getComm_idx(),
-	            "nickname", commentsDTO.getNickname(),
-	            "content", commentsDTO.getContent(),
-	            "postdate", commentsDTO.getPostdate()
+	            "comm_idx", commentDTO.getComm_idx(),
+	            "nickname", commentDTO.getNickname(),
+	            "content", commentDTO.getContent(),
+	            "postdate", commentDTO.getPostdate()
 	        ));
 	        
 	    } catch (Exception e) {
@@ -254,7 +254,7 @@ public class QnaboardController {
 	// == 댓글 수정 (AJAX) ==
 	@PostMapping("/qnaboard/editComment.do")
 	@ResponseBody
-	public Map<String, Object> editCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentDTO commentsDTO) {
+	public Map<String, Object> editCommentPost(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentDTO commentDTO) {
 	    
 		Map<String, Object> resultMap = new HashMap<>();
 	    
@@ -267,9 +267,9 @@ public class QnaboardController {
 	    
 	    // 댓글 수정
 	    try {
-	        boardDAO.editComment(commentsDTO);
+	        boardDAO.editComment(commentDTO);
 	        resultMap.put("result", "success");
-	        resultMap.put("comment", commentsDTO);
+	        resultMap.put("comment", commentDTO);
 	    }
 	    catch (Exception e) {
 	    	resultMap.put("result", "error");
@@ -282,7 +282,7 @@ public class QnaboardController {
 	// == 댓글 삭제 (AJAX) ==
 	@PostMapping("/qnaboard/deleteComment.do")
 	@ResponseBody
-	public Map<String, String> deleteComment(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentDTO commentsDTO) {
+	public Map<String, String> deleteComment(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentDTO commentDTO) {
 	    
 	    Map<String, String> resultMap = new HashMap<>();
 	    
@@ -295,7 +295,7 @@ public class QnaboardController {
 	    }
 	    
 	    // 본인 확인
-	    if (!loginMember.getId().equals(commentsDTO.getWriter_ref())) {
+	    if (!loginMember.getId().equals(commentDTO.getWriter_ref())) {
 	        resultMap.put("result", "error");
 	        resultMap.put("message", "본인이 작성한 댓글만 삭제할 수 있습니다.");
 	        return resultMap;
@@ -303,7 +303,7 @@ public class QnaboardController {
 	    
 	    // 댓글 삭제
 	    try {
-	        boardDAO.deleteComment(Integer.toString(commentsDTO.getComm_idx()));
+	        boardDAO.deleteComment(Integer.toString(commentDTO.getComm_idx()));
 	        resultMap.put("result", "success");
 	        resultMap.put("message", "댓글이 성공적으로 삭제되었습니다.");
 	    }
