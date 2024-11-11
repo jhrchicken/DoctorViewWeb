@@ -75,7 +75,7 @@
 		resultType="com.edu.springboot.board.CommentDTO"
 		parameterType="com.edu.springboot.board.BoardDTO">
 		SELECT * FROM comments WHERE board_ref=#{board_idx}
-		ORDER BY comm_idx DESC
+		ORDER BY comm_idx ASC
 	</select>
 	
 	<!-- 댓글: 댓글 조회 -->
