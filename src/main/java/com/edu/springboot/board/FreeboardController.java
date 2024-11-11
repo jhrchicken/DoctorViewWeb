@@ -305,7 +305,7 @@ public class FreeboardController {
 	}
 
 	
-	// == 좋아요 기능 ==
+	// == 좋아요 기능 (AJAX) ==
 	@PostMapping("/freeboard/clickLike.do")
 	@ResponseBody
 	public Map<String, Object> clickLike(HttpSession session, @RequestParam("board_idx") String boardIdx) {
@@ -344,7 +344,7 @@ public class FreeboardController {
 	}
 
 
-	// == 신고 기능 ==
+	// == 신고 기능 (AJAX) ==
 	@PostMapping("/freeboard/clickReport.do")
 	@ResponseBody
 	public Map<String, Object> clickReport(HttpSession session, @RequestParam("board_idx") String boardIdx) {
