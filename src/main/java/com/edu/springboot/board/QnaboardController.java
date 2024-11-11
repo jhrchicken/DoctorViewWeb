@@ -202,8 +202,6 @@ public class QnaboardController {
 	}
 	
 	
-
-	
 	// == 댓글 작성 (AJAX) ==
 	@PostMapping("/qnaboard/writeComment.do")
 	@ResponseBody

@@ -321,18 +321,25 @@ public class FreeboardController {
 	    // 좋아요 증가 및 감소
 	    String id = loginMember.getId();
 	    int likeCheck = boardDAO.checkLike(id, boardIdx);
+	    int reportCheck = boardDAO.checkReport(id, boardIdx);
 	    if (likeCheck == 0) {
 	        boardDAO.plusLike(id, boardIdx);
+	        if (reportCheck != 0) {
+	        	boardDAO.minusReport(id, boardIdx);
+	        }
 	    } else {
 	        boardDAO.minusLike(id, boardIdx);
 	    }
 	    int likeCount = boardDAO.countLike(boardIdx);
+	    int reportCount = boardDAO.countReport(Integer.parseInt(boardIdx));
 
 	    // 응답 데이터 준비
 	    resultMap.put("result", "success");
 	    resultMap.put("likeCount", likeCount);
 	    resultMap.put("likeCheck", likeCheck);
-
+	    resultMap.put("reportCount", reportCount);
+	    resultMap.put("reportCheck", reportCheck);
+	    
 	    return resultMap;
 	}
 
@@ -353,17 +360,24 @@ public class FreeboardController {
 	    // 신고 증가 및 감소
 	    String id = loginMember.getId();
 	    int reportCheck = boardDAO.checkReport(id, boardIdx);
+	    int likeCheck = boardDAO.checkLike(id, boardIdx);
 	    if (reportCheck == 0) {
 	        boardDAO.plusReport(id, boardIdx);
+	        if (likeCheck != 0) {
+	        	boardDAO.minusLike(id, boardIdx);
+	        }
 	    } else {
 	        boardDAO.minusReport(id, boardIdx);
 	    }
 	    int reportCount = boardDAO.countReport(Integer.parseInt(boardIdx));
+	    int likeCount = boardDAO.countLike(boardIdx);
 
 	    // 응답 데이터 준비
 	    resultMap.put("result", "success");
 	    resultMap.put("reportCount", reportCount);
 	    resultMap.put("reportCheck", reportCheck);
+	    resultMap.put("likeCount", likeCount);
+	    resultMap.put("likeCheck", likeCheck);
 
 	    return resultMap;
 	}

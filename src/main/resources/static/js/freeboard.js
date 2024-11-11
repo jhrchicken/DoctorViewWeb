@@ -15,7 +15,7 @@ function openWriteModal(board_ref) {
 }
 
 
-// 댓글 작성 (Ajax)
+// 댓글 작성 (AJAX)
 function writeComment() {
     var board_ref = $('#comm_write_board_ref').val();
     var content = $('#comm_write_content').val();
@@ -74,7 +74,7 @@ function openEditModal(comm_idx, content, writer_ref, board_ref) {
 }
 
 
-// 댓글 수정 (Ajax)
+// 댓글 수정 (AJAX)
 function editComment() {
     var comm_idx = $('#comm_edit_comm_idx').val();
     var content = $('#comm_edit_content').val();
@@ -113,7 +113,7 @@ function editComment() {
 }
 
 
-// 댓글 삭제 (Ajax)
+// 댓글 삭제 (AJAX)
 function deleteComment(comm_idx, writer_ref, board_ref) {
     if (confirm("댓글을 삭제하시겠습니까?")) {
         $.ajax({
@@ -149,8 +149,12 @@ function clickLike(boardIdx) {
         success: function(response) {
             if (response.result === "success") {
                 $('#likeCount').text(response.likeCount);
+				$('#reportCount').text(response.reportCount);
                 if (response.likeCheck === 0) {
                     $('#likeButton').addClass('push');
+					if (response.reportCheck !== 0) {
+						$('#reportButton').removeClass('push');
+					}
                 } else {
                     $('#likeButton').removeClass('push');
                 }
@@ -173,8 +177,12 @@ function clickReport(boardIdx) {
         success: function(response) {
             if (response.result === "success") {
                 $('#reportCount').text(response.reportCount);
+				$('#likeCount').text(response.likeCount);
                 if (response.reportCheck === 0) {
                     $('#reportButton').addClass('push');
+					if (response.likeCheck !== 0) {
+						$('#likeButton').removeClass('push');
+					}
                 } else {
                     $('#reportButton').removeClass('push');
                 }
@@ -187,6 +195,3 @@ function clickReport(boardIdx) {
         }
     });
 }
-
-
-
