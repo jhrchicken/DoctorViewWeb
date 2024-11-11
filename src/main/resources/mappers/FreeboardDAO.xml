@@ -72,7 +72,7 @@
 	</select>
 	
 	<!-- 댓글: 댓글 목록 조회 -->
-	<select id="listComments"
+	<select id="listComment"
 		resultType="com.edu.springboot.board.CommentDTO"
 		parameterType="com.edu.springboot.board.BoardDTO">
 		SELECT * FROM comments WHERE board_ref=#{board_idx}
@@ -80,7 +80,7 @@
 	</select>
 	
 	<!-- 댓글: 댓글 조회 -->
-	<select id="selectComments"
+	<select id="selectComment"
 		resultType="com.edu.springboot.board.CommentDTO"
 		parameterType="com.edu.springboot.board.CommentDTO">
 		SELECT * FROM comments WHERE comm_idx=#{comm_idx}

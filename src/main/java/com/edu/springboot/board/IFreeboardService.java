@@ -28,13 +28,13 @@ public interface IFreeboardService {
 	// 댓글 개수 카운트
 	public int countComment(BoardDTO boardDTO);
 	// 댓글 목록 조회
-	public ArrayList<CommentDTO> listComments(BoardDTO boardDTO);
+	public ArrayList<CommentDTO> listComment(BoardDTO boardDTO);
 	// 댓글 조회
-	public CommentDTO selectComments(CommentDTO commentsDTO);
+	public CommentDTO selectComment(CommentDTO commentDTO);
 	// 댓글 작성
-	public int writeComment(CommentDTO commentsDTO);
+	public int writeComment(CommentDTO commentDTO);
 	// 댓글 수정
-	public int editComment(CommentDTO commentsDTO);
+	public int editComment(CommentDTO commentDTO);
 	// 댓글 삭제
 	public int deleteComment(String comm_idx);
 	
@@ -45,9 +45,9 @@ public interface IFreeboardService {
 	// 게시글 작성자 이모지 인출
 	public String selectBoardEmoji(BoardDTO boardDTO);
 	// 댓글 작성자 닉네임 인출
-	public String selectCommNickname(CommentDTO commentsDTO);
+	public String selectCommNickname(CommentDTO commentDTO);
 	// 댓글 작성자 이모지 인출
-	public String selectCommEmoji(CommentDTO commentsDTO);
+	public String selectCommEmoji(CommentDTO commentDTO);
 	
 	
 	// == 좋아요 ==

@@ -97,7 +97,7 @@ public class FreeboardController {
 		model.addAttribute("boardDTO", boardDTO);
 		
 		// 댓글 목록
-		ArrayList<CommentDTO> commentList = boardDAO.listComments(boardDTO);
+		ArrayList<CommentDTO> commentList = boardDAO.listComment(boardDTO);
 		for (CommentDTO comment : commentList) {
 			nickname = boardDAO.selectCommNickname(comment);
 			emoji = boardDAO.selectCommEmoji(comment);
@@ -105,7 +105,7 @@ public class FreeboardController {
 			else comment.setNickname(nickname);
 		}
 		model.addAttribute("commentList", commentList);
-		
+	
 		// 좋아요수 신고수 댓글수
 		int likecount = boardDAO.countLike(Integer.toString(boardDTO.getBoard_idx()));
 		int reportcount = boardDAO.countReport(boardDTO.getBoard_idx());
@@ -220,7 +220,7 @@ public class FreeboardController {
 	        boardDAO.writeComment(commentDTO);
 	        resultMap.put("result", "success");
 
-	        commentDTO = boardDAO.selectComments(commentDTO);
+	        commentDTO = boardDAO.selectComment(commentDTO);
 	        commentDTO.setNickname(loginMember.getNickname());
 	        String nickname = boardDAO.selectCommNickname(commentDTO);
 			String emoji = boardDAO.selectCommEmoji(commentDTO);
