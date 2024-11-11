@@ -236,7 +236,9 @@ public class QnaboardController {
 	            "comm_idx", commentDTO.getComm_idx(),
 	            "nickname", commentDTO.getNickname(),
 	            "content", commentDTO.getContent(),
-	            "postdate", commentDTO.getPostdate()
+	            "postdate", commentDTO.getPostdate(),
+	            "board_ref", commentDTO.getBoard_ref(),
+	            "writer_ref", commentDTO.getWriter_ref()
 	        ));
 	        
 	    } catch (Exception e) {

@@ -227,12 +227,16 @@ public class FreeboardController {
 			if (emoji != null) commentDTO.setNickname(nickname + " " + emoji);
 			else commentDTO.setNickname(nickname);
 			
+			System.err.println(commentDTO.getComm_idx());
+			
 	        // 댓글 정보 추가
 	        resultMap.put("comment", Map.of(
 	            "comm_idx", commentDTO.getComm_idx(),
 	            "nickname", commentDTO.getNickname(),
 	            "content", commentDTO.getContent(),
-	            "postdate", commentDTO.getPostdate()
+	            "postdate", commentDTO.getPostdate(),
+	            "board_ref", commentDTO.getBoard_ref(),
+	            "writer_ref", commentDTO.getWriter_ref()
 	        ));
 	        
 	    } catch (Exception e) {
