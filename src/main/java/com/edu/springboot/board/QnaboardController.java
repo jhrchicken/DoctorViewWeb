@@ -205,7 +205,7 @@ public class QnaboardController {
 	// == 댓글 작성 (AJAX) ==
 	@PostMapping("/qnaboard/writeComment.do")
 	@ResponseBody
-	public Map<String, Object> writeCommentPost(HttpSession session, CommentDTO commentDTO) {
+	public Map<String, Object> writeCommentPost(HttpSession session, BoardDTO boardDTO, CommentDTO commentDTO) {
 	    Map<String, Object> resultMap = new HashMap<>();
 
 	    // 로그인 여부 검증
@@ -220,9 +220,12 @@ public class QnaboardController {
 	    String id = loginMember.getId();
 	    commentDTO.setWriter_ref(id);
 	    try {
+			// 기존 댓글수 확인
+			boardDTO.setBoard_idx(commentDTO.getBoard_ref());
+			int commentcount = boardDAO.countComment(boardDTO);
+			
 	        boardDAO.writeComment(commentDTO);
 	        resultMap.put("result", "success");
-	        resultMap.put("message", "댓글이 성공적으로 작성되었습니다.");
 
 	        commentDTO = boardDAO.selectComment(commentDTO);
 	        commentDTO.setNickname(loginMember.getNickname());
@@ -238,7 +241,8 @@ public class QnaboardController {
 	            "content", commentDTO.getContent(),
 	            "postdate", commentDTO.getPostdate(),
 	            "board_ref", commentDTO.getBoard_ref(),
-	            "writer_ref", commentDTO.getWriter_ref()
+	            "writer_ref", commentDTO.getWriter_ref(),
+	            "commentcount", commentcount
 	        ));
 	        
 	    } catch (Exception e) {
@@ -282,7 +286,7 @@ public class QnaboardController {
 	// == 댓글 삭제 (AJAX) ==
 	@PostMapping("/qnaboard/deleteComment.do")
 	@ResponseBody
-	public Map<String, String> deleteComment(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentDTO commentDTO) {
+	public Map<String, String> deleteComment(HttpSession session, HttpServletRequest req, HttpServletResponse response, BoardDTO boardDTO, CommentDTO commentDTO) {
 	    
 	    Map<String, String> resultMap = new HashMap<>();
 	    
@@ -304,12 +308,16 @@ public class QnaboardController {
 	    // 댓글 삭제
 	    try {
 	        boardDAO.deleteComment(Integer.toString(commentDTO.getComm_idx()));
+	        
+			// 삭제 후 댓글수 확인
+			boardDTO.setBoard_idx(commentDTO.getBoard_ref());
+			int commentcount = boardDAO.countComment(boardDTO);
+			
 	        resultMap.put("result", "success");
-	        resultMap.put("message", "댓글이 성공적으로 삭제되었습니다.");
+	        resultMap.put("commentcount", Integer.toString(commentcount));
 	    }
 	    catch (Exception e) {
 	        resultMap.put("result", "error");
-	        resultMap.put("message", "댓글 삭제에 실패했습니다.");
 	    }
 	    
 	    return resultMap;

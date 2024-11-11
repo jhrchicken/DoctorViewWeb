@@ -203,7 +203,7 @@ public class FreeboardController {
 	// == 댓글 작성 (AJAX) ==
 	@PostMapping("/freeboard/writeComment.do")
 	@ResponseBody
-	public Map<String, Object> writeCommentPost(HttpSession session, CommentDTO commentDTO) {
+	public Map<String, Object> writeCommentPost(HttpSession session, BoardDTO boardDTO, CommentDTO commentDTO) {
 	    Map<String, Object> resultMap = new HashMap<>();
 
 	    // 로그인 여부 검증
@@ -217,6 +217,10 @@ public class FreeboardController {
 	    String id = loginMember.getId();
 	    commentDTO.setWriter_ref(id);
 	    try {
+			// 기존 댓글수 확인
+			boardDTO.setBoard_idx(commentDTO.getBoard_ref());
+			int commentcount = boardDAO.countComment(boardDTO);
+	    	
 	        boardDAO.writeComment(commentDTO);
 	        resultMap.put("result", "success");
 
@@ -226,9 +230,7 @@ public class FreeboardController {
 			String emoji = boardDAO.selectCommEmoji(commentDTO);
 			if (emoji != null) commentDTO.setNickname(nickname + " " + emoji);
 			else commentDTO.setNickname(nickname);
-			
-			System.err.println(commentDTO.getComm_idx());
-			
+
 	        // 댓글 정보 추가
 	        resultMap.put("comment", Map.of(
 	            "comm_idx", commentDTO.getComm_idx(),
@@ -236,7 +238,8 @@ public class FreeboardController {
 	            "content", commentDTO.getContent(),
 	            "postdate", commentDTO.getPostdate(),
 	            "board_ref", commentDTO.getBoard_ref(),
-	            "writer_ref", commentDTO.getWriter_ref()
+	            "writer_ref", commentDTO.getWriter_ref(),
+	            "commentcount", commentcount
 	        ));
 	        
 	    } catch (Exception e) {
@@ -279,7 +282,7 @@ public class FreeboardController {
 	// == 댓글 삭제 (AJAX) ==
 	@PostMapping("/freeboard/deleteComment.do")
 	@ResponseBody
-	public Map<String, String> deleteComment(HttpSession session, HttpServletRequest req, HttpServletResponse response, CommentDTO commentDTO) {
+	public Map<String, String> deleteComment(HttpSession session, HttpServletRequest req, HttpServletResponse response, BoardDTO boardDTO, CommentDTO commentDTO) {
 	    
 	    Map<String, String> resultMap = new HashMap<>();
 	    
@@ -299,7 +302,13 @@ public class FreeboardController {
 	    // 댓글 삭제
 	    try {
 	        boardDAO.deleteComment(Integer.toString(commentDTO.getComm_idx()));
+	        
+			// 삭제 후 댓글수 확인
+			boardDTO.setBoard_idx(commentDTO.getBoard_ref());
+			int commentcount = boardDAO.countComment(boardDTO);
+			
 	        resultMap.put("result", "success");
+	        resultMap.put("commentcount", Integer.toString(commentcount));
 	    }
 	    catch (Exception e) {
 	        resultMap.put("result", "error");

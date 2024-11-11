@@ -52,6 +52,12 @@ function writeComment() {
                 $('.comment tbody').append(newComment);
                 $('#writeCommentModal').modal('hide');
                 $('#comm_write_content').val('');
+				
+				// 기존 댓글이 없는 경우 새로고침
+				if (response.comment.commentcount === 0) {
+					location.reload();
+				}
+				
             } else {
                 alert("댓글 작성에 실패했습니다.");
             }
@@ -128,6 +134,12 @@ function deleteComment(comm_idx, writer_ref, board_ref) {
                 if (response.result === "success") {
                     alert("댓글이 삭제되었습니다");
                     $('#comment-' + comm_idx).remove();
+					
+					// 삭제 후 댓글이 없는 경우 새로고침
+					if (response.commentcount === "0") {
+						location.reload();
+					}
+					
                 } else {
                     alert("댓글 삭제에 실패했습니다"); 
                 }
