@@ -23,7 +23,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.JSFunction;
 
 @Controller
 public class ReserveController {
@@ -136,7 +138,15 @@ public class ReserveController {
 
 	// 예약 목록 페이지로 이동
 	@GetMapping("/reserve.do")
-	public String reserveGet(Model model, HttpSession session) {
+	public String reserveGet(Model model, HttpSession session, HttpServletResponse response) {
+		
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
+		
 		List<ReserveDTO> reserveInfo;
 		
 		// 로그인 한 유저의 예약 목록 
