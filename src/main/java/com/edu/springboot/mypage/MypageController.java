@@ -52,29 +52,31 @@ public class MypageController {
 	// == 찜한 병원 ==
 	@GetMapping("/mypage/myHosp.do")
 	public String myHospGet(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, ParameterDTO parameterDTO) {
+		
 		// 로그인 여부 확인
 		String id = (String) session.getAttribute("userId");
 	    if (id == null) {
 	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
 	        return null;
 	    }
-		// 병원 API 레코드 개수
+	    
+		// 병원 API 레코드 개수를 통해 페이징 기능 구현
 		int total = mypageDAO.countMyHosp(id);
-		// 현재 페이지
 		int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
 				? 1 : Integer.parseInt(req.getParameter("pageNum"));
-		// 현재 페이지에 출력할 게시글의 구간 계산 및 저장
 		int start = (pageNum - 1) * postsPerPage + 1;
 		int end = pageNum * postsPerPage;
 		parameterDTO.setStart(start);
 		parameterDTO.setEnd(end);
-		// 뷰에서 게시글의 가상번호 계산을 위한 값 저장
 		Map<String, Object> maps = new HashMap<String, Object>();
 		maps.put("total", total);
 		maps.put("postsPerPage", postsPerPage);
 		maps.put("pageNum", pageNum);
 		model.addAttribute("maps", maps);
-		// 병원 API 목록 저장
+		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/mypage/myHosp.do?");
+		model.addAttribute("pagingImg", pagingImg);
+		
+		// 병원 API 목록
 		ArrayList<HospitalDTO> hospList = mypageDAO.listMyHosp(id, start, end);
 		for (HospitalDTO hospital : hospList) {
 			String hospId = hospitalDAO.selectHospId(hospital.getName());
@@ -107,14 +109,11 @@ public class MypageController {
 			hospital.setReviewcount(reviewcount);
 		}
 		model.addAttribute("hospList", hospList);
+		
 		// 해시태그
 		ArrayList<HashtagDTO> hashtagList = hospitalDAO.listHashtag();
 		model.addAttribute("hashtagList", hashtagList);
-		// 목록 하단에 출력할 페이지 번호를 String으로 저장한 후 Model에 저장
-		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/mypage/myHosp.do?");
-		model.addAttribute("pagingImg", pagingImg);
-		
-		
+
 		return "mypage/myHosp";
 	}
 	
@@ -129,22 +128,24 @@ public class MypageController {
 	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
 	        return null;
 	    }
-		// 좋아요 한 의사의 게시글 개수
+	    
+		// 좋아요 한 의사의 게시글 개수를 통해 페이징 기능 구현
 		int total = mypageDAO.countMyDoctor(id);
-		// 현재 페이지
 		int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
 				? 1 : Integer.parseInt(req.getParameter("pageNum"));
-		// 현재 페이지에 출력할 게시글의 구간 계산 및 저장
 		int start = (pageNum - 1) * postsPerPage + 1;
 		int end = pageNum * postsPerPage;
 		parameterDTO.setStart(start);
 		parameterDTO.setEnd(end);
-		// 뷰에서 게시글의 가상번호 계산을 위한 값 저장
 		Map<String, Object> maps = new HashMap<String, Object>();
 		maps.put("total", total);
 		maps.put("postsPerPage", postsPerPage);
 		maps.put("pageNum", pageNum);
 		model.addAttribute("maps", maps);
+		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/mypage/myDoctor.do?");
+		model.addAttribute("pagingImg", pagingImg);
+		
+		// 의사 목록
 		ArrayList<DoctorDTO> doctorList = mypageDAO.listMyDoctor(id, start, end);
 		for (DoctorDTO doctor : doctorList) {
 			String hospname = doctorDAO.selectHospName(doctor);
@@ -162,9 +163,7 @@ public class MypageController {
 			}
 		}
 		model.addAttribute("doctorList", doctorList);
-		// 목록 하단에 출력할 페이지 번호를 String으로 저장한 후 Model에 저장
-		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/mypage/myDoctor.do?");
-		model.addAttribute("pagingImg", pagingImg);
+		
 		return "mypage/myDoctor";
 	}
 	
@@ -230,6 +229,7 @@ public class MypageController {
    				hospitalDAO.writeReviewHashtag(hreviewDTO.getReview_idx(), hashtag.trim());
    			}
    		}
+   		
    		return "redirect:../mypage/myReview.do";
    	}
 	
@@ -237,11 +237,13 @@ public class MypageController {
    	// == 병원 리뷰 삭제 ==
    	@PostMapping("/mypage/deleteHreview.do")
    	public String deleteReviewGet(HttpServletRequest req) {
+   		
    		int review_idx = Integer.parseInt(req.getParameter("hreview_idx"));
-   		System.err.println(review_idx);
+   		
    		hospitalDAO.deleteReview(review_idx);
    		hospitalDAO.deleteAllReply(review_idx);
    		hospitalDAO.deleteAllHospReviewLike(review_idx);
+   		
    		return "redirect:../mypage/myReview.do";
    	}
    	
@@ -269,6 +271,7 @@ public class MypageController {
       			doctorDAO.writeReviewHashtag(dreviewDTO.getReview_idx(), hashtag.trim());
       		}
       	}
+      	
       	return "redirect:../mypage/myReview.do";
 	}
 
@@ -288,6 +291,7 @@ public class MypageController {
 		doctorDAO.deleteReview(review_idx);
 		doctorDAO.deleteAllReply(review_idx);
 		doctorDAO.deleteAllReviewLike(review_idx);
+		
 		return "redirect:../mypage/myReview.do";
 	}
 
