@@ -7,62 +7,25 @@
 <meta charset="UTF-8">
 <title>닥터뷰</title>
 <%@include file="common/head.jsp" %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <link rel="stylesheet" href="/css/main.css" />
-
-<script>
-function searchHosp() {
-	var form = document.searchForm;
-	if (form.searchWord.value == "") {
-		alert("검색어를 입력하세요");
-		return false;
-	}
-	else {
-		var searchField = form.searchField.value;
-		var searchWord = form.searchWord.value;
-		if (searchField == "hospital") {
-			window.location.href = "hospital.do";
-			/* $.ajax({
-		        url: "../hospital/searchHosp.do",
-		        type: "POST",
-		        data: formData,
-		        contentType: false,
-		        processData: false,
-		        dataType: "html",
-		        success: function(response) {
-		            const listElement = document.querySelector('.search_result');
-		            listElement.innerHTML = '';
-		            listElement.innerHTML = response;
-		        },
-		        error: function(e) {
-		            alert("오류 발생: " + e.status + ": " + e.statusText);
-		        }
-		    }); */
-			return false;
-		}
-		else if (searchField == "doctor") {
-			window.location.href = "doctor.do?searchField=name&searchWord=" + searchWord;
-			return false;
-		}
-	}
-}
-</script>
+<script src="/js/freeboard.js"></script>
 </head>
 <body>
 
-<!-- 회원탈퇴 alert -->
-<c:if test="${not empty withdraw}">
-    <script>
-        alert("${withdraw}");
-    </script>
+<!-- 회원탈퇴 알림 -->
+<c:if test="${ not empty withdraw }">
+	<script>
+		alert("${withdraw}");
+	</script>
 </c:if>
 
 <%@include file="common/main_header.jsp" %>
+
 <main id="container">
 	<div class="content">
 		<div class="content_inner">
+		
+			<!-- 병원/의사 찾기 섹션 -->
 			<section class="search">
 				<div class="search_wrap">
 					<img src="/images/main_search.png" alt="캐릭터" style="width: 160px; height: 160px;"/>
@@ -74,10 +37,9 @@ function searchHosp() {
 						</div>
 						<form class="searchForm" name="searchForm" onSubmit="return searchHosp();">
 							<select name="searchField" class="searchField">
-								<option value="hospital">--- 조건 선택 ---</option>
-								<option value="hospital">병원</option>
+								<option value="hospital" selected>병원</option>
 								<option value="doctor">의사</option>
-							</select>							
+							</select>
 							<input class="searchWord" type="text" name="searchWord" placeholder="검색어를 입력헤주세요." />
 							<input class="search_btn" type="submit" value="" />
 						</form>
@@ -86,66 +48,29 @@ function searchHosp() {
 			</section>
 			
 			
+			<!-- 해시태그 섹션 -->
 			<section class="tag">
-				<div class="swiper">
-	            	<div class="swiper-wrapper">
-	            		<div class="swiper-slide">
-	                  		<a href="#">#감기/몸살</a>
-	            		</div>
-	                  	<div class="swiper-slide">
-	                  		<a href="#">#코로나</a>
-	            		</div>
-	            		<div class="swiper-slide">
-	                  		<a href="#">#소아과</a>
-	            		</div>
-	                  	<div class="swiper-slide">
-	                  		<a href="#">#위염</a>
-	            		</div>
-	            		<div class="swiper-slide">
-	                  		<a href="#">#탈모</a>
-	            		</div>
-	                  	<div class="swiper-slide">
-	                  		<a href="#">#다이어트</a>
-	            		</div>
-	            		<div class="swiper-slide">
-	                  		<a href="#">#여드름</a>
-	            		</div>
-	                  	<div class="swiper-slide">
-	                  		<a href="#">#인공눈물</a>
-	            		</div>
-	            		<div class="swiper-slide">
-	                  		<a href="#">#소화불량</a>
-	            		</div>
-	                  	<div class="swiper-slide">
-	                  		<a href="#">#내과</a>
-	            		</div>
-	            		<div class="swiper-slide">
-	                  		<a href="#">#산부인과</a>
-	            		</div>
-	                  	<div class="swiper-slide">
-	                  		<a href="#">#무좀</a>
-	            		</div>
-	              	</div>
-	            </div>
+			
+			
 			</section>
-			
-			
+		
+		
+			<!-- 바로가기 섹션 -->
 			<section class="link">
 				<h2>바로가기</h2>
 				<ul>
 					<li>
-						<p>얘기 나눠욧</p>
+						<p>얘기 나눠요</p>
 						<a href="/freeboard.do"><span class="blind">바로가기</span></a>
 						<p class="go">자유게시판</p>
-						
 					</li>
 					<li>
-						<p>의료 지식이 필요해욧</p>
+						<p>의료 지식에 필요해요</p>
 						<a href="/qnaboard.do"><span class="blind">바로가기</span></a>
 						<p class="go">상담게시판</p>
 					</li>
 					<li>
-						<p>꾸며보아욧</p>
+						<p>꾸며보아요</p>
 						<a href="/store.do"></a>
 						<p class="go">이모지 상점</p>
 					</li>
@@ -154,17 +79,12 @@ function searchHosp() {
 			
 			
 			<section class="notify">
-				<h2>공지사항</h2>
 				<div class="notice">
 					<p class="title">2024년 5월 20일부터 병원 접수, 진료 시 신분증 지참 필수입니다!</p>
-					
 					<br />
-					
 					<strong>[의료기관 본인확인 의무화]</strong>
 					<p>국민건강보호법 개정(제12조4항 신설)에 따라 2024년 5월 20일부터 본인확인 의무화 제도 시행</p>
-					
 					<br />
-					
 					<strong>[본인 확인 방법]</strong>
 					<p>신분증 / 모바일 신분증 / 운전면허증 / 건강보험증 / 모바일건강보험증앱 / 여권 등
 					<br />
@@ -177,9 +97,10 @@ function searchHosp() {
 					지참하여 건강보험 적용된 금액으로 정산</p>
 				</div>
 			</section>
+
 		</div>
 	</div>
-</main>	 
+</main>
 <%@include file="common/main_footer.jsp" %>
 </body>
 </html>
