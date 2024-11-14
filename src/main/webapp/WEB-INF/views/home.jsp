@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>닥터뷰</title>
 <%@include file="common/head.jsp" %>
-<link rel="stylesheet" href="/css/main.css" />
+<link rel="stylesheet" href="/css/home.css" />
 <script src="/js/freeboard.js"></script>
 </head>
 <body>
