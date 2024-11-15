@@ -8,7 +8,7 @@
 <title>닥터뷰</title>
 <%@include file="common/head.jsp" %>
 <link rel="stylesheet" href="/css/home.css" />
-<script src="/js/freeboard.js"></script>
+<script src="/js/home.js"></script>
 </head>
 <body>
 
@@ -58,21 +58,21 @@
 					</div>
 				</div>
 			</div>
-			
-			
-			<!-- 해시태그 섹션 -->
-<!-- 			<section class="tag">
-			
-			
-			</section> -->
 		
 		
-			<!-- 바로가기 섹션 -->
-			<section class="shortcut_menu">
-				<div class="title">
-					<h2>바로가기</h2>
+			<!-- 베스트메뉴 섹션 -->
+			<section class="best_menu">
+				<div class="hd">
+					<h2>이달의 BEST</h2>
+					<div class="tab">
+						<ul>
+							<li class="active"><a href="">베스트 병원</a></li>
+							<li><a href="">베스트 의사</a></li>
+							<li><a href="">베스트 게시글</a></li>
+						</ul>
+					</div>
 				</div>
-				<div class="shortcut_menu_wrap">
+				<div class="best_menu_wrap">
 					<ul>
 						<li>
 							<a href="/hospital/map.do">
