@@ -1,0 +1,123 @@
+#container .content {
+  margin-top: 170px;
+  padding: 100px 0 170px;
+}
+#container .content_inner {
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+
+/*** 사용자 정보 ***/
+#container h2 {
+  font-size: 40px;
+  color: var(--point-color2);
+  font-weight: 700;
+  padding: 30px 0 20px;
+}
+#container .user {
+  width: 100%;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+#container .user .none {
+  font-size: 25px;
+  text-align: center;
+  padding: 35px 0;
+}
+#container .user .user_emoji {
+  font-size: 50px;
+  text-align: center;
+  display: block;
+  width: 250px;
+}
+#container .user .user_info {
+  padding: 20px 30px;
+}
+#container .user_name {
+  font-size: 30px;
+}
+#container .user_point {
+  display: flex;
+  gap: 0 10px;
+  margin-top: 10px;
+  font-size: 20px;
+}
+#container .user_point .point {
+  color: var(--point-color2);
+  font-weight: 700;
+}
+#container .user_point .point::after {
+  content: 'P';
+  margin-left: 2px;
+  color: #000;
+  font-weight: 400;
+}
+#container .user a {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px;
+  height: 100px;
+  background: var(--point-color1);
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/*** 보유 이모티콘 ***/
+#container .my_emoji {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+#container .have {
+  width: calc((100% / 3) - 40px / 3);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+#container .have:hover {
+  background: var(--point-color1);
+  color: #fff;
+}
+#container .have .emoji {
+  font-size: 40px;
+  font-weight: 500;
+}
+#container .have .emoji_name {
+  font-size: 25px;
+  margin: 30px 0 5px;
+}
+#container .have .price {
+  font-size: 35px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+#container .have .emoji_btn button {
+  border: none;
+  border-radius: 10px;
+  background: var(--point-color1);
+  padding: 10px 20px;
+  font-size: 20px;
+  color: #fff;
+}
+#container .have:hover .emoji_btn button {
+  background: #fff;
+  color: var(--gray-500);
+}
+#container .have .emoji_btn button.used {
+  background: #ddd;
+}
