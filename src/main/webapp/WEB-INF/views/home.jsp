@@ -129,19 +129,19 @@
 				<div class="content_top">
 					<div class="cm1">
 						<p>근처 병원을<br/>지도로 빠르게!</p>
-						<a class="btn" href="">
+						<a class="btn" href="/hospital/map.do">
 							<span>바로가기</span>
 						</a>
 					</div>
 					<div class="cm2">
 						<p>의료진에게<br/>상담을 받아보세요!</p>
-						<a class="btn" href="">
+						<a class="btn" href="/qnaboard.do">
 							<span>바로가기</span>
 						</a>
 					</div>
 					<div class="cm3">
 						<p>새로운 이모지를<br/>만나보세요!</p>
-						<a class="btn" href="">
+						<a class="btn" href="/store.do">
 							<span>바로가기</span>
 						</a>
 					</div>
