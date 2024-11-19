@@ -148,11 +148,11 @@
 
 #container .emoji_list li .emoji p {
     text-align: center;
-    font-size: 70px;
+    font-size: 50px;
 }
 
 
-#container .emoji_list li .tit {
+#container .emoji_list li .tit strong {
 	color: #292929;
 	font-size: 22px;
 	font-weight: bold;
@@ -173,7 +173,7 @@
     top: 0;
 }
 
-#container .emoji_list li .price {
+#container .emoji_list li .price span {
     color: #ffc300;
     font-size: 18px;
     font-weight: bold;
@@ -185,6 +185,7 @@
     left: 125px;
     bottom: 40px;
     background: var(--point-color1);
+    border: none;
     border-radius: 40px;
     width: 120px;
     font-size: 18px;
@@ -198,3 +199,21 @@
     align-items: center;
 }
 
+#container .emoji_list li .used_btn {
+    position: absolute;
+    left: 125px;
+    bottom: 40px;
+    background: #bbb;
+    border: none;
+    border-radius: 40px;
+    width: 120px;
+    font-size: 18px;
+    text-align: center;
+    height: 50px;
+    z-index: 5;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -78,12 +78,6 @@ public class EmojiController {
 	// 이모지 상점 이동
 	@GetMapping("/store.do")
 	public String store(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response) {
-		// 로그인 여부 확인
-		String id = (String) session.getAttribute("userId");
-	    if (id == null) {
-	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
-	        return null;
-	    }
 		// 상점 이모지 목록 가져오기
 		List<StoreDTO> storeDTO = storeDAO.storeList();
 		model.addAttribute("storeDTO", storeDTO);
@@ -99,7 +93,6 @@ public class EmojiController {
 			model.addAttribute("memberDTO", memberDTO);
 		}
 		
-
 		return "emoji/store";
 	}
 	

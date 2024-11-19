@@ -43,13 +43,46 @@
 			</div>
 			<div class="emoji_list">
 				<ul>
-					<li>
-						<div class="emoji"><p>(-.-)</p></div>
-						<strong class="tit">졸려요</strong>
-						<span class="sub">아기자기하고 귀여운 이모지</span>
-						<span class="price">123 point</span>
-						<a class="buy_btn" href=""><span>구매하기</span></a>
-					</li>
+					<c:forEach items="${ storeDTO }" var="row" varStatus="loop">
+						<li>
+							<form action="/store/buy.do" method="post">
+				                <input type="hidden" name="store_idx" value="${ row.store_idx }">
+								<div class="emoji">
+									<p>${ row.emoji }</p>
+									<input type="hidden" name="emoji" value="${ row.emoji }">
+								</div>
+								<div class="tit">
+									<strong>${ row.title }</strong>
+									<input type="hidden" name="title" value="${ row.title }">
+								</div>
+								<span class="sub">아기자기하고 귀여운 이모지</span>
+								<div class="price">
+									<span class="price">${ row.price } point</span>
+									<input type="hidden" name="price" value="${ row.price }">
+								</div>
+								
+								<!-- 회원이 보유한 이모지인지 확인 -->
+				                <c:set var="hasEmoji" value="false"/>
+				                <c:forEach items="${ emojiDTO }" var="userEmoji">
+				                    <c:if test="${ userEmoji.emoji == row.emoji }">
+				                        <c:set var="hasEmoji" value="true"/>
+				                    </c:if>
+				                </c:forEach>
+				
+								<div class="emoji_btn">
+					                <!-- 이모지 보유 여부에 따라 버튼 표시 -->
+					                <c:choose>
+					                    <c:when test="${ hasEmoji }">
+					                        <button type="button" class="used_btn">보유중</button>
+					                    </c:when>
+					                    <c:otherwise>
+					                        <button type="submit" class="buy_btn"><span>구매하기</span></button>
+					                    </c:otherwise>
+					                </c:choose>
+								</div>
+							</form>
+						</li>
+					</c:forEach>
 				
 				</ul>
 			
@@ -98,11 +131,13 @@
 			    <a href="/myEmoji.do">나의 이모지<br />확인</a>
 	    	</div>
         </c:if>
+        
         <c:if test="${ empty userId }">
         	<div class="user">
         		<p class="no_login">로그인 후 이용해주세요.</p>
         	</div>
         </c:if>
+	    
 	    
 	    <h2>이모지 상점</h2>
         <div class="my_emoji">
