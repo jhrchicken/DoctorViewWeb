@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰 | 이모지</title>
+<title>닥터뷰</title>
 <%@ include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/emoji-store.css" />
 </head>
+
 <body>
 <!-- 이모지 구매 실패 알림 -->
 <c:if test="${not empty emojiBuyError}">
@@ -18,6 +19,53 @@
 </c:if>
 
 <%@ include file="../common/main_header.jsp" %>
+
+
+<main id="container">
+	<div class="content">
+		<div class="content_inner">
+			<div class="user">
+				<h2>이모지 상점</h2>
+				<p>보유포인트</p>
+			</div>
+			<div class="pd_tab">
+				<ul>
+					<li class="active">
+						<a href="">ALL</a>
+					</li>
+					<li>
+						<a href="">ALL</a>
+					</li>
+					<li>
+						<a href="">ALL</a>
+					</li>
+				</ul>
+			</div>
+			<div class="emoji_list">
+				<ul>
+					<li>
+						<div class="emoji"><p>(-.-)</p></div>
+						<strong class="tit">졸려요</strong>
+						<span class="sub">아기자기하고 귀여운 이모지</span>
+						<span class="price">123 point</span>
+						<a class="buy_btn" href=""><span>구매하기</span></a>
+					</li>
+				
+				</ul>
+			
+			
+			</div>
+		</div>
+	</div>
+</main>
+
+
+
+
+
+
+
+<%-- 
 
 <main id="container">
   <div class="content">
@@ -132,7 +180,7 @@
     </div>
   </div>
 </main>
-
+ --%>
 <%@ include file="../common/main_footer.jsp" %>
 </body>
 </html>
