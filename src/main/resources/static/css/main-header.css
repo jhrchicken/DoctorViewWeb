@@ -29,7 +29,7 @@
 
 #header.open:before {
     content: '';
-    background: url(/images/bg_header_shodow.png) 0 100% repeat-x;
+    background: url(/images/home/bg_header_shodow.png) 0 100% repeat-x;
     height: 11px;
     position: absolute;
     left: 0;

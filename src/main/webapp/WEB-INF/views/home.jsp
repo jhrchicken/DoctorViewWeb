@@ -78,46 +78,46 @@
 				<div class="best_menu_wrap">
 					<ul>
 						<li>
-							<a href="/hospital/map.do">
+							<a href="">
 								<div class="wrap">
 									<div class="img">
-										<img src="/images/sandwich.jpg" alt="">
+										<img src="/images/home/test1.jpg" alt="">
 									</div>
-									<strong>서울병원</strong>
-									<p>근처 병원을 지도로 빠르게<br/>검색하세요</p>
+									<strong>강동경희대학교병원</strong>
+									<p>강동경희대학교병원은 강동구 유일한 대학병원으로서, 숙련된 전문 의료진이 항상 환자의 편에서 최상의 의료서비스를 제공하기 위해 노력하고 있습니다</p>
 								</div>
 							</a>
 						</li>
 						<li>
-							<a href="/freeboard.do">
+							<a href="">
 								<div class="wrap">
 									<div class="img">
-										<img src="/images/sandwich.jpg" alt="">
+										<img src="/images/home/test2.svg" alt="">
 									</div>
-									<strong>자유게시판</strong>
-									<p>자유게시판에서 자유롭게<br/>소통하세요</p>
+									<strong>아주대학교의료원</strong>
+									<p>우리는 항상 당신 곁에 있으며, 당신의 아픔을 치유하기 위하여 끊임없이 헌신합니다</p>
 								</div>
 							</a>
 						</li>
 						<li>
-							<a href="/qnaboard.do">
+							<a href="">
 								<div class="wrap">
 									<div class="img">
-										<img src="/images/sandwich.jpg" alt="">
+										<img src="/images/home/test3.svg" alt="">
 									</div>
-									<strong>상담게시판</strong>
-									<p>상담게시판에서 의료진에게<br/>의료 정보를 물어보세요</p>
+									<strong>건국대학교병원</strong>
+									<p>환자와 직원이 건강한 병원, 건강은 건국!</p>
 								</div>
 							</a>
 						</li>
 						<li>
-							<a href="/myEmoji.do">
+							<a href="">
 								<div class="wrap">
 									<div class="img">
-										<img src="/images/sandwich.jpg" alt="">
+										<img src="/images/home/test4.jpg" alt="">
 									</div>
-									<strong>이모지 상점</strong>
-									<p>귀엽고 멋진 이모지로<br/>닉네임을 꾸며보세요</p>
+									<strong>경희의료원</strong>
+									<p>‘경희가족정신’ 을 바탕으로 언제나 환자 곁에서, 환자 편에서 생각하고 행동하는 경희의료원</p>
 								</div>
 							</a>
 						</li>
