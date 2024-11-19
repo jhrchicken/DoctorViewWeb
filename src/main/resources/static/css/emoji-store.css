@@ -1,6 +1,7 @@
 #container {
 	margin-top: 170px;
     position: relative;
+    min-width: 1280px;
 }
 
 #container .content {
@@ -15,8 +16,8 @@
 
 
 
-/*** 회원정보 ***/
-#container .user {
+/*** 회원 정보 ***/
+#container .user_info {
 	background: url(/images/emoji/bg_emoji.jpg) 50% no-repeat;
 	height: 380px;
     text-align: center;
@@ -25,7 +26,7 @@
     position: relative;
 }
 
-#container .user h2 {
+#container .user_info h2 {
     font-size: 70px;
     font-weight: bold;
     color: #fff;
@@ -34,19 +35,31 @@
     z-index: 9;
 }
 
-#container .user p {
+#container .user_info p {
 	font-size: 16px;
     line-height: 26px;
     position: relative;
     z-index: 9;
 }
 
+#container .user_info p span {
+	font-size: 20px;
+	font-weight: bold;
+	color: var(--point-color1);
+}
+
+#container .user_info .user_point {
+	font-size: 16px;
+	font-weight: bold;
+	color: #fff;
+	padding-top: 10px;
+	color: var(--point-color1);
+}
 
 
 
-
-/*** 상품탭 ***/
-#container .pd_tab {
+/*** 탭 메뉴 ***/
+#container .tab_menu {
 	height: 140px;
 	width: 1170px;
 	margin: -40px auto 0;
@@ -56,17 +69,17 @@
 	text-align: center;
 }
 
-#container .pd_tab ul {
+#container .tab_menu ul {
 	overflow: hidden;
 	display: inline-block;
 }
 
-#container .pd_tab li {
+#container .tab_menu li {
 	float: left;
 	position: relative;
 }
 
-#container .pd_tab a {
+#container .tab_menu a {
     font-size: 16px;
     color: #666666;
     display: block;
@@ -77,12 +90,12 @@
 }
 
 
-#container .pd_tab li.active a {
+#container .tab_menu li.active a {
 	color: var(--point-color2);
 	font-weight: bold;
 }
 
-#container .pd_tab li:nth-child(n+2):after {
+#container .tab_menu li:nth-child(n+2):after {
 	content: '';
 	position: absolute;
 	left: 0;
@@ -94,11 +107,7 @@
 
 
 
-
-
-
-/*** 상품목록 ***/
-
+/*** 이모지 목록 ***/
 #container .emoji_list {
 	width: 1170px;
 	margin: 0 auto;
