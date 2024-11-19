@@ -2,22 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ page session="true" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<script>
-// 채팅
-function openChatList(userId, hospId) {
-	window.open('/chat/index.html#/chat/list?user=' + userId,
-			'', 'width=500, height=650')
-}
-</script>
+<script src="/js/main-header.js"></script>
+
 <header id="header">
 	<div class="inner">
 		<h1 class="logo">
-			<a href="/"><span class="blind">닥터뷰</span></a>
+			<a href="/">닥터뷰</a>
 		</h1>
-		<nav class="gnb_wrap">
-			<ul class="gnb">
+		<nav class="gnb">
+			<ul>
 				<li>
-					<a href="/hospital.do">병원/의사 찾기</a>
+					<a class="depth1" href="#none">병원/의사 찾기</a>
 					<div class="depth2">
 						<ul>
 							<li><a href="/hospital.do">병원 찾기</a></li>
@@ -27,7 +22,7 @@ function openChatList(userId, hospId) {
 					</div>
 				</li>
 				<li>
-					<a href="/freeboard.do">게시판</a>
+					<a class="depth1" href="#none">게시판</a>
 					<div class="depth2">
 						<ul>
 							<li><a href="/freeboard.do">자유게시판</a></li>
@@ -42,7 +37,7 @@ function openChatList(userId, hospId) {
 					</div>
 				</li>
 				<li>
-					<a href="/store.do">이모지</a>
+					<a class="depth1" href="#none">이모지</a>
 					<div class="depth2">
 						<ul>
 							<li><a href="/myEmoji.do">나의 이모지</a></li>
@@ -51,13 +46,9 @@ function openChatList(userId, hospId) {
 					</div>
 				</li>
 				<li>
-					<a href="#">마이페이지</a>
+					<a class="depth1" href="#none">마이페이지</a>
 					<div class="depth2">
 						<ul>
-							<!-- 병원 권한: 내 병원보기 -->
-							<%-- <c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
-								<li><a href="#">내 병원 보기</a>
-							</c:if> --%>
 							<!-- 공통: 개인정보 수정 -->
 							<c:if test="${ sessionScope.userAuth != 'ROLE_HOSP' }">
 								<li><a href="/member/checkMember.do">개인정보 수정</a></li>
@@ -88,32 +79,29 @@ function openChatList(userId, hospId) {
 				</li>
 			</ul>
 		</nav>
-		<div class="login_wrap">
+		
+		<div class="util_menu">
 			<ul>
 				<!-- 로그인 하지 않은 상태 -->
 				<c:if test="${ empty sessionScope.userId }">
 					<li><a href="/member/login.do">로그인</a></li>
 					<li><a href="/member/join.do">회원가입</a></li>
+					<li class="global_btn"><a href="#none"></a></li>
 				</c:if>
 				<!-- 로그인 한 상태 -->
 				<c:if test="${ not empty sessionScope.userId }">
-					<li><p>${ loginMember.nickname } ${ loginMember.emoji }</p></li>
+					<li><p class="user_name">${ loginMember.nickname } ${ loginMember.emoji }</p><p>님</p></li>
 					<li><a href="/member/logout.do">로그아웃</a></li>
 					<li><a href="/reserve.do">나의 예약</a></li>
+					<li class="chat_btn"><a href="#none"></a></li>
+					<!-- 
+					<li><button class="chat_btn" type="button" onclick="openChatList('${ sessionScope.userName }', '${ hospitalDTO.name }');"><span class="blind">채팅</span></button></li>
+					<li><button class="my_btn" type="button"><span class="blind">마이</span></button></li>
+					 -->
 				</c:if>
-				<div class="btn_wrap">
-					<!-- 로그인 하지 않은 상태 -->
-					<c:if test="${ empty sessionScope.userId }">
-						<img src="/images/global.svg" alt="아이콘">
-					</c:if>
-					<!-- 로그인 한 상태 -->
-					<c:if test="${ not empty sessionScope.userId }">
-						<li><button class="chat_btn" type="button" onclick="openChatList('${ sessionScope.userName }', '${ hospitalDTO.name }');"><span class="blind">채팅</span></button></li>
-						<li><button class="my_btn" type="button"><span class="blind">마이</span></button></li>
-					</c:if>
-				</div>
 			</ul>
 		</div>
+	
+	
 	</div>
-	<div class="depth2_color"></div>
 </header>

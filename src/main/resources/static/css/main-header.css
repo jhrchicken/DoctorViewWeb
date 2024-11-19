@@ -7,188 +7,202 @@
   --gray-600: #292929;
 }
 
+
 #header {
-  border-top: 5px solid var(--point-color2);
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 99;
-  width: 100%;
-  background: #fff;
+	border-top: 5px solid var(--point-color2);
+	height: 165px;
+	position: absolute;
+	left: 0;
+	width: 100%;
+	top: 0;
+	z-index: 99;
+	background-color: #fff;
+	overflow: hidden;
+	min-width: 1280px;
+	transition: all 0.3s;
 }
+
+#header.open {
+	overflow: inherit;
+	height: 425px;
+}
+
+#header.open:before {
+    content: '';
+    background: url(/images/bg_header_shodow.png) 0 100% repeat-x;
+    height: 11px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: -11px;
+}
+
 #header::after {
-  content: '';
-  position: absolute;
-  background-color: #e5e5e5;
-  left: 0;
-  top: 164px;
-  z-index: 99;
-  width: 100%;
-  height: 1px;
+	content: '';
+    position: absolute;
+    top: 164px;
+    background-color: #e5e5e5;
+    left: 0;
+    width: 100%;
+    height: 1px;
 }
+
 #header .inner {
-  max-width: 1170px;
-  height: 165px;
-  margin: 0 auto;
-  align-items: center;
-  position: relative;
+	max-width: 1170px;
+    margin: 0 auto;
+    position: relative;
 }
+
 #header .logo {
-  position: absolute;
-  left: 50%;
-  top: 35px;
-  margin-left: -55px;
+	position: absolute;
+    left: 50%;
+    top: 35px;
+    margin-left: -101px;
 }
+
 #header .logo a {
-  display: block;
-  background: url(../images/logo.png) no-repeat 0 0 / 100%;
-  width: 110px;
-  height: 46px;
+	overflow: hidden;
+    font-size: 0px;
+    display: block;
+    background: url(/images/logo.png) no-repeat 0 0 / 100%;
+    width: 110px;
+    height: 46px;
 }
-/*** 헤더 ***/
-#header .gnb_wrap {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  top: 98px;
-  text-align: center;
-}
+
 #header .gnb {
-  display: flex;
-  justify-content: space-between;
-}
-#header .gnb>li {
-  width: 100%;
-  position: relative;
-}
-#header .gnb>li:hover>a {
-  color: var(--point-color2);
-  transition: all 0.2s;
-}
-#header .gnb>li>a {
-  font-size: 18px;
-  color: var(--gray-600);
-  font-weight: 700;
-  position: relative;
-  padding-top: 20px;
-  display: block;
-  z-index: 3;
+	position: absolute;
+    left: 0;
+    width: 100%;
+    top: 98px;
+    text-align: center;
 }
 
-/*** 헤더 드롭다운 ***/
-#header .depth2 {
-  overflow: hidden;
-  opacity: 0;
-  position: absolute;
-  left: 0;
-  top: -20px;
-  width: 100%;
-  padding-top: 87px;
-  z-index: 2;
-  transition: all 0.4s;
-  pointer-events: none;
+#header .gnb >ul {
+	display: inline-block;
 }
-#header.on .depth2 {
-  opacity: 1;
-  pointer-events: auto;
+
+#header .gnb >ul >li {
+	float: left;
+    width: 247px; /* 기본값 165px */
+    position: relative;
 }
-#header .depth2 li>a {
-  display: block;
-  padding: 8px 0 9px;
-  font-size: 15px;
-  color: var(--gray-500);
+
+#header .gnb >ul >li a.depth1 {
+	font-size: 18px;
+	color: #292929;
+	font-weight: bold;
+	letter-spacing: -0.04em;
+	position: relative;
+	z-index: 3;
+	padding-top: 20px;
+	display: block;
+	transition: all 0.2s;
 }
-#header .depth2 li:hover>a {
-  color: var(--point-color2);
-  text-decoration: underline;
+
+#header .gnb >ul >li:hover a.depth1 {
+    color: var(--point-color2);
 }
-#header .depth2 li:first-child {
-  margin-top: 20px;
+
+#header .gnb .depth2 {
+	overflow: hidden;
+    position: absolute;
+    top: -20px;
+    left: 0;
+    width: 100%;
+    padding-top: 87px;
+    z-index: 2;
+    opacity: 0;
+    transition: all 0.3s;
 }
-#header .depth2 li:last-child {
-  margin-bottom: 20px;
+
+#header .gnb >ul:hover .depth2 {
+	opacity: 1;
+	top: 0px;
 }
-#header .depth2_color {
-  opacity: 0;
-  position: absolute;
-  left: 0;
-  top: 165px;
-  width: 100%;
-  height: 0;
-  background: #fff;
-  transition: all 0.3s;
+
+#header .gnb .depth2 ul li a {
+	font-size: 15px;
+    color: #666666;
+    padding: 8px 0 9px;
+    display: block;
+	transition: all 0.2s;
 }
-#header.on .depth2_color {
-  opacity: 1;
-  height: 262px;
-  transition: all 0.3s;
+
+#header .gnb .depth2 ul li a:hover {
+	color: var(--point-color2);
+    text-decoration: underline;
 }
 
 
-/*** 로그인 ***/
-#header .login_wrap {
-  position: absolute;
-  right: 25px;
-  top: 40px;
+#header .util_menu {
+	position: absolute;
+    right: 25px;
+    top: 40px;
 }
-#header .login_wrap ul {
-  display: flex;
-  align-items: center;
+
+#header .util_menu ul li {
+	float: left;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
-#header .login_wrap li {
-  position: relative;
+
+#header .util_menu ul li p {
+	display: block;
+	color: #555555;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 30px;
+	height: 30px;
 }
-#header .login_wrap li>a {
-  display: block;
-  color: var(--gray-500);
-  font-size: 13px;
-  line-height: 30px;
-  height: 30px;
+
+#header .util_menu .user_name {
+	color: var(--point-color2);
 }
-#header .login_wrap li>p {
-  display: block;
-  color: var(--gray-500);
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 30px;
-  height: 30px;
+
+#header .util_menu ul li:nth-child(n+2):not(:last-child) {
+	margin-left: 30px;
 }
-#header .login_wrap li>p::after {
-  content: '님';
-  margin-left: 5px;
-  font-size: 12px;
+
+#header .util_menu ul li a {
+	display: block;
+	color: #666666;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 30px;
+	height: 30px;
 }
-#header .login_wrap>ul>li + li {
-  margin-left: 30px;
+
+#header .util_menu ul li:nth-child(n+2):not(:last-child):before {
+	background-color: #ddd;
+	content: '';
+	display: block;
+	border-radius: 50px;
+	position: absolute;
+	left: -16px;
+	top: 50%;
+	margin-top: -2px;
+	height: 3px;
+	width: 3px;
 }
-#header .login_wrap>ul>li + li::before {
-  background-color: #ddd;
-  content: '';
-  display: block;
-  border-radius: 50px;
-  position: absolute;
-  left: -16px;
-  top: 50%;
-  margin-top: -2px;
-  height: 3px;
-  width: 3px;
+
+#header .util_menu .global_btn {
+	position: relative;
+	margin-left: 15px;
 }
-/*** 로그인 상태일 때 나타나는 버튼 ***/
-#header .btn_wrap {
-  display: flex;
-  margin-left: 20px;
-  gap: 0 15px;
-  align-items: center;
+
+#header .util_menu .global_btn a {
+	background: url(/images/global.png) no-repeat 0 0 / 100%;
+	width: 30px;
 }
-#header .btn_wrap .chat_btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background: url(../images/chat.svg) no-repeat 0 0 / 100%;
+
+#header .util_menu .chat_btn {
+	position: relative;
+	margin-left: 15px;
 }
-#header .btn_wrap .my_btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background: url(../images/user.svg) no-repeat 0 0 / 100%;
+
+#header .util_menu .chat_btn a {
+	background: url(/images/chat.png) no-repeat center center / 90%;
+	width: 30px;
 }
