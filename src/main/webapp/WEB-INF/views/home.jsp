@@ -63,6 +63,7 @@
 			</div>
 		
 		
+		
 			<!-- 베스트메뉴 섹션 -->
 			<section class="best_menu">
 				<div class="hd">
@@ -76,6 +77,7 @@
 					</div>
 				</div>
 				<div class="best_menu_wrap">
+					<!-- 베스트병원 -->
 					<ul>
 						<li>
 							<a href="">
@@ -118,6 +120,34 @@
 									</div>
 									<strong>경희의료원</strong>
 									<p>‘경희가족정신’ 을 바탕으로 언제나 환자 곁에서, 환자 편에서 생각하고 행동하는 경희의료원</p>
+								</div>
+							</a>
+						</li>
+					</ul>
+					<!-- 베스트 의사 -->
+					<ul>
+						<li>
+							<a href="">
+								<div class="wrap">
+									<div class="img">
+										<img src="/images/home/test1.jpg" alt="">
+									</div>
+									<strong>아잠만의사</strong>
+									<p>나 최고임</p>
+								</div>
+							</a>
+						</li>
+					</ul>
+					<!-- 베스트게시글 -->
+					<ul>
+						<li>
+							<a href="">
+								<div class="wrap">
+									<div class="img">
+										<img src="/images/home/test1.jpg" alt="">
+									</div>
+									<strong>강동경희대학교병원</strong>
+									<p>강동경희대학교병원은 강동구 유일한 대학병원으로서, 숙련된 전문 의료진이 항상 환자의 편에서 최상의 의료서비스를 제공하기 위해 노력하고 있습니다</p>
 								</div>
 							</a>
 						</li>

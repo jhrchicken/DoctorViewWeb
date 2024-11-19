@@ -350,6 +350,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    position: relative;
 }
 
 #container .best_menu .best_menu_wrap ul li .img img {
@@ -364,7 +365,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    margin: -35px 0 0 -35px;
+    margin: 0 0 0 -35px;
     opacity: 0;
     transition: opacity 0.3s;
 }
