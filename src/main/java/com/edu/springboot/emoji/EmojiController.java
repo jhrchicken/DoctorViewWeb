@@ -58,9 +58,20 @@ public class EmojiController {
 		}
 		
 		// 현재 로그인 한 유저의 emoji 컬럼 업데이트
-		emojiDAO.updateEmoji(loginMember.getId(), req.getParameter("emoji"));
-		loginMember.setEmoji(req.getParameter("emoji"));
-		session.setAttribute("loginMember", loginMember);
+		String state = req.getParameter("state");
+		System.err.println(state);
+		if (state.equals("disable")) {
+			// 비활성화
+			emojiDAO.updateEmoji(loginMember.getId(), "");
+			loginMember.setEmoji("");
+			session.setAttribute("loginMember", loginMember);
+		}
+		else if (state.equals("enable")) {
+			// 활성화
+			emojiDAO.updateEmoji(loginMember.getId(), req.getParameter("emoji"));
+			loginMember.setEmoji(req.getParameter("emoji"));
+			session.setAttribute("loginMember", loginMember);
+		}
 
 		return "redirect:/myEmoji.do";
 	}

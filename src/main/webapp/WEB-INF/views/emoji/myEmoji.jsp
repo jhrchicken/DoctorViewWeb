@@ -59,10 +59,12 @@
 					                <!-- 이모지 사용 여부에 따라 버튼 표시 -->
 					                <c:choose>
 					                    <c:when test="${ row.emoji == sessionScope.loginMember.emoji }">
-					                        <button type="button" class="used_btn">사용중</button>
+					                        <button type="submit" class="used_btn"><span>해제하기</span></button>
+					                        <input type="hidden" name="state" value="disable">
 					                    </c:when>
 					                    <c:otherwise>
-					                        <button type="submit" class="change_btn"><span>변경하기</span></button>
+					                        <button type="submit" class="change_btn"><span>사용하기</span></button>
+					                        <input type="hidden" name="state" value="enable">
 					                    </c:otherwise>
 					                </c:choose>
 								</div>
