@@ -73,7 +73,7 @@
 								
 								<!-- 회원이 보유한 이모지인지 확인 -->
 				                <c:set var="hasEmoji" value="false"/>
-				                <c:forEach items="${ myEmojiList }" var="myEmoji">
+				                <c:forEach items="${ emojiList }" var="myEmoji">
 				                    <c:if test="${ myEmoji.emoji == row.emoji }">
 				                        <c:set var="hasEmoji" value="true"/>
 				                    </c:if>
@@ -116,7 +116,7 @@
 									
 									<!-- 회원이 보유한 이모지인지 확인 -->
 					                <c:set var="hasEmoji" value="false"/>
-					                <c:forEach items="${ myEmojiList }" var="myEmoji">
+					                <c:forEach items="${ emojiList }" var="myEmoji">
 					                    <c:if test="${ myEmoji.emoji == row.emoji }">
 					                        <c:set var="hasEmoji" value="true"/>
 					                    </c:if>
@@ -160,7 +160,7 @@
 									
 									<!-- 회원이 보유한 이모지인지 확인 -->
 					                <c:set var="hasEmoji" value="false"/>
-					                <c:forEach items="${ myEmojiList }" var="myEmoji">
+					                <c:forEach items="${ emojiList }" var="myEmoji">
 					                    <c:if test="${ myEmoji.emoji == row.emoji }">
 					                        <c:set var="hasEmoji" value="true"/>
 					                    </c:if>
@@ -186,7 +186,7 @@
 					<c:forEach items="${ storeList }" var="row" varStatus="loop">
 						<!-- 회원이 보유한 이모지인지 확인 -->
 						<c:set var="hasEmoji" value="false"/>
-						<c:forEach items="${ myEmojiList }" var="myEmoji">
+						<c:forEach items="${ emojiList }" var="myEmoji">
 		                    <c:if test="${ myEmoji.emoji == row.emoji }">
 		                        <c:set var="hasEmoji" value="true"/>
 		                    </c:if>

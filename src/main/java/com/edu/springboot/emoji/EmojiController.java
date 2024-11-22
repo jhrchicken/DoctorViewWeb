@@ -89,8 +89,8 @@ public class EmojiController {
 		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 		if (loginMember != null) {
 			// 유저의 보유 이모지 목록
-			List<EmojiDTO> myEmojiList = emojiDAO.listMyEmoji(loginMember.getId());
-			model.addAttribute("myEmojiList", myEmojiList);
+			List<EmojiDTO> emojiList = emojiDAO.listMyEmoji(loginMember.getId());
+			model.addAttribute("emojiList", emojiList);
 		}
 
 		return "emoji/store";
