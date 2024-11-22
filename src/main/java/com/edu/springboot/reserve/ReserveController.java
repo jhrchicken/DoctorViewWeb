@@ -136,31 +136,7 @@ public class ReserveController {
 		}
 	}
 
-	// 예약 목록 페이지로 이동
-	@GetMapping("/reserve.do")
-	public String reserveGet(Model model, HttpSession session, HttpServletResponse response) {
-		
-		// 로그인 여부 확인
-		String id = (String) session.getAttribute("userId");
-	    if (id == null) {
-	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
-	        return null;
-	    }
-		
-		List<ReserveDTO> reserveInfo;
-		
-		// 로그인 한 유저의 예약 목록 
-		if(session.getAttribute("userAuth").equals("ROLE_USER")) {
-			reserveInfo = reserveDAO.getReservationInfo((String)session.getAttribute("userId"), null);
-		}
-		else {
-			reserveInfo = reserveDAO.getReservationInfo(null, (String)session.getAttribute("userId"));
-		}
-		model.addAttribute("reserveInfo", reserveInfo);
-		
-		
-		return "reserve/list"; 
-	}
+
 
 	// 예약 추가정보(메모) 
 	@GetMapping("/reserve/extraInfo.do")

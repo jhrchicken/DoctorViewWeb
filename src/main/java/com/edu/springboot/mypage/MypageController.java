@@ -2,6 +2,7 @@ package com.edu.springboot.mypage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ import com.edu.springboot.hospital.HospitalDTO;
 import com.edu.springboot.hospital.HreviewDTO;
 import com.edu.springboot.hospital.IHospitalService;
 import com.edu.springboot.member.MemberDTO;
+import com.edu.springboot.reserve.IReserveService;
+import com.edu.springboot.reserve.ReserveDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -47,6 +50,36 @@ public class MypageController {
 	
 	@Autowired
 	IDoctorService doctorDAO;
+	
+	@Autowired
+	IReserveService reserveDAO;
+	
+	
+	// == 예약 내역 ==
+	@GetMapping("/myReserve.do")
+	public String reserveGet(Model model, HttpSession session, HttpServletResponse response) {
+		
+		// 로그인 여부 확인
+		String id = (String) session.getAttribute("userId");
+	    if (id == null) {
+	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
+	        return null;
+	    }
+		
+		List<ReserveDTO> reserveInfo;
+		
+		// 로그인 한 유저의 예약 목록 
+		if(session.getAttribute("userAuth").equals("ROLE_USER")) {
+			reserveInfo = reserveDAO.getReservationInfo((String)session.getAttribute("userId"), null);
+		}
+		else {
+			reserveInfo = reserveDAO.getReservationInfo(null, (String)session.getAttribute("userId"));
+		}
+		model.addAttribute("reserveInfo", reserveInfo);
+		
+		
+		return "mypage/myReserve"; 
+	}
 	
 	
 	// == 찜한 병원 ==
