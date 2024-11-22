@@ -6,26 +6,30 @@
 	
 <mapper namespace="com.edu.springboot.emoji.IEmojiService">
 
+	<!-- 이모지 목록 -->
+	<select id="listStore"
+		resultType="com.edu.springboot.emoji.StoreDTO">
+		SELECT * FROM store
+	</select>
+
 	<!-- 보유 이모지 목록 -->
 	<select id="listMyEmoji"
-		resultType="com.edu.springboot.emoji.EmojiDTO">
-		SELECT e.*, s.title
-	    FROM emoji e  
-	    JOIN store s ON e.emoji = s.emoji
-	    WHERE e.user_ref = #{param1}
+	        resultType="com.edu.springboot.emoji.EmojiDTO">
+	    SELECT * FROM store
+	    WHERE store_idx IN (SELECT emoji_ref FROM emoji WHERE user_ref=#{param1})
 	</select>
+
 	
 	<!-- 유저 활성화 이모지 정보 업데이트 -->
-	<update id="updateEmoji"
-		parameterType="com.edu.springboot.emoji.EmojiDTO">
-		UPDATE member SET emoji={emoji} WHERE id = #{user_ref}
+	<update id="updateEmoji">
+		UPDATE member SET emoji=#{param2} WHERE id=#{param1}
 	</update>
 	
 	<!-- 유저 이모지 구매 -->
 	<insert id="buyEmoji"
 		parameterType="com.edu.springboot.emoji.EmojiDTO">
-		INSERT INTO emoji (emoji_idx, user_ref, emoji)
-		VALUES (seq_emoji_idx.nextval, #{user_ref}, #{emoji})
+		INSERT INTO emoji (emoji_idx, user_ref, store_ref)
+		VALUES (seq_emoji_idx.nextval, #{user_ref}, #{store_idx})
 	</insert>
 
 </mapper>

@@ -4,14 +4,86 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰 | 이모지</title>
+<title>닥터뷰</title>
 <%@ include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/emoji-my.css" />
+
+
 </head>
 <body>
 <%@ include file="../common/main_header.jsp" %>
 
+
+
 <main id="container">
+	<div class="content">
+		<div class="content_inner">
+			<div class="user_info">
+				<h2>이모지 상점</h2>
+					<p>
+						<c:if test="${ not empty sessionScope.loginMember }">
+							<span>${ sessionScope.loginMember.nickname } ${ sessionScope.loginMember.emoji }</span> 님의 포인트는 
+							<c:if test="${ not empty sessionScope.loginMember.point }">
+							    <span>${ sessionScope.loginMember.point } point</span>
+							</c:if>
+							<c:if test="${ empty sessionScope.loginMember.point }">
+							    <span>0 point</span>
+							</c:if>
+							입니다.<br/>
+						</c:if>
+						<c:if test="${ empty sessionScope.loginMember }">
+							<p>로그인 후 이용 가능합니다</p>
+						</c:if>
+						포인트로 귀여운 이모지를 구매해보세요!
+					</p>
+			</div>
+			
+			<div class="emoji_list">
+				<ul>
+					<c:forEach items="${ emojiList }" var="row" varStatus="loop">
+						<li>
+							<form action="/emoji/editEmoji.do" method="post">
+						    
+								<div class="emoji">
+									<p>${ row.emoji }</p>
+									<input type="hidden" name="emoji" value="${ row.emoji }">
+								</div>
+								<div class="tit">
+									<strong>${ row.title }</strong>
+								</div>
+								<span class="sub">${ row.descr }</span>
+								<div class="price">
+									<span>${ row.price } point</span>
+								</div>
+								<div class="emoji_btn">
+					                <!-- 이모지 사용 여부에 따라 버튼 표시 -->
+					                <c:choose>
+					                    <c:when test="${ row.emoji == sessionScope.loginMember.emoji }">
+					                        <button type="button" class="used_btn">사용중</button>
+					                    </c:when>
+					                    <c:otherwise>
+					                        <button type="submit" class="change_btn"><span>변경하기</span></button>
+					                    </c:otherwise>
+					                </c:choose>
+								</div>
+							</form>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</div>
+	</div>
+</main>
+
+
+
+
+
+
+
+
+<%-- <main id="container">
+
 	<div class="content">
     	<div class="content_inner">
     		
@@ -71,7 +143,7 @@
         	</div>
       	</div>
     </div>
-</main>
+</main> --%>
 
 <%@ include file="../common/main_footer.jsp" %>
 </body>

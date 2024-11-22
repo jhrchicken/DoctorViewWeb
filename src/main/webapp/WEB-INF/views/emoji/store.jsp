@@ -67,14 +67,14 @@
 								</div>
 								<span class="sub">${ row.descr }</span>
 								<div class="price">
-									<span class="price">${ row.price } point</span>
+									<span>${ row.price } point</span>
 									<input type="hidden" name="price" value="${ row.price }">
 								</div>
 								
 								<!-- 회원이 보유한 이모지인지 확인 -->
 				                <c:set var="hasEmoji" value="false"/>
-				                <c:forEach items="${ emojiDTO }" var="userEmoji">
-				                    <c:if test="${ userEmoji.emoji == row.emoji }">
+				                <c:forEach items="${ myEmojiList }" var="myEmoji">
+				                    <c:if test="${ myEmoji.emoji == row.emoji }">
 				                        <c:set var="hasEmoji" value="true"/>
 				                    </c:if>
 				                </c:forEach>
@@ -110,14 +110,14 @@
 									</div>
 									<span class="sub">${ row.descr }</span>
 									<div class="price">
-										<span class="price">${ row.price } point</span>
+										<span>${ row.price } point</span>
 										<input type="hidden" name="price" value="${ row.price }">
 									</div>
 									
 									<!-- 회원이 보유한 이모지인지 확인 -->
 					                <c:set var="hasEmoji" value="false"/>
-					                <c:forEach items="${ emojiDTO }" var="userEmoji">
-					                    <c:if test="${ userEmoji.emoji == row.emoji }">
+					                <c:forEach items="${ myEmojiList }" var="myEmoji">
+					                    <c:if test="${ myEmoji.emoji == row.emoji }">
 					                        <c:set var="hasEmoji" value="true"/>
 					                    </c:if>
 					                </c:forEach>
@@ -154,14 +154,14 @@
 									</div>
 									<span class="sub">${ row.descr }</span>
 									<div class="price">
-										<span class="price">${ row.price } point</span>
+										<span>${ row.price } point</span>
 										<input type="hidden" name="price" value="${ row.price }">
 									</div>
 									
 									<!-- 회원이 보유한 이모지인지 확인 -->
 					                <c:set var="hasEmoji" value="false"/>
-					                <c:forEach items="${ emojiDTO }" var="userEmoji">
-					                    <c:if test="${ userEmoji.emoji == row.emoji }">
+					                <c:forEach items="${ myEmojiList }" var="myEmoji">
+					                    <c:if test="${ myEmoji.emoji == row.emoji }">
 					                        <c:set var="hasEmoji" value="true"/>
 					                    </c:if>
 					                </c:forEach>
@@ -186,8 +186,8 @@
 					<c:forEach items="${ storeList }" var="row" varStatus="loop">
 						<!-- 회원이 보유한 이모지인지 확인 -->
 						<c:set var="hasEmoji" value="false"/>
-						<c:forEach items="${ emojiDTO }" var="userEmoji">
-		                    <c:if test="${ userEmoji.emoji == row.emoji }">
+						<c:forEach items="${ myEmojiList }" var="myEmoji">
+		                    <c:if test="${ myEmoji.emoji == row.emoji }">
 		                        <c:set var="hasEmoji" value="true"/>
 		                    </c:if>
 						</c:forEach>
@@ -206,7 +206,7 @@
 									</div>
 									<span class="sub">${ row.descr }</span>
 									<div class="price">
-										<span class="price">${ row.price } point</span>
+										<span>${ row.price } point</span>
 										<input type="hidden" name="price" value="${ row.price }">
 									</div>
 									<div class="emoji_btn">

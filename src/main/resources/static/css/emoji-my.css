@@ -1,118 +1,173 @@
+#container {
+	margin-top: 170px;
+    position: relative;
+    min-width: 1280px;
+}
+
 #container .content {
-  margin-top: 170px;
-  padding: 100px 0 170px;
+	padding-top: 0;
+	position: relative;
+	z-index: 3;
 }
-#container .content_inner {
-  max-width: 1170px;
-  margin: 0 auto;
+
+#container .content .content_inner {
+	background-color: #f2f2f2;
 }
 
 
-/*** 사용자 정보 ***/
-#container h2 {
-  font-size: 40px;
-  color: var(--point-color2);
-  font-weight: 700;
-  padding: 30px 0 20px;
-}
-#container .user {
-  width: 100%;
-  padding: 30px 40px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
-  position: relative;
-}
-#container .user .none {
-  font-size: 25px;
-  text-align: center;
-  padding: 35px 0;
-}
-#container .user .user_emoji {
-  font-size: 50px;
-  text-align: center;
-  display: block;
-  width: 250px;
-}
-#container .user .user_info {
-  padding: 20px 30px;
-}
-#container .user_name {
-  font-size: 30px;
-}
-#container .user_point {
-  display: flex;
-  gap: 0 10px;
-  margin-top: 10px;
-  font-size: 20px;
-}
-#container .user_point .point {
-  color: var(--point-color2);
-  font-weight: 700;
-}
-#container .user_point .point::after {
-  content: 'P';
-  margin-left: 2px;
-  color: #000;
-  font-weight: 400;
-}
-#container .user a {
-  position: absolute;
-  right: 30px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100px;
-  height: 100px;
-  background: var(--point-color1);
-  border-radius: 50%;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+
+/*** 회원 정보 ***/
+#container .user_info {
+	background: #41B3E1; /* 하늘:#41B3E1 파랑:#1493D5 */
+	/* background: url(/images/emoji/bg_emoji.jpg) 50% no-repeat; */
+	height: 380px;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
 }
 
-/*** 보유 이모티콘 ***/
-#container .my_emoji {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+#container .user_info h2 {
+    font-size: 70px;
+    font-weight: bold;
+    color: #fff;
+    padding: 104px 0 21px 0;
+    position: relative;
+    z-index: 9;
 }
-#container .have {
-  width: calc((100% / 3) - 40px / 3);
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-  padding: 50px;
-  display: flex;
-  justify-content: center;
-  text-align: center;
+
+#container .user_info p {
+	font-size: 16px;
+    line-height: 26px;
+    position: relative;
+    z-index: 9;
 }
-#container .have:hover {
-  background: var(--point-color1);
-  color: #fff;
+
+#container .user_info p span {
+	font-size: 18px;
+	font-weight: bold;
+ 	color: var(--point-color1);
 }
-#container .have .emoji {
-  font-size: 40px;
-  font-weight: 500;
+
+
+
+/*** 이모지 목록 ***/
+#container .emoji_list {
+	width: 1170px;
+	margin: 0 auto;
+	overflow: hidden;
+	padding-top: 60px;
+	padding-bottom: 130px;
 }
-#container .have .emoji_name {
-  font-size: 25px;
-  margin: 30px 0 20px;
+
+#container .emoji_list ul {
+    overflow: hidden;
+    margin: -30px 0 0 -30px;
 }
-#container .have .emoji_btn button {
-  border: none;
-  border-radius: 10px;
-  background: var(--point-color1);
-  padding: 10px 20px;
-  font-size: 20px;
-  color: #fff;
+
+#container .emoji_list li {
+	width: 370px;
+    height: 330px;
+    background-color: #fff;
+    float: left;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    margin: 30px 0 0 30px;
 }
-#container .have:hover .emoji_btn button {
-  background: #fff;
-  color: var(--gray-500);
+
+#container .emoji_list li:after {
+    content: '';
+    background-color: var(--point-color2);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    z-index: 9;
+    opacity: 0;
+    z-index: 3;
 }
-#container .have .emoji_btn button.used {
-  background: #ddd;
+
+#container .emoji_list li .emoji {
+    width: 270px;
+    height: 110px;
+    margin: 20px auto 0;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container .emoji_list li .emoji p {
+    text-align: center;
+    font-size: 50px;
+}
+
+
+#container .emoji_list li .tit strong {
+	color: #292929;
+	font-size: 22px;
+	font-weight: bold;
+	margin: 10px 0 2px;
+	display: block;
+	position: relative;
+	z-index: 5;
+	top: 0;
+}
+
+#container .emoji_list li .sub {
+    color: #666666;
+    font-size: 16px;
+    display: block;
+    margin: 0 0 13px;
+    position: relative;
+    z-index: 5;
+    top: 0;
+}
+
+#container .emoji_list li .price span {
+    color: #ffc300;
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+}
+ 
+#container .emoji_list li .change_btn {
+    position: absolute;
+    left: 125px;
+    bottom: 40px;
+    background: var(--point-color1);
+    border: none;
+    border-radius: 40px;
+    width: 120px;
+    font-size: 18px;
+    text-align: center;
+    height: 50px;
+    z-index: 5;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container .emoji_list li .used_btn {
+    position: absolute;
+    left: 125px;
+    bottom: 40px;
+    background: #bbb;
+    border: none;
+    border-radius: 40px;
+    width: 120px;
+    font-size: 18px;
+    text-align: center;
+    height: 50px;
+    z-index: 5;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

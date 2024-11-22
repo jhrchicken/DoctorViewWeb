@@ -26,9 +26,6 @@ public class EmojiController {
 	@Autowired
 	IMemberService memberDAO;
 	
-	@Autowired
-	IStoreService storeDAO;
-	
 	
 	// == 나의 이모지 ==
 	@GetMapping("/myEmoji.do")
@@ -42,11 +39,8 @@ public class EmojiController {
 		}
 		
 		// 특정 유저가 보유한 이모지 목록 가져오기
-		List<EmojiDTO> emojiDTO = emojiDAO.listMyEmoji(loginMember.getId());
-		model.addAttribute("emojiDTO", emojiDTO);
-
-		// 유저의 보유 포인트 목록 가져오기
-		model.addAttribute("memberDTO", loginMember);
+		List<EmojiDTO> emojiList = emojiDAO.listMyEmoji(loginMember.getId());
+		model.addAttribute("emojiList", emojiList);
 		
 		return "emoji/myEmoji";
 	}
@@ -54,7 +48,7 @@ public class EmojiController {
 	
 	// == 이모지 변경 ==
 	@PostMapping("/emoji/editEmoji.do")
-	public String editEmoji(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, EmojiDTO emojiDTO) {
+	public String editEmoji(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response) {
 		
 		// 로그인 여부 검증
 		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
@@ -62,19 +56,12 @@ public class EmojiController {
 			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
 			return null;
 		}
-	    
-		// 현재 사용중인 이모지 비활성화
-//		emojiDAO.deactivateEmoji((String) session.getAttribute("userId"));
-		
-		// 선택한 이모지 활성화
-//		emojiDAO.activateEmoji(emojiDTO);
 		
 		// 현재 로그인 한 유저의 emoji 컬럼 업데이트
-		emojiDAO.updateEmoji(emojiDTO);
-		loginMember.setEmoji(emojiDTO.getEmoji());
+		emojiDAO.updateEmoji(loginMember.getId(), req.getParameter("emoji"));
+		loginMember.setEmoji(req.getParameter("emoji"));
 		session.setAttribute("loginMember", loginMember);
-		session.setAttribute("userEmoji", emojiDTO.getEmoji());
-		
+
 		return "redirect:/myEmoji.do";
 	}
 	
@@ -84,45 +71,46 @@ public class EmojiController {
 	public String store(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response) {
 		
 		// 상점 이모지 목록 가져오기
-		List<StoreDTO> storeList = storeDAO.listStore();
+		List<StoreDTO> storeList = emojiDAO.listStore();
 		model.addAttribute("storeList", storeList);
 
-		// 회원이면
+		// 회원인 경우
 		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 		if (loginMember != null) {
 			// 유저의 보유 이모지 목록
-			List<EmojiDTO> emojiDTO = emojiDAO.listMyEmoji(loginMember.getId());
-			model.addAttribute("emojiDTO", emojiDTO);
+			List<EmojiDTO> myEmojiList = emojiDAO.listMyEmoji(loginMember.getId());
+			model.addAttribute("myEmojiList", myEmojiList);
 		}
 
 		return "emoji/store";
 	}
 	
 	
-	// 이모지 구매
+	// == 이모지 구매 ==
 	@PostMapping("/store/buy.do")
-	public String buy(Model model, MemberDTO memberDTO, StoreDTO storeDTO, EmojiDTO emojiDTO, HttpSession session, HttpServletResponse response, RedirectAttributes redirectAttributes) {
-		// 로그인 여부 확인
-		String id = (String) session.getAttribute("userId");
-	    if (id == null) {
-	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
-	        return null;
-	    }
+	public String buy(HttpSession session, HttpServletResponse response, StoreDTO storeDTO, EmojiDTO emojiDTO) {
 		
-		// 유저의 보유 포인트 목록 가져오기
-		memberDTO = memberDAO.loginMember((String)session.getAttribute("userId"),(String)session.getAttribute("userPassword"));
+		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
 		
-		if (memberDTO.getPoint() >= storeDTO.getPrice() ) {
+		if (loginMember.getPoint() >= storeDTO.getPrice() ) {
 			// 회원 이모지 추가
-			emojiDTO.setUser_ref(memberDTO.getId());
+			emojiDTO.setUser_ref(loginMember.getId());
+			emojiDTO.setStore_ref(storeDTO.getStore_idx());
 			emojiDAO.buyEmoji(emojiDTO);
 			
 			// 회원 포인트 감소
-			memberDTO.setPoint(memberDTO.getPoint()-storeDTO.getPrice());
-			memberDAO.decreaseUserPoint(memberDTO);
-		} else {
+			loginMember.setPoint(loginMember.getPoint() - storeDTO.getPrice());
+			memberDAO.decreaseUserPoint(loginMember);
+		}
+		else {
 		    // 이모지 구매 실패
-		    redirectAttributes.addFlashAttribute("emojiBuyError", "포인트가 부족합니다.");
+			JSFunction.alertBack(response, "포인트가 부족합니다");
+			return null;
 		}
 		
 		return "redirect:/store.do";
