@@ -8,6 +8,7 @@
 <title>닥터뷰</title>
 <%@ include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/emoji-store.css" />
+<script src="/js/emoji.js"></script>
 </head>
 
 <body>
@@ -44,8 +45,9 @@
 			</div>
 			<div class="tab_menu">
 				<ul>
-					<li class="active"><a href="">ALL</a></li>
+					<li><a href="">ALL</a></li>
 					<li><a href="">신규</a></li>
+					<li><a href="">인기</a></li>
 					<li><a href="">미보유</a></li>
 				</ul>
 			</div>
@@ -90,6 +92,129 @@
 								</div>
 							</form>
 						</li>
+					</c:forEach>
+				</ul>
+				<ul>
+					<c:forEach items="${ storeDTO }" var="row" varStatus="loop">
+						<c:if test="${ row.type == 'new' }">
+							<li>
+								<form action="/store/buy.do" method="post">
+					                <input type="hidden" name="store_idx" value="${ row.store_idx }">
+									<div class="emoji">
+										<p>${ row.emoji }</p>
+										<input type="hidden" name="emoji" value="${ row.emoji }">
+									</div>
+									<div class="tit">
+										<strong>${ row.title }</strong>
+										<input type="hidden" name="title" value="${ row.title }">
+									</div>
+									<span class="sub">${ row.descr }</span>
+									<div class="price">
+										<span class="price">${ row.price } point</span>
+										<input type="hidden" name="price" value="${ row.price }">
+									</div>
+									
+									<!-- 회원이 보유한 이모지인지 확인 -->
+					                <c:set var="hasEmoji" value="false"/>
+					                <c:forEach items="${ emojiDTO }" var="userEmoji">
+					                    <c:if test="${ userEmoji.emoji == row.emoji }">
+					                        <c:set var="hasEmoji" value="true"/>
+					                    </c:if>
+					                </c:forEach>
+					
+									<div class="emoji_btn">
+						                <!-- 이모지 보유 여부에 따라 버튼 표시 -->
+						                <c:choose>
+						                    <c:when test="${ hasEmoji }">
+						                        <button type="button" class="used_btn">보유중</button>
+						                    </c:when>
+						                    <c:otherwise>
+						                        <button type="submit" class="buy_btn"><span>구매하기</span></button>
+						                    </c:otherwise>
+						                </c:choose>
+									</div>
+								</form>
+							</li>
+						</c:if>
+					</c:forEach>
+				</ul>
+				<ul>
+					<c:forEach items="${ storeDTO }" var="row" varStatus="loop">
+						<c:if test="${ row.type == 'best' }">
+							<li>
+								<form action="/store/buy.do" method="post">
+					                <input type="hidden" name="store_idx" value="${ row.store_idx }">
+									<div class="emoji">
+										<p>${ row.emoji }</p>
+										<input type="hidden" name="emoji" value="${ row.emoji }">
+									</div>
+									<div class="tit">
+										<strong>${ row.title }</strong>
+										<input type="hidden" name="title" value="${ row.title }">
+									</div>
+									<span class="sub">${ row.descr }</span>
+									<div class="price">
+										<span class="price">${ row.price } point</span>
+										<input type="hidden" name="price" value="${ row.price }">
+									</div>
+									
+									<!-- 회원이 보유한 이모지인지 확인 -->
+					                <c:set var="hasEmoji" value="false"/>
+					                <c:forEach items="${ emojiDTO }" var="userEmoji">
+					                    <c:if test="${ userEmoji.emoji == row.emoji }">
+					                        <c:set var="hasEmoji" value="true"/>
+					                    </c:if>
+					                </c:forEach>
+					
+									<div class="emoji_btn">
+						                <!-- 이모지 보유 여부에 따라 버튼 표시 -->
+						                <c:choose>
+						                    <c:when test="${ hasEmoji }">
+						                        <button type="button" class="used_btn">보유중</button>
+						                    </c:when>
+						                    <c:otherwise>
+						                        <button type="submit" class="buy_btn"><span>구매하기</span></button>
+						                    </c:otherwise>
+						                </c:choose>
+									</div>
+								</form>
+							</li>
+						</c:if>
+					</c:forEach>
+				</ul>
+				<ul>
+					<c:forEach items="${ storeDTO }" var="row" varStatus="loop">
+						<!-- 회원이 보유한 이모지인지 확인 -->
+						<c:set var="hasEmoji" value="false"/>
+						<c:forEach items="${ emojiDTO }" var="userEmoji">
+		                    <c:if test="${ userEmoji.emoji == row.emoji }">
+		                        <c:set var="hasEmoji" value="true"/>
+		                    </c:if>
+						</c:forEach>
+						
+						<c:if test="${ hasEmoji == false }">
+							<li>
+								<form action="/store/buy.do" method="post">
+					                <input type="hidden" name="store_idx" value="${ row.store_idx }">
+									<div class="emoji">
+										<p>${ row.emoji }</p>
+										<input type="hidden" name="emoji" value="${ row.emoji }">
+									</div>
+									<div class="tit">
+										<strong>${ row.title }</strong>
+										<input type="hidden" name="title" value="${ row.title }">
+									</div>
+									<span class="sub">${ row.descr }</span>
+									<div class="price">
+										<span class="price">${ row.price } point</span>
+										<input type="hidden" name="price" value="${ row.price }">
+									</div>
+									<div class="emoji_btn">
+										<button type="submit" class="buy_btn"><span>구매하기</span></button>
+									</div>
+								</form>
+							</li>
+						</c:if>
 					</c:forEach>
 				</ul>
 			</div>
