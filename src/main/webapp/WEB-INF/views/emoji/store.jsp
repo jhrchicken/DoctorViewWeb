@@ -45,9 +45,8 @@
 			<div class="tab_menu">
 				<ul>
 					<li class="active"><a href="">ALL</a></li>
-					<li><a href="">흔한</a></li>
-					<li><a href="">귀여운</a></li>
-					<li><a href="">레어</a></li>
+					<li><a href="">신규</a></li>
+					<li><a href="">미보유</a></li>
 				</ul>
 			</div>
 			<div class="emoji_list">
@@ -64,7 +63,7 @@
 									<strong>${ row.title }</strong>
 									<input type="hidden" name="title" value="${ row.title }">
 								</div>
-								<span class="sub">아기자기하고 귀여운 이모지</span>
+								<span class="sub">${ row.descr }</span>
 								<div class="price">
 									<span class="price">${ row.price } point</span>
 									<input type="hidden" name="price" value="${ row.price }">

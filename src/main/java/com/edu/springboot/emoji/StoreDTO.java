@@ -8,4 +8,6 @@ public class StoreDTO {
 	private int price;
 	private String emoji;
 	private String title;
+	private String descr;
+	private String type;
 }

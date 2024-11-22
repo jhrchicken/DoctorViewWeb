@@ -9,6 +9,7 @@ public class EmojiDTO {
 	private String emoji;
 	private String use_emoji;
 	
+	
 	// 추가 컬럼
 	private String title;
 	

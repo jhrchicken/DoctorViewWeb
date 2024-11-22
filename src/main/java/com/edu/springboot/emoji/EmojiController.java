@@ -53,6 +53,7 @@ public class EmojiController {
 	// 이모지 변경
 	@PostMapping("/emoji/editEmoji.do")
 	public String editEmoji(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, EmojiDTO emojiDTO) {
+		
 		// 로그인 여부 확인
 		String id = (String) session.getAttribute("userId");
 	    if (id == null) {
