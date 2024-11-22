@@ -7,7 +7,7 @@
 <mapper namespace="com.edu.springboot.emoji.IStoreService">
 
 	<!-- 이모지 목록 -->
-	<select id="storeList"
+	<select id="listStore"
 		resultType="com.edu.springboot.emoji.StoreDTO">
 		SELECT * FROM store
 	</select>

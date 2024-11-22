@@ -27,17 +27,17 @@
 			<div class="user_info">
 				<h2>이모지 상점</h2>
 					<p>
-						<c:if test="${ not empty userId }">
-							<span>${ loginMember.nickname } ${ userEmoji }</span> 님의 포인트는 
-							<c:if test="${ not empty memberDTO.point }">
-							    <span>${ memberDTO.point } point</span>
+						<c:if test="${ not empty sessionScope.loginMember }">
+							<span>${ sessionScope.loginMember.nickname } ${ sessionScope.loginMember.emoji }</span> 님의 포인트는 
+							<c:if test="${ not empty sessionScope.loginMember.point }">
+							    <span>${ sessionScope.loginMember.point } point</span>
 							</c:if>
-							<c:if test="${ empty memberDTO.point }">
+							<c:if test="${ empty sessionScope.loginMember.point }">
 							    <span>0 point</span>
 							</c:if>
 							입니다.<br/>
 						</c:if>
-						<c:if test="${ empty userId }">
+						<c:if test="${ empty sessionScope.loginMember }">
 							<p>로그인 후 이용 가능합니다</p>
 						</c:if>
 						포인트로 귀여운 이모지를 구매해보세요!
@@ -53,7 +53,7 @@
 			</div>
 			<div class="emoji_list">
 				<ul>
-					<c:forEach items="${ storeDTO }" var="row" varStatus="loop">
+					<c:forEach items="${ storeList }" var="row" varStatus="loop">
 						<li>
 							<form action="/store/buy.do" method="post">
 				                <input type="hidden" name="store_idx" value="${ row.store_idx }">
@@ -95,7 +95,7 @@
 					</c:forEach>
 				</ul>
 				<ul>
-					<c:forEach items="${ storeDTO }" var="row" varStatus="loop">
+					<c:forEach items="${ storeList }" var="row" varStatus="loop">
 						<c:if test="${ row.type == 'new' }">
 							<li>
 								<form action="/store/buy.do" method="post">
@@ -139,7 +139,7 @@
 					</c:forEach>
 				</ul>
 				<ul>
-					<c:forEach items="${ storeDTO }" var="row" varStatus="loop">
+					<c:forEach items="${ storeList }" var="row" varStatus="loop">
 						<c:if test="${ row.type == 'best' }">
 							<li>
 								<form action="/store/buy.do" method="post">
@@ -183,7 +183,7 @@
 					</c:forEach>
 				</ul>
 				<ul>
-					<c:forEach items="${ storeDTO }" var="row" varStatus="loop">
+					<c:forEach items="${ storeList }" var="row" varStatus="loop">
 						<!-- 회원이 보유한 이모지인지 확인 -->
 						<c:set var="hasEmoji" value="false"/>
 						<c:forEach items="${ emojiDTO }" var="userEmoji">

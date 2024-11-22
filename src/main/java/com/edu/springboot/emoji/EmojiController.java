@@ -42,12 +42,11 @@ public class EmojiController {
 		}
 		
 		// 특정 유저가 보유한 이모지 목록 가져오기
-		List<EmojiDTO> emojiDTO = emojiDAO.myEmojiList(loginMember.getId());
+		List<EmojiDTO> emojiDTO = emojiDAO.listMyEmoji(loginMember.getId());
 		model.addAttribute("emojiDTO", emojiDTO);
 
 		// 유저의 보유 포인트 목록 가져오기
-		MemberDTO memberDTO = memberDAO.loginMember(loginMember.getId(), loginMember.getPassword());
-		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("memberDTO", loginMember);
 		
 		return "emoji/myEmoji";
 	}
@@ -71,7 +70,7 @@ public class EmojiController {
 //		emojiDAO.activateEmoji(emojiDTO);
 		
 		// 현재 로그인 한 유저의 emoji 컬럼 업데이트
-		emojiDAO.userEmojiUpdate(emojiDTO);
+		emojiDAO.updateEmoji(emojiDTO);
 		loginMember.setEmoji(emojiDTO.getEmoji());
 		session.setAttribute("loginMember", loginMember);
 		session.setAttribute("userEmoji", emojiDTO.getEmoji());
@@ -85,19 +84,15 @@ public class EmojiController {
 	public String store(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response) {
 		
 		// 상점 이모지 목록 가져오기
-		List<StoreDTO> storeDTO = storeDAO.storeList();
-		model.addAttribute("storeDTO", storeDTO);
+		List<StoreDTO> storeList = storeDAO.listStore();
+		model.addAttribute("storeList", storeList);
 
 		// 회원이면
 		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 		if (loginMember != null) {
 			// 유저의 보유 이모지 목록
-			List<EmojiDTO> emojiDTO = emojiDAO.myEmojiList(loginMember.getId());
+			List<EmojiDTO> emojiDTO = emojiDAO.listMyEmoji(loginMember.getId());
 			model.addAttribute("emojiDTO", emojiDTO);
-			
-			// 유저의 보유 포인트 목록 가져오기
-			MemberDTO memberDTO = memberDAO.loginMember(loginMember.getId(), loginMember.getPassword());
-			model.addAttribute("memberDTO", memberDTO);
 		}
 
 		return "emoji/store";
@@ -120,7 +115,7 @@ public class EmojiController {
 		if (memberDTO.getPoint() >= storeDTO.getPrice() ) {
 			// 회원 이모지 추가
 			emojiDTO.setUser_ref(memberDTO.getId());
-			emojiDAO.userBuyEmoji(emojiDTO);
+			emojiDAO.buyEmoji(emojiDTO);
 			
 			// 회원 포인트 감소
 			memberDTO.setPoint(memberDTO.getPoint()-storeDTO.getPrice());

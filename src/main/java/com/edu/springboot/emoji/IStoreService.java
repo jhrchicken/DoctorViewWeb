@@ -8,8 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface IStoreService {
 
 	// 상점 이모지 목록 
-	public List<StoreDTO> storeList();
-	
-	
-	
+	public List<StoreDTO> listStore();
+
 }
