@@ -18,24 +18,33 @@
 <main id="container">
 	<div class="content">
 		<div class="content_inner">
-			<div class="user_info">
-				<h2>이모지 상점</h2>
-					<p>
-						<c:if test="${ not empty sessionScope.loginMember }">
-							<span>${ sessionScope.loginMember.nickname } ${ sessionScope.loginMember.emoji }</span> 님의 포인트는 
-							<c:if test="${ not empty sessionScope.loginMember.point }">
-							    <span>${ sessionScope.loginMember.point } point</span>
-							</c:if>
-							<c:if test="${ empty sessionScope.loginMember.point }">
-							    <span>0 point</span>
-							</c:if>
-							입니다.<br/>
-						</c:if>
-						<c:if test="${ empty sessionScope.loginMember }">
-							<p>로그인 후 이용 가능합니다</p>
-						</c:if>
-						포인트로 귀여운 이모지를 구매해보세요!
-					</p>
+			<h2>나의 이모지</h2>
+			<h3>이모지를 변경해보세요</h3>
+			<div class="profile">
+				<div class="emoji">
+					<c:if test="${ not empty sessionScope.loginMember.emoji }">
+					    <span>${ sessionScope.loginMember.emoji }</span>
+					</c:if>
+					<c:if test="${ empty sessionScope.loginMember.emoji }">
+					    <p></p>
+					</c:if>
+				</div>
+				<div class="info">
+					<div class="name">
+						<p>${ sessionScope.loginMember.nickname }</p>
+					</div>
+					<div class="point">
+					<c:if test="${ not empty sessionScope.loginMember.point }">
+					    <span>${ sessionScope.loginMember.point } point</span>
+					</c:if>
+					<c:if test="${ empty sessionScope.loginMember.point }">
+					    <span>0 point</span>
+					</c:if>
+					</div>
+					<a class="btn" href="/qnaboard.do">
+						<span>이모지 구매하기&nbsp;&nbsp;></span>
+					</a>
+				</div>
 			</div>
 			
 			<div class="emoji_list">
@@ -76,76 +85,6 @@
 		</div>
 	</div>
 </main>
-
-
-
-
-
-
-
-
-<%-- <main id="container">
-
-	<div class="content">
-    	<div class="content_inner">
-    		
-    		<h2>나의 이모지</h2>
-	        <!-- user 정보 및 상점이동 -->
-	        <div class="user">
-				<p class="now_emoji user_emoji">${ userEmoji }</p>
-			    <div class="user_info">
-				    <div class="user_name">
-			        	<p>${ userId }님</p>
-				    </div>
-				    <div class="user_point">
-				    	<p>보유 포인트</p>
-						<c:if test="${ not empty memberDTO.point }">
-						    <p class="point">${ memberDTO.point }</p>
-						</c:if>
-						<c:if test="${ empty memberDTO.point }">
-						    <p class="point">0</p>
-						</c:if> 
-				    </div>
-			    </div>
-			    <a href="/store.do">상점으로<br />이동</a>
-	    	</div>
-			 
-			
-			<h2>보유 이모티콘</h2>
-		    <!-- 보유한 이모지 목록 -->
-	        <div class="my_emoji">
-		        <c:forEach items="${ emojiDTO }" var="row" varStatus="loop">
-					<div class="have">
-						<form action="/emoji/editEmoji.do" method="post">
-						    <input type="hidden" name="emoji_idx" value="${ row.emoji_idx }" />
-						    <input type="hidden" name="user_ref" value="${ row.user_ref }" />
-						    <input type="hidden" name="emoji" value="${ row.emoji }" />
-						    <input type="hidden" name="title" value="${ row.title }" />
-						    <input type="hidden" name="use_emoji" value="${ row.use_emoji }" />
-						    
-						    <div class="emoji">
-							    <p>${ row.emoji }</p>
-						    </div>
-						    <div class="emoji_name">
-						 	    <p>- ${ row.title } -</p>
-						    </div>
-						    <div class="emoji_btn">
-							    <!-- 현재 활성화 상태 이모지 -->
-							    <c:if test="${ row.use_emoji == 'T' }">
-								    <button class="used" type="button">사용중</button>
-						        </c:if>
-						        <!-- 현재 비활성화 상태 이모지 -->
-						        <c:if test="${ row.use_emoji == 'F' }">
-								    <button type="submit">사용하기</button>
-						        </c:if>
-						    </div>
-						</form>
-					</div>
-				</c:forEach>
-        	</div>
-      	</div>
-    </div>
-</main> --%>
 
 <%@ include file="../common/main_footer.jsp" %>
 </body>

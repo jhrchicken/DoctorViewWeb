@@ -59,7 +59,6 @@ public class EmojiController {
 		
 		// 현재 로그인 한 유저의 emoji 컬럼 업데이트
 		String state = req.getParameter("state");
-		System.err.println(state);
 		if (state.equals("disable")) {
 			// 비활성화
 			emojiDAO.updateEmoji(loginMember.getId(), "");

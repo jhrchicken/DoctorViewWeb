@@ -14,20 +14,87 @@
 	background-color: #f2f2f2;
 }
 
-
-
-/*** 회원 정보 ***/
-#container .user_info {
-	background: #41B3E1; /* 하늘:#41B3E1 파랑:#1493D5 */
-	/* background: url(/images/emoji/bg_emoji.jpg) 50% no-repeat; */
-	height: 380px;
+#container .content .content_inner h2 {
     text-align: center;
-    color: #fff;
-    overflow: hidden;
-    position: relative;
+    font-size: 40px;
+    color: #292929;
+    padding: 73px 0 18px;
+    font-weight: 500;
 }
 
-#container .user_info h2 {
+#container .content .content_inner h3 {
+    padding-bottom: 48px;
+    font-size: 16px;
+    color: #666666;
+    text-align: center;
+    letter-spacing: -0.3px;
+}
+
+/*** 회원 정보 ***/
+#container .profile {
+    position: relative;
+    margin: 0 auto;
+    width: 1170px;
+    background: #ffffff;
+    padding: 40px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+#container .profile .emoji {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	border: 2px solid #ddd;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+	font-size: 70px;
+}
+
+#container .profile .info {
+    width: 500px;
+    text-align: left;
+}
+
+#container .profile .name {
+	font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 26px;
+    color: #666666;
+}
+
+
+#container .profile .info .btn {
+    border: 2px solid var(--point-color2);
+    border-radius: 20px;
+    width: 180px;
+    font-size: 18px;
+    text-align: center;
+    height: 40px;
+}
+
+#container .profile .info .btn:hover {
+    background: var(--point-color2);
+}
+
+#container .profile .info .btn span {
+	display: block;
+	height: 36px;
+	line-height: 36px;
+	color: var(--point-color2);
+	font-size: 16px;
+}
+
+#container .profile .info .btn:hover span {
+	color: #fff;
+	font-weight: bold;
+}
+
+/* #container .user_info h2 {
     font-size: 70px;
     font-weight: bold;
     color: #fff;
@@ -47,7 +114,17 @@
 	font-size: 18px;
 	font-weight: bold;
  	color: var(--point-color1);
+ 	
+ 	
+ 	
+ 	.form_box h2, .form_box h3 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 26px;
+    letter-spacing: -0.05em;
+    #6666666
 }
+} */
 
 
 
@@ -171,3 +248,13 @@
     justify-content: center;
     align-items: center;
 }
+
+
+
+
+
+
+
+
+
+

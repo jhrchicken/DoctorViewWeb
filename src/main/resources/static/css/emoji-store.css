@@ -135,6 +135,26 @@
     z-index: 3;
 }
 
+#container .emoji_list li .label {
+	position: absolute;
+	left: 0;
+	top: 10px;
+	z-index: 3;
+}
+
+#container .emoji_list li .label span {
+	color: #fff;
+    font-size: 13px;
+    background-color: #58006c;
+    font-weight: bold;
+    width: 70px;
+    text-align: center;
+    height: 30px;
+    line-height: 28px;
+    display: block;
+    margin-bottom: 3px;
+}
+
 #container .emoji_list li .emoji {
     width: 270px;
     height: 110px;

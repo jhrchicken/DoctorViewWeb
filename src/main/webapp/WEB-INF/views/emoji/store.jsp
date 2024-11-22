@@ -26,22 +26,22 @@
 		<div class="content_inner">
 			<div class="user_info">
 				<h2>이모지 상점</h2>
-					<p>
-						<c:if test="${ not empty sessionScope.loginMember }">
-							<span>${ sessionScope.loginMember.nickname } ${ sessionScope.loginMember.emoji }</span> 님의 포인트는 
-							<c:if test="${ not empty sessionScope.loginMember.point }">
-							    <span>${ sessionScope.loginMember.point } point</span>
-							</c:if>
-							<c:if test="${ empty sessionScope.loginMember.point }">
-							    <span>0 point</span>
-							</c:if>
-							입니다.<br/>
+				<p>
+					<c:if test="${ not empty sessionScope.loginMember }">
+						<span>${ sessionScope.loginMember.nickname } ${ sessionScope.loginMember.emoji }</span> 님의 포인트는 
+						<c:if test="${ not empty sessionScope.loginMember.point }">
+						    <span>${ sessionScope.loginMember.point } point</span>
 						</c:if>
-						<c:if test="${ empty sessionScope.loginMember }">
-							<p>로그인 후 이용 가능합니다</p>
+						<c:if test="${ empty sessionScope.loginMember.point }">
+						    <span>0 point</span>
 						</c:if>
-						포인트로 귀여운 이모지를 구매해보세요!
-					</p>
+						입니다.<br/>
+					</c:if>
+					<c:if test="${ empty sessionScope.loginMember }">
+						<p>로그인 후 이용 가능합니다</p>
+					</c:if>
+					포인트로 귀여운 이모지를 구매해보세요!
+				</p>
 			</div>
 			<div class="tab_menu">
 				<ul>
@@ -57,6 +57,11 @@
 						<li>
 							<form action="/store/buy.do" method="post">
 				                <input type="hidden" name="store_idx" value="${ row.store_idx }">
+				                <c:if test="${ not empty row.type }">
+					                <div class="label">
+					                	<span>${ row.type }</span>
+					                </div>
+				                </c:if>
 								<div class="emoji">
 									<p>${ row.emoji }</p>
 									<input type="hidden" name="emoji" value="${ row.emoji }">
@@ -100,6 +105,11 @@
 							<li>
 								<form action="/store/buy.do" method="post">
 					                <input type="hidden" name="store_idx" value="${ row.store_idx }">
+									<c:if test="${ not empty row.type }">
+						                <div class="label">
+						                	<span>${ row.type }</span>
+						                </div>
+					                </c:if>
 									<div class="emoji">
 										<p>${ row.emoji }</p>
 										<input type="hidden" name="emoji" value="${ row.emoji }">
@@ -144,6 +154,11 @@
 							<li>
 								<form action="/store/buy.do" method="post">
 					                <input type="hidden" name="store_idx" value="${ row.store_idx }">
+									<c:if test="${ not empty row.type }">
+						                <div class="label">
+						                	<span>${ row.type }</span>
+						                </div>
+					                </c:if>
 									<div class="emoji">
 										<p>${ row.emoji }</p>
 										<input type="hidden" name="emoji" value="${ row.emoji }">
@@ -196,6 +211,11 @@
 							<li>
 								<form action="/store/buy.do" method="post">
 					                <input type="hidden" name="store_idx" value="${ row.store_idx }">
+									<c:if test="${ not empty row.type }">
+						                <div class="label">
+						                	<span>${ row.type }</span>
+						                </div>
+					                </c:if>
 									<div class="emoji">
 										<p>${ row.emoji }</p>
 										<input type="hidden" name="emoji" value="${ row.emoji }">
