@@ -43,19 +43,10 @@
 }
 
 #container .user_info p span {
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: bold;
-	color: var(--point-color1);
+ 	color: var(--point-color1);
 }
-
-#container .user_info .user_point {
-	font-size: 16px;
-	font-weight: bold;
-	color: #fff;
-	padding-top: 10px;
-	color: var(--point-color1);
-}
-
 
 
 /*** 탭 메뉴 ***/

@@ -45,9 +45,9 @@
 			<div class="tab_menu">
 				<ul>
 					<li class="active"><a href="">ALL</a></li>
+					<li><a href="">흔한</a></li>
 					<li><a href="">귀여운</a></li>
-					<li><a href="">힙한</a></li>
-					<li><a href="">레전드</a></li>
+					<li><a href="">레어</a></li>
 				</ul>
 			</div>
 			<div class="emoji_list">

@@ -70,8 +70,8 @@
 #footer .footer_inner .copyright {
     font-family: font_sw;
     font-size: 13px;
-    line-height: 25px;
-    padding-top: 2px;
+    line-height: 18px;
+    padding-top: 10px;
 }
 
 #footer:after {
