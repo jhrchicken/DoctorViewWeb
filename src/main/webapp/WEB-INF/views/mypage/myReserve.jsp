@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰 | 마이페이지</title>
+<title>닥터뷰</title>
 <%@ include file="../common/head.jsp" %>
-<link rel="stylesheet" href="/css/my-reservation-list.css" />
+<link rel="stylesheet" href="/css/my-reserve.css" />
+
 <script>
 function cancelReservation(app_id) {
 	if (confirm("예약을 취소하시겠습니까?")) {
@@ -25,10 +26,133 @@ function hideReservation(app_id) {
 	}
 }
 </script>
+
 </head>
 <body>
 <%@include file="../common/main_header.jsp" %>
 
+<main id="container">
+	<div class="content">
+		<h2>예약 내역</h2>
+			<section class="reserve_history">
+				<div class="tab">
+					<ul>
+						<li class="active"><a href="">전체</a></li>
+						<li><a href="">완료</a></li>
+						<li><a href="">취소된 예약</a></li>
+					</ul>
+				</div>
+				<div class="reserve">
+					<div class="info">
+						<div class="top">
+							<h2>병원 정보</h2>
+							<div class="test_btn_group">
+								<a class="test_btn"><span>예약 취소</span></a>
+								<a class="test_btn"><span>예약 숨김</span></a>
+							</div>
+						</div>
+						<div class="bottom">
+							<dl>
+								<dt>예약일</dt>
+								<dd>2024년 11월 11일</dd>
+								<dt>담당의</dt>
+								<dd>아잠만의사</dd>
+							</dl>
+							<dl>
+								<dt>예약자 이름</dt>
+								<dd>정하림</dd>
+								<dt>전화번호</dt>
+								<dd>010-1111-1111</dd>
+							</dl>
+							<dl>
+								<dt>주민등록번호</dt>
+								<dd>000000-000000</dd>
+								<dt>주소</dt>
+								<dd>경기도 의정부시</dd>
+							</dl>
+							<dl>
+								<dt>메모</dt>
+								<dd class="memo_dd">
+									<div class="memo">
+										<span>메모가 없습니다</span>
+										<div class="memo_btn">
+											<button>
+												<span>메모변경</span>
+											</button>
+										</div>
+									</div>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+				<div class="reserve">
+					<div class="info">
+						<div class="top">
+							<h2>병원 정보</h2>
+							<div class="test_btn_group">
+								<a class="test_btn"><span>예약 취소</span></a>
+								<a class="test_btn"><span>예약 숨김</span></a>
+							</div>
+						</div>
+						<div class="bottom">
+							<dl>
+								<dt>예약일</dt>
+								<dd>2024년 11월 11일</dd>
+								<dt>담당의</dt>
+								<dd>아잠만의사</dd>
+							</dl>
+							<dl>
+								<dt>예약자 이름</dt>
+								<dd>정하림</dd>
+								<dt>전화번호</dt>
+								<dd>010-1111-1111</dd>
+							</dl>
+							<dl>
+								<dt>주민등록번호</dt>
+								<dd>000000-000000</dd>
+								<dt>주소</dt>
+								<dd>경기도 의정부시</dd>
+							</dl>
+							<dl>
+								<dt>메모</dt>
+								<dd class="memo_dd">
+									<div class="memo">
+										<span>메모가 없습니다</span>
+										<div class="memo_btn">
+											<button>
+												<span>메모변경</span>
+											</button>
+										</div>
+									</div>
+								</dd>
+							</dl>
+						</div>
+					</div>
+				</div>
+			</section>
+	</div>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%-- 
 <main id="container">
 	<div class="content">
 		<div class="content_inner">
@@ -106,7 +230,7 @@ function hideReservation(app_id) {
 							</c:if>
 							
 							<!-- 추가 예정 -->	
-<%-- 							<button type="button" onclick="location.href='/reserve/delete.do?app_id=${ row.app_id }';">내역<br />숨김</button> --%>
+							<button type="button" onclick="location.href='/reserve/delete.do?app_id=${ row.app_id }';">내역<br />숨김</button>
 							<button type="button" onclick="hideReservation(${ row.app_id });">내역<br />숨김</button>
 							<button type="button" onclick="cancelReservation(${ row.app_id });">예약<br />취소</button>
 						</div>
@@ -178,8 +302,8 @@ function hideReservation(app_id) {
 						<!-- 추가 예정 -->
 						<!-- 하단 메뉴(버튼) -->
 <!-- 					<div class="board_btn"> -->
-<%-- 						<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">메모<br />추가</button> --%>
-<%-- 						<button type="button" onclick="deleteReservation(${ row.app_id });">삭제</button> --%>
+						<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">메모<br />추가</button>
+						<button type="button" onclick="deleteReservation(${ row.app_id });">삭제</button>
 <!-- 					</div> -->
 					</li>
 					
@@ -205,7 +329,7 @@ function hideReservation(app_id) {
 		</div>
 	</div>
 </main>
-
+ --%>
 <%@include file="../common/main_footer.jsp" %>
 </body>
 </html>

@@ -7,13 +7,10 @@
 <title>닥터뷰</title>
 <%@ include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/emoji-my.css" />
-
-
 </head>
+
 <body>
 <%@ include file="../common/main_header.jsp" %>
-
-
 
 <main id="container">
 	<div class="content">
