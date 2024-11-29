@@ -107,21 +107,21 @@
 	color: #666666;
 }
 
-#container .content .reserve_history .reserve .info .top .test_btn_group {
+#container .content .reserve_history .reserve .info .top .btn_wrap {
 	display: flex;
 	gap: 10px;
 }
 
-#container .content .reserve_history .reserve .info .top .test_btn {
+#container .content .reserve_history .reserve .info .top .cancel_btn {
 	width: 132px;
 	border-radius: 2px;
-	background-color: #f2f2f2;
+	background: #FFCCCC;
 	text-align: center;
 	display: inline-block;
 }
 
 
-#container .content .reserve_history .reserve .info .test_btn span {
+#container .content .reserve_history .reserve .info .top .cancel_btn span {
 	font-size: 16px;
 	font-weight: 500;
 	line-height: 33px;
@@ -130,6 +130,26 @@
 	display: inline-block;
 	vertical-align: middle;
 }
+
+#container .content .reserve_history .reserve .info .top .hide_btn {
+	width: 132px;
+	border-radius: 2px;
+	background: #f2f2f2;
+	text-align: center;
+	display: inline-block;
+}
+
+
+#container .content .reserve_history .reserve .info .top .hide_btn span {
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 33px;
+	height: 35px;
+	color: #666666;
+	display: inline-block;
+	vertical-align: middle;
+}
+
 
 #container .content .reserve_history .reserve .info .bottom {
 	/* 이거 잘 수정 */

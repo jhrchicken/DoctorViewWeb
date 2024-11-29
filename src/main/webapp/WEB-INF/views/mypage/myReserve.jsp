@@ -34,103 +34,95 @@ function hideReservation(app_id) {
 <main id="container">
 	<div class="content">
 		<h2>예약 내역</h2>
-			<section class="reserve_history">
-				<div class="tab">
-					<ul>
-						<li class="active"><a href="">전체</a></li>
-						<li><a href="">완료</a></li>
-						<li><a href="">취소된 예약</a></li>
-					</ul>
-				</div>
-				<div class="reserve">
-					<div class="info">
-						<div class="top">
-							<h2>병원 정보</h2>
-							<div class="test_btn_group">
-								<a class="test_btn"><span>예약 취소</span></a>
-								<a class="test_btn"><span>예약 숨김</span></a>
-							</div>
-						</div>
-						<div class="bottom">
-							<dl>
-								<dt>예약일</dt>
-								<dd>2024년 11월 11일</dd>
-								<dt>담당의</dt>
-								<dd>아잠만의사</dd>
-							</dl>
-							<dl>
-								<dt>예약자 이름</dt>
-								<dd>정하림</dd>
-								<dt>전화번호</dt>
-								<dd>010-1111-1111</dd>
-							</dl>
-							<dl>
-								<dt>주민등록번호</dt>
-								<dd>000000-000000</dd>
-								<dt>주소</dt>
-								<dd>경기도 의정부시</dd>
-							</dl>
-							<dl>
-								<dt>메모</dt>
-								<dd class="memo_dd">
-									<div class="memo">
-										<span>메모가 없습니다</span>
-										<div class="memo_btn">
-											<button>
-												<span>메모변경</span>
-											</button>
+		<section class="reserve_history">
+			<div class="tab">
+				<ul>
+					<li class="active"><a href="">전체</a></li>
+					<li><a href="">완료</a></li>
+					<li><a href="">취소된 예약</a></li>
+				</ul>
+			</div>
+
+			<c:choose>
+				<c:when test="${ empty reserveInfo }">
+					<div class="none">
+						<p>예약 정보가 없습니다.</p>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${ reserveInfo }" var="row" varStatus="loop">
+						<!-- user 회원 화면-->
+						<c:if test="${ userAuth eq 'ROLE_USER' }">
+							<c:if test="${ row.hide eq 'F' }">
+								<form name="cancelReservationForm_${row.app_id}">
+									<input type="hidden" name="app_id" value="${ row.app_id }" />
+								</form>
+								<form name="hideReservationForm_${row.app_id}">
+									<input type="hidden" name="app_id" value="${ row.app_id }" />
+								</form>
+								
+								<!-- 예약정보 -->
+								<div class="reserve">
+									<div class="info">
+										<div class="top">
+											<h2>${ row.hospname }</h2>
+											<div class="btn_wrap">
+												<c:if test="${ row.cancel eq 'F' }">
+													<a class="hide_btn" href="javascript:void(0);" onclick="cancelReservation(${ row.app_id });"><span>예약 취소</span></a>
+												</c:if>
+												<c:if test="${ row.cancel eq 'T' }">
+													<a class="cancel_btn" href="javascript:void(0);"><span>취소된 예약</span></a>
+												</c:if>
+												<a class="hide_btn" href="javascript:void(0);" onclick="hideReservation(${row.app_id});"><span>예약 숨김</span></a>
+											</div>
+										</div>
+										<div class="bottom">
+											<dl>
+												<dt>예약일</dt>
+												<dd>${ row.postdate } ${ row.posttime }</dd>
+												<dt>담당의</dt>
+												<dd>${ row.doctorname }</dd>
+											</dl>
+											<dl>
+												<dt>예약자 이름</dt>
+												<dd>${ row.username }</dd>
+												<dt>전화번호</dt>
+												<dd>${ row.tel }</dd>
+											</dl>
+											<dl>
+												<dt>주민등록번호</dt>
+												<dd>${ row.rrn }</dd>
+												<dt>주소</dt>
+												<dd>${ row.address }</dd>
+											</dl>
+											<dl>
+												<dt>메모</dt>
+												<dd class="memo_dd">
+													<div class="memo">
+														<c:if test="${ empty row.user_memo }">
+															<span>메모가 없습니다</span>
+						        						</c:if>
+														<c:if test="${ not empty row.user_memo }">
+															<span>${ row.user_memo }</span>
+						        						</c:if>
+														<div class="memo_btn">
+															<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">
+																<span>메모변경</span>
+															</button>
+														</div>
+													</div>
+												</dd>
+											</dl>
 										</div>
 									</div>
-								</dd>
-							</dl>
-						</div>
-					</div>
-				</div>
-				<div class="reserve">
-					<div class="info">
-						<div class="top">
-							<h2>병원 정보</h2>
-							<div class="test_btn_group">
-								<a class="test_btn"><span>예약 취소</span></a>
-								<a class="test_btn"><span>예약 숨김</span></a>
-							</div>
-						</div>
-						<div class="bottom">
-							<dl>
-								<dt>예약일</dt>
-								<dd>2024년 11월 11일</dd>
-								<dt>담당의</dt>
-								<dd>아잠만의사</dd>
-							</dl>
-							<dl>
-								<dt>예약자 이름</dt>
-								<dd>정하림</dd>
-								<dt>전화번호</dt>
-								<dd>010-1111-1111</dd>
-							</dl>
-							<dl>
-								<dt>주민등록번호</dt>
-								<dd>000000-000000</dd>
-								<dt>주소</dt>
-								<dd>경기도 의정부시</dd>
-							</dl>
-							<dl>
-								<dt>메모</dt>
-								<dd class="memo_dd">
-									<div class="memo">
-										<span>메모가 없습니다</span>
-										<div class="memo_btn">
-											<button>
-												<span>메모변경</span>
-											</button>
-										</div>
-									</div>
-								</dd>
-							</dl>
-						</div>
-					</div>
-				</div>
-			</section>
+								</div>
+							</c:if>
+						</c:if>
+					
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+		</section>
 	</div>
 </main>
 

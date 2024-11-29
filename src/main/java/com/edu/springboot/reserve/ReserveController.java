@@ -157,7 +157,7 @@ public class ReserveController {
 			reserveDAO.updateReservationDetails(reserveDTO.getApp_id(), null, reserveDTO.getHosp_memo());
 		}
 		
-		return "redirect:/reserve.do";
+		return "redirect:/myReserve.do";
 	}
 	
 	// 예약 취소하기
@@ -165,7 +165,7 @@ public class ReserveController {
 	public String cancel(Model model, HttpSession session, ReserveDTO reserveDTO) {
 		reserveDAO.cancelReservation(reserveDTO);
 		
-		return "redirect:/reserve.do";
+		return "redirect:/myReserve.do";
 	}
 	
 	// 예약 내역 숨김 (user)
@@ -173,7 +173,7 @@ public class ReserveController {
 	public String delete(ReserveDTO reserveDTO) {
 		reserveDAO.hideReservation(reserveDTO);
 		
-		return "redirect:/reserve.do";
+		return "redirect:/myReserve.do";
 	}
 	
 	// 예약 시간 설정
