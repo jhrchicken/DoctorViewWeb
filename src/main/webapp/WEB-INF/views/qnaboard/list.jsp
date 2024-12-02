@@ -23,6 +23,10 @@
 						<li><a href="/board/bestPost.do">베스트게시판</a></li>
 						<li><a href="/board/myPost.do">내가 쓴 글</a></li>
 						<li><a href="/board/myComment.do">댓글 단 글</a></li>
+						<c:if test="${ sessionScope.loginMember.auth == 'ROLE_HOSP' }">
+							<li><a href="/board/waitComment.do">댓글을 기다리는 글</a></li>
+						</c:if>
+					</ul>
 					</ul>
 				</div>
 			</div>
