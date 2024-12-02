@@ -207,10 +207,10 @@
 			<section class="quick_menu">
 				<ul>
 					<li class="qm1">
-						<a href="">
+						<a href="/release.do">
 							<div class="icon"></div>
-							<strong>프랜차이즈</strong>
-							<span>개설절차/투자비용 정보</span>
+							<strong>릴리즈</strong>
+							<span>업데이트 정보</span>
 						</a>
 					</li>
 					<li class="qm2">

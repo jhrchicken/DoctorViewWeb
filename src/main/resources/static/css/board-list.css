@@ -1,7 +1,7 @@
 #container {
 	margin-top: 170px;
-	position: relative;
-	min-width: 1280px;
+    position: relative;
+    min-width: 1280px;
 }
 
 #container .content {
@@ -15,7 +15,7 @@
 	font-size: 40px;
 	color: #292929;
 	font-weight: 500;
-	padding: 134px 0 80px;
+	padding: 73px 0 50px;
 }
 
 #container .content .board_wrap {

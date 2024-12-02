@@ -13,6 +13,11 @@ public class MainController {
 		return "home";
 	}
 	
+	@RequestMapping("/release.do")
+	public String release() {
+		return "common/release";
+	}
+	
 
 
 }
