@@ -1,17 +1,30 @@
 # DoctorViewWeb
-![logo](https://github.com/user-attachments/assets/c5e1fdac-5180-4c98-8458-aca9a9918288)
-<br />
 <b>지역 기반 의료 서비스 매칭 플랫폼</b>
-<br />
-<br />
+<br/>
+<br/>
+
+## 개발 기간
+<ul>
+  <li>2024.09.19 - 2024.10.23</li>
+</ul>
 
 ## 팀원 소개
 <ul>
-  <li><b>팀장</b> 정하림</li>
-  <li><b>팀원</b> 부다영</li>
-  <li><b>팀원</b> 이회리</li>
+  <li><b>정하림 (팀장)</b> : </li>
+  <li><b>부다영</b> - 로그인, 회원가입, ID찾기, PW찾기, 예약, 이모지, </li>
+  <li><b>이회리</b> : </li>
 </ul>
 <br />
+
+
+## 기술 스택
+
+### 언어
+ <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
+
+
+
+
 
 ## 구현 목록
 <details>
