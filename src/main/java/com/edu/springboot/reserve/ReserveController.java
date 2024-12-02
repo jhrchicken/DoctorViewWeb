@@ -138,27 +138,7 @@ public class ReserveController {
 
 
 
-	// 예약 추가정보(메모) 
-	@GetMapping("/reserve/extraInfo.do")
-	public String extraInfoGet(Model model, HttpSession session, ReserveDTO reserveDTO) {
-		ReserveDTO reserveDetail = reserveDAO.getReservationDetails(reserveDTO.getApp_id());
-		model.addAttribute("reserveDetail", reserveDetail);
-		
-		return "reserve/extraInfo";
-	}
-	@PostMapping("/reserve/extraInfo.do")
-	public String extraInfoPost(Model model, HttpSession session, ReserveDTO reserveDTO) {
-		// user 메모 추가
-		if(session.getAttribute("userAuth").equals("ROLE_USER")) {
-			reserveDAO.updateReservationDetails(reserveDTO.getApp_id(), reserveDTO.getUser_memo(), null);
-		}
-		// hosp 메모추가
-		else {
-			reserveDAO.updateReservationDetails(reserveDTO.getApp_id(), null, reserveDTO.getHosp_memo());
-		}
-		
-		return "redirect:/myReserve.do";
-	}
+
 	
 	// 예약 취소하기
 	@PostMapping("/reserve/cancel.do")

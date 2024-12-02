@@ -57,6 +57,33 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+/**
+ * 메모 작성 모달창을 여는 함수
+ * 
+ * @Param {String} app_id - 예약 일련번호
+ * @Param {String} content - 메모 내용
+ */
+function openMemoModal(app_id, content) {
+	document.getElementById("memo_app_id").value = app_id;
+	document.getElementById("memo_content").value = content;
+}
+
+
+/**
+ * 메모 내용을 입력했는지 검증하는 함수
+ * 
+ * @param {Form} form - 검증할 HTML폼 객체
+ * @returns {boolean} - 검증 결과  
+ */
+function validateMemoForm(form) {
+	if (form.memo_content.value == "") {
+		alert("내용을 입력하세요");
+		form.memo_content.focus();
+		return false;
+	}
+}
+
+
 
 
 

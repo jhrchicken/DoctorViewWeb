@@ -85,16 +85,63 @@ public class MypageController {
 	}
 	
 	
+//	// 예약 추가정보(메모) 
+//	@GetMapping("/reserve/extraInfo.do")
+//	public String extraInfoGet(Model model, HttpSession session, ReserveDTO reserveDTO) {
+//		ReserveDTO reserveDetail = reserveDAO.getReservationDetails(reserveDTO.getApp_id());
+//		model.addAttribute("reserveDetail", reserveDetail);
+//		
+//		return "reserve/extraInfo";
+//	}
+//	@PostMapping("/reserve/extraInfo.do")
+//	public String extraInfoPost(Model model, HttpSession session, ReserveDTO reserveDTO) {
+//		// user 메모 추가
+//		if(session.getAttribute("userAuth").equals("ROLE_USER")) {
+//			reserveDAO.updateReservationDetails(reserveDTO.getApp_id(), reserveDTO.getUser_memo(), null);
+//		}
+//		// hosp 메모추가
+//		else {
+//			reserveDAO.updateReservationDetails(reserveDTO.getApp_id(), null, reserveDTO.getHosp_memo());
+//		}
+//		
+//		return "redirect:/myReserve.do";
+//	}
+	
+	@PostMapping("/mypage/editMemo.do")
+	public String editMemoPost(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, ReserveDTO reserveDTO) {
+		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+		
+		String auth = loginMember.getAuth();
+		// user 메모 추가
+		if (auth.equals("ROLE_USER")) {
+			reserveDAO.updateReservationDetails(reserveDTO.getApp_id(), reserveDTO.getUser_memo(), null);
+		}
+		// hosp 메모 추가
+		else {
+			reserveDAO.updateReservationDetails(reserveDTO.getApp_id(), null, reserveDTO.getHosp_memo());
+		}
+		
+		return "redirect:/myReserve.do";
+	}
+	
+	
+	
 	// == 찜한 병원 ==
 	@GetMapping("/mypage/myHosp.do")
 	public String myHospGet(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, ParameterDTO parameterDTO) {
 		
-		// 로그인 여부 확인
-		String id = (String) session.getAttribute("userId");
-	    if (id == null) {
-	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
-	        return null;
-	    }
+		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+		String id = loginMember.getId();
 	    
 		// 병원 API 레코드 개수를 통해 페이징 기능 구현
 		int total = mypageDAO.countMyHosp(id);
@@ -158,12 +205,13 @@ public class MypageController {
 	@GetMapping("/mypage/myDoctor.do")
 	public String myDoctorGet(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, ParameterDTO parameterDTO) {
 		
-		// 로그인 여부 확인
-		String id = (String) session.getAttribute("userId");
-	    if (id == null) {
-	        JSFunction.alertLocation(response, "로그인 후 이용해 주세요.", "../member/login.do");
-	        return null;
-	    }
+		// 로그인 여부 검증
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		if (loginMember == null) {
+			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
+			return null;
+		}
+		String id = loginMember.getId();
 	    
 		// 좋아요 한 의사의 게시글 개수를 통해 페이징 기능 구현
 		int total = mypageDAO.countMyDoctor(id);
