@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
 /**
  * 메모 작성 모달창을 여는 함수
  * 
- * @Param {String} app_id - 예약 일련번호
- * @Param {String} content - 메모 내용
+ * @param {String} app_id - 예약 일련번호
+ * @param {String} content - 메모 내용
  */
 function openMemoModal(app_id, content) {
 	document.getElementById("memo_app_id").value = app_id;

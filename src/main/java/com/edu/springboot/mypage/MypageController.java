@@ -16,7 +16,6 @@ import com.edu.springboot.board.ParameterDTO;
 import com.edu.springboot.doctor.DoctorDTO;
 import com.edu.springboot.doctor.DreviewDTO;
 import com.edu.springboot.doctor.IDoctorService;
-import com.edu.springboot.hospital.BasicDTO;
 import com.edu.springboot.hospital.DetailDTO;
 import com.edu.springboot.hospital.HashtagDTO;
 import com.edu.springboot.hospital.HospitalDTO;
