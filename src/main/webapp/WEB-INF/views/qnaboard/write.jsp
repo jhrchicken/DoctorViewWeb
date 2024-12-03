@@ -12,7 +12,7 @@
 
 <body>
 	<%@include file="../common/main_header.jsp" %>
-		<main id="container">
+	<main id="container">
 		<!-- 서브 헤더 -->
 		<div class="sub_header">
 			<div class="sub_content">
@@ -30,7 +30,7 @@
 				</div>
 			</div>
 		</div>
-		
+	
 		<div class="content">
 			<div class="content_inner">
 				<h2>글 작성하기</h2>
