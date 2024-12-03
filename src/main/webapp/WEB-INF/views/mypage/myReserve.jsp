@@ -98,9 +98,6 @@
 																onclick="openMemoModal(${ row.app_id }, '${ row.user_memo }')">
 																<span>메모변경</span>
 															</button>
-															<%-- <button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">
-																<span>메모변경</span>
-															</button> --%>
 														</div>
 													</div>
 												</dd>

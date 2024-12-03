@@ -28,7 +28,6 @@
 							<li><a href="/board/waitComment.do">댓글을 기다리는 글</a></li>
 						</c:if>
 					</ul>
-					</ul>
 				</div>
 			</div>
 		</div>
