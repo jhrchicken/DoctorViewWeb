@@ -251,5 +251,7 @@
     width: 100px;
 }
 
-
+#container .release a {
+	color: #1a73e8;
+}
 
