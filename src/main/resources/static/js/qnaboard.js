@@ -1,4 +1,6 @@
-// 게시글 삭제
+/**
+ * 게시글을 삭제하는 함수
+ */
 function deletePost() {
     if (confirm("정말로 삭제하시겠습니까?")) {
         var form = document.deletePostForm;
@@ -9,13 +11,21 @@ function deletePost() {
 }
 
 
-// 댓글 작성 모달창
+/**
+ * 댓글 작성 모달창을 여는 함수
+ * 
+ * @param {Integer} board_ref - 게시글의 참조 번호
+ */
 function openWriteModal(board_ref) {
     document.getElementById("comm_write_board_ref").value = board_ref;
 }
 
 
-// 댓글 작성 (AJAX)
+/**
+ * 댓글을 작성하는 함수 (AJAX)
+ * 
+ * @returns {boolean} - 새로고침 방지
+ */
 function writeComment() {
     var board_ref = $('#comm_write_board_ref').val();
     var content = $('#comm_write_content').val();
@@ -71,7 +81,14 @@ function writeComment() {
 }
 
 
-// 댓글 수정 모달창
+/**
+ * 댓글 수정 모달창을 여는 함수
+ * 
+ * @param {Integer} comm_idx - 댓글의 일련번호
+ * @param {String} content - 댓글 내용
+ * @param {String} writer_ref - 작성자의 참조 아이디 
+ * @param {Integer} board_ref - 게시글의 참조 번호
+ */
 function openEditModal(comm_idx, content, writer_ref, board_ref) {
     document.getElementById("comm_edit_comm_idx").value = comm_idx;
     document.getElementById("comm_edit_content").value = content;
@@ -80,7 +97,11 @@ function openEditModal(comm_idx, content, writer_ref, board_ref) {
 }
 
 
-// 댓글 수정 (AJAX)
+/**
+ * 댓글을 수정하는 함수 (AJAX)
+ * 
+ * @returns {boolean} - 새로고침 방지
+ */
 function editComment() {
     var comm_idx = $('#comm_edit_comm_idx').val();
     var content = $('#comm_edit_content').val();
@@ -119,7 +140,9 @@ function editComment() {
 }
 
 
-// 댓글 삭제 (AJAX)
+/**
+ * 댓글을 삭제하는 함수 (AJAX)
+ */
 function deleteComment(comm_idx, writer_ref, board_ref) {
     if (confirm("댓글을 삭제하시겠습니까?")) {
         $.ajax({
@@ -152,7 +175,11 @@ function deleteComment(comm_idx, writer_ref, board_ref) {
 }
 
 
-// 좋아요 기능 (AJAX)
+/**
+ * 게시글에 좋아요를 표시하는 함수
+ * 
+ * @param {Integer} boardIdx - 게시글의 일련번호
+ */
 function clickLike(boardIdx) {
     $.ajax({
         url: '/qnaboard/clickLike.do',
@@ -180,7 +207,11 @@ function clickLike(boardIdx) {
     });
 }
 
-// 신고 기능 (AJAX)
+/**
+ * 게시글에 신고를 표시하는 함수
+ * 
+ * @param {Integer} boardIdx - 게시글의 일련번호
+ */
 function clickReport(boardIdx) {
     $.ajax({
         url: '/qnaboard/clickReport.do',
