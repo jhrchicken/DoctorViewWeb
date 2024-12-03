@@ -27,7 +27,6 @@
 							<li><a href="/board/waitComment.do">댓글을 기다리는 글</a></li>
 						</c:if>
 					</ul>
-					</ul>
 				</div>
 			</div>
 		</div>
@@ -98,7 +97,7 @@
 					
 					<!-- 글쓰기 버튼 (로그인 한 경우) -->
 					<c:if test="${ not empty sessionScope.userId }">
-					    <a class="write_btn" href="/qnaboard/writePost.do';">
+					    <a class="write_btn" href="/qnaboard/writePost.do">
 					        <span>글 작성하기</span>
 					    </a>
 					</c:if>	

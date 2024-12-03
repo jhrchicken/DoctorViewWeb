@@ -34,8 +34,7 @@
 		<div class="content">
 			<div class="content_inner">
 				<h2>글 작성하기</h2>
-				<form id="writeForm" name="writeForm" method="post"
-				action="/freeboard/writePost.do">
+				<form id="writeForm" name="writeForm" method="post" action="/freeboard/writePost.do">
 					<div class="board_wrap">
 						<p class="rt_note">필수입력사항</p>
 						<table>
@@ -78,29 +77,6 @@
 					</div>
 				</form>
 			</div>
-				
-
-			
-			
-			
-			<!-- <h2>자유게시판</h2>
-			<form name="writeForm" method="post"
-				action="/freeboard/writePost.do" onsubmit="return validateWriteForm(this);">
-				<table class="board">
-					<tr>
-						<td class="left">제목</td>
-						<td><input type="text" name="title" /></td>
-					</tr>
-					<tr>
-						<td class="left">내용</td>
-						<td class="area"><textarea name="content"></textarea></td>
-					</tr>
-				</table>    
-				<div class="board_btn">
-					<button type="button" onclick="location.href='/freeboard.do';">취소</button>
-					<button type="submit">완료</button>
-				</div>
-			</form> -->
 		</div>
 	</main>
 	<%@include file="../common/main_footer.jsp" %>
