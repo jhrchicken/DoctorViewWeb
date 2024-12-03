@@ -243,7 +243,7 @@ function clickReport(boardIdx) {
 
 
 /**
- * 게시글 내용을 입력했는지 검증하는 함수
+ * 입력폼의 필수 내용을 입력했는지 검증하는 함수
  * 
  * @param {Form} form - 검증할 HTML폼 객체
  * @returns {boolean} - 검증 결과  
@@ -263,6 +263,26 @@ function validateWriteForm(form) {
 }
 
 
+
+/**
+ * 수정폼의 필수 내용을 입력했는지 검증하는 함수
+ * 
+ * @param {Form} form - 검증할 HTML폼 객체
+ * @returns {boolean} - 검증 결과  
+ */
+function validateEditForm(form) {
+	if (form.title.value == '') {
+		alert("제목을 입력하세요.");
+		form.title.focus();
+		return false;
+	}
+	if (form.content.value == '') {
+		alert("내용을 입력하세요.");
+		form.content.focus();
+		return false;
+	}
+	return true;
+}
 
 
 
