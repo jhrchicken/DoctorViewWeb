@@ -16,9 +16,9 @@ function deletePost() {
  * 
  * @param {Integer} board_ref - 게시글의 참조 번호
  */
-function openWriteModal(board_ref) {
+/* function openWriteModal(board_ref) {
     document.getElementById("comm_write_board_ref").value = board_ref;
-}
+} */
 
 
 /**

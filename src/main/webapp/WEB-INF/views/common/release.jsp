@@ -14,7 +14,7 @@
 		<div class="content">
 			<div class="hd">
 				<h2>닥터뷰 릴리즈 노트</h2>
-				<p>서비스 개선 및 안정화를 위한 업데이트입니다<br/>자세한 내용은 아래를 확인해 주세요</p>
+				<!-- <p>서비스 개선 및 안정화를 위한 업데이트입니다<br/>자세한 내용은 아래를 확인해 주세요</p> -->
 			</div>
 			
 			<div class="release">
@@ -23,8 +23,12 @@
 				 <strong class="date">October 23, 2024</strong>
 				 <div class="new">
 				 	<p>
-				 		<strong>최초 배포</strong><br/>
+				 		<strong>서비스 최초 배포</strong><br/>
 				 		지역기반 의료시스템 매칭 플랫폼 닥터뷰를 최초 배포했습니다.
+				 	</p>
+				 	<p>
+				 		<strong>릴리즈 노트 최초 배포</strong><br/>
+				 		지역기반 의료시스템 매칭 플랫폼 닥터뷰의 릴리즈 노트를 최초 배포했습니다.
 				 	</p>
 				 </div>
 				 
@@ -110,7 +114,7 @@
 				 
 				 <!--v1.2.1 -->
 				 <h2 class="version">v1.2.1</h2>
-				 <strong class="date">December 2, 2024</strong>
+				 <strong class="date">December 1, 2024</strong>
 				 <div class="fixed">
 				 	<p>
 				 		<strong>예약 취소 버그 수정 및 성능 개선</strong><br/>
@@ -134,7 +138,7 @@
 				 
 				 <!--v1.2.2 -->
 				 <h2 class="version">v1.2.2</h2>
-				 <strong class="date">December 3, 2024</strong>
+				 <strong class="date">December 2, 2024</strong>
 				 <div class="fixed">
 				 	<p>
 				 		<strong>게시판 목록 UI 오류 수정</strong><br/>
@@ -145,6 +149,30 @@
 				 	<p>
 				 		<strong>게시판 목록 디자인 전면 수정</strong><br/>
 				 		게시판 목록에 서브 메뉴를 추가하여 탐색 편의성을 높였으며, 세부 디자인을 개선해 더욱 깔끔하고 직관적인 UI를 제공하도록 수정했습니다.<br/><a href="">자세한 변경 내용은 이곳에서 확인 가능합니다.</a>
+				 	</p>
+				 </div>
+				 
+				 <!--v1.2.3 -->
+				 <h2 class="version">v1.2.3</h2>
+				 <strong class="date">December 3, 2024</strong>
+				 <div class="fixed">
+				 	<p>
+				 		<strong>게시판 작성 UI 오류 수정</strong><br/>
+				 		창 크기를 줄일 때 게시판 목록의 글자가 겹쳐 보이는 문제를 해결했습니다.
+				 	</p>
+				 	<p>
+				 		<strong>게시판 수정 UI 오류 수정</strong><br/>
+				 		창 크기를 줄일 때 게시판 목록의 글자가 겹쳐 보이는 문제를 해결했습니다.
+				 	</p>
+				 </div>
+				 <div class="changed">
+				 	<p>
+				 		<strong>게시판 작성 디자인 전면 수정</strong><br/>
+				 		게시판 작성에 서브 메뉴를 추가하여 탐색 편의성을 높였으며, 세부 디자인을 개선해 더욱 깔끔하고 직관적인 UI를 제공하도록 수정했습니다.<br/><a href="">자세한 변경 내용은 이곳에서 확인 가능합니다.</a>
+				 	</p>
+				 	<p>
+				 		<strong>게시판 수정 디자인 전면 수정</strong><br/>
+				 		게시판 수정에 서브 메뉴를 추가하여 탐색 편의성을 높였으며, 세부 디자인을 개선해 더욱 깔끔하고 직관적인 UI를 제공하도록 수정했습니다.<br/><a href="">자세한 변경 내용은 이곳에서 확인 가능합니다.</a>
 				 	</p>
 				 </div>
 			</div>
