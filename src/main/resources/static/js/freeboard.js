@@ -12,14 +12,13 @@ function deletePost() {
 
 
 /**
- * 댓글 작성 모달창을 여는 함수
+ * 댓글 작성 모달창을 여는 함수 (삭제 예정)
  * 
  * @param {Integer} board_ref - 게시글의 참조 번호
  */
 /* function openWriteModal(board_ref) {
     document.getElementById("comm_write_board_ref").value = board_ref;
 } */
-
 
 /**
  * 댓글을 작성하는 함수 (AJAX)
