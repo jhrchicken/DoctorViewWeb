@@ -88,8 +88,7 @@
 
 
 
-
-
+/*** 게시글 ***/
 #container .content {
 	padding-top: 0;
 	position: relative;
@@ -106,25 +105,19 @@
 	max-width: 1170px;
 	margin: 0 auto;
 	position: relative;
+	border-top: 4px solid #dddddd;
+	border-bottom: 2px solid #dddddd;
 	
-	
-	/* 이거 수정될듯 */
-	border-top: 2px solid #646464;
-	border-bottom: 1px solid #646464;
 }
 
-
-
-
-/* 게시글 제목 */
 #container .title {
 	border: 0;
 	line-height: 24px;
 	padding: 25px 35px 10px 35px;
-	background: #fafafa;
+	background: #fffcf0;
 	font-weight: 600;
 	font-size: 22px;
-	color: #393939;
+	color: #666666;
 	box-sizing: border-box;
 	display: block;
 	text-align: left;
@@ -133,9 +126,9 @@
 #container .detail {
 	margin-top: -1px;
 	padding: 0 35px 25px 35px;
-	background: #fafafa;
+	background: #fffcf0;
 	border: 0;
-	border-bottom: 1px solid #dcdcdc;
+	border-bottom: 1px solid #dddddd;
 }
 
 #container .detail li {
@@ -149,7 +142,7 @@
 
 #container .detail li span {
 	position: relative;
-	color: #393939;
+	color: #999999;
 	display: inline-block;
 	padding: 0px 0px 0px 19px;
 	background: url(/images/board_bar.png) no-repeat 8px center;
@@ -161,19 +154,89 @@
 }
 
 #container .detail li span em {
-	color: #323232;
+	color: #999999;
 }
 
-
-
-
-
-/*** 게시글 내용 ***/
 #container .board_content {
 	padding: 20px 35px;
+	font-size: 16px;
+	color: #666666;
 }
 
 
+
+
+/*** 좋아요 싫어요 버튼 ***/
+#container .reaction_btn {
+	padding: 80px 0 10px 0;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+}
+
+#container .reaction_btn button {
+	position: relative;
+	display: inline-block;
+    width: 57px;
+    height: 57px;
+    margin: 0 9px;
+    border: 0;
+    cursor: pointer;
+    background: url(/images/like_blue.svg) no-repeat 0 0 / 100%;
+}
+
+#container .reaction_btn button:nth-child(n+2) {
+	background: url(/images/dislike_blue.svg) no-repeat 0 0 / 100%;
+}
+
+#container .reaction_btn span {
+	display: block;
+	font-size: 16px;
+	color: #666;
+	font-weight: bold;
+}
+
+#container .reaction_btn .like_count {
+	position: absolute;
+	right: 44px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 50px;
+	height: 35px;
+    border: 3px solid #999;
+    border-right: none;
+    border-radius: 20px 0 0 20px;
+    padding: 0 20px 0 15px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+    text-align: center;
+    color: #999;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container .reaction_btn .report_count {
+	position: absolute;
+	left: 44px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 50px;
+	height: 35px;
+    border: 3px solid #999;
+    border-left: none;
+    border-radius: 0 20px 20px 0;
+    padding: 0 15px 0 15px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+    text-align: center;
+    color: #999;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
 
@@ -187,6 +250,7 @@
 	position: relative;
 	margin: 0 auto;
 	margin-top: 25px;
+	margin-bottom: 100px;
 }
 
 #container .list_btn a {

@@ -61,12 +61,10 @@
 						<!-- 좋아요 및 신고 -->
 						<div class="reaction_btn">
 					        <button id="likeButton" type="button" class="${likecheck == 1 ? 'push' : ''}" onclick="clickLike(${boardDTO.board_idx});">
-					            <p class="like"></p>
-					            <span id="likeCount">${boardDTO.likecount}</span>
+					            <span class="like_count" id="likeCount">${boardDTO.likecount}</span>
 					        </button>
 					        <button id="reportButton" type="button" class="${reportcheck == 1 ? 'push' : ''}" onclick="clickReport(${boardDTO.board_idx});">
-					            <p class="dislike"></p>
-					            <span id="reportCount">${boardDTO.reportcount}</span>
+					            <span class="report_count" id="reportCount">${boardDTO.reportcount}</span>
 					        </button>
 					    </div>
 					</div>
