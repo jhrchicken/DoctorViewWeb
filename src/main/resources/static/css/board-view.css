@@ -414,11 +414,3 @@
   width: 50px;
   height: 41px;
 }
-
-#container .comment .comm_btn button:hover {
-	background: var(--point-color1);
-}
-
-#container .comment .comm_btn button:nth-child(n+2):hover {
-	background: #D50032;
-}

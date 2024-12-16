@@ -20,6 +20,7 @@ function deletePost() {
     document.getElementById("comm_write_board_ref").value = board_ref;
 } */
 
+
 /**
  * 댓글을 작성하는 함수 (AJAX)
  * 
