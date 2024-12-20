@@ -101,16 +101,22 @@
 
 <img src="">
 <img src="">
+<img src="https://img.shields.io/badge/termius-%23000000?style=for-the-badge&logo=termius">
 <img src="">
 <img src="">
 <img src="">
-<img src="">
-<img src="">
-<img src="">
+
+## 라이브러리 및 API
+
+<img src="https://img.shields.io/badge/kakaomap-%23FFCD00?style=for-the-badge&logo=kakao&logoColor=%23000"> <img src="https://img.shields.io/badge/bootstrap%205.3.3-%237952B3?style=for-the-badge&logo=bootstrap&logoColor=%23fff"> <img src="https://img.shields.io/badge/jquery%20%26%20ajax-%230769AD?style=for-the-badge&logo=jquery">
+
+
+<img src="https://img.shields.io/badge/apache%20tomcat%2010.1.26-%23F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=%23000">
+
 
 ## 협업
 
-<img src="https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github"> <img src="https://img.shields.io/badge/notion-%23000000?style=for-the-badge&logo=notion"> <img src="https://img.shields.io/badge/google%20drive-%234285F4?style=for-the-badge&logo=googledrive">
+<img src="https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github"> <img src="https://img.shields.io/badge/notion-%23000000?style=for-the-badge&logo=notion"> <img src="https://img.shields.io/badge/google%20drive-%234285F4?style=for-the-badge&logo=googledrive&logoColor=%23fff">
 
 
 
