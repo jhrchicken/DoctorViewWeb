@@ -37,7 +37,7 @@
 
 <br/><br/>
 
-# <span id="1" style="background-color: #fff5b1">01. 프로젝트 정보</span>
+# <span id="1" style='background-color: #fff5b1'>01. 프로젝트 정보</span>
 
 ## 개발 정보
 <ul>
@@ -46,7 +46,7 @@
   <li>프로젝트 보완 기간: 2025.01.01 - 진행 중</li>
 </ul>
 
-<span style="background-color: #fff5b1">어쩌구</span>
+<span style='background-color: #fff5b1'>어쩌구</span>
 <br/>
 
 ## 팀원 소개
