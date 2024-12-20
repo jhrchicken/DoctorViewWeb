@@ -111,9 +111,7 @@
 
 ## 협업
 
-<img src="https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github">
-<img src="https://img.shields.io/badge/notion-%23000000?style=for-the-badge&logo=notion">
-<img src="https://img.shields.io/badge/google%20drive-%234285F4?style=for-the-badge&logo=googledrive">
+<img src="https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github"> <img src="https://img.shields.io/badge/notion-%23000000?style=for-the-badge&logo=notion"> <img src="https://img.shields.io/badge/google%20drive-%234285F4?style=for-the-badge&logo=googledrive">
 
 
 
