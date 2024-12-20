@@ -92,8 +92,7 @@
 ### 언어
 
 
-<img src="https://img.shields.io/badge/Spring%20boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff">
-<img src="https://img.shields.io/badge/HTML5-%23E34F26?style=for-the-badge&logo=html5">
+<img src="https://img.shields.io/badge/Spring%20boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff"> <img src="https://img.shields.io/badge/HTML5-%23E34F26?style=for-the-badge&logo=html5">
 <img src="https://img.shields.io/badge/css3-%231572B6?style=for-the-badge&logo=css3">
 <img src="https://img.shields.io/badge/javascript%20es6-%23F7DF1E?style=for-the-badge&logo=javascript">
 <img src="">
