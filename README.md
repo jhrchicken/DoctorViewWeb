@@ -37,6 +37,8 @@
 
 <br/><br/>
 
+<span style="background-color: yellow;">텍스트 강조</span>
+
 # <span id="1" style='background-color: #fff5b1'>01. 프로젝트 정보</span>
 
 ## 개발 정보
