@@ -94,6 +94,16 @@
 
 
 <img src="https://img.shields.io/badge/Java-OpenJDK%2021-brightgreen?style=for-the-badge&logo=openjdk&label=JAVA&labelColor=%23000000&color=7F7F7F">
+<img src="https://img.shields.io/badge/oracle-21c-%23F80000?style=for-the-badge">
+<img src="https://img.shields.io/badge/oracle-oracle21c-%23F80000?style=for-the-badge&logo=oracle">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
 
 
 # 05. 주요 기능
