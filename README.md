@@ -89,18 +89,33 @@
 
 # 03. 기술 스택
 
-### 언어
+## 백엔드
+
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+
+## 협업
+
+<img src="https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github">
+<img src="https://img.shields.io/badge/notion-%23000000?style=for-the-badge&logo=notion">
+<img src="https://img.shields.io/badge/google%20drive-%234285F4?style=for-the-badge&logo=googledrive">
 
 
-<img src="https://img.shields.io/badge/Spring%20boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff"> <img src="https://img.shields.io/badge/HTML5-%23E34F26?style=for-the-badge&logo=html5">
-<img src="https://img.shields.io/badge/css3-%231572B6?style=for-the-badge&logo=css3">
-<img src="https://img.shields.io/badge/javascript%20es6-%23F7DF1E?style=for-the-badge&logo=javascript">
-<img src="">
-<img src="">
-<img src="">
-<img src="">
-<img src="">
-<img src="">
 
 # 05. 주요 기능
 
