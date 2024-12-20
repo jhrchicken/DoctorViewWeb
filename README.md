@@ -51,7 +51,7 @@
 
 닥터뷰 프로젝트는 백엔드 2명과 프론트엔드 1명이 참여하여 개발하였습니다.
 
-🔻 변경 사항 3 (다영이는 하림이랑 순서 바꾸고 '팀장' 표시 지우기 / 요구사항 정의서는 꼭 적기! 이거 같이 했는데 안적을까봐 혹시나 하고 ..)
+🔻 변경 사항 2 (다영이는 하림이랑 순서 바꾸고 '팀장' 표시 지우기 / 요구사항 정의서는 꼭 적기! 이거 같이 했는데 안적을까봐 혹시나 하고 ..)
 
 <ul>
   <li>
@@ -66,7 +66,7 @@
   <li><b>이회리 (프론트엔드)</b></li>
 </ul>
 
-🔺 변경 사항 3
+🔺 변경 사항 2
 
 <br/><br/>
 
@@ -75,12 +75,12 @@
 - 배포 URL:
 - 관리자 URL: /admin.do
 
-🔻 변경 사항 2
+🔻 변경 사항 3
 
 - 일반 사용자 Test ID/PW : harim1104 / 12341234
 - 일반 사용자 Test ID/PW : dayeong1209 / 12341234
 
-🔺 변경 사항 2
+🔺 변경 사항 3
 
 - 병원 Test ID/PW : hospital1 / 12341234
 - 관리자 Test ID/PW : admin / 12341234
@@ -93,9 +93,15 @@
 
 <img src="https://img.shields.io/badge/openjdk%2021-%23000000?style=for-the-badge&logo=openjdk"> <img src="https://img.shields.io/badge/oracle%2021c-%23F80000?style=for-the-badge&logo=oracle"> <img src="https://img.shields.io/badge/firebase%20realtime%2010.13.2-%23DD2C00?style=for-the-badge&logo=firebase"> <img src="https://img.shields.io/badge/spring%20boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff"> <img src="https://img.shields.io/badge/aws%20ec2-%23232F3E?style=for-the-badge&logo=amazonwebservices">
 
+<br/>
+
 ## 프론트엔드
 
 <img src="https://img.shields.io/badge/html5-%23E34F26?style=for-the-badge&logo=html5"> <img src="https://img.shields.io/badge/css3-%231572B6?style=for-the-badge&logo=css3"> <img src="https://img.shields.io/badge/JavaScript%20ES6-%23F7DF1E?style=for-the-badge&logo=javascript&logoColor=%23000"> <img src="https://img.shields.io/badge/react%2018.3.1-%2361DAFB?style=for-the-badge&logo=react&logoColor=%23000">
+
+<br/>
+
+🔻 변경 사항 4 (termius를 다른걸로 바꾸기)
 
 ## 개발 환경
 
@@ -106,6 +112,10 @@
 <img src="">
 <img src="">
 
+🔺 변경 사항 4
+
+<br/>
+
 ## 라이브러리 및 API
 
 <img src="https://img.shields.io/badge/kakaomap-%23FFCD00?style=for-the-badge&logo=kakao&logoColor=%23000"> <img src="https://img.shields.io/badge/bootstrap%205.3.3-%237952B3?style=for-the-badge&logo=bootstrap&logoColor=%23fff"> <img src="https://img.shields.io/badge/jquery%20%26%20ajax-%230769AD?style=for-the-badge&logo=jquery">
@@ -113,12 +123,13 @@
 
 <img src="https://img.shields.io/badge/apache%20tomcat%2010.1.26-%23F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=%23000">
 
+<br/>
 
 ## 협업
 
 <img src="https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github"> <img src="https://img.shields.io/badge/notion-%23000000?style=for-the-badge&logo=notion"> <img src="https://img.shields.io/badge/google%20drive-%234285F4?style=for-the-badge&logo=googledrive&logoColor=%23fff">
 
-
+<br/><br/>
 
 # 05. 주요 기능
 
