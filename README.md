@@ -92,19 +92,28 @@
 ### 언어
  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
 
+<img src="https://img.shields.io/badge/java-openjdk%2021-%23000000?style=for-the-badge&logo=openjdk">
+<img src="https://img.shields.io/badge/oracle-oracle%2021c-%23F80000?style=for-the-badge&logo=oracle">
+<img src="https://img.shields.io/badge/firebase-realtime%2010.13.2-%23DD2C00?style=for-the-badge&logo=firebase">
+<img src="https://img.shields.io/badge/spring%20boot-3.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot">
+마이바티스
 
-<img src="https://img.shields.io/badge/Java-OpenJDK%2021-brightgreen?style=for-the-badge&logo=openjdk&label=JAVA&labelColor=%23000000&color=7F7F7F">
-<img src="https://img.shields.io/badge/oracle-21c-%23F80000?style=for-the-badge">
-<img src="https://img.shields.io/badge/oracle-oracle21c-%23F80000?style=for-the-badge&logo=oracle">
-<img src="">
-<img src="">
-<img src="">
-<img src="">
-<img src="">
-<img src="">
-<img src="">
-<img src="">
+<img src="https://img.shields.io/badge/AWS-EC2-%23232F3E?style=for-the-badge&logo=amazon%20web%20services">
+<img src="https://img.shields.io/badge/AWS%20EC2-%23232F3E?style=for-the-badge&logo=amazon%20web%20services">
 
+<br/>
+
+
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
+<img src="">
 
 # 05. 주요 기능
 
