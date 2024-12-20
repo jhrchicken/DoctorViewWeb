@@ -93,7 +93,7 @@
  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
 
 
-
+<img src="https://img.shields.io/badge/Java-OpenJDK%2021-brightgreen?style=for-the-badge&logo=openjdk&label=JAVA&labelColor=%23000000&color=7F7F7F">
 
 
 # 05. 주요 기능
