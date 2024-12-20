@@ -20,7 +20,7 @@
 
 ## 목차
 
-1. [프로젝트 소개](#1)
+1. [프로젝트 소개 (개발 정보, 팀원 소개)](#1)
 2. [팀원 소개](#2)
 3. [개발 일정](#3)
 4. [기술 스택](#4)
@@ -37,9 +37,7 @@
 
 <br/><br/>
 
-<span style="background-color: yellow;">텍스트 강조</span>
-
-# <span id="1" style='background-color: #fff5b1'>01. 프로젝트 정보</span>
+# <span id="1">01. 프로젝트 정보</span>
 
 ## 개발 정보
 <ul>
@@ -48,10 +46,15 @@
   <li>프로젝트 보완 기간: 2025.01.01 - 진행 중</li>
 </ul>
 
-<span style='background-color: #fff5b1'>어쩌구</span>
 <br/>
 
-## 팀원 소개
+## 팀원 정보
+<div align="right">
+  
+[목차로 이동](#목차)
+
+</div>
+
 <ul>
   <li>
     <b>정하림 (팀장, 백엔드)</b>
