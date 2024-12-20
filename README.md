@@ -48,12 +48,7 @@
 
 <br/>
 
-## 팀원 정보
-<div align="right">
-  
-[목차로 이동](#목차)
-
-</div>
+## 팀원 정보 <div align="right">[목차로 이동](#목차)</div>
 
 <ul>
   <li>
