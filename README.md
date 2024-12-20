@@ -46,6 +46,7 @@
   <li>프로젝트 보완 기간: 2025.01.01 - 진행 중</li>
 </ul>
 
+<span style="background-color: #fff5b1">어쩌구</span>
 <br/>
 
 ## 팀원 소개
