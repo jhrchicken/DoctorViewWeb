@@ -90,24 +90,12 @@
 # 03. 기술 스택
 
 ### 언어
- <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
-
-<img src="https://img.shields.io/badge/java-openjdk%2021-%23000000?style=for-the-badge&logo=openjdk">
-<img src="https://img.shields.io/badge/oracle-oracle%2021c-%23F80000?style=for-the-badge&logo=oracle">
-<img src="https://img.shields.io/badge/firebase-realtime%2010.13.2-%23DD2C00?style=for-the-badge&logo=firebase">
-<img src="https://img.shields.io/badge/spring%20boot-3.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot">
-마이바티스
-
-<img src="https://img.shields.io/badge/AWS-EC2-%23232F3E?style=for-the-badge&logo=amazon%20web%20services">
-<img src="https://img.shields.io/badge/AWS%20EC2-%23232F3E?style=for-the-badge&logo=amazon%20web%20services">
-
-<br/>
 
 
-<img src="">
-<img src="">
-<img src="">
-<img src="">
+<img src="https://img.shields.io/badge/Spring%20boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff">
+<img src="https://img.shields.io/badge/HTML5-%23E34F26?style=for-the-badge&logo=html5">
+<img src="https://img.shields.io/badge/css3-%231572B6?style=for-the-badge&logo=css3">
+<img src="https://img.shields.io/badge/javascript%20es6-%23F7DF1E?style=for-the-badge&logo=javascript">
 <img src="">
 <img src="">
 <img src="">
