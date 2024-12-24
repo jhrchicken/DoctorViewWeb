@@ -53,7 +53,7 @@
 
 🔻 변경 사항 2
 
-#### 정하림 ([@jhrchicken](https://github.com/jhrchicken)) - 백엔드, 팀장
+#### 정하림 ([@jhrchicken](https://github.com/jhrchicken)) - 백엔드 및 팀장
 <ul>
   <li>데이터베이스 설계, 요구사항 정의서 작성, 웹 기능 정의서 작성</li>
   <li><b>화면 설계 및 구현</b> : 홈, 게시판 목록, 게시판 작성, 게시판 수정, 게시판 상세, 나의 이모지, 이모지 상점, 예약 내역</li>
@@ -61,9 +61,9 @@
     병원 지도로 찾기, 리뷰 CRUD, 게시판 CRUD 댓글 CRUD, 좋아요 신고 표시 기능, 병원 검색, 병원 조건 검색, 병원 조회, 의사, 의사 찜, 게시판 내가 좋아요 한 게시판 등등, 리뷰 찜 내역 등</li>
 </ul>
 
-#### 부다영 ([@Budayeong](https://github.com/Budayeong), 백엔드)
+#### 부다영 ([@Budayeong](https://github.com/Budayeong)) - 백엔드
 
-#### 이회리 (프론트엔드) [@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)
+#### 이회리 ([@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)) - 프론트엔드
 
 🔺 변경 사항 2
 
