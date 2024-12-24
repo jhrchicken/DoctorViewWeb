@@ -95,49 +95,49 @@
 ### 프론트엔드
 
 <div>
-  <img src="https://img.shields.io/badge/HTML5-%23E34F26?style=flat-square">
-  <img src="https://img.shields.io/badge/CSS3-%231572B6?style=flat-square&logo=css3">
-  <img src="https://img.shields.io/badge/JavaScript%20ES6-%23F7DF1E?style=flat-square&logo=javascript&logoColor=%23000">
-  <img src="https://img.shields.io/badge/React%2018.3.1-%2361DAFB?style=flat-square&logo=react&logoColor=%23000">
+  <img src="https://img.shields.io/badge/HTML5-%23E34F26?style=for-the-badge">
+  <img src="https://img.shields.io/badge/CSS3-%231572B6?style=for-the-badge&logo=css3">
+  <img src="https://img.shields.io/badge/JavaScript%20ES6-%23F7DF1E?style=for-the-badge&logo=javascript&logoColor=%23000">
+  <img src="https://img.shields.io/badge/React%2018.3.1-%2361DAFB?style=for-the-badge&logo=react&logoColor=%23000">
 </div>
 
 ### 백엔드
 
 <div>
-  <img src="https://img.shields.io/badge/Java%2021-%23000000?style=flat-square&logo=openjdk">
-  <img src="https://img.shields.io/badge/Spring%20Boot%203.0.3-%236DB33F?style=flat-square&logo=spring%20boot&logoColor=%23fff"> 
-  <img src="https://img.shields.io/badge/MyBatis%203.0.3-%234479A1?style=flat-square">
+  <img src="https://img.shields.io/badge/Java%2021-%23000000?style=for-the-badge&logo=openjdk">
+  <img src="https://img.shields.io/badge/Spring%20Boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff"> 
+  <img src="https://img.shields.io/badge/MyBatis%203.0.3-%234479A1?style=for-the-badge">
 </div>
 
 ### 데이터베이스
 
 <div>
-  <img src="https://img.shields.io/badge/Oracle%2021c-%23F80000?style=flat-square&logo=oracle">
-  <img src="https://img.shields.io/badge/Firebase%20realtime%2010.13.2-%23DD2C00?style=flat-square&logo=firebase">
+  <img src="https://img.shields.io/badge/Oracle%2021c-%23F80000?style=for-the-badge&logo=oracle">
+  <img src="https://img.shields.io/badge/Firebase%20realtime%2010.13.2-%23DD2C00?style=for-the-badge&logo=firebase">
 </div>
 
 ### 서버
 
 <div>
-  <img src="https://img.shields.io/badge/Linux-%23FCC624?style=flat-square&logo=linux&logoColor=%23000000">
-  <img src="https://img.shields.io/badge/Apache%20Tomcat%2010.1.26-%23F8DC75?style=flat-square&logo=apachetomcat&logoColor=%23000">
-  <img src="https://img.shields.io/badge/AWS%20ec2-%23232F3E?style=flat-square&logo=amazonwebservices">
+  <img src="https://img.shields.io/badge/Linux-%23FCC624?style=for-the-badge&logo=linux&logoColor=%23000000">
+  <img src="https://img.shields.io/badge/Apache%20Tomcat%2010.1.26-%23F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=%23000">
+  <img src="https://img.shields.io/badge/AWS%20ec2-%23232F3E?style=for-the-badge&logo=amazonwebservices">
 </div>
 
 🔻 변경 사항 4 (termius를 다른걸로 바꾸기)
 
 ### 개발 환경
 
-<img src="https://img.shields.io/badge/termius-%23000000?style=flat-square&logo=termius">
+<img src="https://img.shields.io/badge/termius-%23000000?style=for-the-badge&logo=termius">
 
 🔺 변경 사항 4
 
 ### 라이브러리 및 API
 
 <div>
-  <img src="https://img.shields.io/badge/KakaoMap-%23FFCD00?style=flat-square&logo=kakao&logoColor=%23000">
-  <img src="https://img.shields.io/badge/Bootstrap%205.3.3-%237952B3?style=flat-square&logo=bootstrap&logoColor=%23fff">
-  <img src="https://img.shields.io/badge/jQuery%20%26%20Ajax-%230769AD?style=flat-square&logo=jquery">
+  <img src="https://img.shields.io/badge/KakaoMap-%23FFCD00?style=for-the-badge&logo=kakao&logoColor=%23000">
+  <img src="https://img.shields.io/badge/Bootstrap%205.3.3-%237952B3?style=for-the-badge&logo=bootstrap&logoColor=%23fff">
+  <img src="https://img.shields.io/badge/jQuery%20%26%20Ajax-%230769AD?style=for-the-badge&logo=jquery">
 </div>
 
 ### 협업
