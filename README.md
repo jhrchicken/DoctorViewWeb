@@ -124,13 +124,14 @@
   <img src="https://img.shields.io/badge/AWS%20ec2-%23232F3E?style=for-the-badge&logo=amazonwebservices">
 </div>
 
-🔻 변경 사항 4 (termius를 다른걸로 바꾸기)
+### 개발 환경 및 도구
 
-### 개발 환경
-
-<img src="https://img.shields.io/badge/termius-%23000000?style=for-the-badge&logo=termius">
-
-🔺 변경 사항 4
+<div>
+  <img src="https://img.shields.io/badge/visual%20studio%20code-%230082FC?style=for-the-badge">
+  <img src="https://img.shields.io/badge/sts%204-%236DB33F?style=for-the-badge&logo=spring&logoColor=%23fff">
+  <img src="https://img.shields.io/badge/sqldeveloper-%23575757?style=for-the-badge">
+  <img src="https://img.shields.io/badge/termius-%23000000?style=for-the-badge&logo=termius">
+</div>
 
 ### 라이브러리 및 API
 
