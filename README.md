@@ -113,7 +113,7 @@
 
 <div>
   <img src="https://img.shields.io/badge/Oracle%2021c-%23F80000?style=for-the-badge&logo=oracle">
-  <img src="https://img.shields.io/badge/Firebase%20realtime%2010.13.2-%23DD2C00?style=for-the-badge&logo=firebase">
+  <img src="https://img.shields.io/badge/Firebase%20realtime%2010.13.2-%23EB844E?style=for-the-badge&logo=firebase">
 </div>
 
 ### 서버
