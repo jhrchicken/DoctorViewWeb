@@ -61,7 +61,7 @@
     병원 지도로 찾기, 리뷰 CRUD, 게시판 CRUD 댓글 CRUD, 좋아요 신고 표시 기능, 병원 검색, 병원 조건 검색, 병원 조회, 의사, 의사 찜, 게시판 내가 좋아요 한 게시판 등등, 리뷰 찜 내역 등</li>
 </ul>
 
-<b>부다영 ([@Budayeong](https://github.com/Budayeong)) - 백엔드</b>
+<b>부다영 ([@Budayeong](https://github.com/Budayeong)) - 백엔드</b><br/>
 <b>이회리 ([@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)) - 프론트엔드</b>
 
 🔺 변경 사항 2
