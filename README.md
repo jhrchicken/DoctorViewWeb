@@ -101,15 +101,31 @@
   <img src="https://img.shields.io/badge/react%2018.3.1-%2361DAFB?style=for-the-badge&logo=react&logoColor=%23000">
 </div>
 
+### 백엔드
+
+<div>
+  <img src="https://img.shields.io/badge/openjdk%2021-%23000000?style=for-the-badge&logo=openjdk">
+</div>
+
+
+<img src="https://img.shields.io/badge/openjdk%2021-%23000000?style=for-the-badge&logo=openjdk"> <img src="https://img.shields.io/badge/spring%20boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff"> 
+
 <br/>
 
-## 백엔드
+### 데이터베이스
 
-<img src="https://img.shields.io/badge/openjdk%2021-%23000000?style=for-the-badge&logo=openjdk"> <img src="https://img.shields.io/badge/spring%20boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff"> <img src="https://img.shields.io/badge/oracle%2021c-%23F80000?style=for-the-badge&logo=oracle"> <img src="https://img.shields.io/badge/firebase%20realtime%2010.13.2-%23DD2C00?style=for-the-badge&logo=firebase"> <img src="https://img.shields.io/badge/aws%20ec2-%23232F3E?style=for-the-badge&logo=amazonwebservices">
+<div>
+  <img src="https://img.shields.io/badge/oracle%2021c-%23F80000?style=for-the-badge&logo=oracle">
+  <img src="https://img.shields.io/badge/firebase%20realtime%2010.13.2-%23DD2C00?style=for-the-badge&logo=firebase">
+</div>
 
-<br/>
+### 서버
 
-
+<div>
+  <img src="https://img.shields.io/badge/linux-%23FCC624?style=for-the-badge&logo=linux&logoColor=%23000000">
+  <img src="https://img.shields.io/badge/apache%20tomcat%2010.1.26-%23F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=%23000">
+  <img src="https://img.shields.io/badge/aws%20ec2-%23232F3E?style=for-the-badge&logo=amazonwebservices">
+</div>
 
 🔻 변경 사항 4 (termius를 다른걸로 바꾸기)
 
@@ -128,16 +144,24 @@
 
 ## 라이브러리 및 API
 
-<img src="https://img.shields.io/badge/kakaomap-%23FFCD00?style=for-the-badge&logo=kakao&logoColor=%23000"> <img src="https://img.shields.io/badge/bootstrap%205.3.3-%237952B3?style=for-the-badge&logo=bootstrap&logoColor=%23fff"> <img src="https://img.shields.io/badge/jquery%20%26%20ajax-%230769AD?style=for-the-badge&logo=jquery">
+<img src="https://img.shields.io/badge/kakaomap-%23FFCD00?style=flat-square&logo=kakao&logoColor=%23000"> <img src="https://img.shields.io/badge/bootstrap%205.3.3-%237952B3?style=flat-square&logo=bootstrap&logoColor=%23fff"> <img src="https://img.shields.io/badge/jquery%20%26%20ajax-%230769AD?style=flat-square&logo=jquery">
 
 
-<img src="https://img.shields.io/badge/apache%20tomcat%2010.1.26-%23F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=%23000">
 
 <br/>
 
 ## 협업
 
-<img src="https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github"> <img src="https://img.shields.io/badge/notion-%23000000?style=for-the-badge&logo=notion"> <img src="https://img.shields.io/badge/google%20drive-%234285F4?style=for-the-badge&logo=googledrive&logoColor=%23fff">
+<div>
+  <img src="https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github">
+  <img src="https://img.shields.io/badge/figma-%23F24E1E?style=for-the-badge&logo=figma&logoColor=%23fff">
+  <img src="https://img.shields.io/badge/staruml-%23FFE200?style=for-the-badge">
+  <img src="https://img.shields.io/badge/notion-%23000000?style=for-the-badge&logo=notion">
+  <img src="https://img.shields.io/badge/google%20drive-%234285F4?style=for-the-badge&logo=googledrive&logoColor=%23fff">
+</div>
+
+
+피그마 starUML
 
 <br/><br/>
 
