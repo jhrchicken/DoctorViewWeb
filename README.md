@@ -95,20 +95,22 @@
 ### 프론트엔드
 
 <div>
-  <img src="https://img.shields.io/badge/html5-%23E34F26?style=for-the-badge&logo=html5">
-  <img src="https://img.shields.io/badge/css3-%231572B6?style=for-the-badge&logo=css3">
-  <img src="https://img.shields.io/badge/JavaScript%20ES6-%23F7DF1E?style=for-the-badge&logo=javascript&logoColor=%23000">
-  <img src="https://img.shields.io/badge/react%2018.3.1-%2361DAFB?style=for-the-badge&logo=react&logoColor=%23000">
+  <img src="https://img.shields.io/badge/HTML5-%23E34F26?style=flat-square">
+  <img src="https://img.shields.io/badge/CSS3-%231572B6?style=flat-square&logo=css3">
+  <img src="https://img.shields.io/badge/JavaScript%20ES6-%23F7DF1E?style=flat-square&logo=javascript&logoColor=%23000">
+  <img src="https://img.shields.io/badge/React%2018.3.1-%2361DAFB?style=flat-square&logo=react&logoColor=%23000">
 </div>
 
 ### 백엔드
 
 <div>
-  <img src="https://img.shields.io/badge/openjdk%2021-%23000000?style=for-the-badge&logo=openjdk">
+  <img src="https://img.shields.io/badge/openjdk%2021-%23000000?style=flat-square&logo=openjdk">
+  <img src="https://img.shields.io/badge/spring%20boot%203.0.3-%236DB33F?style=flat-square&logo=spring%20boot&logoColor=%23fff"> 
+  mybatis
 </div>
 
 
-<img src="https://img.shields.io/badge/openjdk%2021-%23000000?style=for-the-badge&logo=openjdk"> <img src="https://img.shields.io/badge/spring%20boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff"> 
+<img src="https://img.shields.io/badge/spring%20boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff"> 
 
 <br/>
 
