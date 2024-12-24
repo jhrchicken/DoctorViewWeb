@@ -70,12 +70,12 @@
 
 # 02. 설치 가이드
 
-### 배포 URL
+#### 배포 URL
 
 - 배포 URL:
 - 관리자 URL: /admin.do
 
-### Test ID/PW
+#### Test ID/PW
 
 🔻 변경 사항 3
 
@@ -91,7 +91,7 @@
 
 # 03. 기술 스택
 
-### 프론트엔드
+#### 프론트엔드
 
 <div>
   <img src="https://img.shields.io/badge/HTML5-%23E34F26?style=for-the-badge">
@@ -100,7 +100,7 @@
   <img src="https://img.shields.io/badge/React%2018.3.1-%2361DAFB?style=for-the-badge&logo=react&logoColor=%23000">
 </div>
 
-### 백엔드
+#### 백엔드
 
 <div>
   <img src="https://img.shields.io/badge/Java%2021-%23000000?style=for-the-badge&logo=openjdk">
@@ -108,14 +108,14 @@
   <img src="https://img.shields.io/badge/MyBatis%203.0.3-%234479A1?style=for-the-badge">
 </div>
 
-### 데이터베이스
+#### 데이터베이스
 
 <div>
   <img src="https://img.shields.io/badge/Oracle%2021c-%23F80000?style=for-the-badge&logo=oracle">
   <img src="https://img.shields.io/badge/Firebase%20realtime%2010.13.2-%23EB844E?style=for-the-badge&logo=firebase">
 </div>
 
-### 서버
+#### 서버
 
 <div>
   <img src="https://img.shields.io/badge/Linux-%23FCC624?style=for-the-badge&logo=linux&logoColor=%23000000">
@@ -123,7 +123,7 @@
   <img src="https://img.shields.io/badge/AWS%20ec2-%23232F3E?style=for-the-badge&logo=amazonwebservices">
 </div>
 
-### 개발 환경 및 도구
+#### 개발 환경 및 도구
 
 <div>
   <img src="https://img.shields.io/badge/visual%20studio%20code-%230082FC?style=for-the-badge">
@@ -132,7 +132,7 @@
   <img src="https://img.shields.io/badge/termius-%23000000?style=for-the-badge&logo=termius">
 </div>
 
-### 라이브러리 및 API
+#### 라이브러리 및 API
 
 <div>
   <img src="https://img.shields.io/badge/KakaoMap-%23FFCD00?style=for-the-badge&logo=kakao&logoColor=%23000">
@@ -140,7 +140,7 @@
   <img src="https://img.shields.io/badge/jQuery%20%26%20Ajax-%230769AD?style=for-the-badge&logo=jquery">
 </div>
 
-### 협업
+#### 협업
 
 <div>
   <img src="https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github">
@@ -158,6 +158,19 @@
 
 
 
+<br/><br/>
+
+# 06. 아키텍처
+
+
+
+
+
+<br/><br/>
+
+# 07. 기타
+
+## 문서
 
 
 
