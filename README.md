@@ -92,17 +92,24 @@
 
 # 03. 기술 스택
 
+### 프론트엔드
+
+<div>
+  <img src="https://img.shields.io/badge/html5-%23E34F26?style=for-the-badge&logo=html5">
+  <img src="https://img.shields.io/badge/css3-%231572B6?style=for-the-badge&logo=css3">
+  <img src="https://img.shields.io/badge/JavaScript%20ES6-%23F7DF1E?style=for-the-badge&logo=javascript&logoColor=%23000">
+  <img src="https://img.shields.io/badge/react%2018.3.1-%2361DAFB?style=for-the-badge&logo=react&logoColor=%23000">
+</div>
+
+<br/>
+
 ## 백엔드
 
-<img src="https://img.shields.io/badge/openjdk%2021-%23000000?style=for-the-badge&logo=openjdk"> <img src="https://img.shields.io/badge/oracle%2021c-%23F80000?style=for-the-badge&logo=oracle"> <img src="https://img.shields.io/badge/firebase%20realtime%2010.13.2-%23DD2C00?style=for-the-badge&logo=firebase"> <img src="https://img.shields.io/badge/spring%20boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff"> <img src="https://img.shields.io/badge/aws%20ec2-%23232F3E?style=for-the-badge&logo=amazonwebservices">
+<img src="https://img.shields.io/badge/openjdk%2021-%23000000?style=for-the-badge&logo=openjdk"> <img src="https://img.shields.io/badge/spring%20boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff"> <img src="https://img.shields.io/badge/oracle%2021c-%23F80000?style=for-the-badge&logo=oracle"> <img src="https://img.shields.io/badge/firebase%20realtime%2010.13.2-%23DD2C00?style=for-the-badge&logo=firebase"> <img src="https://img.shields.io/badge/aws%20ec2-%23232F3E?style=for-the-badge&logo=amazonwebservices">
 
 <br/>
 
-## 프론트엔드
 
-<img src="https://img.shields.io/badge/html5-%23E34F26?style=for-the-badge&logo=html5"> <img src="https://img.shields.io/badge/css3-%231572B6?style=for-the-badge&logo=css3"> <img src="https://img.shields.io/badge/JavaScript%20ES6-%23F7DF1E?style=for-the-badge&logo=javascript&logoColor=%23000"> <img src="https://img.shields.io/badge/react%2018.3.1-%2361DAFB?style=for-the-badge&logo=react&logoColor=%23000">
-
-<br/>
 
 🔻 변경 사항 4 (termius를 다른걸로 바꾸기)
 
