@@ -31,22 +31,31 @@
     <li>
       <a href="#1">프로젝트 정보</a>
       <ul>
-        <li><a href="#1_1">프로젝트 개요</a></li>
+        <li><a href="#1-1">프로젝트 개요</a></li>
+        <li><a href="#1-2">소속 단체 및 개발 기간</a></li>
+        <li><a href="#1-3">팀원 소개</a></li>
       </ul>
     </li>
+    <li><a href="#2">설치 가이드</a></li>
+    <li><a href="#3">기술 스택</a></li>
+    <li><a href="#4">주요 기능</a></li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <a href="#5">아키텍처</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#5-1">아키텍처</a></li>
+        <li><a href="#5-2">프로젝트 구조</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+        <li>
+      <a href="#6">기타</a>
+      <ul>
+        <li><a href="#6-1">개발문서</a></li>
+        <li><a href="#6-2">문제 해결 과정</a></li>
+        <li><a href="#6-2">프로젝트를 통해 배운 점</a></li>
+        <li><a href="#6-2">결과 및 확장성</a></li>
+        <li><a href="#6-2">개선점 및 향후 계획</a></li>
+      </ul>
+    </li>
   </ol>
 </details>
 
@@ -54,7 +63,7 @@
 
 # <span id="1">01. 프로젝트 정보</span>
 
-## <span id="1_1">프로젝트 개요</span>
+## <span id="1-1">프로젝트 개요</span>
 
 <b>닥터뷰는 지역 기반 의료 서비스 매칭 플랫폼입니다.</b>
 
@@ -76,7 +85,13 @@
 
 <br/>
 
-## 소속 단체 및 개발 기간
+<div align="right">
+  
+[(back to top)](#readme-top)
+
+</div>
+
+## <span id="1-2">소속 단체 및 개발 기간</span>
 
 <ul>
   <li>더조은아카데미 클라우드(AWS) 환경에서 개발하는 풀스택(프론트엔드&백엔드) 자바(JAVA)웹&앱 4기</li>
@@ -86,7 +101,13 @@
 
 <br/>
 
-## 팀원 소개
+<div align="right">
+  
+[(back to top)](#readme-top)
+
+</div>
+
+## <span id="1-3">팀원 소개</span>
 
 닥터뷰 프로젝트는 백엔드 2명과 프론트엔드 1명이 참여하여 개발하였습니다.
 
@@ -100,14 +121,20 @@
     병원 지도로 찾기, 리뷰 CRUD, 게시판 CRUD 댓글 CRUD, 좋아요 신고 표시 기능, 병원 검색, 병원 조건 검색, 병원 조회, 의사, 의사 찜, 게시판 내가 좋아요 한 게시판 등등, 리뷰 찜 내역 등</li>
 </ul>
 
-<b>부다영 ([@Budayeong](https://github.com/Budayeong)) - 백엔드<br/></b>
-<b>이회리 ([@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)) - 프론트엔드</b>
+#### 부다영 ([@Budayeong](https://github.com/Budayeong)) - 백엔드
+#### 이회리 ([@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)) - 프론트엔드
 
 🔺 변경 사항 2
 
+<div align="right">
+  
+[(back to top)](#readme-top)
+
+</div>
+
 <br/><br/>
 
-# 02. 설치 가이드
+# <span id="2">02. 설치 가이드</span>
 
 ### 배포 URL
 
@@ -128,7 +155,13 @@
 
 <br/><br/>
 
-# 03. 기술 스택
+<div align="right">
+  
+[(back to top)](#readme-top)
+
+</div>
+
+# <span id="3">03. 기술 스택</span>
 
 ### 프론트엔드
 
@@ -189,9 +222,15 @@
   <img src="https://img.shields.io/badge/google%20drive-%234285F4?style=for-the-badge&logo=googledrive&logoColor=%23fff">
 </div>
 
+<div align="right">
+  
+[(back to top)](#readme-top)
+
+</div>
+
 <br/><br/>
 
-# 05. 주요 기능
+# <span id="4">04. 주요 기능</span>
 
 ### 로그인 및 회원가입
 
@@ -276,27 +315,54 @@
   <li>보유 이모지 목록 확인 후 이모지 변경 및 해제 가능</li>
 </ul>
 
-<br/><br/>
+<div align="right">
+  
+[(back to top)](#readme-top)
 
-# 06. 아키텍처
-
-
-
-
+</div>
 
 <br/><br/>
 
-# 07. 기타
+# <span id="5">05. 아키텍처</span>
 
-## 개발 문서
+## <span id="5-1">아키텍쳐</span>
+
+<div align="right">
+  
+[(back to top)](#readme-top)
+
+</div>
+
+## <span id="5-2">프로젝트 구조</span>
+
+<div align="right">
+  
+[(back to top)](#readme-top)
+
+</div>
+
+
+
+
+<br/><br/>
+
+# <span id="6">06. 기타</span>
+
+## <span id="6-1">개발 문서</span>
 
 기능정의서
 ERD
 class diagram
 
+<div align="right">
+  
+[(back to top)](#readme-top)
+
+</div>
+
 <br/>
 
-## 문제 해결 과정
+## <span id="6-2">문제 해결 과정</span>
 
 #### 1. 병원 목록에서 페이징과 필터링 방식의 충돌 문제 해결을 위한 AJAX 방식 적용 및 성능 개선 - [디버깅 중]
 
@@ -309,10 +375,15 @@ class diagram
 초기에는 AJAX를 사용해 사용자가 선택한 날짜 데이터를 비동기로 백엔드에 전송하고, 선택 가능한 시간 데이터를 반환받는 방식이었습니다.
 그러나 이 방식은 데이터 전송을 위한 별도의 이벤트를 필요로 하였고, 사용자가 예약 시간을 선택할 때마다 버튼을 눌러야 하는 불필요한 행동을 유발하는 문제가 있었습니다.
 
+<div align="right">
+  
+[(back to top)](#readme-top)
+
+</div>
 
 <br/>
 
-## 프로젝트를 통해 배운 점
+## <span id="6-3">프로젝트를 통해 배운 점</span>
 
 #### 1. 팀 프로젝트에서 의사소통의 중요성과 문서화의 역할
 
@@ -327,10 +398,15 @@ class diagram
 
 원활한 협업을 위해서는 팀 내의 명확한 규칙과 협업 방식이 필요합니다. 이 점을 인식하고 프로젝트 시작 당시 정의서를 작성하고 커밋 메시지 컨벤션을 정하는 등 협업을 위한 기초를 다졌습니다. 그럼에도 불구하고 프로젝트를 진행하면서 협업에서 불편함과 아쉬움이 남았습니다. 깃허브의 이슈 트래커와 릴리즈를 통한 버전 관리 그리고 다른 협업 도구들을 활용해 보다 체계적으로 프로젝트를 관리하고 싶다는 욕심이 생겼습니다. 이후 프로젝트에서는 사용법을 배우고 반영하여 효울적으로 협업을 진행할 예정입니다.
 
+<div align="right">
+  
+[(back to top)](#readme-top)
+
+</div>
 
 <br/>
 
-## 결과 및 확장성
+## <span id="6-4">결과 및 확장성</span>
 
 #### 1. 의료 사각지대 지역의 서비스 접근성 향상
 
@@ -342,10 +418,20 @@ class diagram
 
 자유게시판을 발달시켜 의료서비스 매칭 플랫폼 뿐만 아니라 의료정보를 탐색하고 지역 별 사용자 간 소모임 등 커뮤니티를 형성해 의료 정보 허브로 확장 가능합니다.
 
+<div align="right">
+  
+[(back to top)](#readme-top)
 
+</div>
 
 <br/>
 
-## 개선점 및 향후 계획
+## <span id="6-5">개선점 및 향후 계획</span>
 
+
+<div align="right">
+  
+[(back to top)](#readme-top)
+
+</div>
 
