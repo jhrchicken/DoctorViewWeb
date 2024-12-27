@@ -1,6 +1,14 @@
 <a id="readme-top"></a>
 
 
+# 변경사항 to. 김뿌영
+
+🔹표지 추가함
+🔹목차 만듦
+🔹주요 기능 로그인 회원가입 설명, 예약 설명 추가함
+🔹프로젝트 구조 만듦 (옆에 설명 적는건 아직 안함)
+
+
 <!-- 프로젝트 로고 -->
 <br />
 <div align="center">
@@ -356,9 +364,10 @@
 ## <span id="5-2">프로젝트 구조</span>
 
 ```
+DoctorViewWeb
 ├── README.md
 ├── build.gradle
-├── gradle 안에 뭐가 있는데 필요 없음
+├── gradle
 ├── gradlew
 ├── gradlew.bat
 ├── settings.gradle
@@ -374,15 +383,12 @@
         │    │            ├── ServletInitializer.java
         │    │            ├── WebCorsConfig.java
         │    │            ├── admin
-        │    │            │   ...
-        │    │            └── doctor
-        │    │                ├── DoctorController.java
-        │    │                ├── DoctorDTO.java
-        │    │                ├── DoctorPropertyConfig.java
-        │    │                ├── DreviewDTO.java
-        │    │                ├── HashtagDTO.java
-        │    │                ├── IDoctorService.java
-        │    │                └── ParameterDTO.java
+        │    │            ├── ...
+        │    │            └── board
+        │    │                ├── BoardController.java
+        │    │                ├── BoardDTO.java
+        │    │                ├── BoardPropertyConfig.java
+        │    │                └── IBoardService.java
         │    └── utils
         │        ├── CookieManager.java
         │        ├── FileUtil.java
@@ -411,9 +417,6 @@
                     ├── admin : 안에 jsp 파일 있음
                     ├── ...
                     └── reserve
-
-
-
 ```
 
 
