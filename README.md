@@ -5,22 +5,22 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="src/main/resources/static/assets/images/logos/doctor_logo.png" alt="Logo" width="200" height="80">
+    <img src="src/main/resources/static/images/cover_img.png" alt="Logo" width="200" height="100">
   </a>
 
-  <h3 align="center">닥터뷰</h3>
+  <h3 align="center">지역 기반 의료 서비스 매칭 플랫폼 닥터뷰</h3>
 
   <p align="center">
-    지역 기반 의료 서비스 매칭 플랫폼 닥터뷰를 시작해보세요!
+    지금 바로 닥터뷰를 시작해보세요!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore Our Website »</strong></a>
+    <a href=""><strong>Explore Our Website »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://github.com/jhrchicken/DoctorViewWeb">View Demo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/jhrchicken/DoctorViewWeb/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/jhrchicken/DoctorViewWeb/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
