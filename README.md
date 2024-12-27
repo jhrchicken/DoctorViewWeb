@@ -105,9 +105,7 @@
 
 ## <span id="1-3">팀원 소개</span>
 
-닥터뷰 프로젝트는 백엔드 2명과 프론트엔드 1명이 참여하여 개발하였습니다.
-
-🔻 변경 사항 2
+이 프로젝트는 백엔드 2명과 프론트엔드 1명의 인원으로 개발되었습니다.
 
 #### 정하림 ([@jhrchicken](https://github.com/jhrchicken)) - 백엔드 및 팀장
 <ul>
@@ -117,10 +115,24 @@
     병원 지도로 찾기, 리뷰 CRUD, 게시판 CRUD 댓글 CRUD, 좋아요 신고 표시 기능, 병원 검색, 병원 조건 검색, 병원 조회, 의사, 의사 찜, 게시판 내가 좋아요 한 게시판 등등, 리뷰 찜 내역 등</li>
 </ul>
 
-#### 부다영 ([@Budayeong](https://github.com/Budayeong)) - 백엔드
-#### 이회리 ([@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)) - 프론트엔드
+#### 정하림 ([@jhrchicken](https://github.com/jhrchicken)) - 백엔드 및 팀장
+<ul>
+  <li></li>
+  <li><b>화면 설계 및 구현</b> : 홈, 게시판 목록, 게시판 작성, 게시판 수정, 게시판 상세, 나의 이모지, 이모지 상점, 예약 내역</li>
+  <li>병원 검색 및 상세정보 확인, 채팅, 게시판의 기능을 개발하였습니다. 세부적인 내용은 하단의 <a href="">주요 기능</a>에서 확인할 수 있습니다.</li>
+</ul>
 
-🔺 변경 사항 2
+
+
+
+#### 부다영 ([@Budayeong](https://github.com/Budayeong)) - 백엔드
+<ul>
+  <li>요구사항 정의서 작성</li>
+  <li><b>화면 설계 및 구현</b> : -</li>
+  <li><b>기능 개발</b> : 로그인 회원가입, 예약, 이모지</li>
+</ul>
+
+#### 이회리 ([@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)) - 프론트엔드
 
 <div align="right">
   
