@@ -16,7 +16,7 @@
     <a href=""><strong>Explore Our Website »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/jhrchicken/DoctorViewWeb">View Demo</a>
+    <a href="https://github.com/jhrchicken/DoctorViewWeb">Release Note</a>
     ·
     <a href="https://github.com/jhrchicken/DoctorViewWeb/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
