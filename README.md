@@ -355,6 +355,71 @@
 
 ## <span id="5-2">프로젝트 구조</span>
 
+```
+├── README.md
+├── build.gradle
+├── gradle 안에 뭐가 있는데 필요 없음
+├── gradlew
+├── gradlew.bat
+├── settings.gradle
+└── src
+    ├── test
+    └── main
+        ├── java
+        │    ├── com
+        │    │    └── edu
+        │    │        └── springboot
+        │    │            ├── DoctorViewProjectApplication.java
+        │    │            ├── MainController.java
+        │    │            ├── ServletInitializer.java
+        │    │            ├── WebCorsConfig.java
+        │    │            ├── admin
+        │    │            │   ...
+        │    │            └── doctor
+        │    │                ├── DoctorController.java
+        │    │                ├── DoctorDTO.java
+        │    │                ├── DoctorPropertyConfig.java
+        │    │                ├── DreviewDTO.java
+        │    │                ├── HashtagDTO.java
+        │    │                ├── IDoctorService.java
+        │    │                └── ParameterDTO.java
+        │    └── utils
+        │        ├── CookieManager.java
+        │        ├── FileUtil.java
+        │        ├── JSFunction.java
+        │        └── PagingUtil.java
+        ├── resources
+        │    ├── application.properties
+        │    ├── ...
+        │    ├── hospital_config.properties
+        │    ├── mappers
+        │    │    ├── BoardDAO.xml
+        │    │    ├── ...
+        │    │    └── ReserveDAO.xml
+        │    ├── static
+        │    │    ├── assets
+        │    │    ├── chat
+        │    │    ├── css
+        │    │    ├── fonts
+        │    │    ├── images : 이런거 하위에 폴더 별로 정리되어 있음
+        │    │    ├── js
+        │    │    └── uploads : 업로드를 위한 폴더
+        │    └── templates
+        └── webapp
+            └── WEB-INF
+                └── views
+                    ├── admin : 안에 jsp 파일 있음
+                    ├── ...
+                    └── reserve
+
+
+
+```
+
+
+
+
+
 <div align="right">
   
 [(back to top)](#readme-top)
