@@ -1,4 +1,77 @@
-# 지역 기반 의료 서비스 매칭 플랫폼 닥터뷰
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+<a id="readme-top"></a>
+
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![Unlicense License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+
+
+<!-- 프로젝트 로고 -->
+<br />
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">닥터뷰</h3>
+
+  <p align="center">
+    지역 기반 의료 서비스 매칭 플랫폼
+    <br />
+    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore Our Website »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    ·
+    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    ·
+    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+  </p>
+</div>
+
+<!-- 목차 -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+<br/>
+
+# <span id="1">01. 프로젝트 정보</span>
+
+## 프로젝트 개요
 
 <b>닥터뷰는 지역 기반 의료 서비스 매칭 플랫폼입니다.</b>
 
@@ -19,23 +92,6 @@
 <b>이제 </b><a href="">여기를 클릭하여</a><b> 지역 기반 의료 시스템 매칭 플랫폼 닥터뷰를 시작해보세요!</b>
 
 <br/>
-
-## 목차
-
-<ol>
-  <li>
-    <a href="#1">프로젝트 정보</a><br/>
-    - 소속 단체 및 개발 기간<br/>
-    - 팀원 소개
-  </li>
-  <li><a href="#2">설치 가이드</a></li> 
-</ol>
-
-++ 목차 해야하긴 할텐데 안하고 싶다 .. 파란줄이 꼴보기 싫음 ..
-
-<br/><br/>
-
-# <span id="1">01. 프로젝트 정보</span>
 
 ## 소속 단체 및 개발 기간
 
