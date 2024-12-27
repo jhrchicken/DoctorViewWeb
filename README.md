@@ -26,7 +26,7 @@
 
 <!-- 목차 -->
 <details>
-  <summary>목차</summary>
+  <summary>Table of Contents</summary>
   <ol>
     <li>
       <a href="#1">프로젝트 정보</a>
