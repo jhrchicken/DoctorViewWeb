@@ -83,13 +83,13 @@
 
 <b>이제 </b><a href="">여기를 클릭하여</a><b> 지역 기반 의료 시스템 매칭 플랫폼 닥터뷰를 시작해보세요!</b>
 
-<br/>
-
 <div align="right">
   
 [(back to top)](#readme-top)
 
 </div>
+
+<br/>
 
 ## <span id="1-2">소속 단체 및 개발 기간</span>
 
@@ -99,13 +99,13 @@
   <li>프로젝트 보완 기간: 2025.01.01 - 진행 중</li>
 </ul>
 
-<br/>
-
 <div align="right">
   
 [(back to top)](#readme-top)
 
 </div>
+
+<br/>
 
 ## <span id="1-3">팀원 소개</span>
 
@@ -153,13 +153,13 @@
 - 병원 Test ID/PW : hospital1 / 12341234
 - 관리자 Test ID/PW : admin / 12341234
 
-<br/><br/>
-
 <div align="right">
   
 [(back to top)](#readme-top)
 
 </div>
+
+<br/><br/>
 
 # <span id="3">03. 기술 스택</span>
 
