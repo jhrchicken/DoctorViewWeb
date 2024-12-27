@@ -1,34 +1,17 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![Unlicense License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 
 
 <!-- 프로젝트 로고 -->
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="src/main/resources/static/assets/images/logos/doctor_logo.png" alt="Logo" width="200" height="80">
   </a>
 
   <h3 align="center">닥터뷰</h3>
 
   <p align="center">
-    지역 기반 의료 서비스 매칭 플랫폼
+    지역 기반 의료 서비스 매칭 플랫폼 닥터뷰를 시작해보세요!
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore Our Website »</strong></a>
     <br />
