@@ -26,12 +26,12 @@
 
 <!-- 목차 -->
 <details>
-  <summary>Table of Contents</summary>
+  <summary>목차</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#1">프로젝트 정보</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#1_1">프로젝트 개요</a></li>
       </ul>
     </li>
     <li>
@@ -54,7 +54,7 @@
 
 # <span id="1">01. 프로젝트 정보</span>
 
-## 프로젝트 개요
+## <span id="1_1">프로젝트 개요</span>
 
 <b>닥터뷰는 지역 기반 의료 서비스 매칭 플랫폼입니다.</b>
 
