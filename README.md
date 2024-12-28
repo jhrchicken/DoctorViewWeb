@@ -477,7 +477,63 @@ DoctorViewWeb
                     └── reserve
 ```
 
+🔵 주석 덜어낸 버전
 
+```properties
+DoctorViewWeb
+├── README.md
+├── build.gradle # Gradle 빌드 스크립트
+├── gradle
+├── gradlew
+├── gradlew.bat
+├── settings.gradle # Gradle 설정 파일
+└── src
+    ├── test
+    └── main
+        ├── java
+        │    ├── com
+        │    │    └── edu
+        │    │        └── springboot
+        │    │            ├── DoctorViewProjectApplication.java
+        │    │            ├── MainController.java # 메인 컨트롤러
+        │    │            ├── ServletInitializer.java
+        │    │            ├── WebCorsConfig.java # CORS 설정 클래스
+        │    │            ├── admin # 기능(도메인) 별 패키지 ..
+        │    │            ├── ...
+        │    │            └── doctor # .. 기능(도메인) 별 패키지
+        │    │                ├── DoctorController.java # 컨트롤러
+        │    │                ├── DoctorDTO.java # DTO 객체
+        │    │                ├── DoctorPropertyConfig.java # 설정 클래스
+        │    │                └── IDoctorService.java # 서비스 인터페이스
+        │    └── utils # 유틸리티 클래스 패키지
+        │        ├── CookieManager.java
+        │        ├── FileUtil.java
+        │        ├── JSFunction.java
+        │        └── PagingUtil.java
+        ├── resources
+        │    ├── application.properties # 기능(도메인) 별 설정 파일 ..
+        │    ├── ...
+        │    ├── hospital_config.properties # .. 기능(도메인) 별 설정 파일
+        │    ├── mappers # MyBatis 매퍼 XML 파일 디렉터리
+        │    │    ├── BoardDAO.xml
+        │    │    ├── ...
+        │    │    └── ReserveDAO.xml
+        │    ├── static # 정적 리소스 파일
+        │    │    ├── assets
+        │    │    ├── chat
+        │    │    ├── css
+        │    │    ├── fonts
+        │    │    ├── images
+        │    │    ├── js
+        │    │    └── uploads
+        │    └── templates
+        └── webapp
+            └── WEB-INF
+                └── views # JSP 뷰 디렉터리
+                    ├── admin # 기능(도메인) 별 디렉터리 ..
+                    ├── ...
+                    └── reserve # .. 기능(도메인) 별 디렉터리
+```
 
 
 
