@@ -6,8 +6,8 @@
 ### 🔹 표지 추가함 (사진은 바꿀거임..ㅋ)<br/>
 ### 🔹 목차 만듦 (세부적인 타이틀은 나중에 더 적합하게 바꿀 예정)<br/>
 ### 🔹 주요 기능에서 로그인 설명, 예약 설명 추가함 (주요기능은 내 기준 완성)<br/>
-### 🔹 프로젝트 구조 만듦 (주석 적었는데 좀 더 간단하게 표현하고 싶으면 덜어도 됨)<br/>
-### 🔹 맨 아래에 문제 해결 과정에서 '문제가 있었습니다'라고 끝나는게 개수상함 ㅡㅡ
+### 🔹 프로젝트 구조 만듦 (주석 적었는데 좀 더 간단하게 표현하고 싶으면 덜어도 됨 덜어내긴 해야할 듯 / 주석 있없 둘다 일단 해둠 없는게 확실히 깔끔해보이긴 하길래)<br/>
+### 🔹 맨 아래에 문제 해결 과정에서 '문제가 있었습니다'라고 끝나는게 개수상함 ㅡㅡ 너 뭐냐
 
 <!-- 프로젝트 로고 -->
 <br />
@@ -363,15 +363,65 @@
 
 ## <span id="5-2">프로젝트 구조</span>
 
-도메인형 채택 어쩌구 ~~
-
-도메인 주도 개발, ORM, 객체지향 프로그래밍 등에서 도메인형 구조가 더 적합하다고 생각한다. 도메인 주도 개발에서 Root Aggregate 같은 표현은 계층형보다 도메인형으로 표현했을 경우 훨씬 더 직관적이며 해당 도메인을 이해하는 것에도 효율적이다. << 도메인형 선택한 이유 어쩌구 ~~
-
-아래 구조 간단히 설명 어쩌구 ~~
-
-아래 적당히 주석도 적어야겠지 https://github.com/Voluntain-SKKU/Voluntain-2nd 참고
+닥터뷰 프로젝트는 도메인형 구조를 채택하였습니다. 이는 도메인 주도 개발(DDD)의 원칙에 따라 비즈니스 로직과 도메인 모델을 중심으로 개발을 진행하기 위함입니다. 도메인형 구조를 활용하면 각 도메인의 책임과 역할이 명확해져 시스템을 더 직관적으로 이해할 수 있습니다. 또한 팀원들이 도메인별로 독립적으로 작업할 수 있어 개발 속도와 협업 효율성이 향상되며, 복잡한 비즈니스 로직을 체계적으로 관리하고 유지보수성을 높이는 데 유리합니다.
 
 ```
+DoctorViewWeb
+├── README.md
+├── build.gradle
+├── gradle
+├── gradlew
+├── gradlew.bat
+├── settings.gradle
+└── src
+    ├── test
+    └── main
+        ├── java
+        │    ├── com
+        │    │    └── edu
+        │    │        └── springboot
+        │    │            ├── DoctorViewProjectApplication.java
+        │    │            ├── MainController.java
+        │    │            ├── ServletInitializer.java
+        │    │            ├── WebCorsConfig.java
+        │    │            ├── admin
+        │    │            ├── ...
+        │    │            └── doctor
+        │    │                ├── DoctorController.java
+        │    │                ├── DoctorDTO.java
+        │    │                ├── DoctorPropertyConfig.java
+        │    │                └── IDoctorService.java
+        │    └── utils
+        │        ├── CookieManager.java
+        │        ├── FileUtil.java
+        │        ├── JSFunction.java
+        │        └── PagingUtil.java
+        ├── resources
+        │    ├── application.properties
+        │    ├── ...
+        │    ├── hospital_config.properties
+        │    ├── mappers
+        │    │    ├── BoardDAO.xml
+        │    │    ├── ...
+        │    │    └── ReserveDAO.xml
+        │    ├── static
+        │    │    ├── assets
+        │    │    ├── chat
+        │    │    ├── css
+        │    │    ├── fonts
+        │    │    ├── images
+        │    │    ├── js
+        │    │    └── uploads
+        │    └── templates
+        └── webapp
+            └── WEB-INF
+                └── views
+                    ├── admin
+                    ├── ...
+                    └── reserve
+```
+
+```properties
 DoctorViewWeb
 ├── README.md
 ├── build.gradle # Gradle 빌드 스크립트
