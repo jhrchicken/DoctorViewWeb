@@ -3,24 +3,24 @@
 ### to. 김뿌영
 변경사항입니닷
 
-🔵 표지 추가했습니다 (사진은 바꿀 예정)<br/>
+🔵 표지 추가했습니다 (배포 후에 링크만 걸면 될듯)<br/>
 🔵 목차 만들었습니다 (중요하진 않은데 세부적인 타이틀은 나중에 더 적합하게 바꿀 예정)<br/>
 🔵 주요기능에서 로그인이랑 예약 설명 추가했습니다 (내 기준 완성)<br/>
 🔵 프로젝트 구조 만들었습니다<br/>
 🔵 문제해결과정에서 다영이가 적은 부분 '문제가 있었습니다'라고 끝나는게 개수상함 너뭐얏ㅡㅡ<br/>
 🔵 배운점에 대한 질문이 있음 우리 문서화를 맨 처음에 했는데 내용을 읽어보면 개발을 진행하다가 중간에 문서화를 진행한 것 같은 느낌이 있어요<br/>
 🔵 배운점에서 나도 다영이처럼 실제 사례를 기반으로 적고 싶은데 생각 안남 << 그냥 하소연 ㅋㅋ<br/>
-🔵 배운점에는 제목을 조금 재밌게 지었으면 좋겠다는 생각이 개인적으로 있음 (예를 들어 '여정 자체가 보상이다', '나는 반대를 할게요', '오천만원짜리 회고' 등 이게 아니면 '스터디의 목적이 분명할수록 얻어가는 게 확실해진다', '목표 운영 기간은 정해두는 게 좋다' 이런식으로 .. 안그래도 할거 많은데 또 고민거리를 줘서 미안합니다 ㅜㅜ)<br/>
-🔵 결과 및 확장성 수정함 << 제목 지어서 하자고 해놓고 변경해서 미안합니다 .. 이게 가장 깔끔해보였어요
+🔵 배운점에는 제목을 조금 재밌게 \*특히 쉽게\* 지었으면 좋겠다는 생각이 개인적으로 있음 (예를 들어 '여정 자체가 보상이다', '나는 반대를 할게요', '오천만원짜리 회고' 등 이게 아니면 '스터디의 목적이 분명할수록 얻어가는 게 확실해진다', '목표 운영 기간은 정해두는 게 좋다' 이런식으로 .. 안그래도 할거 많은데 또 고민거리를 줘서 미안합니다 ㅜㅜ)<br/>
+🔵 결과 및 확장성 수정했습니다 << 제목 지어서 하자고 해놓고 변경해서 미안합니다 .. 이게 가장 깔끔해보였어요
 
 
 
 <!-- 프로젝트 로고 -->
 <br />
 <div align="center">
-<!--   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="src/main/resources/static/images/cover_img.png" alt="Logo" width="200" height="100">
-  </a> -->
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="src/main/resources/static/images/logo.png" alt="Logo" width="180" height="80">
+  </a>
 
   <h3 align="center">지역 기반 의료 서비스 매칭 플랫폼 닥터뷰</h3>
 
@@ -128,7 +128,7 @@
     <b>프로젝트 설계</b>
     <ul>
       <li>데이터베이스 설계</li>
-      <li>요구사항 정의서 작성, 웹 기능 정의서 작성</li>
+      <li>요구사항 정의서 작성, 웹 기능 정의서 작성, 개발 일정 작성/li>
     </ul>
   </li>
   <li>
@@ -146,12 +146,12 @@
       <li>병원과 의사 키워드 검색, 병원 조건 필터링 검색, 병원 지도로 찾기, 병원 필터링 후 지도에 표시, 병원과 의사의 기본정보와 추가정보 표시, 병원과 의사 찜, 별점과 해시태그를 통한 리뷰 작성, 수정, 삭제, 리뷰에 대한 답변 작성, 수정, 삭제, 리뷰 수정 여부 표시 등 <b>병원과 의사 검색 및 상세정보 기능</b></li>
       <li>React와 Firebase 연동, 채팅 이력과 이전 대화 조회, 다중 채팅방 지원, 채팅 날짜 시간 표시 등 모든 <b>실시간 채팅 기능</b></li>
       <li>게시글 작성, 게시글 수정, 게시글 삭제, 댓글 작성, 댓글 수정, 댓글 삭제, 게시글 좋아요 및 신고, 게시판 활동 내역 확인 등 모든 <b>게시판 기능</b></li>
-      <li>카테고리 별 더욱 세부적인 기능은 홈페이지와 하단의 <a href="#5">주요기능</a>에서 확인할 수 있습니다.</li>
+      <li>카테고리 별 세부적인 기능은 배포된 홈페이지와 하단의 <a href="#5">주요기능</a>에서 확인할 수 있습니다.</li>
     </ul>
   </li>
 </ul>
 
-<b>다른 팀원에 대한 정보는 부다영(</b>[@Budayeong](https://github.com/Budayeong)<b>)과 이회리(</b>[@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)<b>)에서 확인하세요.</b>
+<b>다른 팀원에 대한 정보는 부다영(</b>[@budayeong](https://github.com/Budayeong)<b>)과 이회리(</b>[@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)<b>)에서 확인하세요.</b>
 
 <div align="right">
   
@@ -161,7 +161,7 @@
 
 <br/><br/>
 
-# <span id="2">02. 설치 가이드</span>
+# <span id="2">02. 사용 가이드</span>
 
 ### 배포 URL
 
@@ -420,9 +420,9 @@ DoctorViewWeb
         │        ├── JSFunction.java
         │        └── PagingUtil.java
         ├── resources
-        │    ├── application.properties     # 기능(도메인) 별 설정 파일
-        │    ├── ...                        # ...
-        │    ├── hospital_config.properties # 기능(도메인) 별 설정 파일
+        │    ├── application.properties      # 기능(도메인) 별 설정 파일
+        │    ├── ...                         # ...
+        │    ├── hospital_config.properties  # 기능(도메인) 별 설정 파일
         │    ├── mappers # MyBatis 매퍼 XML 파일 디렉터리
         │    │    ├── BoardDAO.xml
         │    │    ├── ...
@@ -456,9 +456,14 @@ DoctorViewWeb
 
 ## <span id="6-1">개발 문서</span>
 
-기능정의서
-ERD
-Class Diagram
+<ul>
+  <li><a href="https://docs.google.com/spreadsheets/d/1-RER7R7QFNXRE4CgOUqKGith9Wt0Z91SCN1672EbLW0/edit?usp=drive_link">요구사항 정의서</a></li>
+  <li><a href="https://docs.google.com/spreadsheets/d/1tJxRiuc-6t-qtbx3ukJuy4CSat0CVpaDYTXexVlGvks/edit?usp=drive_link">웹 기능 정의서</a></li>
+  <li><a href="https://docs.google.com/spreadsheets/d/1zC_YDl9BHkNTQ4XoS8nbUvrYFBoN5bXuEljF49YOYT0/edit?usp=drive_link">개발 일정</a></li>
+  <li><a href="https://docs.google.com/spreadsheets/d/1hxAeG9cIlK2gOKKzilhP28s8gkanK2O-k3BdpuAEieQ/edit?usp=drive_link">데이터베이스 정의서</a></li>
+  <li>ERD</li>
+  <li>클래스 다이어그램</li>
+</ul>
 
 <div align="right">
   
