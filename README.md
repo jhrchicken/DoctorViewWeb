@@ -152,12 +152,7 @@
     </li>
 </ul>
 
-### 부다영 ([@Budayeong](https://github.com/Budayeong)) - 백엔드
-
-### 이회리 ([@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)) - 프론트엔드
-
-
-
+<b>다른 팀원에 대한 정보는 부다영(</b>[@Budayeong](https://github.com/Budayeong)<b>)과 이회리(</b>[@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)<b>)에서 확인하세요.</b>
 
 <div align="right">
   
