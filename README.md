@@ -11,7 +11,7 @@
 🔵 배운점에 대한 질문이 있음 우리 문서화를 맨 처음에 했는데 내용을 읽어보면 개발을 진행하다가 중간에 문서화를 진행한 것 같은 느낌이 있어요<br/>
 🔵 배운점에서 나도 다영이처럼 실제 사례를 기반으로 적고 싶은데 생각 안남 << 그냥 하소연 ㅋㅋ<br/>
 🔵 배운점에는 제목을 조금 재밌게 \*특히 쉽게\* 지었으면 좋겠다는 생각이 개인적으로 있음 (예를 들어 '여정 자체가 보상이다', '나는 반대를 할게요', '오천만원짜리 회고' 등 이게 아니면 '스터디의 목적이 분명할수록 얻어가는 게 확실해진다', '목표 운영 기간은 정해두는 게 좋다' 이런식으로 .. 안그래도 할거 많은데 또 고민거리를 줘서 미안합니다 ㅜㅜ)<br/>
-🔵 결과 및 확장성 수정했습니다 << 제목 지어서 하자고 해놓고 변경해서 미안합니다 .. 이게 가장 깔끔해보였어요
+🔵 결과 및 확장성 수정했습니다 << 제목 지어서 하자고 해놓고 변경해서 미안합니다 .. 이게 가장 깔끔해보였어요<br/>
 🔵 개선점이랑 향후계획 같이 묶기로 했었었는데 다시보니까 좀 어색해서 개선점은 앞으로 빼고, 결과 및 확장성 마지막에 향후계획 두 문장 추가했어요
 
 
@@ -129,7 +129,7 @@
     <b>프로젝트 설계</b>
     <ul>
       <li>데이터베이스 설계</li>
-      <li>요구사항 정의서 작성, 웹 기능 정의서 작성, 개발 일정 작성, 데이터베이스 정의서 작성, 릴리즈 노트 작성</li>
+      <li>요구사항 정의서 작성, 웹 기능 정의서 작성, 데이터베이스 정의서 작성, 개발 일정 작성, 릴리즈 노트 작성</li>
     </ul>
   </li>
   <li>
@@ -460,8 +460,8 @@ DoctorViewWeb
 <ul>
   <li><a href="https://docs.google.com/spreadsheets/d/1-RER7R7QFNXRE4CgOUqKGith9Wt0Z91SCN1672EbLW0/edit?usp=drive_link">요구사항 정의서</a></li>
   <li><a href="https://docs.google.com/spreadsheets/d/1tJxRiuc-6t-qtbx3ukJuy4CSat0CVpaDYTXexVlGvks/edit?usp=drive_link">웹 기능 정의서</a></li>
-  <li><a href="https://docs.google.com/spreadsheets/d/1zC_YDl9BHkNTQ4XoS8nbUvrYFBoN5bXuEljF49YOYT0/edit?usp=drive_link">개발 일정</a></li>
   <li><a href="https://docs.google.com/spreadsheets/d/1hxAeG9cIlK2gOKKzilhP28s8gkanK2O-k3BdpuAEieQ/edit?usp=drive_link">데이터베이스 정의서</a></li>
+  <li><a href="https://docs.google.com/spreadsheets/d/1zC_YDl9BHkNTQ4XoS8nbUvrYFBoN5bXuEljF49YOYT0/edit?usp=drive_link">개발 일정</a></li>
   <li>ERD</li>
   <li>클래스 다이어그램</li>
   <li>릴리즈 노트</li>
