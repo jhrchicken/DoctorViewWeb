@@ -527,9 +527,9 @@ DoctorViewWeb
         │    │            ├── MainController.java # 메인 컨트롤러
         │    │            ├── ServletInitializer.java
         │    │            ├── WebCorsConfig.java # CORS 설정 클래스
-        │    │            ├── admin # 기능(도메인) 별 패키지 ..
-        │    │            ├── ...
-        │    │            └── doctor # .. 기능(도메인) 별 패키지
+        │    │            ├── admin    # 기능(도메인) 별 패키지
+        │    │            ├── ...      # ...
+        │    │            └── doctor   # 기능(도메인) 별 패키지
         │    │                ├── DoctorController.java # 컨트롤러
         │    │                ├── DoctorDTO.java # DTO 객체
         │    │                ├── DoctorPropertyConfig.java # 설정 클래스
@@ -540,8 +540,8 @@ DoctorViewWeb
         │        ├── JSFunction.java
         │        └── PagingUtil.java
         ├── resources
-        │    ├── application.properties # 기능(도메인) 별 설정 파일 ..
-        │    ├── ...
+        │    ├── application.properties     # 기능(도메인) 별 설정 파일
+        │    ├── ...                        # ...
         │    ├── hospital_config.properties # .. 기능(도메인) 별 설정 파일
         │    ├── mappers # MyBatis 매퍼 XML 파일 디렉터리
         │    │    ├── BoardDAO.xml
@@ -559,9 +559,9 @@ DoctorViewWeb
         └── webapp
             └── WEB-INF
                 └── views # JSP 뷰 디렉터리
-                    ├── admin # 기능(도메인) 별 디렉터리 ..
-                    ├── ...
-                    └── reserve # .. 기능(도메인) 별 디렉터리
+                    ├── admin    # 기능(도메인) 별 디렉터리
+                    ├── ...      # ...
+                    └── reserve  # 기능(도메인) 별 디렉터리
 ```
 
 <div align="right">
