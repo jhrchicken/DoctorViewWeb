@@ -19,9 +19,9 @@
 <!-- 프로젝트 로고 -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+<!--   <a href="https://github.com/othneildrew/Best-README-Template">
     <img src="src/main/resources/static/images/cover_img.png" alt="Logo" width="200" height="100">
-  </a>
+  </a> -->
 
   <h3 align="center">지역 기반 의료 서비스 매칭 플랫폼 닥터뷰</h3>
 
