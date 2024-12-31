@@ -30,11 +30,11 @@
     <a href=""><strong>Explore Our Website »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/jhrchicken/DoctorViewWeb">Release Note</a>
+    <a href="https://github.com/jhrchicken/DoctorViewWeb" target="_blank">Release Note</a>
     ·
-    <a href="https://github.com/jhrchicken/DoctorViewWeb/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/jhrchicken/DoctorViewWeb/issues/new?labels=bug&template=bug-report---.md" target="_blank">Report Bug</a>
     ·
-    <a href="https://github.com/jhrchicken/DoctorViewWeb/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/jhrchicken/DoctorViewWeb/issues/new?labels=enhancement&template=feature-request---.md" target="_blank">Request Feature</a>
   </p>
 </div>
 
@@ -83,7 +83,7 @@
 
 닥터뷰는 병원 정보의 부족, 만족스러운 의료진 선택의 어려움, 긴급 상황에서 병원 찾기의 불편함, 번거로운 예약 과정 등 환자들이 겪는 문제를 해결하고자 하는 의도에서부터 출발하였습니다. 닥터뷰는 다양한 검색 방식과 조건을 통해 개인에게 적합한 병원을 찾고 예약할 수 있는 서비스를 제공합니다. 병원 방문 전후에는 채팅 기능을 통해 병원과 소통할 수 있으며, 게시판을 통해 건강 정보를 공유하는 커뮤니티를 형성하여 기존의 의료 시스템에 새로운 알고리즘을 도입합니다.
 
-<b>닥터뷰는 웹과 모바일 앱을 모두 지원합니다.</b> <a href="https://github.com/jhrchicken/DoctorViewApp">닥터뷰 앱에 대한 내용은 여기에서 확인하세요.</a>
+<b>닥터뷰는 웹과 모바일 앱을 모두 지원합니다.</b> <a href="https://github.com/jhrchicken/DoctorViewApp" target="_blank">닥터뷰 앱에 대한 내용은 여기에서 확인하세요.</a>
 
 이 웹사이트는 다음과 같은 기능들을 제공합니다.
 
@@ -91,7 +91,7 @@
 2. 환자들이 병원 방문 전후에 의료진과 간편하게 소통할 수 있도록 채팅 기능을 제공합니다.
 3. 게시판을 통해 건강 정보를 공유하고 커뮤니티 내에서 자유롭게 상호작용할 수 있습니다.
 
-<b>이제 </b><a href="">여기를 클릭하여</a><b> 지역 기반 의료 시스템 매칭 플랫폼 닥터뷰를 시작해보세요!</b>
+<b>이제 </b><a href="" target="_blank">여기를 클릭하여</a><b> 지역 기반 의료 시스템 매칭 플랫폼 닥터뷰를 시작해보세요!</b>
 
 <div align="right">
   
@@ -457,10 +457,10 @@ DoctorViewWeb
 ## <span id="6-1">개발 문서</span>
 
 <ul>
-  <li><a href="https://docs.google.com/spreadsheets/d/1-RER7R7QFNXRE4CgOUqKGith9Wt0Z91SCN1672EbLW0/edit?usp=drive_link">요구사항 정의서</a></li>
-  <li><a href="https://docs.google.com/spreadsheets/d/1tJxRiuc-6t-qtbx3ukJuy4CSat0CVpaDYTXexVlGvks/edit?usp=drive_link">웹 기능 정의서</a></li>
-  <li><a href="https://docs.google.com/spreadsheets/d/1zC_YDl9BHkNTQ4XoS8nbUvrYFBoN5bXuEljF49YOYT0/edit?usp=drive_link">개발 일정</a></li>
-  <li><a href="https://docs.google.com/spreadsheets/d/1hxAeG9cIlK2gOKKzilhP28s8gkanK2O-k3BdpuAEieQ/edit?usp=drive_link">데이터베이스 정의서</a></li>
+  <li><a href="https://docs.google.com/spreadsheets/d/1-RER7R7QFNXRE4CgOUqKGith9Wt0Z91SCN1672EbLW0/edit?usp=drive_link" target="_blank">요구사항 정의서</a></li>
+  <li><a href="https://docs.google.com/spreadsheets/d/1tJxRiuc-6t-qtbx3ukJuy4CSat0CVpaDYTXexVlGvks/edit?usp=drive_link" target="_blank">웹 기능 정의서</a></li>
+  <li><a href="https://docs.google.com/spreadsheets/d/1zC_YDl9BHkNTQ4XoS8nbUvrYFBoN5bXuEljF49YOYT0/edit?usp=drive_link" target="_blank">개발 일정</a></li>
+  <li><a href="https://docs.google.com/spreadsheets/d/1hxAeG9cIlK2gOKKzilhP28s8gkanK2O-k3BdpuAEieQ/edit?usp=drive_link" target="_blank">데이터베이스 정의서</a></li>
   <li>ERD</li>
   <li>클래스 다이어그램</li>
 </ul>
