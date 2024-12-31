@@ -19,7 +19,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="src/main/resources/static/images/logo.png" alt="Logo" width="180" height="80">
+    <img src="src/main/resources/static/images/logo.png" alt="Logo" width="160" height="70">
   </a>
 
   <h3 align="center">지역 기반 의료 서비스 매칭 플랫폼 닥터뷰</h3>
@@ -457,17 +457,18 @@ DoctorViewWeb
 ## <span id="6-1">개발 문서</span>
 
 <ul>
-  <li><a href="https://docs.google.com/spreadsheets/d/1-RER7R7QFNXRE4CgOUqKGith9Wt0Z91SCN1672EbLW0/edit?usp=drive_link" target="_blank">요구사항 정의서</a></li>
-  <li><a href="https://docs.google.com/spreadsheets/d/1tJxRiuc-6t-qtbx3ukJuy4CSat0CVpaDYTXexVlGvks/edit?usp=drive_link" target="_blank">웹 기능 정의서</a></li>
-  <li><a href="https://docs.google.com/spreadsheets/d/1zC_YDl9BHkNTQ4XoS8nbUvrYFBoN5bXuEljF49YOYT0/edit?usp=drive_link" target="_blank">개발 일정</a></li>
-  <li><a href="https://docs.google.com/spreadsheets/d/1hxAeG9cIlK2gOKKzilhP28s8gkanK2O-k3BdpuAEieQ/edit?usp=drive_link" target="_blank">데이터베이스 정의서</a></li>
+  <li><a href="https://docs.google.com/spreadsheets/d/1-RER7R7QFNXRE4CgOUqKGith9Wt0Z91SCN1672EbLW0/edit?usp=drive_link">요구사항 정의서</a></li>
+  <li><a href="https://docs.google.com/spreadsheets/d/1tJxRiuc-6t-qtbx3ukJuy4CSat0CVpaDYTXexVlGvks/edit?usp=drive_link">웹 기능 정의서</a></li>
+  <li><a href="https://docs.google.com/spreadsheets/d/1zC_YDl9BHkNTQ4XoS8nbUvrYFBoN5bXuEljF49YOYT0/edit?usp=drive_link">개발 일정</a></li>
+  <li><a href="https://docs.google.com/spreadsheets/d/1hxAeG9cIlK2gOKKzilhP28s8gkanK2O-k3BdpuAEieQ/edit?usp=drive_link">데이터베이스 정의서</a></li>
   <li>ERD</li>
   <li>클래스 다이어그램</li>
+  <li>릴리즈 노트</li>
 </ul>
 
 <div align="right">
   
-[(back to top)](#readme-top)
+  [(back to top)](#readme-top)
 
 </div>
 
@@ -485,7 +486,7 @@ DoctorViewWeb
 
 <div align="right">
   
-[(back to top)](#readme-top)
+  [(back to top)](#readme-top)
 
 </div>
 
