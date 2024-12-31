@@ -121,7 +121,7 @@
 
 닥터뷰 프로젝트는 <b>백엔드 개발자 2명과 프론트엔드 개발자 1명</b>으로 구성된 팀이 개발하였습니다.
 
-#### ✦ 정하림 ([@jhrchicken](https://github.com/jhrchicken)) - 백엔드 및 팀장
+### 정하림 ([@jhrchicken](https://github.com/jhrchicken)) - 백엔드 및 팀장
 
 <ul>
     <li>
@@ -152,9 +152,9 @@
     </li>
 </ul>
 
-#### ✦ 부다영 ([@Budayeong](https://github.com/Budayeong)) - 백엔드
+### 부다영 ([@Budayeong](https://github.com/Budayeong)) - 백엔드
 
-#### ✦ 이회리 ([@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)) - 프론트엔드
+### 이회리 ([@leeeeeeeeeeeehr](https://github.com/leeeeeeeeeeeehr)) - 프론트엔드
 
 
 
