@@ -50,7 +50,7 @@
         <li><a href="#1-3">팀원 구성 및 역할</a></li>
       </ul>
     </li>
-    <li><a href="#2">설치 가이드</a></li>
+    <li><a href="#2">사용 가이드</a></li>
     <li><a href="#3">기술 스택</a></li>
     <li><a href="#4">주요 기능</a></li>
     <li>
@@ -63,11 +63,11 @@
         <li>
       <a href="#6">기타</a>
       <ul>
-        <li><a href="#6-1">개발문서</a></li>
-        <li><a href="#6-2">문제 해결 과정</a></li>
-        <li><a href="#6-2">프로젝트를 통해 배운 점</a></li>
-        <li><a href="#6-2">결과 및 확장성</a></li>
-        <li><a href="#6-2">개선점 및 향후 계획</a></li>
+        <li><a href="#6-1">개발 문서</a></li>
+        <li><a href="#6-2">이슈 및 문제해결</a></li>
+        <li><a href="#6-3">개선 사항</a></li>
+        <li><a href="#6-4">프로젝트에서 배운 점</a></li>
+        <li><a href="#6-5">결과 및 확장성</a></li>
       </ul>
     </li>
   </ol>
@@ -128,7 +128,7 @@
     <b>프로젝트 설계</b>
     <ul>
       <li>데이터베이스 설계</li>
-      <li>요구사항 정의서 작성, 웹 기능 정의서 작성, 개발 일정 작성/li>
+      <li>요구사항 정의서 작성, 웹 기능 정의서 작성, 개발 일정 작성, 데이터베이스 정의서 작성, 릴리즈 노트 작성</li>
     </ul>
   </li>
   <li>
@@ -474,7 +474,7 @@ DoctorViewWeb
 
 <br/>
 
-## <span id="6-2">문제 해결 과정</span>
+## <span id="6-2">이슈 및 문제해결</span>
 
 #### 1. 병원 목록에서 페이징과 필터링 방식의 충돌 문제 해결을 위한 AJAX 방식 적용 및 성능 개선
 
@@ -492,7 +492,18 @@ DoctorViewWeb
 
 <br/>
 
-## <span id="6-3">프로젝트를 통해 배운 점</span>
+## <span id="6-3">개선 사항</span>
+
+
+<div align="right">
+  
+[(back to top)](#readme-top)
+
+</div>
+
+<br/>
+
+## <span id="6-4">프로젝트에서 배운 점</span>
 
 #### 1. 팀 프로젝트에서 의사소통의 중요성과 문서화의 역할
 
@@ -517,7 +528,7 @@ DoctorViewWeb
 
 <br/>
 
-## <span id="6-4">결과 및 확장성</span>
+## <span id="6-5">결과 및 확장성</span>
 
 <b>닥터뷰 프로젝트는 기업초청 발표에서 다음과 같은 총괄 평가를 받았습니다.</b>
 
@@ -542,14 +553,4 @@ DoctorViewWeb
 
 </div>
 
-<br/>
-
-## <span id="6-5">개선점 및 향후 계획</span>
-
-
-<div align="right">
-  
-[(back to top)](#readme-top)
-
-</div>
 
