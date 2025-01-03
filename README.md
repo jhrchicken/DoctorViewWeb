@@ -22,7 +22,7 @@
   <img src="src/main/resources/static/images/logo.png" alt="Logo" width="160" height="70">
   <h3 align="center">지역 기반 의료 서비스 매칭 플랫폼</h3>
   <p align="center">
-    지금 닥터뷰를 시작해보세요!
+    지금 바로 닥터뷰를 시작해보세요!
     <br />
     <a href=""><strong>웹사이트 바로가기 »</strong></a>
   </p>
