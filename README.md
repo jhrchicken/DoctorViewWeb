@@ -7,6 +7,7 @@
 🔵 주요기능에서 로그인이랑 예약에 설명 추가했습니다 (내 기준 일단 완성)<br/>
 🔵 프로젝트 구조 만들었습니다<br/>
 🔵 아키텍처는 만들어야 함<br/>
+🔵 기술 스택 표로 변경했습니다<br/>
 🔵 이슈 및 해결과정에서 다영이가 적은 부분 '문제가 있었습니다'라고 끝나는게 개수상함 << 카톡으로 보내준 내용보고 수정해서 적었습니다 리드미에는 뒷부분이 잘렸던 거 같아요 제가 수정한 거 읽어보고 다영이가 의도한 내용이 아니면 수정 부탁드려요<br/>
 🔵 배운 점에서 다영이가 적은 부분에 대한 질문이 있어요 우리 문서화를 프로젝트 시작할 때 했는데 내용을 읽어보면 개발을 진행하다가 중간에 문서화를 진행한 것 같은 느낌이 있어요<br/>
 🔵 배운 점에서 나도 다영이처럼 실제 사례를 기반으로 설득력 있게 적고 싶은데 생각 안남 이왕이면 좀 전문성있는걸로 << 그냥 하소연 ㅋㅋ<br/>
@@ -179,64 +180,15 @@
 
 # <span id="3">03. 기술 스택</span>
 
-### 프론트엔드
-
-<div>
-  <img src="https://img.shields.io/badge/HTML5-%23E34F26?style=for-the-badge">
-  <img src="https://img.shields.io/badge/CSS3-%231572B6?style=for-the-badge&logo=css3">
-  <img src="https://img.shields.io/badge/JavaScript%20ES6-%23F7DF1E?style=for-the-badge&logo=javascript&logoColor=%23000">
-  <img src="https://img.shields.io/badge/React%2018.3.1-%2361DAFB?style=for-the-badge&logo=react&logoColor=%23000">
-</div>
-
-### 백엔드
-
-<div>
-  <img src="https://img.shields.io/badge/Java%2021-%23000000?style=for-the-badge&logo=openjdk">
-  <img src="https://img.shields.io/badge/Spring%20Boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff"> 
-  <img src="https://img.shields.io/badge/MyBatis%203.0.3-%234479A1?style=for-the-badge">
-</div>
-
-### 데이터베이스
-
-<div>
-  <img src="https://img.shields.io/badge/Oracle%2021c-%23F80000?style=for-the-badge&logo=oracle">
-  <img src="https://img.shields.io/badge/Firebase%20realtime%2010.13.2-%23EB844E?style=for-the-badge&logo=firebase">
-</div>
-
-### 서버
-
-<div>
-  <img src="https://img.shields.io/badge/Linux-%23FCC624?style=for-the-badge&logo=linux&logoColor=%23000000">
-  <img src="https://img.shields.io/badge/Apache%20Tomcat%2010.1.26-%23F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=%23000">
-  <img src="https://img.shields.io/badge/AWS%20ec2-%23232F3E?style=for-the-badge&logo=amazonwebservices">
-</div>
-
-### 개발 환경 및 도구
-
-<div>
-  <img src="https://img.shields.io/badge/visual%20studio%20code-%230082FC?style=for-the-badge">
-  <img src="https://img.shields.io/badge/sts%204-%236DB33F?style=for-the-badge&logo=spring&logoColor=%23fff">
-  <img src="https://img.shields.io/badge/sqldeveloper-%23575757?style=for-the-badge">
-  <img src="https://img.shields.io/badge/termius-%23000000?style=for-the-badge&logo=termius">
-</div>
-
-### 라이브러리 및 API
-
-<div>
-  <img src="https://img.shields.io/badge/KakaoMap-%23FFCD00?style=for-the-badge&logo=kakao&logoColor=%23000">
-  <img src="https://img.shields.io/badge/Bootstrap%205.3.3-%237952B3?style=for-the-badge&logo=bootstrap&logoColor=%23fff">
-  <img src="https://img.shields.io/badge/jQuery%20%26%20Ajax-%230769AD?style=for-the-badge&logo=jquery">
-</div>
-
-### 협업
-
-<div>
-  <img src="https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github">
-  <img src="https://img.shields.io/badge/figma-%23F24E1E?style=for-the-badge&logo=figma&logoColor=%23fff">
-  <img src="https://img.shields.io/badge/staruml-%23FFE200?style=for-the-badge">
-  <img src="https://img.shields.io/badge/notion-%23000000?style=for-the-badge&logo=notion">
-  <img src="https://img.shields.io/badge/google%20drive-%234285F4?style=for-the-badge&logo=googledrive&logoColor=%23fff">
-</div>
+|분류|기술 스택|
+|:---:|---|
+|**프론트엔드**|<img src="https://img.shields.io/badge/HTML5-%23E34F26?style=for-the-badge"> <img src="https://img.shields.io/badge/CSS3-%231572B6?style=for-the-badge&logo=css3"> <img src="https://img.shields.io/badge/JavaScript%20ES6-%23F7DF1E?style=for-the-badge&logo=javascript&logoColor=%23000"> <img src="https://img.shields.io/badge/React%2018.3.1-%2361DAFB?style=for-the-badge&logo=react&logoColor=%23000">|
+|**백엔드**|<img src="https://img.shields.io/badge/Java%2021-%23000000?style=for-the-badge&logo=openjdk"> <img src="https://img.shields.io/badge/Spring%20Boot%203.0.3-%236DB33F?style=for-the-badge&logo=spring%20boot&logoColor=%23fff"> <img src="https://img.shields.io/badge/MyBatis%203.0.3-%234479A1?style=for-the-badge">|
+|**데이터베이스**|<img src="https://img.shields.io/badge/Oracle%2021c-%23F80000?style=for-the-badge&logo=oracle"> <img src="https://img.shields.io/badge/Firebase%20realtime%2010.13.2-%23EB844E?style=for-the-badge&logo=firebase">|
+|**서버**|<img src="https://img.shields.io/badge/Linux-%23FCC624?style=for-the-badge&logo=linux&logoColor=%23000000"> <img src="https://img.shields.io/badge/Apache%20Tomcat%2010.1.26-%23F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=%23000"> <img src="https://img.shields.io/badge/AWS%20ec2-%23232F3E?style=for-the-badge&logo=amazonwebservices">|
+|**개발 환경 및 도구**|<img src="https://img.shields.io/badge/visual%20studio%20code-%230082FC?style=for-the-badge"> <img src="https://img.shields.io/badge/sts%204-%236DB33F?style=for-the-badge&logo=spring&logoColor=%23fff"> <img src="https://img.shields.io/badge/sqldeveloper-%23575757?style=for-the-badge"> <img src="https://img.shields.io/badge/termius-%23000000?style=for-the-badge&logo=termius">|
+|**라이브러리 및 API**|<img src="https://img.shields.io/badge/KakaoMap-%23FFCD00?style=for-the-badge&logo=kakao&logoColor=%23000"> <img src="https://img.shields.io/badge/Bootstrap%205.3.3-%237952B3?style=for-the-badge&logo=bootstrap&logoColor=%23fff"> <img src="https://img.shields.io/badge/jQuery%20%26%20Ajax-%230769AD?style=for-the-badge&logo=jquery">|
+|**협업**|<img src="https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github"> <img src="https://img.shields.io/badge/figma-%23F24E1E?style=for-the-badge&logo=figma&logoColor=%23fff"> <img src="https://img.shields.io/badge/staruml-%23FFE200?style=for-the-badge"> <img src="https://img.shields.io/badge/notion-%23000000?style=for-the-badge&logo=notion"> <img src="https://img.shields.io/badge/google%20drive-%234285F4?style=for-the-badge&logo=googledrive&logoColor=%23fff">|
 
 <div align="right">
   
