@@ -19,29 +19,18 @@
 <!-- 프로젝트 로고 -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="src/main/resources/static/images/logo.png" alt="Logo" width="160" height="70">
-  </a>
-
-  <h3 align="center">지역 기반 의료 서비스 매칭 플랫폼 닥터뷰</h3>
-
+  <img src="src/main/resources/static/images/logo.png" alt="Logo" width="160" height="70">
+  <h3 align="center">지역 기반 의료 서비스 매칭 플랫폼</h3>
   <p align="center">
     지금 바로 닥터뷰를 시작해보세요!
     <br />
-    <a href=""><strong>Explore Our Website »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/jhrchicken/DoctorViewWeb" target="_blank">Release Note</a>
-    ·
-    <a href="https://github.com/jhrchicken/DoctorViewWeb/issues/new?labels=bug&template=bug-report---.md" target="_blank">Report Bug</a>
-    ·
-    <a href="https://github.com/jhrchicken/DoctorViewWeb/issues/new?labels=enhancement&template=feature-request---.md" target="_blank">Request Feature</a>
+    <a href=""><strong>웹사이트 바로가기 »</strong></a>
   </p>
 </div>
 
 <!-- 목차 -->
 <details>
-  <summary>Table of Contents</summary>
+  <summary>목차</summary>
   <ol>
     <li>
       <a href="#1">프로젝트 정보</a>
