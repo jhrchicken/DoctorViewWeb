@@ -319,6 +319,14 @@
 
 ## <span id="5-1">아키텍쳐</span>
 
+Spring MVC 패턴 with Mybatis
+
+<img src="src/main/resources/static/images/springmvc.png">
+
+<br/>
+
+<img src="src/main/resources/static/images/mybatis.png">
+
 <div align="right">
   
 [(back to top)](#readme-top)
