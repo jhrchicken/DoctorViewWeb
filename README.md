@@ -117,9 +117,7 @@
 |<img src="src/main/resources/static/images/jhrchicken.jpeg" width="120" height="120">|<img src="src/main/resources/static/images/budayeong.jpeg" width="120" height="120">|<img src="src/main/resources/static/images/leehr.jpeg" width="120" height="120">|
 |백엔드 및 팀장|백엔드|프론트엔드|
 
-<br/>
-
-프로젝트에서 제가 맡은 역할은 다음과 같습니다.
+#### 닥터뷰 프로젝트에서 정하림([@jhrchicken](https://github.com/jhrchicken))의 주요 역할은 다음과 같습니다.
 
 <ul>
   <li>
@@ -143,16 +141,12 @@
   <li>
     <b>기능 개발</b>
     <ul>
-      <li>
-        <b>병원과 의사 검색 및 상세정보 기능</b><br/>
-        병원과 의사 키워드 검색, 병원 조건 필터링 검색, 병원 지도로 찾기, 병원 필터링 후 지도에 표시, 병원과 의사의 기본정보와 추가정보 표시, 병원과 의사 찜, 별점과 해시태그를 통한 리뷰 작성/수정/삭제, 리뷰에 대한 답변 작성/수정/삭제, 리뷰 수정 여부 표시 등 병원과 의사 검색 및 상세정보 기능</li>
-      <li>
-        <b>채팅 기능</b><br/>
-        React와 Firebase 연동, 채팅 이력과 이전 대화 조회, 다중 채팅방 지원, 채팅 날짜 시간 표시 등 모든 실시간 채팅 기능</li>
-      <li>
-        <b>게시판 기능</b><br/>
-        게시글 작성, 게시글 수정, 게시글 삭제, 댓글 작성, 댓글 수정, 댓글 삭제, 게시글 좋아요 및 신고, 게시판 활동 내역 확인 등 모든 게시판 기능
-      </li>
+      <li>병원 키워드로 검색, 병원 조건 필터링 검색, 병원 지도로 찾기, 진료시간에 따른 병원 필터링 후 지도에 표시 등 모든 <b>병원 찾기 기능</b></li>
+      <li>병원 기본정보와 추가정보 표시, 병원 찜 표시 등 <b>병원 상세정보 확인 기능</b></li>
+      <li>의사 키워드로 검색, 의사 기본정보와 추가정보 표시, 의사 찜 표시 등 모든 <b>의사 찾기 및 상세정보 확인 기능</b></li>
+      <li>별점과 해시태그를 통한 리뷰 작성과 수정과 삭제, 리뷰 답변 작성과 수정과 삭제, 리뷰 수정 여부 표시 등 모든 <b>리뷰 기능</b></li>
+      <li>React와 Firebase 연동, 채팅 목록, 채팅방, 채팅 이력과 이전 대화 조회, 채팅 날짜와 시간 표시 등 모든 <b>실시간 채팅 기능</b></li>
+      <li>게시글 작성과 수정과 삭제, 댓글 작성과 수정과 삭제, 게시글 좋아요 및 신고, 게시판 활동 내역 확인 등 모든 <b>게시판 기능</b></li>
     </ul>
   </li>
 </ul>
@@ -288,8 +282,7 @@
 
 <ul>
   <li>React와 Firebase를 이용한 일반 사용자와 병원 사용자 간의 실시간 채팅 기능</li>
-  <li>대화 내용을 Firebase Realtime Database에 저장하여 채팅 이력과 이전 대화 조회</li>
-  <li>다중 채팅방을 지원하여 여러 대화방에서 동시에 채팅 가능</li>
+  <li>대화 내용을 Firebase Realtime Database에 저장하여 채팅 목록과 이전 대화 조회</li>
   <li>날짜와 시간을 적절히 표시하여 사용자 편의 제공</li>
 </ul>
 
@@ -411,13 +404,25 @@ DoctorViewWeb
 
 ## <span id="6-1">개발 문서</span>
 
+#### 정의서
+
 <ul>
   <li><a href="https://docs.google.com/spreadsheets/d/1-RER7R7QFNXRE4CgOUqKGith9Wt0Z91SCN1672EbLW0/edit?usp=drive_link">요구사항 정의서</a></li>
   <li><a href="https://docs.google.com/spreadsheets/d/1tJxRiuc-6t-qtbx3ukJuy4CSat0CVpaDYTXexVlGvks/edit?usp=drive_link">웹 기능 정의서</a></li>
   <li><a href="https://docs.google.com/spreadsheets/d/1hxAeG9cIlK2gOKKzilhP28s8gkanK2O-k3BdpuAEieQ/edit?usp=drive_link">데이터베이스 정의서</a></li>
-  <li><a href="https://docs.google.com/spreadsheets/d/1zC_YDl9BHkNTQ4XoS8nbUvrYFBoN5bXuEljF49YOYT0/edit?usp=drive_link">개발 일정</a></li>
+</ul>
+
+#### 설계 및 다이어그램
+
+<ul>
   <li>ERD</li>
   <li>클래스 다이어그램</li>
+</ul>
+
+#### 기타
+
+<ul>
+  <li><a href="https://docs.google.com/spreadsheets/d/1zC_YDl9BHkNTQ4XoS8nbUvrYFBoN5bXuEljF49YOYT0/edit?usp=drive_link">개발 일정</a></li>
   <li>릴리즈 노트</li>
 </ul>
 
@@ -463,23 +468,7 @@ DoctorViewWeb
     <b>병원 회원 가입 데이터 삽입 롤백 처리</b>
     <ul>
       <li>현재 병원 회원 가입 시 세 개의 테이블에 데이터 삽입 과정에서 오류가 발생하면 JavaScript로 데이터 전송만 제한됨</li>
-      <li>오류 발생 시 전체 가입 과정이 롤백되도록 DB 트랜잭션을 활용하여 데이터 삽입을 하나의 작업 단위로 처리하도록 개선</li></li>
-    </ul>
-  </li>
-</ul>
-<ul>
-  <li>
-    <b>병원 서비스 향상 어드밴티지 제공</b>
-    <ul>
-      <li>좋은 평점과 사용자 피드백을 받은 병원의 순위를 상승시켜 병원 서비스 향상에 어드밴티지를 부여</li>
-    </ul>
-  </li>
-</ul>
-<ul>
-  <li>
-    <b>병원 정보 최신화 유도</b>
-    <ul>
-      <li>병원 정보의 사실 여부에 대한 신고를 받은 경우 업데이트하지 않으면 경고를 통해 정보를 최신 상태로 유도</li>
+      <li>오류 발생 시 전체 가입 과정이 롤백되도록 DB 트랜잭션을 활용하여 데이터 삽입을 하나의 작업 단위로 처리하도록 개선 필요</li>
     </ul>
   </li>
 </ul>
@@ -488,7 +477,7 @@ DoctorViewWeb
     <b>예약 가능한 수 설정 개선</b>
     <ul>
       <li>현재 특정 시간에 예약이 한 건 들어오면 자동으로 마감 상태가 됨</li>
-      <li>병원으로부터 각 타임 당 예약 가능한 수를 입력받아 예약 가능한 건수를 설정할 수 있도록 개선</li>
+      <li>병원으로부터 각 타임 당 예약 가능한 수를 입력받아 예약 가능한 건수를 설정할 수 있도록 개선 필요</li>
     </ul>
   </li>
 </ul>
