@@ -1,7 +1,5 @@
  <a id="readme-top"></a>
 
-### to. 김뿌영 
-
 <!-- 프로젝트 로고 -->
 <br />
 <div align="center">
