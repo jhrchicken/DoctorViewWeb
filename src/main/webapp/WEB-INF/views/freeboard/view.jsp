@@ -39,21 +39,23 @@
 		<div class="content">
 			<div class="board_wrap">
 				<div class="board">
-					<strong class="title">${ boardDTO.title }</strong>
-					<ul class="detail">
-						<li>
-							<span>작성자 : <em>${ boardDTO.nickname }</em></span>
-							<span>작성일 : <em>${ boardDTO.postdate }</em></span>
-							<span>조회수 : <em>${ boardDTO.visitcount }</em></span>
-						</li>
-					</ul>
-									<!--  게시글 수정/삭제 -->
-<%-- 				<div class="board_btn">
-					<c:if test="${ boardDTO.writer_ref == sessionScope.userId }">
-						<button type="button" onclick="location.href='../freeboard/editPost.do?board_idx=${ param.board_idx }';">수정하기</button>
-						<button type="button" onclick="deletePost(${ param.board_idx });">삭제하기</button>
-					</c:if>
-				</div> --%>
+					<div class="board_title">
+						<strong class="title">${ boardDTO.title }</strong>
+						<ul class="detail">
+							<li>
+								<span>작성자 : <em>${ boardDTO.nickname }</em></span>
+								<span>작성일 : <em>${ boardDTO.postdate }</em></span>
+								<span>조회수 : <em>${ boardDTO.visitcount }</em></span>
+							</li>
+						</ul>
+						<!-- 게시글 수정/삭제 버튼 -->
+						<div class="btn_wrap">
+							<c:if test="${ boardDTO.writer_ref == sessionScope.userId }">
+								<a class="edit_btn" href="/freeboard/editPost.do?board_idx=${ param.board_idx }"><span>수정하기</span></a>
+								<a class="delete_btn" href="javascript:void(0);" onclick="deletePost(${ param.board_idx });"><span>삭제하기</span></a>
+							</c:if>
+						</div>
+					</div>
 					
 					<div class="board_content">
 						${ boardDTO.content }
@@ -79,31 +81,12 @@
 					<input type="hidden" name="board_idx" value="${ boardDTO.board_idx }" />
 				</form>
 				
-				<!-- 댓글 작성 -->
-				<%-- <div>
-			  		<c:if test="${ not empty sessionScope.userId }">
-				  		<div class="comment_btn">
-					  		<button type="button" data-bs-toggle="modal" data-bs-target="#writeCommentModal"
-					  			onclick="openWriteModal(${ param.board_idx })">
-				                댓글 작성하기
-				            </button>
-			  			</div>
-			  		</c:if>
-				</div>
-				
-				<!-- == 댓글 == -->
-				<form id="writeCommentForm" onsubmit="return writeComment();">
-				    <input type="hidden" id="comm_write_board_ref" value="" />
-                    <textarea class="form-control" id="comm_write_content" style="height: 100px;" placeholder="내용을 입력하세요"></textarea>
-                    <button type="submit">작성하기</button>
-				</form> --%>
-				
 				<!-- == 댓글 == -->
 				<div class="comment">
 					<!-- 댓글 작성 -->
-					<form id="writeCommentForm" onsubmit="return writeComment();">
+					<form class="comment_form" id="writeCommentForm" onsubmit="return writeComment();">
 					    <input type="hidden" id="comm_write_board_ref" value="${ param.board_idx }" />
-	                    <textarea class="form-control" id="comm_write_content" style="height: 100px;" placeholder="로그인 후 작성 가능합니다."></textarea>
+	                    <textarea class="write_comment" id="comm_write_content" placeholder="로그인 후 작성 가능합니다."></textarea>
 	                    <button type="submit">작성하기</button>
 					</form>
 					

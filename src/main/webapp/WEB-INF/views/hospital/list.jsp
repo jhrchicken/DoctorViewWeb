@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>닥터뷰 | 병원 찾기</title>
+<title>닥터뷰</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/hosp-list.css" />
 <script>
@@ -139,44 +139,45 @@ function searchHosp(event) {
   	
 </head>
 <body>
-<%@include file="../common/main_header.jsp" %>
-<main id="container">
-	<div class="content">
-		<div class="content_inner">
-			<div class="list_title">
-				<h2>병원 찾기</h2>
-				<p>병원명, 지역명, 해시태그 등으로 검색해보세요</p>
-			</div>
+	<%@include file="../common/main_header.jsp" %>
+	<main id="container">
+		<div class="content">
+			<h2>병원 찾기</h2>
+			<h3>병원명, 지역명, 해시태그 등으로 검색해보세요</h3>
 			
-			<div class="list_search">
-				<form class="searchForm" name="searchForm">
-					<div class="search_city">
-						<!-- 주소 선택 -->
-						<select id="sido" name="searchSido" class="searchField">
-							<option value="">--- 시/도 선택 ---</option>
-							<c:forEach items="${ sidoLists }" var="sidoRow">
-								<option value="${ sidoRow.sido }">${ sidoRow.sido }</option>
+			<!-- 검색 메뉴 -->
+			<div class="search_menu">
+				<form class="search_form" name="searchForm">
+					<!-- 지역 선택 -->
+					<div class="search_region">
+						<select class="search_field" id="sido" name="searchSido">
+							<option value="">-- 시/도 선택 --</option>
+							<c:forEach items="${ sidoLists }"> var="sido">
+								<option value="${ sido.sido }">${ sido.sido }</option>
 							</c:forEach>
 						</select>
-						<select id="gugun" name="searchGugun" class="searchField">
-							<option value="">--- 시/군/구 선택 ---</option>
+						<select id="gugun" name="searchGugun" class="search_field">
+							<option value="">-- 시/군/구 선택 --</option>
 						</select>
-						<select id="dong" name="searchDong" class="searchField">
-							<option value="">--- 읍/면/동 선택 ---</option>
+						<select id="dong" name="searchDong" class="search_field">
+							<option value="">-- 읍/면/동 선택 --</option>
 						</select>
 					</div>
-					<div class="search_hosp">
-						<!-- 검색 -->
-						<select class="searchField" name="searchField">
-							<option value="name">--- 조건 선택 ---</option>
+					
+					<!-- 키워드 검색 -->
+					<div class="search_keyword">
+						<select class="search_field" name="searchField">
+							<option value="name">-- 검색 조건 선택 --</option>
 							<option value="name">병원명</option>
 							<option value="department">진료과목</option>
 							<option value="hashtag">해시태그</option>
 						</select>
-						<input name="searchWord" class="searchKeyword" type="text" placeholder="검색어를 입력하세요.">
-						<button type="submit" class="search_btn" onclick="searchHosp(event)"><span class="blind">검색</span></button>
+						<input type="text" class="search_word" name="searchWord" placeholder="검색어를 입력하세요.">
+						<button type="submit" class="search_btn" onclick="searchHosp(event)"></button>
 					</div>
-					<div class="other_search">
+					
+					<!-- 검색 필터 -->
+					<div class="search_filter">
 						<button type="button" class="filter-button" data-filter="parking" data-default-text="주차 가능">주차</button>
 						<button type="button" class="filter-button" data-filter="pcr" data-default-text="PCR 검사 가능">PCR 검사</button>
 						<button type="button" class="filter-button" data-filter="hospitalize" data-default-text="입원 가능">입원</button>
@@ -188,8 +189,9 @@ function searchHosp(event) {
 				</form>
 			</div>
 			
-			<div class="search_result">
-				<div class="list">
+			<!--  병원 목록 -->
+			<div class="hosp_wrap">
+				<div class="hosp_list">
 					<c:choose>
 						<c:when test="${ empty hospList }">
 							<div>
@@ -197,57 +199,60 @@ function searchHosp(event) {
 							</div>
 						</c:when>
 						<c:otherwise>
-							<ul class="hospital">
+							<ul class="hosp">
 								<c:forEach items="${ hospList }" var="row" varStatus="loop">
-									<li>
-										<span class="img">
+									<li onclick="location.href='./hospital/viewHosp.do?api_idx=${ row.api_idx }'">
+										<!-- 병원 사진 -->
+										<div class="hosp_photo">
 											<c:if test="${ row.photo == null }">
-												<img src="/images/hospital.png" alt=""></img>
+												<!-- <img src="/images/hosp.png" alt=""> -->
 											</c:if>
 											<c:if test="${ row.photo != null }">
-												<img src="/uploads/${ row.photo }">
+												<img src="/uploads/${ row.photo }" alt="">
 											</c:if>
-										</span>
-										
-										
-										<div class="info">
-											<div class="info_top">
-												<div class="hosp_name">
-													<h3>${ row.name }</h3>
-													<!-- 입점한 병원 인증마크 표시 -->
-													<c:if test="${ row.enter == 'T' }">
-														<span class="approve"></span>
-													</c:if>
+										</div>
+										<!-- 병원 정보 -->
+										<div class="hosp_info">
+											<div class="hosp_name">
+												<p>${ row.name }</p>
+												<c:if test="${ row.enter == 'T' }">
+													<span class="hosp_mark"></span>
+												</c:if>
+											</div>
+											<div class="hosp_dept">
+												<p>${ row.department }</p>
+											</div>
+											<div class="hosp_tel">
+												<p class="sub_tit">전화</p>
+												<div class="divider"></div>
+												<p>${ row.tel }</p>
+											</div>
+											<div class="hosp_addr">
+												<p class="sub_tit">주소</p>
+												<div class="divider"></div>
+												<p>${ row.address }</p>
+											</div>
+											<!-- 찜과 리뷰 -->
+											<div class="info_right">
+												<div class="like">
+													<img src="/images/mark_full.svg" alt="">
+													<p>${ row.likecount }</p>
 												</div>
-												<div class="depdis">
-													<p>${ row.department }</p>
+												<div class="review">
+													<img src="/images/star.svg" alt="">
+													<p>${ row.score }</p>
+													<p class="count">(${ row.reviewcount })</p>
 												</div>
 											</div>
-											<div class="detail">
-												<div class="details">
-													<p class="blue">전화</p>
-													<p>${ row.tel }</p>
-												</div>
-												<div class="details">
-													<p class="blue">주소</p>
-													<p class="address">${ row.address }</p>
-												</div>
-											</div>
-											<!-- 입점한 병원 좋아요 리뷰 수 표시 -->
+											<!-- 해시태그 -->
 											<c:if test="${ row.enter == 'T' }">
-												<div class="info_right">
-													<p class="like">${ row.likecount }</p>
-													<p class="star">${ row.score } (${ row.reviewcount })</p>
-												</div>
-												
-												<!-- 해시태그 -->
 												<c:if test="${ not empty hashtagList }">
-													<div class="hashtag">
+													<div class="hosp_hashtag">
 														<ul>
 															<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
 																<c:if test="${ hashrow.hosp_ref == row.id }">
-																	<li class="hash">
-																		<p>${ hashrow.tag }</p>
+																	<li class="tag">
+																		<p># ${ hashrow.tag }
 																	</li>
 																</c:if>
 															</c:forEach>
@@ -255,13 +260,7 @@ function searchHosp(event) {
 													</div>
 												</c:if>
 											</c:if>
-											<div class="info_right">
-												<p class="like">${ row.likecount }</p>
-												<p class="star">${ row.score } (${ row.reviewcount })</p>
-											</div>
 										</div>
-										
-										<a href="./hospital/viewHosp.do?api_idx=${ row.api_idx }"><span class="blind">병원 바로가기</span></a>
 									</li>
 								</c:forEach>
 							</ul>
@@ -269,16 +268,17 @@ function searchHosp(event) {
 					</c:choose>
 				</div>
 				
-				<!-- 페이지네이션 -->
-				<div class="pagination">
-					<div class="pagination_inner">
-						${ pagingImg }
-					</div>
+				<!-- 더보기 버튼 -->
+				<div class="btn_wrap">
+					<a class="more_btn" href="">
+						<span>더보기</span>
+					</a>
 				</div>
 			</div>
+		
 		</div>
-	</div>
-</main>
-<%@include file="../common/main_footer.jsp" %>
+		
+	</main>
+	<%@include file="../common/main_footer.jsp" %>
 </body>
 </html>

@@ -207,6 +207,7 @@ function clickLike(boardIdx) {
     });
 }
 
+
 /**
  * 게시글에 신고를 표시하는 함수
  * 
@@ -264,7 +265,6 @@ function validateWriteForm(form) {
 	}
 	return true;
 }
-
 
 
 /**
