@@ -48,7 +48,7 @@
 										<!-- 의사 사진 -->
 										<div class="doc_photo">
 											<c:if test="${ row.photo == null }">
-											<!-- <img src="/images/hosp.png" alt=""> -->
+												<img src="/images/doctor.png" alt="">
 											</c:if>
 											<c:if test="${ row.photo != null }">
 												<img src="/uploads/${ row.photo }" alt="">
