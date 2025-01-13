@@ -125,7 +125,7 @@ function searchHosp(event) {
         processData: false,
         dataType: "html", // HTML로 응답 받기
         success: function(response) {
-            const listElement = document.querySelector('.search_result');
+            const listElement = document.querySelector('.hosp_list');
             listElement.innerHTML = ''; // 기존 내용 제거
             listElement.innerHTML = response; // 서버에서 받은 HTML 그대로 삽입
         },

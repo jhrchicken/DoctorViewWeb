@@ -115,7 +115,7 @@
 
 
 
-/** 병원 목록 ***/
+/** 병원 목록 **/
 #container .hosp_wrap {
 	padding-bottom: 127px;
 }
@@ -286,8 +286,7 @@
 	font-weight: 300;
 	line-height: 25px;
 	height: 25px;
-	color: #fff;
-	 
+	color: #fff; 
 }
 
 
