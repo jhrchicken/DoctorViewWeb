@@ -4,11 +4,6 @@
     min-width: 1280px;
 }
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'main' of https://github.com/jhrchicken/DoctorViewWeb.git
 /*** 서브 헤더 ***/
 #container .sub_header {
 	position: absolute;
@@ -416,7 +411,6 @@
   width: 50px;
   height: 41px;
 }
-<<<<<<< HEAD
 
 #container .comment .comm_btn button:hover {
 	background: var(--point-color1);
@@ -425,5 +419,4 @@
 #container .comment .comm_btn button:nth-child(n+2):hover {
 	background: #D50032;
 }
-=======
->>>>>>> branch 'main' of https://github.com/jhrchicken/DoctorViewWeb.git
+
