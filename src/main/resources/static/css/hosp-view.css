@@ -1,48 +1,60 @@
-#container .content {
-  padding: 170px 0;
+#container {
+	margin: 170px 0;
+    position: relative;
+    min-width: 1280px;
 }
+
+#container .content {
+	padding-top: 0;
+	position: relative;
+}
+
+/*** 병원 소개***/
 #container .content_inner {
     max-width: 1170px;
     margin: 0 auto;
     position: relative;
     padding-top: 80px;
 }
-
-
-/*** 병원 ***/
 #container .hosp_info {
-  width: calc(100% - 20px);
+/*   width: calc(100% - 20px); */
   height: 300px;
   padding: 30px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-  position: relative;
+/*   background: #fff; */
+/*   position: relative; */
   display: flex;
-  margin-bottom: 20px;
-  margin-left: 10px;
+/*   margin-bottom: 20px; */
+/*   margin-left: 10px; */
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  justify-content: space-around;
+  gap: 30px;	
 }
-/*** 병원 사진 ***/
-#container .img {
-  display: block;
-  width: 240px;
-  height: 240px;
-  border: 2px solid #ddd;
+
+#container .img_wrap {
+  width: 100%;
+  height: 100%;
+/*   height: 100%; */
 }
-/*** 병원 정보 ***/
+
+/* 병원 정보 */
 #container .info {
-  padding: 0 30px;
-  width: 80%;
+/*   margin-left:30px; */
+/*   width: 80%; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+/*   gap: 10px; */
 }
 #container .info_top>p {
   font-size: 20px;
   color: var(--gray-400);
-  font-weight: 500;
   display: block;
 }
 #container .info_top h3 {
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 500;
 }
 #container .hosp_name {
   display: flex;
@@ -50,14 +62,15 @@
 }
 #container .approve {
   display: block;
-  width: 38px;
-  height: 38px;
+  width: 35px;
+  height: 35px;
   background: url(/images/approve.svg) no-repeat 0 0 / 100%;
 }
+
 #container .detail {
-  margin-top: 20px;
-  font-size: 23px;
-  font-weight: 500;
+  margin-top: 10px;
+  font-size: 20px;
+  color: #666;
   line-height: 1.5em;
 }
 #container .details {
@@ -68,46 +81,9 @@
   display: flex;
   gap: 0 10px;
 }
-#container .blue {
-  color: var(--point-color2);
-}
-/*** 좋아요 버튼 ***/
-#container .like_wrap>button {
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  background: none;
-  padding: 5px 10px;
-  font-size: 23px;
-  font-weight: 500;
-  position: absolute;
-  right: 30px;
-  top: 30px;
-  display: flex;
-  gap: 0 10px;
-  align-items: center;
-  min-width: 80px;
-}
-/*** 예약하기, 채팅하기 버튼 ***/
-#container .btn_wrap {
-  display: flex;
-  gap: 0 20px;
-  position: absolute;
-  right: 30px;
-  bottom: 30px;
-}
-#container .btn_wrap button {
-  background: var(--point-color2);
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  width: 100px;
-  height: 40px;
-  padding: 0 10px;
-  font-size: 20px;
-}
-/*** 해시태그 ***/
+
+/* 해시태그 */
 #container .hashtag {
-  margin-top: 10px;
   width: 600px;
 }
 #container .hashtag ul {
@@ -116,7 +92,7 @@
 }
 #container .hash p {
   background: var(--point-color1);
-  border-radius: 5px;
+  border-radius: 2px;
   padding: 5px 10px;
   font-size: 18px;
   color: #fff;
@@ -125,6 +101,59 @@
   content: '#';
   margin-right: 5px;
 }
+
+#container .other_wrap {
+	height: 100%;
+	width: 100%;;
+	display: flex;
+	flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+#container .blue {
+  color: var(--point-color2);
+}
+/*** 좋아요 버튼 ***/
+#container .other_wrap .like_wrap {
+	display: flex;         
+    justify-content: flex-end;
+}
+#container .other_wrap .like_wrap>button {
+/*   border: 2px solid #ddd; */
+/*   border-radius: 10px; */
+  border: none;
+  background: none;
+/*   padding: 5px 10px; */
+  font-size: 23px;
+  font-weight: 500;
+  display: flex;
+  gap: 0 5px;
+  align-items: center;
+/*   min-width: 50px; */
+  color: #666;
+}
+/*** 예약하기, 채팅하기 버튼 ***/
+#container .other_wrap .btn_wrap {
+  display: flex;         
+  justify-content: flex-end;
+  gap: 0 10px;
+/*   position: absolute; */
+/*   right: 0px; */
+/*   bottom: 30px; */
+}
+#container .other_wrap .btn_wrap button {
+  background: var(--point-color2);
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  width: 100px;
+  height: 40px;
+  padding: 0 10px;
+  font-size: 18px;
+}
+
 /*** 뒤로가기, 수정하기, 삭제하기 버튼 ***/
 /* #container .board_btn {
   display: flex;
@@ -143,10 +172,22 @@
   padding: 0 10px;
   font-size: 20px;
 } */
-/*** 댓글 작성 버튼 ***/
+
+
+
+
+
+
+
+
+
+
+
+/*** 리뷰 영역 ***/
 #container .comment_inner {
-  max-width: 1500px;
-  margin: 100px auto 0;
+  max-width: 1170px;
+  margin: 80px auto 0;
+  position: relative;
 }
 #container .comment_btn {
   width: 100%;
@@ -157,11 +198,17 @@
   background: #bbb;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 2px;
   width: 110px;
   height: 41px;
-  padding: 0 10px;
-  margin-right: 20px;
+/*   padding: 0 10px; */
+}
+
+/*** 리뷰 ***/
+#container .review_wrapper {
+  border-radius: 2px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 /*** 의사 리스트 ***/
@@ -261,13 +308,11 @@
 	font-weight: 500;
 }
 
-/*** 리뷰 ***/
-#container .review_wrapper {
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
+
+
+
+
+
 #container .review_wrap {
   display: flex;
   border: 2px solid #bbb;

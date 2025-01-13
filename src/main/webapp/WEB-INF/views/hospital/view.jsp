@@ -221,20 +221,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <main id="container">
 	<div class="content">
+		
+		<!-- 병원 소개 -->
 		<div class="content_inner">
 
 			<div class="hosp_info">
-			<!-- 병원 사진 -->
-			<c:if test="${ hospitalDTO.photo == null }">
-				<span class="img">
-					<img src="/images/hospital.png" alt="" style="width: 100%; height: 100%;" />
-				</span>
-			</c:if>
-			<c:if test="${ hospitalDTO.photo != null }">
-				<span class="img">
-					<img src="/uploads/${ row.photo }" style="width: 100%; height: 100%;" ><br/>
-				</span>
-			</c:if>
+				<div class="img_wrap">
+					<!-- 병원 사진 -->
+					<c:if test="${ hospitalDTO.photo == null }">
+						<span class="img">
+							<img src="/images/hospital.png" alt="" style="width: 100%; height: 100%;" />
+						</span>
+					</c:if>
+					<c:if test="${ hospitalDTO.photo != null }">
+						<span class="img">
+							<img src="/uploads/${ row.photo }" style="width: 100%; height: 100%;" ><br/>
+						</span>
+					</c:if>
+				</div>
 			
 				<div class="info">
 					<div class="info_top">
@@ -316,37 +320,75 @@ document.addEventListener('DOMContentLoaded', function () {
 						</ul>
 					</div>
 					</c:if>
+					
+					
 						
-					<div class="btn_wrap">
-					<!-- 사용자가 로그인 했고 임점한 병원인 경우에만 예약 가능 -->
-					<!-- ****************** 수정 필요 ****************** -->
-					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null && sessionScope.userAuth != 'ROLE_HOSP' }">
-						<button type="button" onclick="location.href='/reserve/proceed.do?api_idx=${ param.api_idx }';">예약하기</button>
-					</c:if>
+<!-- 					<div class="btn_wrap"> -->
+<!-- 						사용자가 로그인 했고 임점한 병원인 경우에만 예약 가능 -->
+<!-- 						****************** 수정 필요 ****************** -->
+<%-- 						<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null && sessionScope.userAuth != 'ROLE_HOSP' }"> --%>
+<%-- 							<button type="button" onclick="location.href='/reserve/proceed.do?api_idx=${ param.api_idx }';">예약하기</button> --%>
+<%-- 						</c:if> --%>
+							
+<!-- 						사용자가 로그인 했고 입점한 병원인 경우에만 채팅 가능 -->
+<%-- 						<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null && sessionScope.userAuth != 'ROLE_HOSP' }"> --%>
+<%-- 						    <button onclick="openChatRoom('${ sessionScope.userName }', '${ hospitalDTO.name }');">채팅하기</button> --%>
+<%-- 						</c:if> --%>
+<!-- 					</div> -->
 						
-					<!-- 사용자가 로그인 했고 입점한 병원인 경우에만 채팅 가능 -->
-					<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null && sessionScope.userAuth != 'ROLE_HOSP' }">
-					    <button onclick="openChatRoom('${ sessionScope.userName }', '${ hospitalDTO.name }');">채팅하기</button>
-					</c:if>
-					</div>
-						
-					<div class="like_wrap">
-					<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
-					<c:if test="${ hosplikecheck == 0 }">
-						<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';">
-							<img src="/images/mark.svg" alt="" style="width: 30px; height: 30px;" />
-							${ hospitalDTO.likecount }
-						</button>
-					</c:if>
-					<!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
-					<c:if test="${ hosplikecheck == 1 }">
-						<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';">
-							<img src="/images/mark_full.svg" alt="" style="width: 30px; height: 30px;" />
-							${ hospitalDTO.likecount }
-						</button>
-					</c:if>
-					</div>
+<!-- 					<div class="like_wrap"> -->
+<!-- 						로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
+<%-- 						<c:if test="${ hosplikecheck == 0 }"> --%>
+<%-- 							<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';"> --%>
+<!-- 								<img src="/images/mark.svg" alt="" style="width: 30px; height: 30px;" /> -->
+<%-- 								${ hospitalDTO.likecount } --%>
+<!-- 							</button> -->
+<%-- 						</c:if> --%>
+<!-- 						로그인 한 사용자가 좋아요를 누른 경우 -->
+<%-- 						<c:if test="${ hosplikecheck == 1 }"> --%>
+<%-- 							<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';"> --%>
+<!-- 								<img src="/images/mark_full.svg" alt="" style="width: 30px; height: 30px;" /> -->
+<%-- 								${ hospitalDTO.likecount } --%>
+<!-- 							</button> -->
+<%-- 						</c:if> --%>
+<!-- 					</div> -->
+				
 				</div>
+				
+				<div class="other_wrap">
+					
+					<div class="like_wrap">
+						<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
+						<c:if test="${ hosplikecheck == 0 }">
+							<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';">
+								<img src="/images/mark.svg" alt="" style="width: 27px; height: 27px;" />
+								${ hospitalDTO.likecount }
+							</button>
+						</c:if>
+						<!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
+						<c:if test="${ hosplikecheck == 1 }">
+							<button type="button" onclick="location.href='../hospital/clickHospLike.do?api_idx=${ param.api_idx }';">
+								<img src="/images/mark_full.svg" alt="" style="width: 27px; height: 27px;" />
+								${ hospitalDTO.likecount }
+							</button>
+						</c:if>
+					</div>
+					
+					<div class="btn_wrap">
+						<!-- 사용자가 로그인 했고 임점한 병원인 경우에만 예약 가능 -->
+						<!-- ****************** 수정 필요 ****************** -->
+						<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null && sessionScope.userAuth != 'ROLE_HOSP' }">
+							<button type="button" onclick="location.href='/reserve/proceed.do?api_idx=${ param.api_idx }';">예약하기</button>
+						</c:if>
+							
+						<!-- 사용자가 로그인 했고 입점한 병원인 경우에만 채팅 가능 -->
+						<c:if test="${ hospitalDTO.enter == 'T' && sessionScope.userName != null && sessionScope.userAuth != 'ROLE_HOSP' }">
+						    <button onclick="openChatRoom('${ sessionScope.userName }', '${ hospitalDTO.name }');">채팅하기</button>
+						</c:if>
+					</div>
+				
+				</div>
+				
 			</div>
 			
 			<!-- 의사 정보 -->
@@ -429,6 +471,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			</div>
 		</div>
 		
+		<!-- 댓글 -->
 		<div class="comment_inner">
 			<!-- 댓글 -->
 			<form name="deleteReviewForm" method="post">
