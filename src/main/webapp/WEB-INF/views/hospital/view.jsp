@@ -225,6 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		<!-- 병원 소개 -->
 		<div class="content_inner">
 
+			<!-- 병원 정보 -->
 			<div class="hosp_info">
 				<div class="img_wrap">
 					<!-- 병원 사진 -->
@@ -388,58 +389,43 @@ document.addEventListener('DOMContentLoaded', function () {
 					</div>
 				
 				</div>
-				
 			</div>
 			
 			<!-- 의사 정보 -->
-			<div class="list">
-			    <div class="doctor">
-			        <c:choose>
-			            <c:when test="${ empty doctorList }">
-			                <div class="li none">
-			                    <p>등록된 의사가 없습니다.</p>
-			                </div>
-			            </c:when>
-			            <c:otherwise>
-			                <div class="swiper">
-			                    <div class="swiper-wrapper">
-			                        <c:forEach items="${ doctorList }" var="row" varStatus="loop">
-			                            <div class="swiper-slide li">
-			                               <a href="../doctor/viewDoctor.do?doc_idx=${ row.doc_idx }">
-				                               <div class="doc_wrap">
-				                                   <span class="doc_img">
-				                                       <c:if test="${ row.photo == null }">
-				                                           <img src="/images/doctor.png" alt="" />
-				                                       </c:if>
-				                                       <c:if test="${ row.photo != null }">
-				                                           <img src="/uploads/${ row.photo }" />
-				                                       </c:if>
-				                                   </span>
-				                                   <div class="doc_content">
-					                               	   <div class="doc_title">
-					                                       <h3>${ row.name }</h3>
-					                                       <p>${ row.major }</p>
-					                                   </div>
-					                                   <div class="doc_detail">
-					                                       <p class="blue">경력</p>
-					                                       <p>${ row.career }</p>
-					                                   </div>
-					                                   <div class="doc_detail">
-					                                       <p class="blue">진료 요일</p>
-					                                       <p>${ row.hours }</p>
-					                                   </div>
-					                               </div>
-				                               </div>
-				                               
-			                               </a>
-			                            </div>
-			                        </c:forEach>
+			<div class="doctor_info">
+			
+		        <c:forEach items="${ doctorList }" var="row" varStatus="loop">
+			    	<div class="doctor">
+			            <a href="../doctor/viewDoctor.do?doc_idx=${ row.doc_idx }">
+			                <div class="doc_wrap">
+			                    <div class="doc_img">
+			                        <c:if test="${ row.photo == null }">
+			                            <img src="/images/doctor.png" alt="" />
+			                        </c:if>
+			                        <c:if test="${ row.photo != null }">
+			                            <img src="/uploads/${ row.photo }" />
+			                        </c:if>
+			                    </div>
+			                    <div class="doc_content">
+			                        <div class="doc_title">
+			                            <h3>${ row.name }</h3>
+			                            <p>${ row.major }</p>
+			                        </div>
+			                        <div class="doc_detail">
+			                            <p class="blue">경력</p>
+			                            <p>${ row.career }</p>
+			                        </div>
+			                        <div class="doc_detail">
+			                            <p class="blue">진료 요일</p>
+			                            <p>${ row.hours }</p>
+			                        </div>
 			                    </div>
 			                </div>
-			            </c:otherwise>
-			        </c:choose>
-			    </div>
+			            </a>
+			    	</div>
+		        </c:forEach>
 			</div>
+
 			
 			<!-- 시간 정보 -->
 			<div class="time">
