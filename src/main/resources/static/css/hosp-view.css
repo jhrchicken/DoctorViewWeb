@@ -15,8 +15,8 @@
     margin: 0 auto;
     position: relative;
     padding-top: 80px;
+    border: 1px solid red;
 }
-
 /* 병원 정보 */
 #container .hosp_info {
 /*   width: calc(100% - 20px); */
@@ -107,7 +107,6 @@
 #container .blue {
   color: var(--point-color2);
 }
-/*** 좋아요 버튼 ***/
 #container .other_wrap .like_wrap {
 	display: flex;         
     justify-content: flex-end;
@@ -126,7 +125,6 @@
 /*   min-width: 50px; */
   color: #666;
 }
-/*** 예약하기, 채팅하기 버튼 ***/
 #container .other_wrap .btn_wrap {
   display: flex;         
   justify-content: flex-end;
@@ -186,6 +184,12 @@
     height: 110px;
     margin-bottom: 20px;
 }
+#container .doctor_info .doctor_none {
+	width: 100%;
+    margin-bottom: 20px;
+	text-align: center;
+	color: #666;
+}
 #container .doctor .doc_wrap {
 	height: 100%;
 	width: 100%;	
@@ -195,7 +199,6 @@
 	flex-grow:1; 
 	gap: 20px;
 }
-
 #container .doctor .doc_img {
   border: 1px solid #ddd;
   width: 110px;
@@ -216,6 +219,7 @@
 }
 #container .doctor .doc_title h3 {
   font-size: 20px;
+  font-weight: 500;
 }
 #container .doctor .doc_title p {
   font-size: 15px;
@@ -228,50 +232,62 @@
 #container .doctor .doc_detail>.blue {
   color: var(--point-color2);
 }
-
-
-
-
-
-/*** 영업시간 ***/
-#container .time .swiper {
-	height: 170px;
-	padding: 10px 12px;
+/* 영업 시간 */
+#container .time_info {
+	height: auto;
+	padding-top: 30px;   
+    padding-right: 30px; 
+    padding-bottom: 10px;
+    padding-left: 30px;  
+	display: flex;
+/* 	border-bottom: 1px solid #ddd; */
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	gap: 20px;
 }
-#container .time .li {
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-	width: calc(100% - 60px / 4);
-	padding: 20px;
-	height: 150px;
+#container .time_info .time {
+    flex: 1 1 calc(20% - 20px); 
+    max-width: calc(20% - 20px); 
+    height: 110px;
+    margin-bottom: 20px;
+	position: relative;
+}
+#container .time_info .time::after {
+    content: '';
+    width: 1px;
+    height: 100px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #ddd;
+}
+#container .time_info .time:nth-child(5n)::after {
+    content: ''; 
+    width: 0;
+}
+#container .time_info .time:last-child::after {
+    content: ''; 
+    width: 0;
 }
 #container .time .day {
 	font-size: 20px;
-	font-weight: 500;
 	margin-bottom: 10px;
+	font-weight: 500;
 }
 #container .time .time_detail {
 	display: flex;
 	gap: 0 8px;
 }
-#container .time .time_detail .blue {
-	font-weight: 500;
-}
-
-
-
-
-
-
-
 
 
 
 /*** 리뷰 영역 ***/
 #container .comment_inner {
   max-width: 1170px;
-  margin: 80px auto 0;
+  margin: 100px auto 0;
   position: relative;
+  border: 1px solid red;
 }
 #container .comment_btn {
   width: 100%;
@@ -285,7 +301,6 @@
   border-radius: 2px;
   width: 110px;
   height: 41px;
-/*   padding: 0 10px; */
 }
 
 /*** 리뷰 ***/

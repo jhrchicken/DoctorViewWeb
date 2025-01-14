@@ -393,68 +393,78 @@ document.addEventListener('DOMContentLoaded', function () {
 			
 			<!-- 의사 정보 -->
 			<div class="doctor_info">
+				
+				<c:choose> 
+					<c:when test="${ empty doctorList }">
+						<div class="doctor_none">
+							<p>의료진 정보가 존재하지 않습니다.</p>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${ doctorList }" var="row" varStatus="loop">
+					    	<div class="doctor">
+					            <a href="../doctor/viewDoctor.do?doc_idx=${ row.doc_idx }">
+					                <div class="doc_wrap">
+					                    <div class="doc_img">
+					                        <c:if test="${ row.photo == null }">
+					                            <img src="/images/doctor.png" alt="" />
+					                        </c:if>
+					                        <c:if test="${ row.photo != null }">
+					                            <img src="/uploads/${ row.photo }" />
+					                        </c:if>
+					                    </div>
+					                    <div class="doc_content">
+					                        <div class="doc_title">
+					                            <h3>${ row.name }</h3>
+					                            <p>${ row.major }</p>
+					                        </div>
+					                        <div class="doc_detail">
+					                            <p class="blue">경력</p>
+					                            <p>${ row.career }</p>
+					                        </div>
+					                        <div class="doc_detail">
+					                            <p class="blue">진료 요일</p>
+					                            <p>${ row.hours }</p>
+					                        </div>
+					                    </div>
+					                </div>
+					            </a>
+					    	</div>
+				        </c:forEach>
+					</c:otherwise>
+				</c:choose>
+				
 			
-		        <c:forEach items="${ doctorList }" var="row" varStatus="loop">
-			    	<div class="doctor">
-			            <a href="../doctor/viewDoctor.do?doc_idx=${ row.doc_idx }">
-			                <div class="doc_wrap">
-			                    <div class="doc_img">
-			                        <c:if test="${ row.photo == null }">
-			                            <img src="/images/doctor.png" alt="" />
-			                        </c:if>
-			                        <c:if test="${ row.photo != null }">
-			                            <img src="/uploads/${ row.photo }" />
-			                        </c:if>
-			                    </div>
-			                    <div class="doc_content">
-			                        <div class="doc_title">
-			                            <h3>${ row.name }</h3>
-			                            <p>${ row.major }</p>
-			                        </div>
-			                        <div class="doc_detail">
-			                            <p class="blue">경력</p>
-			                            <p>${ row.career }</p>
-			                        </div>
-			                        <div class="doc_detail">
-			                            <p class="blue">진료 요일</p>
-			                            <p>${ row.hours }</p>
-			                        </div>
-			                    </div>
-			                </div>
-			            </a>
-			    	</div>
-		        </c:forEach>
+		        
 			</div>
 
-			
 			<!-- 시간 정보 -->
-			<div class="time">
-				<div class="swiper">
-					<div class="swiper-wrapper">
-						<c:forEach items="${ hourList }" var="row" varStatus="loop">
-								<c:if test="${ row.starttime != '00:00' }">
-									<div class="swiper-slide li">
-										<p class="day">${ row.week }</p>
-										<div class="time_detail">
-											<p class="blue">영업시간</p>
-											<p>${ row.starttime }-${ row.endtime }</p>
-										</div>
-										<c:if test="${ row.startbreak != '00:00' }">
-											<div class="time_detail">
-												<p class="blue">휴게시간</p>
-												<p>${ row.startbreak }-${ row.endbreak }</p>
-											</div>
-										</c:if>
-										<div class="time_detail">
-											<p class="blue">접수마감</p>
-											<p>${ row.deadline }</p>
-										</div>
+			<div class="time_info">
+			
+				<c:forEach items="${ hourList }" var="row" varStatus="loop"> 
+						<c:if test="${ row.starttime != '00:00' }">
+							<div class="time">
+								<p class="day">${ row.week }</p>
+								<div class="time_detail">
+									<p class="blue">영업시간</p>
+									<p>${ row.starttime }-${ row.endtime }</p>
+								</div>
+								<c:if test="${ row.startbreak != '00:00' }">
+									<div class="time_detail">
+										<p class="blue">휴게시간</p>
+										<p>${ row.startbreak }-${ row.endbreak }</p>
 									</div>
 								</c:if>
-						</c:forEach>	
-					</div>
-				</div>
+								<div class="time_detail">
+									<p class="blue">접수마감</p>
+									<p>${ row.deadline }</p>
+								</div>
+							</div>
+						</c:if>
+				</c:forEach>	
+		        
 			</div>
+			
 		</div>
 		
 		<!-- 댓글 -->
