@@ -496,7 +496,20 @@ document.addEventListener('DOMContentLoaded', function () {
 						<c:if test="${ row.original_idx == row.review_idx }">
 							<div class="review_wrapper">
 								<div class="review_wrap">
-									<img src="/images/hospital.png" alt="" />		
+									<div class="comment_etc">
+										<img src="/images/hospital.png" alt="" />	
+										<c:if test="${ row.writer_ref.equals(sessionScope.userId) }"> 
+											<div class="manage">
+												<button type="button" data-bs-toggle="modal" data-bs-target="#editReviewModal"
+													    onclick="openReviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', '${ row.cost }', '${ row.treat }', '${ row.doctor }')">
+													    수정하기
+												</button>
+												<button type="button" onclick="deleteReview(${ row.api_ref }, ${ row.review_idx });">
+													삭제하기
+												</button>
+											</div>
+										</c:if>	
+									</div>
 									<div class="review">
 										<div class="review_score">
 											<div class="star">
@@ -577,17 +590,17 @@ document.addEventListener('DOMContentLoaded', function () {
 										</div>
 									</div>
 									<!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->
-						            <c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
-										<div class="manage">
-											<button type="button" data-bs-toggle="modal" data-bs-target="#editReviewModal"
-												    onclick="openReviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', '${ row.cost }', '${ row.treat }', '${ row.doctor }')">
-												    수정하기
-											</button>
-											<button type="button" onclick="deleteReview(${ row.api_ref }, ${ row.review_idx });">
-												삭제하기
-											</button>
-										</div>
-									</c:if>
+<%-- 						            <c:if test="${ row.writer_ref.equals(sessionScope.userId) }"> --%>
+<!-- 										<div class="manage"> -->
+<!-- 											<button type="button" data-bs-toggle="modal" data-bs-target="#editReviewModal" -->
+<%-- 												    onclick="openReviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', '${ row.cost }', '${ row.treat }', '${ row.doctor }')"> --%>
+<!-- 												    수정하기 -->
+<!-- 											</button> -->
+<%-- 											<button type="button" onclick="deleteReview(${ row.api_ref }, ${ row.review_idx });"> --%>
+<!-- 												삭제하기 -->
+<!-- 											</button> -->
+<!-- 										</div> -->
+<%-- 									</c:if> --%>
 								</div>
 								
 								<!-- 리뷰에 대한 답변 출력 -->
