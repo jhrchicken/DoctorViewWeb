@@ -18,32 +18,24 @@
 }
 /* 병원 정보 */
 #container .hosp_info {
-/*   width: calc(100% - 20px); */
   height: 300px;
   padding: 30px;
-/*   background: #fff; */
-/*   position: relative; */
   display: flex;
-/*   margin-bottom: 20px; */
-/*   margin-left: 10px; */
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
-  justify-content: space-around;
   gap: 30px;	
 }
 #container .img_wrap {
   width: 100%;
   height: 100%;
-/*   height: 100%; */
 }
 #container .info {
-/*   margin-left:30px; */
-/*   width: 80%; */
   height: 100%;
+  min-width: 600px;
+  width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-/*   gap: 10px; */
 }
 #container .info_top>p {
   font-size: 20px;
@@ -98,7 +90,8 @@
 }
 #container .other_wrap {
 	height: 100%;
-	width: 100%;;
+	width: 220px;
+    min-width: 220px;
 	display: flex;
 	flex-direction: column;
     justify-content: space-between;
@@ -109,26 +102,19 @@
     justify-content: flex-end;
 }
 #container .other_wrap .like_wrap>button {
-/*   border: 2px solid #ddd; */
-/*   border-radius: 10px; */
   border: none;
   background: none;
-/*   padding: 5px 10px; */
   font-size: 23px;
   font-weight: 500;
   display: flex;
   gap: 0 5px;
   align-items: center;
-/*   min-width: 50px; */
   color: #666;
 }
 #container .other_wrap .btn_wrap {
   display: flex;         
   justify-content: flex-end;
   gap: 0 10px;
-/*   position: absolute; */
-/*   right: 0px; */
-/*   bottom: 30px; */
 }
 #container .other_wrap .btn_wrap button {
   background: var(--point-color2);
@@ -191,7 +177,6 @@
 	height: 100%;
 	width: 100%;	
 	display: flex;
-/* 	justify-content: space-between; */
 	align-items: flex-start;
 	flex-grow:1; 
 	gap: 20px;
@@ -240,7 +225,6 @@
     padding-bottom: 10px;
     padding-left: 30px;  
 	display: flex;
-/* 	border-bottom: 1px solid #ddd; */
 	flex-wrap: wrap;
 	justify-content: flex-start;
 	gap: 20px;
@@ -289,13 +273,11 @@
   max-width: 1170px;
   margin: 100px auto 0;
   position: relative;
-/*   border: 1px solid red; */
 }
 #container .comment_btn {
   width: 100%;
   margin-bottom: 10px;
   display: flex;
-/*   border: 1px solid red; */
 }
 #container .comment_btn button {
   background: #bbb;
@@ -306,9 +288,8 @@
   height: 41px;
 }
 
-/*** 리뷰 ***/
+/* 리뷰 */
 #container .review_wrapper {
-/*   padding: 20px; */
   border-top: 1px solid #ddd;
 }
 #container .review_wrap {
@@ -318,21 +299,40 @@
   width: 100%;
   position: relative;
 }
-#container .review_wrap img {
-  width: 160px;
-  height: 160px;
+
+#container .comment_etc {
+	width: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 10px;
 }
+#container .comment_etc img {
+  width: 100%;
+  flex-grow: 1;
+  object-fit: cover;
+}
+/* 수정, 삭제 버튼 */
+#container .manage {
+	display: flex;
+	justify-content: space-between;
+}
+#container .manage button {
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  background: none;
+  padding: 5px 10px;
+  color: #bbb;
+}
+
 #container .review {
   margin-left: 20px;
   width: 100%;
   height: 210px;
-  border: 1px solid red;
 }
-/*** 별점, 이름, 날짜, 수정여부 ***/
 #container .review_score {
   display: flex;
   gap:8px;
-/*   border: 1px solid yellow; */
 }
 #contaienr .review_score .star {
   display: flex;
@@ -343,11 +343,9 @@
   margin-top: 2px;
 }
 #container .review_score>p {
-/*   font-weight: 500; */
   font-size: 15px;
   margin: 0;
   line-height: 26px;
-/*   border: 1px solid yellow; */
 }
 #container .review_title {
   display: flex;
@@ -360,7 +358,6 @@
 #container .review_title .edit {
   color: var(--gray-400);
 }
-/*** 리뷰 해시태그, 추가정보 ***/
 #container .extra_wrap {
 	display: flex;
 	gap: 0 5px;
@@ -394,18 +391,21 @@
 	border: 1px solid #ddd;
 	border-radius: 2px;
 }
-/*** 댓글 내용 ***/
 #container .review_content {
   border: 1px solid #ddd;
   border-radius: 2px;
   padding: 10px;
-  margin-top: 8px;
+  margin-top: 18px;
   color: var(--gray-500);
   min-height: 100px;
 }
 #container .review_content p{
 	font-size: 15px;
 }
+
+
+
+
 /*** 좋아요, 답글 달기 ***/
 #container .review_other {
   display: flex;
@@ -427,20 +427,7 @@
   background: #bbb;
   color: #fff;
 }
-/*** 수정, 삭제 버튼 ***/
-#container .manage {
-  position: absolute;
-  left: 30px;
-  bottom: 30px;
-}
-#container .manage button {
-  border: 1px solid #bbb;
-  border-radius: 2px;
-  background: none;
-  padding: 5px 10px;
-  color: #bbb;
-  
-}
+
 /*** 리뷰 답글 ***/
 #container .recomm {
   display: flex;
