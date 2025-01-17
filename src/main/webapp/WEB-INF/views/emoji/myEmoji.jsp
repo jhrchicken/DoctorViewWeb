@@ -15,7 +15,7 @@
 		<div class="content">
 			<div class="content_inner">
 				<h2>MY EMOJI</h2>
-
+				
 				<div class="emoji_list">
 					<ul>
 						<!-- 프로필 -->

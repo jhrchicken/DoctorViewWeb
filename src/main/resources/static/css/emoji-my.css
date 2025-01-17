@@ -89,6 +89,11 @@
 	height: 36px;
 }
 
+#container .emoji_list .store_btn:hover span {
+	color: #009223;
+	font-weight: 500;
+}
+
 
 
 
@@ -114,19 +119,6 @@
     text-align: center;
     position: relative;
     margin: 30px 0 0 30px;
-}
-
-#container .emoji_list li:after {
-    content: '';
-    background-color: var(--point-color2);
-    position: absolute;
-    left: 0;
-    width: 100%;
-    top: 0;
-    height: 100%;
-    z-index: 9;
-    opacity: 0;
-    z-index: 3;
 }
 
 #container .emoji_list li .label {
