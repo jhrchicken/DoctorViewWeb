@@ -15,12 +15,25 @@
 		<div class="content">
 			<div class="content_inner">
 				<h2>MY EMOJI</h2>
-				
+
 				<div class="emoji_list">
 					<ul>
+						<!-- 프로필 -->
+						<li>
+							<div class="member_info">
+								<dl>
+									<dt>${ sessionScope.loginMember.name }님</dt>
+									<dd><strong>${ sessionScope.loginMember.point }P</strong></dd>
+								</dl>
+								<a class="store_btn" href="/store.do">
+									<span>상점으로 가기</span>
+								</a>
+							</div>
+						</li>
+						<!-- 이모지 목록 -->
 						<c:forEach items="${ emojiList }" var="row" varStatus="loop">
 							<li>
-								<form action="/emoji/editEmoji.do" method="post">				
+								<form action="/emoji/editEmoji.do" method="post">
 									<div class="emoji">
 										<p>${ row.emoji }</p>
 										<input type="hidden" name="emoji" value="${ row.emoji }">
