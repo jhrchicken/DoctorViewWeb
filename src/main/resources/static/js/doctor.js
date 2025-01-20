@@ -5,7 +5,7 @@
  * count: 전체 데이터 개수
  */
 var offset = 0;
-var limit = 5;
+var limit = 10;
 var count = 0;
 
 
@@ -28,9 +28,6 @@ $(document).ready(function() {
  * 
  */
 function loadDoctorListContent() {
-	
-	console.log('AJAX 호출 시작');
-	console.log('현재 offset:', offset, 'limit:', limit);
 		
 	$.ajax({
 		url: './doctor/doctorListContent.do',
