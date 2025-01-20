@@ -92,14 +92,13 @@ $(document).ready(function () {
     loadHospListContent();
 	
     // 더보기 버튼 클릭 시 추가 데이터 로드
-    $('.btn_more').click(function (event) {
+    $('.more_btn').click(function (event) {
         event.preventDefault();
         loadHospListContent();
     });
 
 	// 지역 선택 시 데이터 로드
 	    $('#dong').change(function () {
-			console.log("지역 변경");
 			// 초기화
 	        offset = 0;
 	        filters = '';
@@ -116,7 +115,6 @@ $(document).ready(function () {
 
 	    // 검색 폼 제출 시 데이터 로드
 	    $('.search_form').submit(function (event) {
-			console.log("검색 변경");
 	        event.preventDefault();
 			
 			// 초기화
@@ -137,17 +135,6 @@ $(document).ready(function () {
 	        // 검색 조건으로 병원 리스트 로드
 	        loadHospListContent();
 	    });
-
-		// 필터 변경 시 병원 리스트를 업데이트
-		$('#filter-button').click(function () {
-			
-			// 필터 데이터 가져오기
-			filters = $('#filters').val();
-			console.log(filters);
-			
-			// 필터 조건으로 병원 리스트 로드
-			loadHospListContent();
-		});
 });
 
 

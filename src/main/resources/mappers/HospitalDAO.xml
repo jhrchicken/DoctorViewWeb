@@ -176,7 +176,7 @@
 	            ORDER BY api_idx DESC
 	        ) Tb
 	    )
-	   	WHERE rNum <![CDATA[>=]]> #{param7} AND rNum <![CDATA[<=]]> #{param8}
+	   	WHERE rNum between #{param7} + 1 and #{param7} + #{param8}
 	</select>
 	
 	
