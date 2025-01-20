@@ -11,6 +11,55 @@ function openChatRoom(userId, hospId) {
 
 
 /**
+ * 리뷰를 수정하기 위한 모달창을 여는 함수
+ * 
+ * @param {Integer} api_ref - 병원 일련번호
+ * @param {Integer} review_idx - 리뷰 일련번호
+ * @param {Integer} score - 별점
+ * @param {Integer} content - 리뷰 내용
+ * @param {Integer} cost - 비용
+ * @param {Integer} treat - 치료 내용
+ * @param {Integer} doctor - 담당의
+ */
+function openReviewEditModal(api_ref, review_idx, score, content, cost, treat, doctor) {
+    document.getElementById("review_edit_api_ref").value = api_ref;
+    document.getElementById("review_edit_score").value = score;
+    document.getElementById("review_edit_content").value = content;
+    document.getElementById("review_edit_cost").value = cost;
+    document.getElementById("review_edit_treat").value = treat;
+    document.getElementById("review_edit_doctor").value = doctor;
+    document.getElementById("review_edit_review_idx").value = review_idx;
+    // 별점 이미지 업데이트
+    document.querySelectorAll('.star').forEach(function(star) {
+        if (star.getAttribute('data-value') <= score) {
+            star.src = '/images/star.svg';
+        } else {
+            star.src = '/images/star_empty.svg';
+        }
+    });
+}
+
+
+/**
+ * 리뷰를 삭제하기 위한 함수
+ * 
+ * @param {Integer} - 병원 일련번호
+ * @param {Integer} - 리뷰 일련번호
+ */
+function deleteReview(api_ref, review_idx) {
+	if (confirm("댓글을 삭제하시겠습니까?")) {
+		var form = document.deleteReviewForm;
+		// hidden 필드에 값을 동적으로 설정
+        form.api_ref.value = api_ref;
+        form.review_idx.value = review_idx;
+		form.method = "post";
+		form.action = "/hospital/deleteReview.do";
+		form.submit();
+	}
+}
+
+
+/**
  * 답변을 작성하기 위한 모달창을 여는 함수
  * 
  * @param {Integer} api_ref - 병원 일련변호
