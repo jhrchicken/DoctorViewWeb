@@ -23,7 +23,7 @@
 				<form class="search_form" name="searchForm">
 					<div class="search_keyword">
 						<select class="search_field" name="searchField">
-							<option value="name">--- 조건 선택 ---</option>
+							<option value="name">-- 조건 선택 --</option>
 							<option value="name">이름</option>
 							<option value="major">전공</option>
 						</select>

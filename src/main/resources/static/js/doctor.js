@@ -28,7 +28,6 @@ $(document).ready(function() {
  * 
  */
 function loadDoctorListContent() {
-		
 	$.ajax({
 		url: './doctor/doctorListContent.do',
 		type: 'GET',
@@ -44,15 +43,15 @@ function loadDoctorListContent() {
 			offset += limit;
 			
 			if (offset >= count) {
-				$('.btn_more').hide();
+				$('.more_btn').hide();
 			}
 			else {
-				$('.btn_more').show();
+				$('.more_btn').show();
 			}
 		},
 		error: function(error) {
             console.error(error);
-            $('.btn_more').hide();
+            $('.more_btn').hide();
         }
 	})
 }

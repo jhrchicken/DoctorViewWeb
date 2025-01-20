@@ -7,11 +7,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>닥터뷰</title>
-		
 	</head>
 	
 	<body>
-		<input type="hidden" id="totalCount" value="${totalCount}">
+		<input type="hidden" id="count" value="${ count }">
 		<!-- 의사 목록 -->
 		<div class="doc_wrap">
 			<div class="doc_list">
