@@ -176,3 +176,75 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+
+
+
+
+
+// 리뷰 작성 모달창 열기 - 의사
+function openReviewWriteModal(doc_idx) {
+   document.getElementById("review_write_doc_ref").value = doc_idx;
+   document.getElementById("review_write_score").value = 1;
+   // 별점 UI 업데이트 (1점을 선택된 상태로 설정)
+    document.querySelectorAll('.star').forEach(function(star) {
+        if (star.getAttribute('data-value') <= 1) {
+            star.src = '/images/star.svg';
+        } else {
+            star.src = '/images/star_empty.svg';
+        }
+    });
+}
+
+// 리뷰 작성 해시태그 - 의사
+document.addEventListener('DOMContentLoaded', function () {
+    const hashtagButtons = document.querySelectorAll('#hashtag-list button');
+    const hashtagsHiddenInput = document.getElementById('review_write_hashtags');
+    let selectedHashtags = [];
+    // 해시태그 버튼 클릭 시 처리
+    hashtagButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const tag = button.textContent.trim();
+            // 이미 선택된 해시태그인 경우 색상 원래대로 되돌리기
+            if (selectedHashtags.includes(tag)) {
+                selectedHashtags = selectedHashtags.filter(h => h !== tag);
+                button.style.backgroundColor = ''; // 원래 색상으로 변경
+                button.style.color = ''; // 원래 텍스트 색상으로 변경
+            } else {
+                // 선택되지 않은 해시태그인 경우 추가
+                selectedHashtags.push(tag);
+                button.style.backgroundColor = '#005ad5'; // 선택된 색상으로 변경
+                button.style.color = '#fff'; // 텍스트 색상 변경
+            }
+            // 히든 필드에 선택된 해시태그 값을 저장
+            updateHiddenInput();
+        });
+    });
+    // 히든 필드에 선택된 해시태그 값을 저장
+    function updateHiddenInput() {
+        hashtagsHiddenInput.value = selectedHashtags.join(',');
+    }
+});
+
+
+
+
+// 리뷰 작성 별점
+document.addEventListener('DOMContentLoaded', function () {
+    const stars = document.querySelectorAll('#star-rating .star');
+    const scoreInput = document.getElementById('review_write_score');
+    stars.forEach(star => {
+        star.addEventListener('click', function () {
+            const rating = this.getAttribute('data-value');
+            scoreInput.value = rating; // 히든 필드에 점수 저장
+            // 선택된 별의 색상 변경
+            stars.forEach(s => {
+                if (s.getAttribute('data-value') <= rating) {
+                    s.src = '/images/star.svg'; // 선택된 별의 색상
+                } else {
+                    s.src = '/images/star_empty.svg'; // 선택되지 않은 별의 색상
+                }
+            });
+        });
+    });
+});

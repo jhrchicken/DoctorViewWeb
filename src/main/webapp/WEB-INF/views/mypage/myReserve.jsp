@@ -60,8 +60,12 @@
 														<a class="review_btn" href="javascript:void(0);"><span>리뷰 작성</span></a>
 														<button type="button" data-bs-toggle="modal" data-bs-target="#writeReviewModal"
 												  			onclick="openReviewWriteModal(${ row.api_idx })">
-											                리뷰 작성하기
+											                병원 리뷰
 											            </button>
+														<button type="button" data-bs-toggle="modal" data-bs-target="#writeReviewModal"
+										                    onclick="openReviewWriteModal(${ param.doc_idx })">
+										                    의사 리뷰
+										                </button>
 													</c:if>
 													<c:if test="${ row.cancel eq 'T' }">
 														<a class="cancel_btn" href="javascript:void(0);"><span>취소된 예약</span></a>
@@ -383,7 +387,7 @@
 		</form>
 		
 		  
-		<!-- == 리뷰 작성 모달창 == -->
+		<!-- == 병원 리뷰 작성 모달창 == -->
 		<form method="post" action="../hospital/writeReview.do" onsubmit="return validateReviewForm(this);">
 		    <input type="hidden" id="review_write_api_idx" name="api_ref" value="" />
 		    <input type="hidden" id="review_write_hashtags" name="hashtags" />
@@ -435,6 +439,56 @@
 		            </div>
 		        </div>
 		    </div>
+		</form>
+		
+		<!-- == 의사 리뷰 작성 모달창 == -->
+		<form method="post" action="../doctor/writeReview.do" onsubmit="return validateReviewForm(this);">
+		   <input type="hidden" id="review_write_doc_ref" name="doc_ref" value="" />
+		   <input type="hidden" name="hashtags" id="review_write_hashtags" />
+		    <input type="hidden" id="review_write_score" name="score" value="" />
+		   <div class="modal" id="writeReviewModal" >
+		      <div class="modal-dialog">
+		         <div class="modal-content">
+		            <!-- Modal Header -->
+		            <div class="modal-header">
+		               <h4 class="modal-title">리뷰 작성</h4>
+		               <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		            </div>
+		            <!-- Modal Body -->
+		            <div class="modal-body">
+		               <!-- 해시태그 선택 -->
+		                    <div class="form-group">
+		                        <label>해시태그 선택:</label>
+		                        <div id="hashtag-list">
+		                            <!-- 해시태그 목록 -->
+		                            <button type="button" class="btn btn-secondary">친절해요</button>
+		                            <button type="button" class="btn btn-secondary">전문적이예요</button>
+		                            <button type="button" class="btn btn-secondary">청결해요</button>
+		                            <button type="button" class="btn btn-secondary">신속해요</button>
+		                        </div>
+		                    </div>
+		                    <!-- 별 점수 선택 -->
+		                    <div class="form-group">
+		                        <label>점수 선택:</label>
+		                        <div id="star-rating" style="cursor: pointer;">
+		                            <!-- 별 아이콘 -->
+		                            <img src="/images/star_empty.svg" class="star" data-value="1" />
+		                            <img src="/images/star_empty.svg" class="star" data-value="2" />
+		                            <img src="/images/star_empty.svg" class="star" data-value="3" />
+		                            <img src="/images/star_empty.svg" class="star" data-value="4" />
+		                            <img src="/images/star_empty.svg" class="star" data-value="5" />
+		                        </div>
+		                    </div>
+		               <textarea class="form-control" name="content" style="height: 100px;" placeholder="내용을 입력해주세요 (필수입력)"></textarea>
+		            </div>
+		            <!-- Modal Footer -->
+		            <div class="modal-footer">
+		               <button type="submit" class="btn btn-primary">작성하기</button>
+		               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+		            </div>
+		         </div>
+		      </div>
+		   </div>
 		</form>
 	</body>
 </html>
