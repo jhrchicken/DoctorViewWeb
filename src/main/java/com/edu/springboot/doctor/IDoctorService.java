@@ -17,6 +17,9 @@ public interface IDoctorService {
 	public int countDoctor(ParameterDTO parameterDTO);
 	// 한 페이지에 출력할 의사 인출
 	public ArrayList<DoctorDTO> listDoctor(ParameterDTO parameterDTO);
+	// 의사 목록 조회
+	public ArrayList<DoctorDTO> listDoctorContent(Map<String, Object> param);
+	
 	// 의사 조회
 	public DoctorDTO viewDoctor(DoctorDTO doctorDTO);
 	// 의사 등록

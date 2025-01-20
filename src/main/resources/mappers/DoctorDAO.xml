@@ -31,6 +31,22 @@
 		)
 		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}
 	</select>
+	
+	<!-- 의사: 의사 목록 내용 조회 -->
+	<select id="listDoctorContent"
+		parameterType="map"
+		resultType="com.edu.springboot.doctor.DoctorDTO">
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM doctor
+				<if test="searchWord!=null and !searchWord.equals('')">
+					WHERE ${searchField} LIKE '%'||#{searchWord}||'%'
+				</if>
+				ORDER BY doc_idx DESC
+			) Tb
+		)
+		WHERE rNum between #{offset} + 1 and #{offset} + #{limit}
+	</select>
    
 	<!-- 의사: 의사 조회 -->
 	<select id="viewDoctor"

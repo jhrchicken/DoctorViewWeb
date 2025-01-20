@@ -17,6 +17,7 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.edu.springboot.board.BoardDTO;
 import com.edu.springboot.board.ParameterDTO;
@@ -49,26 +50,30 @@ public class DoctorController {
 	// == 의사 목록 ==
 	@GetMapping("/doctor.do")
 	public String doctor(Model model, HttpServletRequest req, ParameterDTO parameterDTO) {
+		return "doctor/list";
+	}
+	
+	
+	// == 의사 목록 내용 조회 ==
+	@GetMapping("/doctor/doctorListContent.do")
+	public String doctorListContentGet(Model model, HttpServletRequest req, ParameterDTO parameterDTO) {
+		
+		String searchField = req.getParameter("searchField");
+		String searchWord = req.getParameter("searchWord");
+		int offset = Integer.parseInt(req.getParameter("offset"));
+		int limit = Integer.parseInt(req.getParameter("limit"));
+		int count = 0;
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("offset", offset);
+		param.put("limit", limit);
+		param.put("searchField", searchField);
+		param.put("searchWord", searchWord);
 
-		// 의사의 개수를 통해 페이징 기능 구현
-		int total = doctorDAO.countDoctor(parameterDTO);
-		int pageNum = (req.getParameter("pageNum") == null || req.getParameter("pageNum").equals(""))
-				? 1 : Integer.parseInt(req.getParameter("pageNum"));
-		int start = (pageNum - 1) * postsPerPage + 1;
-		int end = pageNum * postsPerPage;
-		parameterDTO.setStart(start);
-		parameterDTO.setEnd(end);
-		Map<String, Object> maps = new HashMap<String, Object>();
-		maps.put("total", total);
-		maps.put("postsPerPage", postsPerPage);
-		maps.put("pageNum", pageNum);
-		model.addAttribute("maps", maps);
-		String pagingImg = PagingUtil.pagingImg(total, postsPerPage, pagesPerBlock, pageNum, req.getContextPath()+"/doctor.do?");
-		model.addAttribute("pagingImg", pagingImg);
-      
 		// 의사의 목록
-		ArrayList<DoctorDTO> doctorsList = doctorDAO.listDoctor(parameterDTO);
-		for (DoctorDTO doctor : doctorsList) {
+		ArrayList<DoctorDTO> doctorList = doctorDAO.listDoctorContent(param);
+		count = doctorDAO.countDoctor(parameterDTO);
+		for (DoctorDTO doctor : doctorList) {
 			String hospname = doctorDAO.selectHospName(doctor);
 			int doclikecount = doctorDAO.countDocLike(Integer.toString(doctor.getDoc_idx()));
 			int reviewcount = doctorDAO.countReview(Integer.toString(doctor.getDoc_idx()));
@@ -83,9 +88,14 @@ public class DoctorController {
 				doctor.setScore(0);
 			}
 		}
-		model.addAttribute("doctorsList", doctorsList);
-	      
-		return "doctor/list";
+		model.addAttribute("doctorList", doctorList);
+		model.addAttribute("count", count);
+		
+		if (doctorList.isEmpty()) {
+			return "";
+		}
+		
+		return "doctor/listContent";
 	}
 	
 	

@@ -78,10 +78,6 @@
 
 
 /** 의사 목록 **/
-#container .doc_wrap {
-	padding-bottom: 127px;
-}
-
 #container .doc_wrap .doc_list {
 	max-width: 1170px;
 	margin: 0 auto;
@@ -238,7 +234,7 @@
 /** 더보기 버튼 **/
 #container .btn_wrap {
 	text-align: center;
-	margin-top: 50px;
+	margin: 50px 0 127px 0;
 }
 
 #container .more_btn {

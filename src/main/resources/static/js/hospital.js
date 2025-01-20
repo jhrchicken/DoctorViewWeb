@@ -130,3 +130,147 @@ function searchHosp(event) {
         }
     });
 }
+
+
+
+/**
+ * 변수 선언
+ * offset: 현재 데이터 시작 위치
+ * limit: 한 번에 가져올 데이터 개수
+ * totalCount: 전체 데이터 개수
+ */
+var offset = 0;
+var limit = 10;
+var totalCount = 0;
+
+
+/**
+ * 
+ */
+$(document).ready(function() {
+	// 초기 페이지 로딩 시 hospListContent를 가져오기 위한 AJAX 호출
+	loadHospListContent();
+	
+	// 지역을 변경할 때마다 hospListContent를 업데이트하기 위한 이벤트 핸들러 등록
+	$('#dong').change(function() {
+		offset = 0;
+		loadHospListContent();
+	});
+	
+	//
+	
+	
+	// 더보기 버튼 클릭 시 추가 제품 로드
+	$('.btn_more').click(function() {
+		loadProductListContent();
+	});
+})
+
+
+/**
+ * 
+ */
+function loadHospListContent() {
+	
+	
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath}/hospital.do',
+		type: 'GET',
+		data: {
+			
+			
+			offset: offset,
+			limit: limit
+		},
+		success: function(response) {
+			$('#hospListContent').append(response);
+			
+			// 서버에서 totalCount 값을 가져와서 설정
+			totalCount = parseInt($('totalCount').val());
+			offset += limit;
+			
+			if (offset >= totalCount) {
+				$('.btn_wrap').hide();
+			}
+			else {
+				$('.btn_wrap').show();
+			}
+		},
+		error: function() {
+			$('.btn_wrap').hide();
+		}
+	});
+}
+
+/*
+function loadProductListContent() {
+  var typeMenuValue = $('.type_menu a.active').data('value');
+  var listArrayValue = $('#list_array').val();
+  var codeValue = '${code}'; // JSP에서 code 값을 JavaScript 변수로 설정
+  var categoryValue = '${param.category}'; // JSP에서 category 값을 JavaScript 변수로 설정
+  $.ajax({
+    url: '${pageContext.request.contextPath}/productListContent.do',
+    type: 'GET',
+    data: {
+      typeMenu: typeMenuValue,
+      list_array: listArrayValue, // AJAX 요청에 list_array 값을 포함
+      code: codeValue, // AJAX 요청에 code 값을 포함
+      category: categoryValue, // AJAX 요청에 category 값을 포함
+      offset: offset,
+      limit: limit
+    },
+    success: function (response) {
+      $('#productListContent').append(response);
+
+      // 서버에서 totalCount 값을 가져와서 설정
+      totalCount = parseInt($('#totalCount').val());
+      console.log(offset, totalCount);
+      offset += limit;
+
+      if (offset >= totalCount) {
+        $('.btn_more').hide();
+      } else {
+        $('.btn_more').show();
+      }
+    },
+    error: function (xhr, status, error) {
+      $('.btn_more').hide(); // 에러 발생 시 버튼 숨기기
+      console.log(error);
+    }
+  });
+}
+*/
+
+
+
+
+
+
+/*
+             var offset = 0;
+             var limit = 20;
+             var totalCount = 0;
+
+             $(document).ready(function () {
+               // 초기 페이지 로딩 시 productListContent를 가져오기 위한 ajax 호출
+               loadProductListContent();
+
+               // type_menu나 list_array를 변경할 때마다 productListContent를 업데이트하기 위한 이벤트 핸들러 등록
+               $('.type_menu a').click(function () {
+                 offset = 0;
+                 loadProductListContent();
+               });
+
+               $('#list_array').change(function () {
+                 $('#productListContent').empty();
+                 offset = 0;
+                 loadProductListContent();
+               });
+
+               // more 버튼 클릭 시 추가 제품 로드
+               $('.btn_more').click(function () {
+                 loadProductListContent();
+               });
+             });
+*/
