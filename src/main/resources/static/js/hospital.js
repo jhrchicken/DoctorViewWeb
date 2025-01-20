@@ -131,7 +131,7 @@ $(document).ready(function () {
 	            alert('검색어를 입력해주세요.');
 	            return;
 	        }
-
+			
 	        // 검색 조건으로 병원 리스트 로드
 	        loadHospListContent();
 	    });
@@ -148,6 +148,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 버튼 클릭 시 처리
     filterButton.forEach(button => {
         button.addEventListener('click', function() {
+			
+			// 초기화
+			offset = 0;
+			$('#hospListContent').empty();
 
 			// 선택한 필터의 값
             const value = button.getAttribute('data-filter');
@@ -170,6 +174,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // 필터 값을 숨겨진 input에 저장
             // filterInput.value = selectFilter.join(',');
 			filters = selectFilter.join(',');
+			
+			// 필터 조건으로 병원 리스트 로드
+			loadHospListContent();
         });
     });
 });
@@ -184,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
  * @param {string} searchWord - 검색어
  */
 function loadHospListContent() {
+	
     $.ajax({
         url: './hospital/hospListContent.do',
         type: 'GET',
@@ -202,11 +210,11 @@ function loadHospListContent() {
             $('#hospListContent').append(response);
 
             // 서버에서 총 데이터의 개수를 가져와서 설정
-            totalCount = parseInt($('#count').val());
-            offset += limit;
+            count = parseInt($('#count').val());
+	        offset += limit;
 
             // 불러올 데이터가 없으면 더보기 버튼 숨김
-            if (offset >= totalCount) {
+            if (offset >= count) {
                 $('.more_btn').hide();
             } else {
                 $('.more_btn').show();

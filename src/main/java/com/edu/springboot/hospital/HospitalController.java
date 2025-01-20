@@ -57,16 +57,6 @@ public class HospitalController {
 		int limit = Integer.parseInt(req.getParameter("limit"));
 		int count = 0;
 		
-//		Map<String, Object> param = new HashMap<>();
-//		param.put("searchSido", searchSido);
-//		param.put("searchGugun", searchGugun);
-//		param.put("searchDong", searchDong);
-//		param.put("searchField", searchField);
-//		param.put("searchWord", searchWord);
-//		param.put("filters", filters);
-//		param.put("offset", offset);
-//		param.put("limit", limit);
-		
 		List<String> filterList = filters != null ? Arrays.asList(filters.split(",")) : new ArrayList<>();
 		// 병원 API 레코드 개수
 		parameterDTO.setSearchSido(searchSido);
@@ -77,14 +67,12 @@ public class HospitalController {
 		parameterDTO.setFilters(filterList);
 		parameterDTO.setOffset(offset);
 		parameterDTO.setLimit(limit);
-		
+
 		count = hospitalDAO.countSearchHosp(parameterDTO);
 		
 		// 병원 목록
-		
-		// 필터 처리
 		List<HospitalDTO> hospList = hospitalDAO.listSearchHosp(searchSido, searchGugun, searchDong, searchField, searchWord, filterList, offset, limit);
-        for (HospitalDTO hospital : hospList) {
+		for (HospitalDTO hospital : hospList) {
         	String id = hospitalDAO.selectHospId(hospital.getName());
         	// 입점
         	if (id != null) {

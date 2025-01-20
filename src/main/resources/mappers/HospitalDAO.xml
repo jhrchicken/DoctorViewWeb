@@ -116,7 +116,6 @@
 	
 	<!-- 병원 검색: 병원 검색 -->
 	<select id="listSearchHosp"
-		parameterType="map"
 		resultType="com.edu.springboot.hospital.HospitalDTO">
 	    SELECT * FROM (
 	        SELECT Tb.*, rownum rNum FROM (

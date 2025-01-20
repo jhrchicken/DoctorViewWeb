@@ -34,7 +34,7 @@ public interface IHospitalService {
 	// 검색된 병원의 개수를 카운트
 	public int countSearchHosp(ParameterDTO parameterDTO);
 	// 병원 검색
-	public List<HospitalDTO> listSearchHosp(String searchSido, String searchGugun, String searchDong, String searchField, String searchWord, List<String> filterList, int start, int end);
+	public List<HospitalDTO> listSearchHosp(String searchSido, String searchGugun, String searchDong, String searchField, String searchWord, List<String> filterList, int offset, int limit);
 	
 	
 	// == 의사 ==
