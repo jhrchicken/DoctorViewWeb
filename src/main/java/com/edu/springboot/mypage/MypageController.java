@@ -73,6 +73,7 @@ public class MypageController {
 			// 주민등록번호 마스킹 처리
 			for (ReserveDTO reserve : reserveList) {
 				reserve.setRrn(reserve.getRrn().substring(0, 8) + "******");
+				reserve.setApi_idx(Integer.parseInt(hospitalDAO.selectHospIdx(reserve.getHospname())));
 			}
 		}
 		else {
@@ -84,28 +85,7 @@ public class MypageController {
 	}
 	
 	
-//	// 예약 추가정보(메모) 
-//	@GetMapping("/reserve/extraInfo.do")
-//	public String extraInfoGet(Model model, HttpSession session, ReserveDTO reserveDTO) {
-//		ReserveDTO reserveDetail = reserveDAO.getReservationDetails(reserveDTO.getApp_id());
-//		model.addAttribute("reserveDetail", reserveDetail);
-//		
-//		return "reserve/extraInfo";
-//	}
-//	@PostMapping("/reserve/extraInfo.do")
-//	public String extraInfoPost(Model model, HttpSession session, ReserveDTO reserveDTO) {
-//		// user 메모 추가
-//		if(session.getAttribute("userAuth").equals("ROLE_USER")) {
-//			reserveDAO.updateReservationDetails(reserveDTO.getApp_id(), reserveDTO.getUser_memo(), null);
-//		}
-//		// hosp 메모추가
-//		else {
-//			reserveDAO.updateReservationDetails(reserveDTO.getApp_id(), null, reserveDTO.getHosp_memo());
-//		}
-//		
-//		return "redirect:/myReserve.do";
-//	}
-	
+	// == 메모 추가 및 수정 ==
 	@PostMapping("/mypage/editMemo.do")
 	public String editMemoPost(Model model, HttpSession session, HttpServletRequest req, HttpServletResponse response, ReserveDTO reserveDTO) {
 		// 로그인 여부 검증

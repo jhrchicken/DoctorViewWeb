@@ -24,7 +24,6 @@ public class ReserveDTO {
 	private String hosp_memo;
 	private String cancel;
 	
-	
 	//추가컬럼
 	private int api_idx;
 }

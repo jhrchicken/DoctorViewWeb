@@ -40,6 +40,11 @@
 		SELECT id FROM member WHERE name=#{param1}
 	</select>
 	
+	<!-- 병원: 병원 일련번호 확인 -->
+	<select id="selectHospIdx">
+		SELECT api_idx FROM api WHERE name=#{name}
+	</select>
+	
 	<!-- 병원: 병원 기본 정보 조회 -->
 	<select id="viewHosp"
 		resultType="com.edu.springboot.hospital.BasicDTO">

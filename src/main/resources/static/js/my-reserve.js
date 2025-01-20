@@ -84,9 +84,91 @@ function validateMemoForm(form) {
 }
 
 
+/**
+ * 리뷰를 작성하기 위한 모달창을 여는 함수
+ */
+function openReviewWriteModal(api_idx) {
+	document.getElementById("review_write_api_idx").value = api_idx;
+	console.log(api_idx);
+	document.getElementById("review_write_score").value = 1;
+	// 별점 UI 업데이트 (1점을 선택된 상태로 설정)
+    document.querySelectorAll('.star').forEach(function(star) {
+        if (star.getAttribute('data-value') <= 1) {
+            star.src = '/images/star.svg';
+        } else {
+            star.src = '/images/star_empty.svg';
+        }
+    });
+}
 
 
+/**
+ * 리뷰의 폼값을 검증하는 함수
+ */
+function validateReviewForm(form) {
+	if (form.content.value == "") {
+		alert("내용을 입력하세요.");
+		form.content.focus();
+		return false;
+	}
+}
 
 
+/**
+ * 리뷰 작성 시 해시태그를 처리하는 함수
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    const hashtagButtons = document.querySelectorAll('#hashtag-list button');
+    const hashtagsHiddenInput = document.getElementById('review_write_hashtags');
+    let selectedHashtags = [];
+    // 해시태그 버튼 클릭 시 처리
+    hashtagButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const tag = button.textContent.trim();
+            // 이미 선택된 해시태그인 경우 색상 원래대로 되돌리기
+            if (selectedHashtags.includes(tag)) {
+                selectedHashtags = selectedHashtags.filter(h => h !== tag);
+                button.style.backgroundColor = ''; // 원래 색상으로 변경
+                button.style.color = ''; // 원래 텍스트 색상으로 변경
+                button.style.border = '';
+            }
+            else {
+                // 선택되지 않은 해시태그인 경우 추가
+                selectedHashtags.push(tag);
+                button.style.backgroundColor = '#005ad5'; // 선택된 색상으로 변경
+                button.style.color = '#fff'; // 텍스트 색상 변경
+                button.style.border = '1px solid #005ad5';
+            }
+            // 히든 필드에 선택된 해시태그 값을 저장
+            updateHiddenInput();
+        });
+    });
+    // 히든 필드에 선택된 해시태그 값을 저장
+    function updateHiddenInput() {
+        hashtagsHiddenInput.value = selectedHashtags.join(',');
+    }
+});
 
+
+/**
+ * 리뷰 작성 시 별점을 처리하는 함수
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    const stars = document.querySelectorAll('#star-rating .star');
+    const scoreInput = document.getElementById('review_write_score');
+    stars.forEach(star => {
+        star.addEventListener('click', function () {
+            const rating = this.getAttribute('data-value');
+            scoreInput.value = rating; // 히든 필드에 점수 저장
+            // 선택된 별의 색상 변경
+            stars.forEach(s => {
+                if (s.getAttribute('data-value') <= rating) {
+                    s.src = '/images/star.svg';
+                } else {
+                    s.src = '/images/star_empty.svg';
+                }
+            });
+        });
+    });
+});
 

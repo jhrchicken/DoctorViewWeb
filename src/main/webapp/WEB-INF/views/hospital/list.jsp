@@ -10,7 +10,7 @@
 <title>닥터뷰</title>
 <%@include file="../common/head.jsp" %>
 <link rel="stylesheet" href="/css/hosp-list.css" />
-<script src="/js/hospital.js"></script>
+<script src="/js/hospital-list.js"></script>
 </head>
 
 <body>

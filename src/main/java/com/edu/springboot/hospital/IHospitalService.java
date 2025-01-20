@@ -24,6 +24,8 @@ public interface IHospitalService {
 	// == 병원 ==
 	// 병원 입점 여부 확인
 	public String selectHospId(String name);
+	// 병원 일련번호 확인
+	public String selectHospIdx(String name);
 	// 병원 기본 정보 조회
 	public BasicDTO viewHosp(String id);
 	// 병원 상세 정보 조회
