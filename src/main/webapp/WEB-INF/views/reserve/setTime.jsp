@@ -108,7 +108,8 @@
 		
 		        // reservedTimes에 포함된 시간은 예약불가로 표시하고 선택 비활성화
 		        var radioButtonHtml = reservedTimes.includes(item) 
-		            ? "<li class='time_item block'><input id='" + item  + "' type='checkbox' name='posttimez' value='" + item +"' disabled/><label class='block' for='"+ item +"'>" + item + "</label></li>"
+// 		            ? "<li class='time_item block'><input id='" + item  + "' type='checkbox' name='posttimez' value='" + item +"' disabled/><label class='block' for='"+ item +"'>" + item + "</label></li>"
+		            ? "<li class='time_item block'><input id='" + item  + "' type='checkbox' name='posttimez' value='" + item +"'/><label class='block' for='"+ item +"'>" + item + "</label></li>"
 		            : "<li class='time_item'><input id='" + item  + "' type='checkbox' name='posttimez' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
 		        
 		        if (hour < 12) {
@@ -212,7 +213,10 @@
 		       			</div>
 		       			
 		       			<div class="btn_wrap">
-			            	<button type="submit">예약 닫기</button>
+    						<button type="submit" name="action" value="close">예약 닫기</button>
+    						<button type="submit" name="action" value="open">예약 열기</button>
+<!-- 			            	<button type="submit">예약 닫기</button> -->
+<!-- 			            	<button type="submit">예약 열기</button> -->
 			            </div>
 		       			
 					</div>

@@ -269,6 +269,12 @@
 #container .user_info>p {
   color: var(--gray-500);
 }
+#container .user_info .mobile>input {
+  width: 28.7%;
+}
+#container .user_info .resi>input {
+  width: 46%;
+}
 #container .user_info .reserv_wrap {
   margin-top: 15px;
   border: 2px solid #ddd;

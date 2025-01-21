@@ -29,6 +29,12 @@ public interface IReserveService {
 	// 예약 목록 가져옴
 	public List<ReserveDTO> getReservationInfo(@Param("user_ref") String user_ref, @Param("hosp_ref") String hosp_ref);
 	
+	// 특정 날짜, 특정시간의 예약내역 개수
+	public int getReservationCount(String hosp_ref, String postdate, String posttime);
+	
+	// admin의 예약내역 (예약관리)
+	public String getReservationName(String hosp_ref, String postdate, String posttime);
+	
 	//예약 목록 페이징(관리자모드)
 	public int getCountReservationInfo();
 	public List<ReserveDTO> getAllReservationInfo(ParameterDTO parameterDTO);
@@ -47,6 +53,9 @@ public interface IReserveService {
 	
 	// 예약시간 close
 	public int closeTime(ReserveDTO reserveDTO);
+	
+	// 예약시간 open
+	public int openTime(ReserveDTO reserveDTO);
 	
 	// 특정 예약의 병원 리뷰 작성 여부를 변경
 	public int updateHospReviewFlag(String appId);

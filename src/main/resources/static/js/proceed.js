@@ -93,14 +93,29 @@ function proceedValidateForm(form) {
 		form.username.focus();
 		return false;
 	}
-	if (form.tel.value == '') {
-		alert("방문자 전화번호를 입력하세요.");
-		form.tel.focus();
+	if (form.tel1.value == '') {
+		alert("전화번호를 입력하세요.");
+		form.tel1.focus();
 		return false;
 	}
-	if (form.rrn.value == '') {
-		alert("방문자 주민등록번호 입력하세요.");
-		form.rrn.focus();
+	if (form.tel2.value == '') {
+		alert("전화번호를 입력하세요.");
+		form.tel2.focus();
+		return false;
+	}
+	if (form.tel3.value == '') {
+		alert("전화번호를 입력하세요.");
+		form.tel3.focus();
+		return false;
+	}
+	if (form.rrn1.value == '') {
+		alert("주민등록번호를 입력하세요.");
+		form.rrn1.focus();
+		return false;
+	}
+	if (form.rrn2.value == '') {
+		alert("주민등록번호를 입력하세요.");
+		form.rrn2.focus();
 		return false;
 	}
 
