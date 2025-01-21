@@ -23,6 +23,7 @@ import com.edu.springboot.board.BoardDTO;
 import com.edu.springboot.board.ParameterDTO;
 import com.edu.springboot.hospital.HashtagDTO;
 import com.edu.springboot.member.MemberDTO;
+import com.edu.springboot.reserve.IReserveService;
 
 import jakarta.mail.Session;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,14 +39,8 @@ public class DoctorController {
    
 	@Autowired
 	IDoctorService doctorDAO;
-   
-	// 페이지당 출력할 게시물 수
-	@Value("#{doctorprops['doctor.postsPerPage']}")
-	private int postsPerPage;
-	// 한 블록당 출력할 페이지 번호 수
-	@Value("#{doctorprops['doctor.pagesPerBlock']}")
-	private int pagesPerBlock;
-   
+	@Autowired
+	IReserveService reserveDAO;
    
 	// == 의사 목록 ==
 	@GetMapping("/doctor.do")
@@ -157,11 +152,13 @@ public class DoctorController {
 		if (loginMember == null) {
 			JSFunction.alertLocation(response, "로그인 후 이용해 주세요", "../member/login.do");
 			return null;
-			}
+		}
 
 		return "doctor/write";
 	}
 	
+	
+	// == 의사 등록 ==
 	@PostMapping("/doctor/writeDoctor.do")
 	public String writeDoctorPost(HttpSession session, HttpServletRequest req, DoctorDTO doctorDTO) {
       
@@ -269,11 +266,14 @@ public class DoctorController {
 			return null;
 		}
 		String id = loginMember.getId();
-
+		String app_id = dreviewDTO.getApp_id();
+		
 		// 리뷰 작성
 		dreviewDTO.setWriter_ref(id);
 		doctorDAO.writeReview(dreviewDTO);
 		dreviewDTO = doctorDAO.selectReview(dreviewDTO);
+		System.err.println(dreviewDTO.getApp_id());
+		reserveDAO.updateDocReviewFlag(app_id);
 		
 		// 해시태그 처리
 		String hashtags = req.getParameter("hashtags");

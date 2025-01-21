@@ -112,8 +112,16 @@
 		INSERT INTO appointment (app_id, hospname, doctorname, username, tel, rrn, address, postdate, posttime, user_ref, hosp_ref)
     	VALUES (seq_appointment_idx.nextval, #{hospname}, 'F', 'F', 'F', 'F', 'F', #{postdate}, #{posttime}, 'admin', #{hosp_ref} )
 	</insert>
-
-
+	
+	<!-- 특정 예약의 병원 리뷰 작성 여부를 변경 -->
+	<update id="updateHospReviewFlag">
+		UPDATE appointment SET hosp_review = 'T' WHERE app_id = #{param1}
+	</update>
+	
+	<!-- 특정 예약의 의사 리뷰 작성 여부를 변경 -->
+	<update id="updateDocReviewFlag">
+		UPDATE appointment SET doc_review = 'T' WHERE app_id = #{param1}
+	</update>
 
 	<!-- 플러터 연동: 예약 목록 -->
 	<select id="getAllReservations" resultType="com.edu.springboot.reserve.ReserveDTO">

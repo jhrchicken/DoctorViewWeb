@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.edu.springboot.doctor.DoctorDTO;
 import com.edu.springboot.member.HoursDTO;
 import com.edu.springboot.member.MemberDTO;
+import com.edu.springboot.reserve.IReserveService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,6 +35,8 @@ public class HospitalController {
 	
 	@Autowired
 	IHospitalService hospitalDAO;
+	@Autowired
+	IReserveService reserveDAO;
 	
 	@GetMapping("/hospital.do")
 	public String hospital(Model model, HttpServletRequest req, ParameterDTO parameterDTO) {
@@ -232,10 +235,12 @@ public class HospitalController {
 			return null;
 		}
 		String id = loginMember.getId();
+		String app_id = hreviewDTO.getApp_id();
 		
 		hreviewDTO.setWriter_ref(id);
 		hospitalDAO.writeReview(hreviewDTO);
 		hreviewDTO = hospitalDAO.selectReview(hreviewDTO);
+		reserveDAO.updateHospReviewFlag(app_id);
 		
 		// 해시태그 처리
 		String hashtags = req.getParameter("hashtags");

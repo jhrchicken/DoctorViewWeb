@@ -88,10 +88,11 @@ function validateMemoForm(form) {
  * 병원 리뷰를 작성하기 위한 모달창을 여는 함수
  * 
  * @param {Integer} api_idx - 병원 일련번호
+ * 
  */
-function openHospReviewWriteModal(api_idx) {
+function openHospReviewWriteModal(api_idx, app_id) {
 	document.getElementById("hosp_review_write_api_idx").value = api_idx;
-	console.log(api_idx);
+	document.getElementById("hosp_app_id").value = app_id;
 	document.getElementById("hosp_review_write_score").value = 1;
 	// 별점 UI 업데이트 (1점을 선택된 상태로 설정)
     document.querySelectorAll('.hosp_star').forEach(function(star) {
@@ -181,9 +182,12 @@ document.addEventListener('DOMContentLoaded', function () {
  * 의사 리뷰를 작성하기 위한 모달창을 여는 함수
  * 
  * @param {Integer} doc_idx - 의사 일련번호
+ * @param {Integer} app_id - 예약 일련번호
  */
-function openDoctorReviewWriteModal(doc_idx) {
+function openDoctorReviewWriteModal(doc_idx, app_id) {
 	document.getElementById("doc_review_write_doc_ref").value = doc_idx;
+	document.getElementById("doc_app_id").value = app_id;
+	console.log(app_id);
 	document.getElementById("doc_review_write_score").value = 1;
 	// 별점 UI 업데이트 (1점을 선택된 상태로 설정)
 	document.querySelectorAll('.doc_star').forEach(function(star) {

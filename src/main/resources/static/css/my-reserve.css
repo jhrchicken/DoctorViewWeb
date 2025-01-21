@@ -41,7 +41,7 @@
 
 #container .content .reserve_history .tab ul li {
 	float: left;
-	width: 293px;
+	width: 391px;
 	border: 1px solid #e5e5e5;
 	position: relative;
 }
@@ -108,7 +108,7 @@
 }
 
 #container .content .reserve_history .reserve .info .top .cancel_btn {
-	width: 132px;
+	width: 110px;
 	border-radius: 2px;
 	background: #FFCCCC;
 	text-align: center;
@@ -127,7 +127,7 @@
 }
 
 #container .content .reserve_history .reserve .info .top .done_btn {
-	width: 132px;
+	width: 110px;
 	border-radius: 2px;
 	background: #CCE0F5;
 	text-align: center;
@@ -146,7 +146,7 @@
 }
 
 #container .content .reserve_history .reserve .info .top .hide_btn {
-	width: 132px;
+	width: 110px;
 	border-radius: 2px;
 	background: #f2f2f2;
 	text-align: center;
@@ -165,7 +165,7 @@
 }
 
 #container .content .reserve_history .reserve .info .top .review_btn {
-	width: 132px;
+	width: 110px;
 	border-radius: 2px;
 	background: #f2f2f2;
 	text-align: center;

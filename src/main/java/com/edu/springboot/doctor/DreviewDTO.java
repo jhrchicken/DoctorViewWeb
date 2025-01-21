@@ -23,4 +23,5 @@ public class DreviewDTO {
 	// 작성한 리뷰
 	private String doc_name;
 	private String hospname;
+	private String app_id;
 }

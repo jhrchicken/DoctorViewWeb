@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.edu.springboot.board.ParameterDTO;
 import com.edu.springboot.doctor.DoctorDTO;
+import com.edu.springboot.doctor.DreviewDTO;
+import com.edu.springboot.hospital.HreviewDTO;
 import com.edu.springboot.member.MemberDTO;
 
 @Mapper
@@ -46,6 +48,8 @@ public interface IReserveService {
 	// 예약시간 close
 	public int closeTime(ReserveDTO reserveDTO);
 	
-	
-	
+	// 특정 예약의 병원 리뷰 작성 여부를 변경
+	public int updateHospReviewFlag(String appId);
+	// 특정 예약의 의사 리뷰 작성 여부를 변경
+	public int updateDocReviewFlag(String appId);
 }

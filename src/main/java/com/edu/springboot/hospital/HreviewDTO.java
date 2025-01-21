@@ -28,4 +28,5 @@ public class HreviewDTO {
 	// 작성한 리뷰용 추가 컬럼
 	private String hosp_name;
 	private String hosp_department;
+	private String app_id;
 }
