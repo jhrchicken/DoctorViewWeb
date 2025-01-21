@@ -74,6 +74,7 @@ public class MypageController {
 			for (ReserveDTO reserve : reserveList) {
 				reserve.setRrn(reserve.getRrn().substring(0, 8) + "******");
 				reserve.setApi_idx(Integer.parseInt(hospitalDAO.selectHospIdx(reserve.getHospname())));
+				reserve.setDoc_idx(doctorDAO.selectDoctorIdx(reserve.getDoctorname(), reserve.getHosp_ref()));
 			}
 		}
 		else {

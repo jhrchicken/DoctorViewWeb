@@ -26,4 +26,5 @@ public class ReserveDTO {
 	
 	//추가컬럼
 	private int api_idx;
+	private String doc_idx;
 }

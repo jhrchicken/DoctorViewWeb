@@ -19,6 +19,8 @@ public interface IDoctorService {
 	public ArrayList<DoctorDTO> listDoctor(ParameterDTO parameterDTO);
 	// 의사 목록 조회
 	public ArrayList<DoctorDTO> listDoctorContent(Map<String, Object> param);
+	// 의사 일련번호 조회
+	public String selectDoctorIdx(String doctorname, String hosp_ref);
 	
 	// 의사 조회
 	public DoctorDTO viewDoctor(DoctorDTO doctorDTO);

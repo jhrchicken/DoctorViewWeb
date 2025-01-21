@@ -47,6 +47,11 @@
 		)
 		WHERE rNum between #{offset} + 1 and #{offset} + #{limit}
 	</select>
+	
+	<!-- 의사: 의사 일련번호 조회 -->
+	<select id="selectDoctorIdx">
+		SELECT doc_idx FROM doctor WHERE name=#{param1} AND hosp_ref=#{param2}
+	</select>
    
 	<!-- 의사: 의사 조회 -->
 	<select id="viewDoctor"

@@ -85,16 +85,16 @@ function validateMemoForm(form) {
 
 
 /**
- * 리뷰를 작성하기 위한 모달창을 여는 함수
+ * 병원 리뷰를 작성하기 위한 모달창을 여는 함수
  * 
  * @param {Integer} api_idx - 병원 일련번호
  */
-function openReviewWriteModal(api_idx) {
-	document.getElementById("review_write_api_idx").value = api_idx;
+function openHospReviewWriteModal(api_idx) {
+	document.getElementById("hosp_review_write_api_idx").value = api_idx;
 	console.log(api_idx);
-	document.getElementById("review_write_score").value = 1;
+	document.getElementById("hosp_review_write_score").value = 1;
 	// 별점 UI 업데이트 (1점을 선택된 상태로 설정)
-    document.querySelectorAll('.star').forEach(function(star) {
+    document.querySelectorAll('.hosp_star').forEach(function(star) {
         if (star.getAttribute('data-value') <= 1) {
             star.src = '/images/star.svg';
         } else {
@@ -119,11 +119,11 @@ function validateReviewForm(form) {
 
 
 /**
- * 리뷰 작성 시 해시태그를 처리하는 함수
+ * 병원 리뷰 작성 시 해시태그를 처리하는 함수
  */
 document.addEventListener('DOMContentLoaded', function () {
-    const hashtagButtons = document.querySelectorAll('#hashtag-list button');
-    const hashtagsHiddenInput = document.getElementById('review_write_hashtags');
+    const hashtagButtons = document.querySelectorAll('#hosp-hashtag-list button');
+    const hashtagsHiddenInput = document.getElementById('hosp_review_write_hashtags');
     let selectedHashtags = [];
     // 해시태그 버튼 클릭 시 처리
     hashtagButtons.forEach(button => {
@@ -155,11 +155,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 /**
- * 리뷰 작성 시 별점을 처리하는 함수
+ * 병원 리뷰 작성 시 별점을 처리하는 함수
  */
 document.addEventListener('DOMContentLoaded', function () {
-    const stars = document.querySelectorAll('#star-rating .star');
-    const scoreInput = document.getElementById('review_write_score');
+    const stars = document.querySelectorAll('#hosp-star-rating .hosp_star');
+    const scoreInput = document.getElementById('hosp_review_write_score');
     stars.forEach(star => {
         star.addEventListener('click', function () {
             const rating = this.getAttribute('data-value');
@@ -177,29 +177,31 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-
-
-
-
-// 리뷰 작성 모달창 열기 - 의사
-function openReviewWriteModal(doc_idx) {
-   document.getElementById("review_write_doc_ref").value = doc_idx;
-   document.getElementById("review_write_score").value = 1;
-   // 별점 UI 업데이트 (1점을 선택된 상태로 설정)
-    document.querySelectorAll('.star').forEach(function(star) {
-        if (star.getAttribute('data-value') <= 1) {
-            star.src = '/images/star.svg';
-        } else {
-            star.src = '/images/star_empty.svg';
-        }
-    });
+/**
+ * 의사 리뷰를 작성하기 위한 모달창을 여는 함수
+ * 
+ * @param {Integer} doc_idx - 의사 일련번호
+ */
+function openDoctorReviewWriteModal(doc_idx) {
+	document.getElementById("doc_review_write_doc_ref").value = doc_idx;
+	document.getElementById("doc_review_write_score").value = 1;
+	// 별점 UI 업데이트 (1점을 선택된 상태로 설정)
+	document.querySelectorAll('.doc_star').forEach(function(star) {
+		if (star.getAttribute('data-value') <= 1) {
+			star.src = '/images/star.svg';
+		} else {
+			star.src = '/images/star_empty.svg';
+		}
+	});
 }
 
-// 리뷰 작성 해시태그 - 의사
+
+/**
+ * 의사 리뷰 작성 시 해시태그를 처리하는 함수
+ */
 document.addEventListener('DOMContentLoaded', function () {
-    const hashtagButtons = document.querySelectorAll('#hashtag-list button');
-    const hashtagsHiddenInput = document.getElementById('review_write_hashtags');
+    const hashtagButtons = document.querySelectorAll('#doc-hashtag-list button');
+    const hashtagsHiddenInput = document.getElementById('doc_review_write_hashtags');
     let selectedHashtags = [];
     // 해시태그 버튼 클릭 시 처리
     hashtagButtons.forEach(button => {
@@ -227,12 +229,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-
-// 리뷰 작성 별점
+/**
+ * 의사 리뷰 작성 시 별점을 처리하는 함수
+ */
 document.addEventListener('DOMContentLoaded', function () {
-    const stars = document.querySelectorAll('#star-rating .star');
-    const scoreInput = document.getElementById('review_write_score');
+    const stars = document.querySelectorAll('#doc-star-rating .doc_star');
+    const scoreInput = document.getElementById('doc_review_write_score');
     stars.forEach(star => {
         star.addEventListener('click', function () {
             const rating = this.getAttribute('data-value');

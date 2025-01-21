@@ -269,7 +269,7 @@ public class DoctorController {
 			return null;
 		}
 		String id = loginMember.getId();
-		
+
 		// 리뷰 작성
 		dreviewDTO.setWriter_ref(id);
 		doctorDAO.writeReview(dreviewDTO);
