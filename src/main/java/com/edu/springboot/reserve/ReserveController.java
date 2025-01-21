@@ -89,8 +89,8 @@ public class ReserveController {
 	         System.err.println("postdate: " + postdate + " | posttime: " + posttime + " | 해당 시간의 예약개수: " + reserveDAO.getReservationCount(hospitalInfo.getId(), postdate, posttime));
 	         
 	         /* 디버깅: 예약 제한 개수 변경하기 */
-	         // 해당 날짜(postdate)에 예약내역이 3개 이상이면 예약불가능
-	         if(reserveDAO.getReservationCount(hospitalInfo.getId(), postdate, posttime) >= 3) {
+	         // 해당 날짜(postdate)에 예약내역이 3개 이상이면 예약불가능 or 병원이 예약을 막은 시간이면 불가능(admin)
+	         if( (reserveDAO.getReservationCount(hospitalInfo.getId(), postdate, posttime) >= 3) || (reserveDAO.getReservationName(hospitalInfo.getId(), postdate, posttime).equals("admin"))) {
 	        	 // 해당 날짜의 리스트가 존재하지 않으면 새로 생성
 	        	 if (!reserveMap.containsKey(postdate)) {
 	        		 reserveMap.put(postdate, new ArrayList<>());

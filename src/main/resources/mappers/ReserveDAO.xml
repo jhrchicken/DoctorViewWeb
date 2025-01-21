@@ -42,6 +42,11 @@
 		select count(*) from appointment where hosp_ref = #{param1} and postdate=#{param2} and posttime=#{param3}
 	</select>	
 	
+	
+	<select id="getReservationName">
+		select user_ref from appointment where hosp_ref = #{param1} and postdate=#{param2} and posttime=#{param3}
+	</select>
+	
 	<!-- 예약 목록  -->
 	<select id="getReservationInfo"
 	    resultType="com.edu.springboot.reserve.ReserveDTO">
