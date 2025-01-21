@@ -92,8 +92,6 @@ $(document).ready(function () {
 	var urlParams = new URLSearchParams(window.location.search);
 	searchField = urlParams.get('searchField');
 	searchWord = urlParams.get('searchWord');
-	console.log(searchField);
-	console.log(searchWord);
 		
     // 초기 페이지 로딩 시 doctorListContent를 가져오기 위한 AJAX 호출
     loadHospListContent();
