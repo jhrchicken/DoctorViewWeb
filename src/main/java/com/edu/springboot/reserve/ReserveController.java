@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.edu.springboot.doctor.DoctorDTO;
@@ -116,13 +117,37 @@ public class ReserveController {
 	    MemberDTO userInfo = memberDAO.loginMember((String)session.getAttribute("userId"),(String)session.getAttribute("userPassword"));
 	    model.addAttribute("userInfo", userInfo);
 	    
+	    // 개인회원 정보 - 전화번호
+	    String tel = userInfo.getTel();
+	    String tel1 = tel.substring(0,3);
+	    String tel2 = tel.substring(4,8);
+	    String tel3 = tel.substring(9,13);
+	    model.addAttribute("tel1", tel1);
+	    model.addAttribute("tel2", tel2);
+	    model.addAttribute("tel3", tel3);
+	    
+	    
+	    // 개인회원 정보 - 주민등록번호
+	    String rrn = userInfo.getRrn();
+	    String birthRrn = rrn.substring(0, 6); 
+	    String genderRrn = rrn.substring(7, 8); 
+	    model.addAttribute("birthRrn", birthRrn);
+	    model.addAttribute("genderRrn", genderRrn);
+	    
 	    return "reserve/proceed";
 	    }
 		
 	
 	// 예약하기
 	@PostMapping("/reserve/proceed.do")
-	public String proceedPost(Model model, ReserveDTO reserveDTO) {
+	public String proceedPost(Model model, ReserveDTO reserveDTO, HttpServletRequest req) {
+		String tel = req.getParameter("tel1") + "-" + req.getParameter("tel2") + "-" + req.getParameter("tel3");
+		String rrn = req.getParameter("rrn1") + "-" + req.getParameter("rrn2") + "000000";
+		
+		reserveDTO.setTel(tel);
+		reserveDTO.setRrn(rrn);
+		
+		
 		// 예약정보 저장
 		int reserveResult = reserveDAO.saveReservationInfo(reserveDTO);
 		

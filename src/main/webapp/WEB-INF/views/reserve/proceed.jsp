@@ -341,11 +341,18 @@
 					                </tr>
 			                		<tr>
 				                  		<td class="left">전화번호</td>
-				                  		<td><input type="text" name="tel" value="${ userInfo.tel }" placeholder="방문자의 전화번호를 입력해주세요."></td>
+										<td class="mobile">
+											<input type="tel" name="tel1" maxlength="3" value="${ tel1 }" placeholder="010" /> -
+											<input type="tel" name="tel2" maxlength="4" value="${ tel2 }" placeholder="0000" /> -
+											<input type="tel" name="tel3" maxlength="4" value="${ tel3 }" placeholder="0000" />
+										</td>
 				                	</tr>
 					                <tr>
 					                	<td class="left">주민등록<br/>번호</td>
-					                  	<td><input type="text" name="rrn" value="${ userInfo.rrn }" placeholder="방문자의 주민등록번호를 입력해주세요."></td>
+										<td class="resi">
+										  <input type="text" name="rrn1" value="${ birthRrn }" maxlength="6" placeholder="주민등록번호*" /> - 
+										  <input type="text" name="rrn2" value="${ genderRrn }" maxlength="1" />
+										</td>
 					                </tr>
 					                <tr>
 					                	<td class="left">주소</td>
