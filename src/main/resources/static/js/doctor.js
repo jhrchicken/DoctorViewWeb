@@ -15,7 +15,12 @@ var searchWord = '';
  * 더보기 버튼 클릭 시 데이터 로드 함수를 호출하는 함수
  */
 $(document).ready(function() {
-    // 초기 페이지 로딩 시 doctorListContent를 가져오기 위한 AJAX 호출
+    // 홈 화면에서 의사를 검색한 경우
+	var urlParams = new URLSearchParams(window.location.search);
+	searchField = urlParams.get('searchField');
+	searchWord = urlParams.get('searchWord');
+	
+	// 초기 페이지 로딩 시 doctorListContent를 가져오기 위한 AJAX 호출
     loadDoctorListContent();
 
     // 더보기 버튼 클릭 시 추가 데이터 로드
