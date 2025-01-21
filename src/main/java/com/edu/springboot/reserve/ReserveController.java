@@ -263,12 +263,27 @@ public class ReserveController {
 	@PostMapping("/reserve/setTime.do")
 	public String setTimePost(HttpServletRequest req, ReserveDTO reserveDTO, RedirectAttributes redirectAttributes) {
 		String[] posttimez = req.getParameterValues("posttimez");
+		String action = req.getParameter("action"); 
 		
 		int setCloseTime;
-	    for (int i = 0; i < posttimez.length; i++) {
-	    	reserveDTO.setPosttime(posttimez[i]);
-	    	setCloseTime = reserveDAO.closeTime(reserveDTO);
-	    }
+		int setOpenTime;
+		// 예약 닫기
+		if (action.equals("close")) {
+			for (int i = 0; i < posttimez.length; i++) {
+				reserveDTO.setPosttime(posttimez[i]);
+				setCloseTime = reserveDAO.closeTime(reserveDTO);
+			}
+		}
+		// 예약 열기
+		else {
+			for (int i = 0; i < posttimez.length; i++) {
+				reserveDTO.setPosttime(posttimez[i]);
+				System.err.println(reserveDTO);
+				setOpenTime = reserveDAO.openTime(reserveDTO);
+				System.err.println("setOpenTime 결과: " + setOpenTime);
+			}
+		}
+		
 	    redirectAttributes.addFlashAttribute("setTimeResult", "예약 시간 설정이 완료되었습니다.");
 		return "redirect:/reserve/setTime.do";
 	}

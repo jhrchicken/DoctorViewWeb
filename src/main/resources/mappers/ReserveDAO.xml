@@ -123,6 +123,13 @@
     	VALUES (seq_appointment_idx.nextval, #{hospname}, 'F', 'F', 'F', 'F', 'F', #{postdate}, #{posttime}, 'admin', #{hosp_ref} )
 	</insert>
 	
+	<!-- 예약열기를 위한 admin 예약정보 삭제 -->
+	<delete id="openTime"
+		parameterType="com.edu.springboot.reserve.ReserveDTO">
+		delete from appointment where hosp_ref=#{hosp_ref} and postdate=#{postdate} and posttime=#{posttime} and user_ref='admin'
+	</delete>
+	
+	
 	<!-- 특정 예약의 병원 리뷰 작성 여부를 변경 -->
 	<update id="updateHospReviewFlag">
 		UPDATE appointment SET hosp_review = 'T' WHERE app_id = #{param1}

@@ -54,6 +54,9 @@ public interface IReserveService {
 	// 예약시간 close
 	public int closeTime(ReserveDTO reserveDTO);
 	
+	// 예약시간 open
+	public int openTime(ReserveDTO reserveDTO);
+	
 	// 특정 예약의 병원 리뷰 작성 여부를 변경
 	public int updateHospReviewFlag(String appId);
 	// 특정 예약의 의사 리뷰 작성 여부를 변경
