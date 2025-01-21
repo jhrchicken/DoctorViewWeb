@@ -1,7 +1,6 @@
 /**
- * 
+ * 병원/의사 검색 시 실행되는 함수
  */
-
 function searchHosp() {
 	var form = document.searchForm;
 	
@@ -13,7 +12,7 @@ function searchHosp() {
 		var searchField = form.searchField.value;
 		var searchWord = form.searchWord.value;
 		if (searchField == "hospital") {
-			window.location.href = "hospital.do";
+			window.location.href = "hospital.do?searchField=name&searchWord=" + searchWord;
 			return false;
 		}
 		else if (searchField == "doctor") {
@@ -22,6 +21,7 @@ function searchHosp() {
 		}
 	}
 }
+
 
 /**
  * 베스트메뉴의 탭 메뉴 클릭 시 탭 메뉴를 활성화하고 해당하는 내용을 표시하는 함수

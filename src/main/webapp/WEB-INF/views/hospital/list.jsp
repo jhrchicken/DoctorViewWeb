@@ -60,7 +60,6 @@
 						<button type="button" class="filter-button" data-filter="night" data-default-text="예약 가능">야간진료</button>
 						<button type="button" class="filter-button" data-filter="weekend" data-default-text="예약 가능">주말진료</button>
 					</div>
-					<!-- <input type="hid-den" name="filters" id="filters" value=""> -->
 				</form>
 			</div>
 			

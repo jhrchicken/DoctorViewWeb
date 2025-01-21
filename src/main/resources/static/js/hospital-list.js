@@ -88,7 +88,14 @@ var searchWord = ''
 var filters = '';
 
 $(document).ready(function () {
-    // 초기 페이지 로딩 시 병원 리스트 데이터를 가져옴
+	// 홈 화면에서 병원을 검색한 경우
+	var urlParams = new URLSearchParams(window.location.search);
+	searchField = urlParams.get('searchField');
+	searchWord = urlParams.get('searchWord');
+	console.log(searchField);
+	console.log(searchWord);
+		
+    // 초기 페이지 로딩 시 doctorListContent를 가져오기 위한 AJAX 호출
     loadHospListContent();
 	
     // 더보기 버튼 클릭 시 추가 데이터 로드
