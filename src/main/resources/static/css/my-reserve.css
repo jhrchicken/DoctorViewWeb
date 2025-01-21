@@ -269,13 +269,11 @@
 .modal-content {
   color: var(--gray-500);
 }
-
 .modal-content button {
   height: auto;
   padding: 5px 10px;
   border: 1px solid #bbb;
 }
-
 .modal-content button.btn-close {
   border: none;
 }
