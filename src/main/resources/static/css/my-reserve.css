@@ -263,3 +263,33 @@
 	line-height: 35px;
 }
 
+
+
+/** 모달창 **/
+.modal-content {
+  color: var(--gray-500);
+}
+
+.modal-content button {
+  height: auto;
+  padding: 5px 10px;
+  border: 1px solid #bbb;
+}
+
+.modal-content button.btn-close {
+  border: none;
+}
+.modal-content #hashtag-list {
+  display: flex;
+  gap: 0 5px;
+  margin-top: 5px;
+}
+.modal-content .form-group {
+  margin-bottom: 10px;	
+}
+.modal-content .form-control {
+  margin-bottom: 10px;
+}
+.modal-content .form-control:last-child {
+  margin-bottom: 0;
+}
