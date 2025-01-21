@@ -82,24 +82,23 @@ public class ReserveController {
 	    Map<String, List<String>> reserveMap = new HashMap<>();
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	    
-// 현재 날짜, 시간
-LocalDateTime currentDateTime = LocalDateTime.now();
-DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-String formattedDateTime = currentDateTime.format(formatter);
-	    
-	    
 	    for (ReserveDTO reserve : reserveList) {
 	    	 String postdate = dateFormat.format(reserve.getPostdate()); // 예약 날짜를 년-월-일 형태로 
 	         String posttime = reserve.getPosttime(); // 예약 시간 
 	         
+	         System.err.println("postdate: " + postdate + " | posttime: " + posttime + " | 해당 시간의 예약개수: " + reserveDAO.getReservationCount(hospitalInfo.getId(), postdate, posttime));
 	         
-	         // 해당 날짜의 리스트가 존재하지 않으면 새로 생성
-	         if (!reserveMap.containsKey(postdate)) {
-	             reserveMap.put(postdate, new ArrayList<>());
+	         /* 디버깅: 예약 제한 개수 변경하기 */
+	         // 해당 날짜(postdate)에 예약내역이 3개 이상이면 예약불가능
+	         if(reserveDAO.getReservationCount(hospitalInfo.getId(), postdate, posttime) >= 3) {
+	        	 // 해당 날짜의 리스트가 존재하지 않으면 새로 생성
+	        	 if (!reserveMap.containsKey(postdate)) {
+	        		 reserveMap.put(postdate, new ArrayList<>());
+	        	 }
+	        	 
+	        	 // 해당 날짜의 리스트에 posttime 추가
+	        	 reserveMap.get(postdate).add(posttime);
 	         }
-	         
-	         // 해당 날짜의 리스트에 posttime 추가
-	         reserveMap.get(postdate).add(posttime);
 	     }
 	    try {
 			objectMapper.writeValueAsString(reserveMap);

@@ -339,7 +339,7 @@
 		             			<ul class="time_list_pm">
 			              		</ul>
 		           			</div>
-		       			</div>
+		       			</div>ㅣ
 		       			
 		       			<!-- 예약자 정보 -->
 		       			<div class="user_info">

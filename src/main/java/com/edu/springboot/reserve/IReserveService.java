@@ -29,6 +29,9 @@ public interface IReserveService {
 	// 예약 목록 가져옴
 	public List<ReserveDTO> getReservationInfo(@Param("user_ref") String user_ref, @Param("hosp_ref") String hosp_ref);
 	
+	// 특정 날짜, 특정시간의 예약내역 개수
+	public int getReservationCount(String hosp_ref, String postdate, String posttime);
+	
 	//예약 목록 페이징(관리자모드)
 	public int getCountReservationInfo();
 	public List<ReserveDTO> getAllReservationInfo(ParameterDTO parameterDTO);
