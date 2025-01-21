@@ -115,7 +115,7 @@
 	    SET hide = 'T'
 	    WHERE app_id = #{app_id}
 	</update>
-
+ 
 	<!-- 예약닫기를 위한 admin 예약정보 저장 -->
 	<insert id="closeTime"
 		parameterType="com.edu.springboot.reserve.ReserveDTO">
