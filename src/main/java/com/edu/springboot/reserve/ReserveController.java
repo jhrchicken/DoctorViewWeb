@@ -1,7 +1,9 @@
 package com.edu.springboot.reserve;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.edu.springboot.doctor.DoctorDTO;
@@ -24,9 +25,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import utils.JSFunction;
 
 @Controller
 public class ReserveController {
@@ -79,20 +78,27 @@ public class ReserveController {
 		
 		// 예약할 병원: 예약불가 시간
 		// 해당하는 병원의 예약이 있는 시간
-		List<ReserveDTO> reserveList = reserveDAO.getReservationInfo(null, hospitalInfo.getId());
+		List<ReserveDTO> reserveList = reserveDAO.getReservationInfo(null, hospitalInfo.getId()); // 해당 병원의 예약 목록
 	    Map<String, List<String>> reserveMap = new HashMap<>();
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	    
+// 현재 날짜, 시간
+LocalDateTime currentDateTime = LocalDateTime.now();
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+String formattedDateTime = currentDateTime.format(formatter);
+	    
+	    
 	    for (ReserveDTO reserve : reserveList) {
-	    	 String postdate = dateFormat.format(reserve.getPostdate());
-	         String posttime = reserve.getPosttime();
+	    	 String postdate = dateFormat.format(reserve.getPostdate()); // 예약 날짜를 년-월-일 형태로 
+	         String posttime = reserve.getPosttime(); // 예약 시간 
+	         
 	         
 	         // 해당 날짜의 리스트가 존재하지 않으면 새로 생성
 	         if (!reserveMap.containsKey(postdate)) {
 	             reserveMap.put(postdate, new ArrayList<>());
 	         }
 	         
-	      // 해당 날짜의 리스트에 posttime 추가
+	         // 해당 날짜의 리스트에 posttime 추가
 	         reserveMap.get(postdate).add(posttime);
 	     }
 	    try {
@@ -101,6 +107,7 @@ public class ReserveController {
 			e.printStackTrace();
 		}
 	    
+	    // reserveMap을 json으로 변경
 	    String hospReserveMap = null;
 	    try {
 	    	hospReserveMap = objectMapper.writeValueAsString(reserveMap);

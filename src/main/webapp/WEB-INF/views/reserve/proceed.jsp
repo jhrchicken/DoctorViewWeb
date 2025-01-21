@@ -111,64 +111,79 @@
 	            calendarChoiceDay(nearestFutureDay); // 가장 가까운 근무일을 선택
 	        }
 	    }
-	   
-	   
-	   
-	   
-	   
 	}
 	
 	   	
 	function setUnavailableTime(formattedDate) {
 	    var hoursList = JSON.parse('${hoursList}'); // 병원 진료시간 데이터
-	    
 	    var hospReserveMap = JSON.parse('${hospReserveMap}'); // 병원 예약목록 날짜:시간 Map 데이터
-	    
+
 	    var isReserved = false;  // 예약목록 존재여부 판단 변수
 	    var isReservedTime = false; // 해당하는 날짜의 예약 가능시간 판단 변수
-	
+
 	    document.querySelector(".time_list_am").innerHTML = '';  
 	    document.querySelector(".time_list_pm").innerHTML = '';  
 	    var timeListHtmlAM = '';  
 	    var timeListHtmlPM = '';  
-	
-		// hospReserveMap에 formattedDate(사용자가 선택한 날짜)에 해당하는 데이터가 있는지 판단
-		if (hospReserveMap[formattedDate]) {
-		    isReserved = true;
-		    
-		    var reservedTimes = hospReserveMap[formattedDate]; // 선택한 날짜에 해당하는 예약의 시간데이터 리스트
-		    hoursList.forEach(function(item, index) {
-		        var time = item.split(":"); 
-		        var hour = parseInt(time[0], 10);  // 시간을 정수로 변환
-		
-		        // reservedTimes에 포함된 시간은 예약불가로 표시하고 선택 비활성화
-		        var radioButtonHtml = reservedTimes.includes(item) 
-		            ? "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"' disabled/><label class='block' for='"+ item +"'>" + item + "</label></li>"
-		            : "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
-		        
-		        if (hour < 12) {
-		            timeListHtmlAM += radioButtonHtml;
-		        } else {
-		            timeListHtmlPM += radioButtonHtml;
-		        }
-		    });
-		} else {
-		    // 예약이 없으면 모든 hoursList 시간 출력
-		    hoursList.forEach(function(item, index) {
-		        var time = item.split(":");
-		        var hour = parseInt(time[0], 10);
-		        
-		        if (hour < 12) {
-		            timeListHtmlAM += "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
-		        } else {
-		            timeListHtmlPM += "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
-		        }
-		    });
-		}
-		
-	   document.querySelector(".time_list_am").innerHTML = timeListHtmlAM;
-	   document.querySelector(".time_list_pm").innerHTML = timeListHtmlPM;
+
+	    // 현재 시간 가져오기
+	    var currentTime = new Date();
+	    var currentHours = currentTime.getHours();
+	    var currentMinutes = currentTime.getMinutes();
+	    var currentTimeString = autoLeftPad(currentHours, 2) + ':' + autoLeftPad(currentMinutes, 2);
+
+	    // 선택한 날짜와 오늘 날짜가 같은지 비교
+	    var selectedDate = new Date(formattedDate);
+	    var isToday = selectedDate.toDateString() === currentTime.toDateString();
+
+	    // hospReserveMap에 formattedDate(사용자가 선택한 날짜)에 해당하는 데이터가 있는지 판단
+	    if (hospReserveMap[formattedDate]) {
+	        isReserved = true;
+
+	        var reservedTimes = hospReserveMap[formattedDate]; // 선택한 날짜에 해당하는 예약의 시간데이터 리스트
+	        hoursList.forEach(function(item, index) {
+	            var time = item.split(":"); 
+	            var hour = parseInt(time[0], 10);  // 시간을 정수로 변환
+
+	            // 오늘 날짜일 경우: 과거 시간 비활성화
+	            var isPastTime = isToday && (item < currentTimeString);
+
+	            // reservedTimes에 포함된 시간은 예약불가로 표시하고 선택 비활성화
+	            var radioButtonHtml = reservedTimes.includes(item) || isPastTime
+	                ? "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"' disabled/><label class='block' for='"+ item +"'>" + item + "</label></li>"
+	                : "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
+
+	            if (hour < 12) {
+	                timeListHtmlAM += radioButtonHtml;
+	            } else {
+	                timeListHtmlPM += radioButtonHtml;
+	            }
+	        });
+	    } else {
+	        // 예약이 없으면 모든 hoursList 시간 출력
+	        hoursList.forEach(function(item, index) {
+	            var time = item.split(":");
+	            var hour = parseInt(time[0], 10);
+
+	            // 오늘 날짜일 경우: 과거 시간 비활성화
+	            var isPastTime = isToday && (item < currentTimeString);
+
+	            var radioButtonHtml = isPastTime
+	                ? "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"' disabled/><label class='block' for='"+ item +"'>" + item + "</label></li>"
+	                : "<li class='time_item'><input id='" + item  + "' type='radio' name='posttime' value='" + item +"'/><label for='"+ item +"'>" + item + "</label></li>";
+
+	            if (hour < 12) {
+	                timeListHtmlAM += radioButtonHtml;
+	            } else {
+	                timeListHtmlPM += radioButtonHtml;
+	            }
+	        });
+	    }
+
+	    document.querySelector(".time_list_am").innerHTML = timeListHtmlAM;
+	    document.querySelector(".time_list_pm").innerHTML = timeListHtmlPM;
 	}
+
 </script>
 </head>
 <body>
