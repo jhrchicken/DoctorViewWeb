@@ -119,7 +119,7 @@
 											<li>
 												<!-- 작성자 아이콘 -->
 												<div class="review_icon">
-													<img src="/images/face1.png"/>
+													<img src="/images/face2.png"/>
 												</div>
 												<!-- 리뷰 정보 -->
 												<div class="review_info">
@@ -131,10 +131,10 @@
 													<div class="info_right">
 														<div class="review_date">
 															<p>${ row.postdate }</p>
-															<%-- <c:if test="${ row.rewrite == 'T' }"> --%>
+															<c:if test="${ row.rewrite == 'T' }">
 																<p class="dot">・</p>
 																<p class="edit">수정됨</p>
-															<%-- </c:if> --%>
+															</c:if>
 														</div>
 													</div>
 													<!-- 별점 -->
@@ -215,41 +215,60 @@
 										</c:if>
 										
 										<!-- 리뷰에 대한 답변 출력 -->
-										<c:forEach items="${ reviewsList }" var="replyRow">
-											<c:if test="${ replyRow.original_idx == row.review_idx and replyRow.review_idx != replyRow.original_idx }">
-												<div class="recomm">
-													<div class="recomm_wrap">
-														<div class="recomm_title_wrap">
-															<div class="recomm_title">
+										<ul class="reply">
+											<c:forEach items="${ reviewsList }" var="replyRow">
+												<c:if test="${ replyRow.original_idx == row.review_idx and replyRow.review_idx != replyRow.original_idx }">
+													<li>
+														<!-- 화살표 -->
+														<div class="reply_arrow">
+															<img src="/images/sub_arrow_right.svg"/>
+														</div>
+														<!-- 작성자 아이콘 -->
+														<div class="reply_icon">
+															<img src="/images/face1.png"/>
+														</div>
+														<!-- 답변 정보 -->
+														<div class="reply_info">
+															<!-- 닉네임 -->
+															<div class="reply_nickname">
 																<p>${ replyRow.nickname }</p>
-																<p>•</p>
-																<p>${ replyRow.postdate }</p>
-																<!-- 수정 여부 -->
-																<c:if test="${ replyRow.rewrite == 'T' }">
-																	<p class="edit">(수정됨)</p>
+																<span class="hosp_mark"></span>
+															</div>
+															<!-- 날짜 및 수정 여부 -->
+															<div class="info_right">
+																<div class="reply_date">
+																	<p>${ replyRow.postdate }</p>
+																	<c:if test="${ replyRow.rewrite == 'T' }">
+																		<p class="dot">・</p>
+																		<p class="edit">수정됨</p>
+																	</c:if>
+																</div>
+															</div>
+															<!-- 내용 -->
+															<div class="reply_content">
+																<p>${ replyRow.content }</p>
+															</div>
+															<!-- 버튼 -->
+															<div class="button_wrap">
+																<!-- 답변 수정 버튼 -->
+																<c:if test="${ replyRow.writer_ref.equals(sessionScope.userId) }">
+																	<a class="edit_reply_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editReplyModal"
+																		onclick="openReplyEditModal(${ replyRow.doc_ref }, ${ replyRow.review_idx }, '${ replyRow.content }')">
+																		<span>수정하기</span>
+																	</a>
+																</c:if>
+																<!-- 답변 삭제 버튼 -->
+																<c:if test="${ replyRow.writer_ref.equals(sessionScope.userId) }">
+																	<a class="delete_reply_btn" href="javascript:void(0);" onclick="deleteReply(${ replyRow.doc_ref }, ${ replyRow.review_idx });">
+																		<span>삭제하기</span>
+																	</a>
 																</c:if>
 															</div>
-															
-															<!-- 로그인 사용자와 답변 작성자가 일치하는 경우 수정 삭제 버튼 -->
-															<c:if test="${ replyRow.writer_ref.equals(sessionScope.userId) }">
-																<div class="recomm_btn">
-																	<button type="button" data-bs-toggle="modal" data-bs-target="#editReplyModal"
-																		onclick="openReplyEditModal(${ replyRow.doc_ref }, ${ replyRow.review_idx }, '${ replyRow.content }')">
-																		수정
-																	</button>
-																	<button type="button"  onclick="deleteReply(${ replyRow.doc_ref }, ${ replyRow.review_idx });">
-																		삭제
-																	</button>
-																</div>
-															</c:if>
 														</div>
-														<div class="recomm_content">
-															<p>${ replyRow.content }</p>
-														</div>
-													</div>
-												</div>
-											</c:if>
-										</c:forEach>
+													</li>
+												</c:if>
+											</c:forEach>
+										</ul>
 									</c:forEach>
 								</ul>
 							</c:otherwise>

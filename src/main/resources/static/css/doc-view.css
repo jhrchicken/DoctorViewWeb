@@ -234,7 +234,7 @@
 }
 
 #container .review_wrap .review_list .review .review_info .review_nickname p {
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 500;
 	color: #666;
 }
@@ -329,7 +329,7 @@
 	font-weight: 500;
 	line-height: 33px;
 	height: 35px;
-	color: #666666;
+	color: #666;
 	display: flex;
 	gap: 0 2px;
 	align-items: center;
@@ -371,7 +371,7 @@
 	font-weight: 500;
 	line-height: 33px;
 	height: 35px;
-	color: #666666;
+	color: #666;
 	display: flex;
 	gap: 0 2px;
 	align-items: center;
@@ -393,7 +393,148 @@
 	font-weight: 500;
 	line-height: 33px;
 	height: 35px;
+	color: #666;
+	display: flex;
+	gap: 0 2px;
+	align-items: center;
+	justify-content: center;
+}
+
+
+
+/** 답변 **/
+#container .review_wrap .review_list .reply {
+	background: #f9f9f9;
+}
+
+#container .review_wrap .review_list .reply>li {
+	width: 100%;
+	height: 100%;
+	padding: 30px;
+	border-top: 1px solid #e5e5e5;
+	position: relative;
+	display: flex;
+	align-items: top;
+	background: #fff;
+}
+
+#container .review_wrap .review_list .reply>li:last-child {
+	border-bottom: 1px solid #e5e5e5;
+}
+
+/* 답변 (화살표) */
+#container .review_wrap .review_list .reply .reply_arrow {
+	padding: 10px 15px;
+}
+
+/* 답변 (답변 작성자 아이콘) */
+#container .review_wrap .review_list .reply .reply_icon {
+	width: 50px;
+	height: 50px;
+	border: 2px solid #ddd;
+	border-radius: 50%;
+}
+
+#container .review_wrap .review_list .reply .reply_icon img {
+	width: 100%;
+	height: 100%;
+}
+
+/* 답변 (답변 정보) */
+#container .review_wrap .review_list .reply .reply_info {
+	padding: 0 24px;
+}
+
+/* 답변 (답변 정보 - 닉네임) */
+#container .review_wrap .review_list .reply .reply_info .reply_nickname {
+	display: flex;
+	gap: 0 5px;
+	padding: 15px 3px;
+	align-items: center;
+}
+
+#container .review_wrap .review_list .reply .reply_info .reply_nickname p {
+	font-size: 18px;
+	font-weight: 500;
+	color: #666;
+}
+
+#container .review_wrap .review_list .reply .reply_info .reply_nickname .hosp_mark {
+	display: block;
+	width: 30px;
+	height: 30px;
+	background: url(/images/approve.svg) no-repeat center center / 80%;
+}
+
+/* 답변 (답변 정보 - 날짜 및 수정 여부) */
+#container .review_wrap .review_list .reply .reply_info .info_right {
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	display: flex;
+	gap: 0 20px;
+	justify-content: right;
+}
+
+#container .review_wrap .review_list .reply .reply_info .info_right .reply_date {
+	display: flex;
+	gap: 0 5px;
+	align-items: center;
+}
+
+#container .review_wrap .review_list .reply .reply_info .info_right .reply_date p {
+	color: #bbb;
+}
+
+/* 답변 (답변 정보 - 내용) */
+#container .review_wrap .review_list .reply .reply_info .reply_content {
+	padding: 0 3px;
+	font-size: 16px;
+	color: #666;
+}
+
+/* 답변 - 답변 수정 버튼 */
+#container .review_wrap .review_list .reply .reply_info .button_wrap {
+	display: flex;
+	gap: 0 10px;
+	padding: 20px 0;
+}
+
+#container .review_wrap .review_list .reply .reply_info .button_wrap .edit_reply_btn {
+	width: 70px;
+	border-radius: 2px;
+	background: #f2f2f2;
+	text-align: center;
+	display: inline-block;
+}
+
+#container .review_wrap .review_list .reply .reply_info .button_wrap .edit_reply_btn span {
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 33px;
+	height: 35px;
 	color: #666666;
+	display: flex;
+	gap: 0 2px;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 답변 - 답변 삭제 버튼 */
+#container .review_wrap .review_list .reply .reply_info .button_wrap .delete_reply_btn {
+	width: 70px;
+	border-radius: 2px;
+	background: #f2f2f2;
+	text-align: center;
+	display: inline-block;
+}
+
+#container .review_wrap .review_list .reply .reply_info .button_wrap .delete_reply_btn span {
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 33px;
+	height: 35px;
+	color: #666;
 	display: flex;
 	gap: 0 2px;
 	align-items: center;
