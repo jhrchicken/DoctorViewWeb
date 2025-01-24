@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.edu.springboot.board.BoardDTO;
 import com.edu.springboot.board.ParameterDTO;
 import com.edu.springboot.hospital.HashtagDTO;
+import com.edu.springboot.hospital.IHospitalService;
 import com.edu.springboot.member.MemberDTO;
 import com.edu.springboot.reserve.IReserveService;
 
@@ -39,6 +40,8 @@ public class DoctorController {
    
 	@Autowired
 	IDoctorService doctorDAO;
+	@Autowired
+	IHospitalService hospitalDAO;
 	@Autowired
 	IReserveService reserveDAO;
    
@@ -105,11 +108,13 @@ public class DoctorController {
 			return null;
 		}
 		String id = loginMember.getId();
-	      
+	    
 		// 의사
 		doctorDTO = doctorDAO.viewDoctor(doctorDTO);
 		String hospname = doctorDAO.selectHospName(doctorDTO);
+		String apiRef = hospitalDAO.selectHospIdx(hospname);
 		doctorDTO.setHospname(hospname);
+		doctorDTO.setApi_ref(apiRef);
 		model.addAttribute("doctorDTO", doctorDTO);
 	      
 		// 리뷰 목록

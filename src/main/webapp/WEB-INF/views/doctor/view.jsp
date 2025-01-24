@@ -41,9 +41,10 @@
 							<div class="doc_name">
 								<p>${ doctorDTO.name }</p>
 							</div>
-							<div class="doc_hosp">
-								<p>${ doctorDTO.hospname }</p>
-							</div>
+							<a class="doc_hosp" href="/hospital/viewHosp.do?api_idx=${ doctorDTO.api_ref }">
+								${ doctorDTO.hospname }
+								<img src="/images/open_in_new.svg" style="width: 20px; height: 20px;" />
+							</a>
 							<div class="doc_major">
 								<p class="sub_tit">전공</p>
 								<div class="divider"></div>
@@ -174,32 +175,21 @@
 													<div class="button_wrap">
 														<!-- 좋아요 버튼 -->
 														<c:if test="${ row.likecheck == 0 }">
+															<p>이 리뷰가 도움이 돼요!</p>
 															<a class="comm_like_btn" href="../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }">
 																<span>
-																	<img src="/images/heart.svg" style="width: 24px; height: 24px;" />
+																	<img src="/images/review_like_btn.svg" style="width: 20px; height: 20px;" />
 																	${ row.likecount }
 																</span>
 															</a>
 														</c:if>
 														<c:if test="${ row.likecheck == 1 }">
+															<p>이 리뷰가 도움이 돼요!</p>
 															<a class="comm_like_btn" href="../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }">
 																<span>
-																	<img src="/images/heart.svg"/>
+																	<img src="/images/review_like_btn_filled.svg" style="width: 20px; height: 20px;" />
 																	${ row.likecount }
 																</span>
-															</a>
-														</c:if>
-														<!-- 리뷰 수정 버튼 -->
-														<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
-															<a class="edit_review_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editReviewModal"
-																onclick="openReviewEditModal(${ row.doc_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }')">
-																<span>수정하기</span>
-															</a>
-														</c:if>
-														<!-- 리뷰 삭제 버튼 -->
-														<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
-															<a class="delete_review_btn" href="javascript:void(0);" onclick="deleteReview(${ row.doc_ref }, ${ row.review_idx });">
-																<span>삭제하기</span>
 															</a>
 														</c:if>
 														<!-- 답변 작성 버튼 -->
@@ -209,6 +199,21 @@
 																<span>답변 작성하기</span>
 															</a>
 														</c:if>
+														<div class="crud_btn">
+															<!-- 리뷰 수정 버튼 -->
+															<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
+																<a class="edit_review_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editReviewModal"
+																	onclick="openReviewEditModal(${ row.doc_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }')">
+																	<span>수정하기</span>
+																</a>
+															</c:if>
+															<!-- 리뷰 삭제 버튼 -->
+															<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
+																<a class="delete_review_btn" href="javascript:void(0);" onclick="deleteReview(${ row.doc_ref }, ${ row.review_idx });">
+																	<span>삭제하기</span>
+																</a>
+															</c:if>
+														</div>
 													</div>
 												</div>
 											</li>
@@ -249,21 +254,19 @@
 																<p>${ replyRow.content }</p>
 															</div>
 															<!-- 버튼 -->
-															<div class="button_wrap">
-																<!-- 답변 수정 버튼 -->
-																<c:if test="${ replyRow.writer_ref.equals(sessionScope.userId) }">
+															<c:if test="${ replyRow.writer_ref.equals(sessionScope.userId) }">
+																<div class="button_wrap">
+																	<!-- 답변 수정 버튼 -->
 																	<a class="edit_reply_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editReplyModal"
 																		onclick="openReplyEditModal(${ replyRow.doc_ref }, ${ replyRow.review_idx }, '${ replyRow.content }')">
 																		<span>수정하기</span>
 																	</a>
-																</c:if>
-																<!-- 답변 삭제 버튼 -->
-																<c:if test="${ replyRow.writer_ref.equals(sessionScope.userId) }">
+																	<!-- 답변 삭제 버튼 -->
 																	<a class="delete_reply_btn" href="javascript:void(0);" onclick="deleteReply(${ replyRow.doc_ref }, ${ replyRow.review_idx });">
 																		<span>삭제하기</span>
 																	</a>
-																</c:if>
-															</div>
+																</div>
+															</c:if>
 														</div>
 													</li>
 												</c:if>

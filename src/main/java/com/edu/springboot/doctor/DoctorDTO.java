@@ -13,6 +13,7 @@ public class DoctorDTO {
 	private String hosp_ref;
 	
 	// 추가 컬럼
+	private String api_ref;
 	private String hospname;
 	private int likecount;
 	private int reviewcount;
