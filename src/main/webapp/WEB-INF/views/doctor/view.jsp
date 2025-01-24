@@ -113,184 +113,190 @@
 							<p class="total_count">총 <span>${ doctorDTO.reviewcount }</span>건의 리뷰가 있어요</p>
 							<p class="avg_score">${ doctorDTO.score }</p>
 							<div class="avg_star">
-								<div class="star">
-									<c:forEach var="i" begin="0" end="${doctorDTO.score - 1}">
-										<img src="/images/star.png" alt="" />
-									</c:forEach>
-									<c:forEach var="i" begin="${doctorDTO.score}" end="4">
-										<img src="/images/star_empty.png" alt="" />
-									</c:forEach>
-								</div>
+								<c:choose>
+									<c:when test="${ doctorDTO.score != 0 }">
+										<div class="star">
+											<c:forEach var="i" begin="0" end="${doctorDTO.score - 1}">
+												<img src="/images/star.png" alt="" />
+											</c:forEach>
+											<c:forEach var="i" begin="${doctorDTO.score}" end="4">
+												<img src="/images/star_empty.png" alt="" />
+											</c:forEach>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="star">
+											<c:forEach var="i" begin="0" end="4">
+												<img src="/images/star_empty.png" alt="" />
+											</c:forEach>
+										</div>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 						
-						<c:choose>
-							<c:when test="${ empty reviewsList }">
-								<p>리뷰가 없습니다</p>
-							</c:when>
-							<c:otherwise>
-								<ul class="review">
-									<c:forEach items="${ reviewsList }" var="row" varStatus="loop">
-										<c:if test="${ row.original_idx == row.review_idx }">
-											<li>
-												<!-- 작성자 아이콘 -->
-												<div class="review_icon">
-													<img src="/images/face2.png"/>
+						<c:if test="${ not empty reviewsList }">
+							<ul class="review">
+								<c:forEach items="${ reviewsList }" var="row" varStatus="loop">
+									<c:if test="${ row.original_idx == row.review_idx }">
+										<li>
+											<!-- 작성자 아이콘 -->
+											<div class="review_icon">
+												<img src="/images/face2.png"/>
+											</div>
+											<!-- 리뷰 정보 -->
+											<div class="review_info">
+												<!-- 닉네임 -->
+												<div class="review_nickname">
+													<p>${ row.nickname }</p>
 												</div>
-												<!-- 리뷰 정보 -->
-												<div class="review_info">
-													<!-- 닉네임 -->
-													<div class="review_nickname">
-														<p>${ row.nickname }</p>
+												<!-- 날짜 및 수정 여부 -->
+												<div class="info_right">
+													<div class="review_date">
+														<p>${ row.postdate }</p>
+														<c:if test="${ row.rewrite == 'T' }">
+															<p class="dot">・</p>
+															<p class="edit">수정됨</p>
+														</c:if>
 													</div>
-													<!-- 날짜 및 수정 여부 -->
-													<div class="info_right">
-														<div class="review_date">
-															<p>${ row.postdate }</p>
-															<c:if test="${ row.rewrite == 'T' }">
-																<p class="dot">・</p>
-																<p class="edit">수정됨</p>
-															</c:if>
-														</div>
+												</div>
+												<!-- 별점 -->
+												<div class="review_score">
+													<div class="star">
+														<c:forEach var="i" begin="0" end="${row.score - 1}">
+															<img src="/images/star.png" alt="" />
+														</c:forEach>
+														<c:forEach var="i" begin="${row.score}" end="4">
+															<img src="/images/star_empty.png" alt="" />
+														</c:forEach>
 													</div>
-													<!-- 별점 -->
-													<div class="review_score">
-														<div class="star">
-															<c:forEach var="i" begin="0" end="${row.score - 1}">
-																<img src="/images/star.png" alt="" />
-															</c:forEach>
-															<c:forEach var="i" begin="${row.score}" end="4">
-																<img src="/images/star_empty.png" alt="" />
-															</c:forEach>
-														</div>
-														<p>${ row.score }</p>
-													</div>
-													<!-- 해시태그 -->
-													<c:if test="${ not empty hashtagList }">
-														<div class="review_hashtag">
-															<ul>
-																<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
-																	<c:if test="${ hashrow.dreview_ref == row.review_idx }">
-																		<li class="tag">
-																			<p>${ hashrow.tag }</p>
-																		</li>
-																		<c:if test="${!loop.last && hashtagList[loop.index + 1].dreview_ref == row.review_idx}">
-																			<div class="divider"></div>
-																		</c:if>
+													<p>${ row.score }</p>
+												</div>
+												<!-- 해시태그 -->
+												<c:if test="${ not empty hashtagList }">
+													<div class="review_hashtag">
+														<ul>
+															<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
+																<c:if test="${ hashrow.dreview_ref == row.review_idx }">
+																	<li class="tag">
+																		<p>${ hashrow.tag }</p>
+																	</li>
+																	<c:if test="${!loop.last && hashtagList[loop.index + 1].dreview_ref == row.review_idx}">
+																		<div class="divider"></div>
 																	</c:if>
-																</c:forEach>
-															</ul>
-														</div>
-													</c:if>
-													<!-- 내용 -->
-													<div class="review_content">
-														<p>${ row.content }</p>
+																</c:if>
+															</c:forEach>
+														</ul>
 													</div>
-													<!-- 버튼 -->
-													<div class="button_wrap">
-														<!-- 좋아요 버튼 -->
-														<c:if test="${ row.likecheck == 0 }">
-															<p>이 리뷰가 도움이 돼요!</p>
-															<a class="comm_like_btn" href="../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }">
-																<span>
-																	<img src="/images/review_like_btn.svg" style="width: 20px; height: 20px;" />
-																	${ row.likecount }
-																</span>
+												</c:if>
+												<!-- 내용 -->
+												<div class="review_content">
+													<p>${ row.content }</p>
+												</div>
+												<!-- 버튼 -->
+												<div class="button_wrap">
+													<!-- 좋아요 버튼 -->
+													<c:if test="${ row.likecheck == 0 }">
+														<p>이 리뷰가 도움이 돼요!</p>
+														<a class="comm_like_btn" href="../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }">
+															<span>
+																<img src="/images/review_like_btn.svg" style="width: 20px; height: 20px;" />
+																${ row.likecount }
+															</span>
+														</a>
+													</c:if>
+													<c:if test="${ row.likecheck == 1 }">
+														<p>이 리뷰가 도움이 돼요!</p>
+														<a class="comm_like_btn" href="../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }">
+															<span>
+																<img src="/images/review_like_btn_filled.svg" style="width: 20px; height: 20px;" />
+																${ row.likecount }
+															</span>
+														</a>
+													</c:if>
+													<!-- 답변 작성 버튼 -->
+													<c:if test="${ doctorDTO.hosp_ref == sessionScope.loginMember.id }">
+														<a class="reply_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#writeReplyModal"
+															onclick="openReplyWriteModal(${ row.doc_ref }, ${ row.review_idx });">
+															<span>답변 작성하기</span>
+														</a>
+													</c:if>
+													<div class="crud_btn">
+														<!-- 리뷰 수정 버튼 -->
+														<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
+															<a class="edit_review_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editReviewModal"
+																onclick="openReviewEditModal(${ row.doc_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }')">
+																<span>수정하기</span>
 															</a>
 														</c:if>
-														<c:if test="${ row.likecheck == 1 }">
-															<p>이 리뷰가 도움이 돼요!</p>
-															<a class="comm_like_btn" href="../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }">
-																<span>
-																	<img src="/images/review_like_btn_filled.svg" style="width: 20px; height: 20px;" />
-																	${ row.likecount }
-																</span>
+														<!-- 리뷰 삭제 버튼 -->
+														<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
+															<a class="delete_review_btn" href="javascript:void(0);" onclick="deleteReview(${ row.doc_ref }, ${ row.review_idx });">
+																<span>삭제하기</span>
 															</a>
 														</c:if>
-														<!-- 답변 작성 버튼 -->
-														<c:if test="${ doctorDTO.hosp_ref == sessionScope.loginMember.id }">
-															<a class="reply_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#writeReplyModal"
-																onclick="openReplyWriteModal(${ row.doc_ref }, ${ row.review_idx });">
-																<span>답변 작성하기</span>
-															</a>
-														</c:if>
-														<div class="crud_btn">
-															<!-- 리뷰 수정 버튼 -->
-															<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
-																<a class="edit_review_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editReviewModal"
-																	onclick="openReviewEditModal(${ row.doc_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }')">
+													</div>
+												</div>
+											</div>
+										</li>
+									</c:if>
+									
+									<!-- 리뷰에 대한 답변 출력 -->
+									<ul class="reply">
+										<c:forEach items="${ reviewsList }" var="replyRow">
+											<c:if test="${ replyRow.original_idx == row.review_idx and replyRow.review_idx != replyRow.original_idx }">
+												<li>
+													<!-- 화살표 -->
+													<div class="reply_arrow">
+														<img src="/images/sub_arrow_right.svg"/>
+													</div>
+													<!-- 작성자 아이콘 -->
+													<div class="reply_icon">
+														<img src="/images/face1.png"/>
+													</div>
+													<!-- 답변 정보 -->
+													<div class="reply_info">
+														<!-- 닉네임 -->
+														<div class="reply_nickname">
+															<p>${ replyRow.nickname }</p>
+															<span class="hosp_mark"></span>
+														</div>
+														<!-- 날짜 및 수정 여부 -->
+														<div class="info_right">
+															<div class="reply_date">
+																<p>${ replyRow.postdate }</p>
+																<c:if test="${ replyRow.rewrite == 'T' }">
+																	<p class="dot">・</p>
+																	<p class="edit">수정됨</p>
+																</c:if>
+															</div>
+														</div>
+														<!-- 내용 -->
+														<div class="reply_content">
+															<p>${ replyRow.content }</p>
+														</div>
+														<!-- 버튼 -->
+														<c:if test="${ replyRow.writer_ref.equals(sessionScope.userId) }">
+															<div class="button_wrap">
+																<!-- 답변 수정 버튼 -->
+																<a class="edit_reply_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editReplyModal"
+																	onclick="openReplyEditModal(${ replyRow.doc_ref }, ${ replyRow.review_idx }, '${ replyRow.content }')">
 																	<span>수정하기</span>
 																</a>
-															</c:if>
-															<!-- 리뷰 삭제 버튼 -->
-															<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
-																<a class="delete_review_btn" href="javascript:void(0);" onclick="deleteReview(${ row.doc_ref }, ${ row.review_idx });">
+																<!-- 답변 삭제 버튼 -->
+																<a class="delete_reply_btn" href="javascript:void(0);" onclick="deleteReply(${ replyRow.doc_ref }, ${ replyRow.review_idx });">
 																	<span>삭제하기</span>
 																</a>
-															</c:if>
-														</div>
+															</div>
+														</c:if>
 													</div>
-												</div>
-											</li>
-										</c:if>
-										
-										<!-- 리뷰에 대한 답변 출력 -->
-										<ul class="reply">
-											<c:forEach items="${ reviewsList }" var="replyRow">
-												<c:if test="${ replyRow.original_idx == row.review_idx and replyRow.review_idx != replyRow.original_idx }">
-													<li>
-														<!-- 화살표 -->
-														<div class="reply_arrow">
-															<img src="/images/sub_arrow_right.svg"/>
-														</div>
-														<!-- 작성자 아이콘 -->
-														<div class="reply_icon">
-															<img src="/images/face1.png"/>
-														</div>
-														<!-- 답변 정보 -->
-														<div class="reply_info">
-															<!-- 닉네임 -->
-															<div class="reply_nickname">
-																<p>${ replyRow.nickname }</p>
-																<span class="hosp_mark"></span>
-															</div>
-															<!-- 날짜 및 수정 여부 -->
-															<div class="info_right">
-																<div class="reply_date">
-																	<p>${ replyRow.postdate }</p>
-																	<c:if test="${ replyRow.rewrite == 'T' }">
-																		<p class="dot">・</p>
-																		<p class="edit">수정됨</p>
-																	</c:if>
-																</div>
-															</div>
-															<!-- 내용 -->
-															<div class="reply_content">
-																<p>${ replyRow.content }</p>
-															</div>
-															<!-- 버튼 -->
-															<c:if test="${ replyRow.writer_ref.equals(sessionScope.userId) }">
-																<div class="button_wrap">
-																	<!-- 답변 수정 버튼 -->
-																	<a class="edit_reply_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editReplyModal"
-																		onclick="openReplyEditModal(${ replyRow.doc_ref }, ${ replyRow.review_idx }, '${ replyRow.content }')">
-																		<span>수정하기</span>
-																	</a>
-																	<!-- 답변 삭제 버튼 -->
-																	<a class="delete_reply_btn" href="javascript:void(0);" onclick="deleteReply(${ replyRow.doc_ref }, ${ replyRow.review_idx });">
-																		<span>삭제하기</span>
-																	</a>
-																</div>
-															</c:if>
-														</div>
-													</li>
-												</c:if>
-											</c:forEach>
-										</ul>
-									</c:forEach>
-								</ul>
-							</c:otherwise>
-						</c:choose>
+												</li>
+											</c:if>
+										</c:forEach>
+									</ul>
+								</c:forEach>
+							</ul>
+						</c:if>
 					</div>
 				</div>
 			</div>
