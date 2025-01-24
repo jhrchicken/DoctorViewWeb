@@ -113,6 +113,18 @@ public class DoctorController {
 		doctorDTO = doctorDAO.viewDoctor(doctorDTO);
 		String hospname = doctorDAO.selectHospName(doctorDTO);
 		String apiRef = hospitalDAO.selectHospIdx(hospname);
+		int doclikecount = doctorDAO.countDocLike(Integer.toString(doctorDTO.getDoc_idx()));
+		int reviewcount = doctorDAO.countReview(Integer.toString(doctorDTO.getDoc_idx()));
+		int scoresum = doctorDAO.sumScore(Integer.toString(doctorDTO.getDoc_idx()));
+		doctorDTO.setHospname(hospname);
+		doctorDTO.setLikecount(doclikecount);
+		doctorDTO.setReviewcount(reviewcount);
+		if (reviewcount != 0) {
+			doctorDTO.setScore(scoresum / reviewcount);
+		}
+		else {
+			doctorDTO.setScore(0);
+		}
 		doctorDTO.setHospname(hospname);
 		doctorDTO.setApi_ref(apiRef);
 		model.addAttribute("doctorDTO", doctorDTO);

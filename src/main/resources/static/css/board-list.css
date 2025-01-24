@@ -177,7 +177,6 @@
 
 /*** 목록 ***/
 #container .content .board {
-	/* clear: both; */
 	border-top: 4px solid var(--point-color2);
 	border-bottom: 2px solid var(--point-color2);
 }

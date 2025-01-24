@@ -109,6 +109,21 @@
 							<input type="hidden" name="review_idx" value="" />
 						</form>
 						
+						<div class="review_summary">
+							<p class="total_count">총 <span>${ doctorDTO.reviewcount }</span>건의 리뷰가 있어요</p>
+							<p class="avg_score">${ doctorDTO.score }</p>
+							<div class="avg_star">
+								<div class="star">
+									<c:forEach var="i" begin="0" end="${doctorDTO.score - 1}">
+										<img src="/images/star.png" alt="" />
+									</c:forEach>
+									<c:forEach var="i" begin="${doctorDTO.score}" end="4">
+										<img src="/images/star_empty.png" alt="" />
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+						
 						<c:choose>
 							<c:when test="${ empty reviewsList }">
 								<p>리뷰가 없습니다</p>
