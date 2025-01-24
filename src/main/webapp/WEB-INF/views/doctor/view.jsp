@@ -99,7 +99,6 @@
 				
 				<div class="review_wrap">
 					<div class="review_list">
-						<!-- 댓글 -->
 						<form name="deleteReviewForm" method="post">
 							<input type="hidden" name="doc_ref" value="" />
 							<input type="hidden" name="review_idx" value="" />
@@ -109,6 +108,7 @@
 							<input type="hidden" name="review_idx" value="" />
 						</form>
 						
+						<!-- 리뷰 요약 -->
 						<div class="review_summary">
 							<p class="total_count">총 <span>${ doctorDTO.reviewcount }</span>건의 리뷰가 있어요</p>
 							<p class="avg_score">${ doctorDTO.score }</p>
@@ -135,6 +135,7 @@
 							</div>
 						</div>
 						
+						<!-- 리뷰 -->
 						<c:if test="${ not empty reviewsList }">
 							<ul class="review">
 								<c:forEach items="${ reviewsList }" var="row" varStatus="loop">
