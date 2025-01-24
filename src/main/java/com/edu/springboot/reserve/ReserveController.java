@@ -86,11 +86,25 @@ public class ReserveController {
 	    	 String postdate = dateFormat.format(reserve.getPostdate()); // 예약 날짜를 년-월-일 형태로 
 	         String posttime = reserve.getPosttime(); // 예약 시간 
 	         
-	         System.err.println("postdate: " + postdate + " | posttime: " + posttime + " | 해당 시간의 예약개수: " + reserveDAO.getReservationCount(hospitalInfo.getId(), postdate, posttime));
+	         // 예약가능 여부
+	         boolean isReservable;
+
+	         // admin 예약내역 있으면 무조건 close, hospital 예약내역 있으면 무조건 open, 
+	         if (reserveDAO.getReservationAdmin(reserve.getHosp_ref(), postdate, posttime) == 1) {
+	             isReservable = false;
+	         } else if (reserveDAO.getReservationCount(hospitalInfo.getId(), postdate, posttime) >= 3) {
+	             if (reserveDAO.getReservationHospital(reserve.getHosp_ref(), postdate, posttime) == 1) {
+	                 isReservable = true; 
+	             } else {
+	                 isReservable = false;
+	             }
+	         } else {
+	             isReservable = true;
+	         }
+
 	         
 	         /* 디버깅: 예약 제한 개수 변경하기 */
-	         // 해당 날짜(postdate)에 예약내역이 3개 이상이면 예약불가능 or 병원이 예약을 막은 시간이면 불가능(admin)
-	         if( (reserveDAO.getReservationCount(hospitalInfo.getId(), postdate, posttime) >= 3) || (reserveDAO.getReservationName(hospitalInfo.getId(), postdate, posttime).equals("admin"))) {
+        	 if( !isReservable ) {
 	        	 // 해당 날짜의 리스트가 존재하지 않으면 새로 생성
 	        	 if (!reserveMap.containsKey(postdate)) {
 	        		 reserveMap.put(postdate, new ArrayList<>());
@@ -233,16 +247,36 @@ public class ReserveController {
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	    
 	    for (ReserveDTO reserve : reserveList) {
-	    	 String postdate = dateFormat.format(reserve.getPostdate());
-	         String posttime = reserve.getPosttime();
+	    	 String postdate = dateFormat.format(reserve.getPostdate()); // 예약 날짜를 년-월-일 형태로 
+	         String posttime = reserve.getPosttime(); // 예약 시간 
 	         
-	         // 해당 날짜의 리스트가 존재하지 않으면 새로 생성
-	         if (!reserveMap.containsKey(postdate)) {
-	             reserveMap.put(postdate, new ArrayList<>());
+	         // 예약가능 여부
+	         boolean isReservable;
+
+	         // admin 예약내역 있으면 무조건 close, hospital 예약내역 있으면 무조건 open, 
+	         if (reserveDAO.getReservationAdmin(reserve.getHosp_ref(), postdate, posttime) == 1) {
+	             isReservable = false;
+	         } else if (reserveDAO.getReservationCount(hospitalInfo.getId(), postdate, posttime) >= 3) {
+	             if (reserveDAO.getReservationHospital(reserve.getHosp_ref(), postdate, posttime) == 1) {
+	                 isReservable = true; 
+	             } else {
+	                 isReservable = false;
+	             }
+	         } else {
+	             isReservable = true;
 	         }
+
 	         
-	         // 해당 날짜의 리스트에 posttime 추가
-	         reserveMap.get(postdate).add(posttime);
+	         /* 디버깅: 예약 제한 개수 변경하기 */
+       	 if( !isReservable ) {
+	        	 // 해당 날짜의 리스트가 존재하지 않으면 새로 생성
+	        	 if (!reserveMap.containsKey(postdate)) {
+	        		 reserveMap.put(postdate, new ArrayList<>());
+	        	 }
+	        	 
+	        	 // 해당 날짜의 리스트에 posttime 추가
+	        	 reserveMap.get(postdate).add(posttime);
+	         }
 	     }
 	    try {
 			objectMapper.writeValueAsString(reserveMap);
@@ -271,16 +305,16 @@ public class ReserveController {
 		if (action.equals("close")) {
 			for (int i = 0; i < posttimez.length; i++) {
 				reserveDTO.setPosttime(posttimez[i]);
-				setCloseTime = reserveDAO.closeTime(reserveDTO);
+				reserveDAO.deleteOpenTime(reserveDTO);
+				reserveDAO.closeTime(reserveDTO);
 			}
 		}
 		// 예약 열기
 		else {
 			for (int i = 0; i < posttimez.length; i++) {
 				reserveDTO.setPosttime(posttimez[i]);
-				System.err.println(reserveDTO);
-				setOpenTime = reserveDAO.openTime(reserveDTO);
-				System.err.println("setOpenTime 결과: " + setOpenTime);
+				reserveDAO.deleteCloseTime(reserveDTO);
+				reserveDAO.openTime(reserveDTO);
 			}
 		}
 		
@@ -289,4 +323,3 @@ public class ReserveController {
 	}
 	
 }
-
