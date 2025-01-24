@@ -60,9 +60,21 @@
 								<p>${ doctorDTO.hours }</p>
 							</div>
 
-							<!-- 찜 -->
+							<!-- 찜 버튼 / 의사 수정 삭제 버튼 -->
 							<div class="info_right">
-								<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
+								<!-- 의사 수정 버튼 -->
+								<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' and doctorDTO.hosp_ref == sessionScope.loginMember.id }">
+									<a class="edit_doc_btn" href="../doctor/editDoctor.do?doc_idx=${ param.doc_idx }">
+										<span>수정하기</span>
+									</a>
+								</c:if>
+								<!-- 의사 삭제 버튼 -->
+								<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' and doctorDTO.hosp_ref == sessionScope.loginMember.id }">
+									<a class="delete_doc_btn" href="javascript:void(0);" onclick="deleteDoctor(${ param.doc_idx });">
+										<span>삭제하기</span>
+									</a>
+								</c:if>
+								<!-- 찜 버튼 -->
 								<c:if test="${ doclikecheck == 0 }">
 									<a class="save_btn" href="../doctor/clickDocLike.do?doc_idx=${ param.doc_idx }">
 										<span>
@@ -71,7 +83,6 @@
 										</span>
 									</a>
 								</c:if>
-								<!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
 								<c:if test="${ doclikecheck == 1 }">
 									<a class="save_btn" href="../doctor/clickDocLike.do?doc_idx=${ param.doc_idx }">
 										<span>
@@ -81,14 +92,6 @@
 									</a>
 								</c:if>
 							</div>
-
-							<!-- 하단 메뉴(버튼) -->
-							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
-								<div class="board_btn">
-									<button type="button" onclick="location.href='../doctor/editDoctor.do?doc_idx=${ param.doc_idx }';">수정하기</button>
-									<button type="button" onclick="deleteDoctor(${ param.doc_idx });">삭제하기</button>
-								</div>
-							</c:if>
 						</div>
 					</div>
 				</div>
@@ -112,133 +115,104 @@
 							<c:otherwise>
 								<ul class="review">
 									<c:forEach items="${ reviewsList }" var="row" varStatus="loop">
-										<li>
-											<!-- 작성자 아이콘 -->
-											<div class="review_icon">
-											</div>
-											<!-- 리뷰 정보 -->
-											<div class="review_info">
-												<!-- 닉네임 -->
-												<div class="review_nickname">
-													<p>${ row.nickname }</p>
+										<c:if test="${ row.original_idx == row.review_idx }">
+											<li>
+												<!-- 작성자 아이콘 -->
+												<div class="review_icon">
+													<img src="/images/face1.png"/>
 												</div>
-												<!-- 날짜 및 수정 여부 -->
-												<div class="info_right">
-													<div class="review_date">
-														<p>${ row.postdate }</p>
-														<%-- <c:if test="${ row.rewrite == 'T' }"> --%>
-															<p>•</p>
-															<p class="edit">수정됨</p>
-														<%-- </c:if> --%>
+												<!-- 리뷰 정보 -->
+												<div class="review_info">
+													<!-- 닉네임 -->
+													<div class="review_nickname">
+														<p>${ row.nickname }</p>
+													</div>
+													<!-- 날짜 및 수정 여부 -->
+													<div class="info_right">
+														<div class="review_date">
+															<p>${ row.postdate }</p>
+															<%-- <c:if test="${ row.rewrite == 'T' }"> --%>
+																<p class="dot">・</p>
+																<p class="edit">수정됨</p>
+															<%-- </c:if> --%>
+														</div>
+													</div>
+													<!-- 별점 -->
+													<div class="review_score">
+														<div class="star">
+															<c:forEach var="i" begin="0" end="${row.score - 1}">
+																<img src="/images/star.png" alt="" />
+															</c:forEach>
+															<c:forEach var="i" begin="${row.score}" end="4">
+																<img src="/images/star_empty.png" alt="" />
+															</c:forEach>
+														</div>
+														<p>${ row.score }</p>
+													</div>
+													<!-- 해시태그 -->
+													<c:if test="${ not empty hashtagList }">
+														<div class="review_hashtag">
+															<ul>
+																<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
+																	<c:if test="${ hashrow.dreview_ref == row.review_idx }">
+																		<li class="tag">
+																			<p>${ hashrow.tag }</p>
+																		</li>
+																		<c:if test="${!loop.last && hashtagList[loop.index + 1].dreview_ref == row.review_idx}">
+																			<div class="divider"></div>
+																		</c:if>
+																	</c:if>
+																</c:forEach>
+															</ul>
+														</div>
+													</c:if>
+													<!-- 내용 -->
+													<div class="review_content">
+														<p>${ row.content }</p>
+													</div>
+													<!-- 버튼 -->
+													<div class="button_wrap">
+														<!-- 좋아요 버튼 -->
+														<c:if test="${ row.likecheck == 0 }">
+															<a class="comm_like_btn" href="../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }">
+																<span>
+																	<img src="/images/heart.svg" style="width: 24px; height: 24px;" />
+																	${ row.likecount }
+																</span>
+															</a>
+														</c:if>
+														<c:if test="${ row.likecheck == 1 }">
+															<a class="comm_like_btn" href="../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }">
+																<span>
+																	<img src="/images/heart.svg"/>
+																	${ row.likecount }
+																</span>
+															</a>
+														</c:if>
+														<!-- 리뷰 수정 버튼 -->
+														<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
+															<a class="edit_review_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editReviewModal"
+																onclick="openReviewEditModal(${ row.doc_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }')">
+																<span>수정하기</span>
+															</a>
+														</c:if>
+														<!-- 리뷰 삭제 버튼 -->
+														<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
+															<a class="delete_review_btn" href="javascript:void(0);" onclick="deleteReview(${ row.doc_ref }, ${ row.review_idx });">
+																<span>삭제하기</span>
+															</a>
+														</c:if>
+														<!-- 답변 작성 버튼 -->
+														<c:if test="${ doctorDTO.hosp_ref == sessionScope.loginMember.id }">
+															<a class="reply_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#writeReplyModal"
+																onclick="openReplyWriteModal(${ row.doc_ref }, ${ row.review_idx });">
+																<span>답변 작성하기</span>
+															</a>
+														</c:if>
 													</div>
 												</div>
-												<!-- 별점 -->
-												<div class="review_score">
-													<div class="star">
-														<c:forEach var="i" begin="0" end="${row.score - 1}">
-															<img src="/images/star.svg" alt="" />
-														</c:forEach>
-														<c:forEach var="i" begin="${row.score}" end="4">
-															<img src="/images/star_empty.svg" alt="" />
-														</c:forEach>
-													</div>
-													<p>${ row.score }</p>
-												</div>
-												<!-- 해시태그 -->
-												<c:if test="${ not empty hashtagList }">
-													<ul class="review_hash">
-														<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
-															<c:if test="${ hashrow.dreview_ref == row.review_idx }">
-																<li class="hash">
-																	<p>${ hashrow.tag }</p>
-																</li>
-															</c:if>
-														</c:forEach>
-													</ul>
-												</c:if>
-												<!-- 내용 -->
-												<div class="review_content">
-													<p>${ row.content }</p>
-												</div>
-												
-												<div class="review_other">
-													<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
-													<c:if test="${ row.likecheck == 0 }">
-														<button class="comm_like_btn" type="button" onclick="location.href='../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }';">
-															<img src="/images/heart.svg" style="width: 24px; height: 24px;" /> ${ row.likecount }
-														</button>
-													</c:if>
-													<!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
-													<c:if test="${ row.likecheck == 1 }">
-														<button class="comm_like_btn" type="button" onclick="location.href='../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }';">
-															<img src="/images/heart_full.svg" style="width: 24px; height: 24px;" /> ${ row.likecount }
-														</button>
-													</c:if>
-													<c:if test="${ doctorDTO.hosp_ref == sessionScope.loginMember.id }">
-														<button class="re_btn" type="button" data-bs-toggle="modal" data-bs-target="#writeReplyModal"
-															onclick="openReplyWriteModal(${ row.doc_ref }, ${ row.review_idx })">
-															댓글 달기
-														</button>
-													</c:if>
-												</div>
-												
-												
-											</div>
-										</li>
-									</c:forEach>
-								</ul>
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</div>
-				
-				<div class="comment_inner">
-
-					<c:choose>
-						<c:when test="${ empty reviewsList }">
-							<p>리뷰를 남겨보세요.</p>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${ reviewsList }" var="row" varStatus="loop">
-								<c:if test="${ row.original_idx == row.review_idx }">
-									<div class="review_wrap">
-										<div class="review_list">   
-											<div class="review">
-												
-												<div class="review_other">
-													<!-- 로그인 한 사용자가 좋아요를 누르지 않은 경우 -->
-													<c:if test="${ row.likecheck == 0 }">
-														<button class="comm_like_btn" type="button" onclick="location.href='../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }';">
-															<img src="/images/heart.svg" style="width: 24px; height: 24px;" /> ${ row.likecount }
-														</button>
-													</c:if>
-													<!-- 로그인 한 사용자가 좋아요를 누른 경우 -->
-													<c:if test="${ row.likecheck == 1 }">
-														<button class="comm_like_btn" type="button" onclick="location.href='../doctor/clickReviewLike.do?doc_ref=${ param.doc_idx }&review_idx=${ row.review_idx }';">
-															<img src="/images/heart_full.svg" style="width: 24px; height: 24px;" /> ${ row.likecount }
-														</button>
-													</c:if>
-													<c:if test="${ doctorDTO.hosp_ref == sessionScope.loginMember.id }">
-														<button class="re_btn" type="button" data-bs-toggle="modal" data-bs-target="#writeReplyModal"
-															onclick="openReplyWriteModal(${ row.doc_ref }, ${ row.review_idx })">
-															댓글 달기
-														</button>
-													</c:if>
-												</div>
-											</div>
-											<!-- 로그인 사용자와 댓글 작성자가 일치하는 경우 수정 삭제 버튼 -->
-											<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
-												<div class="manage">
-													<button type="button" data-bs-toggle="modal" data-bs-target="#editReviewModal"
-														onclick="openReviewEditModal(${ row.doc_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }')">
-														수정하기
-													</button>
-													<button type="button" onclick="deleteReview(${ row.doc_ref }, ${ row.review_idx });">
-													삭제하기
-													</button>
-												</div>
-											</c:if>
-										</div>
+											</li>
+										</c:if>
 										
 										<!-- 리뷰에 대한 답변 출력 -->
 										<c:forEach items="${ reviewsList }" var="replyRow">
@@ -276,11 +250,11 @@
 												</div>
 											</c:if>
 										</c:forEach>
-									</div>
-								</c:if>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
+									</c:forEach>
+								</ul>
+							</c:otherwise>
+						</c:choose>
+					</div>
 				</div>
 			</div>
 		</main>
@@ -288,54 +262,51 @@
 		
 		<!-- == 리뷰 수정 모달창 == -->
 		<form method="post" action="../doctor/editReview.do" onsubmit="return validateReviewForm(this);">
-		   <input type="hidden" id="review_edit_doc_ref" name="doc_ref" value="" />
-		   <input type="hidden" id="review_edit_hashtags" name="hashtags" />
+			<input type="hidden" id="review_edit_doc_ref" name="doc_ref" value="" />
+			<input type="hidden" id="review_edit_hashtags" name="hashtags" />
 		    <input type="hidden" id="review_edit_score" name="score" value="" />
-		   <div class="modal" id="editReviewModal" >
-		      <div class="modal-dialog">
-		         <div class="modal-content">
-		            <!-- Modal Header -->
-		            <div class="modal-header">
-		               <h4 class="modal-title">의사 리뷰 수정</h4>
-		               <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-		            </div>
-		            <!-- Modal Body -->
-		            <div class="modal-body">
-		               <input type="hidden" id="review_edit_review_idx" name="review_idx" value="">
-		               <!-- 해시태그 선택 영역 -->
-		               <div class="form-group">
-		                  <label>해시태그 선택:</label>
-		                  <div id="hashtag-list">
-		                     <!-- 해시태그 목록 -->
-		                     <button type="button" class="btn btn-secondary">친절해요</button>
-		                     <button type="button" class="btn btn-secondary">전문적이예요</button>
-		                     <button type="button" class="btn btn-secondary">청결해요</button>
-		                     <button type="button" class="btn btn-secondary">신속해요</button>
-		                  </div>
-		               </div>
-		               <!-- 별 점수 선택 영역 -->
-		               <div class="form-group">
-		                  <label>점수 선택:</label>
-		                  <div id="star-rating" style="cursor: pointer;">
-		                     <!-- 별 아이콘 -->
-		                     <img src="/images/star_empty.svg" class="star" data-value="1" />
-		                     <img src="/images/star_empty.svg" class="star" data-value="2" />
-		                     <img src="/images/star_empty.svg" class="star" data-value="3" />
-		                     <img src="/images/star_empty.svg" class="star" data-value="4" />
-		                     <img src="/images/star_empty.svg" class="star" data-value="5" />
-		                  </div>
-		               </div>
-		               <!-- 폼 입력 -->
-		               <textarea class="form-control" id="review_edit_content" name="content" style="height: 100px;" placeholder="내용을 입력해주세요 (필수입력)"></textarea>
-		            </div>
-		            <!-- Modal Footer -->
-		            <div class="modal-footer">
-		               <button type="submit" class="btn btn-primary">수정하기</button>
-		               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
-		            </div>
-		         </div>
-		      </div>
-		   </div>
+		   	<div class="modal" id="editReviewModal" >
+		    	<div class="modal-dialog">
+		    		<div class="modal-content">
+		    			<div class="modal-header">
+		    				<h4 class="modal-title">&nbsp;</h4>
+		    				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		    			</div>
+		    			<div class="modal-body">
+		    				<input type="hidden" id="review_edit_review_idx" name="review_idx" value="">
+		    				<!-- 해시태그 선택 영역 -->
+		    				<div class="form-group">
+		    					<label>해시태그 선택:</label>
+		    					<div id="hashtag-list">
+		    						<!-- 해시태그 목록 -->
+		    						<button type="button" class="btn btn-secondary">친절해요</button>
+		    						<button type="button" class="btn btn-secondary">전문적이예요</button>
+		    						<button type="button" class="btn btn-secondary">청결해요</button>
+		    						<button type="button" class="btn btn-secondary">신속해요</button>
+		    					</div>
+		    				</div>
+		    				<!-- 별 점수 선택 영역 -->
+		    				<div class="form-group">
+		    					<label>점수 선택:</label>
+		    					<div id="star-rating" style="cursor: pointer;">
+		    						<!-- 별 아이콘 -->
+		    						<img src="/images/star_empty.svg" class="star" data-value="1" />
+		    						<img src="/images/star_empty.svg" class="star" data-value="2" />
+		    						<img src="/images/star_empty.svg" class="star" data-value="3" />
+		    						<img src="/images/star_empty.svg" class="star" data-value="4" />
+		    						<img src="/images/star_empty.svg" class="star" data-value="5" />
+		    					</div>
+		    				</div>
+		    				<!-- 내용 입력 -->
+		    				<textarea class="form-control" id="review_edit_content" name="content" style="height: 100px;" placeholder="내용을 입력해주세요 (필수입력)"></textarea>
+		    			</div>
+		    			<div class="modal-footer">
+		    				<button type="submit" class="btn btn-primary">수정하기</button>
+		    				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</form>
 		
 		<!-- == 답변 작성 모달창 == -->
@@ -346,7 +317,7 @@
 		      <div class="modal-dialog">
 		         <div class="modal-content">
 		            <div class="modal-header">
-		               <h4 class="modal-title">답변을 작성합니다</h4>
+		               <h4 class="modal-title">&nbsp;</h4>
 		               <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 		            </div>
 		            <div class="modal-body">

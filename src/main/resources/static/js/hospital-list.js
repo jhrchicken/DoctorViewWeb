@@ -79,7 +79,7 @@ $(function() {
  */
 var offset = 0;
 var limit = 10;
-var totalCount = 0;
+var count = 0;
 var searchSido = '';
 var searchGugun = '';
 var searchDong = '';
@@ -185,9 +185,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
-
-
 
 
 /**

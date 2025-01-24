@@ -272,7 +272,6 @@ public class DoctorController {
 		dreviewDTO.setWriter_ref(id);
 		doctorDAO.writeReview(dreviewDTO);
 		dreviewDTO = doctorDAO.selectReview(dreviewDTO);
-		System.err.println(dreviewDTO.getApp_id());
 		reserveDAO.updateDocReviewFlag(app_id);
 		
 		// 해시태그 처리
