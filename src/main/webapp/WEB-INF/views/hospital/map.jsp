@@ -14,7 +14,7 @@
 		<script>
 			// 페이지 로드 시 브라우저의 프로토콜을 확인하는 함수
 			if (location.protocol !== 'https:') {
-			    alert("현재 브라우저는 HTTP 환경에서 위치 정보를 지원하지 않습니다. HTTPS 환경에서 다시 시도하세요.");
+			    alert("현재 브라우저는 HTTP 환경에서 위치 정보를 지원하지 않습니다.\nHTTPS 환경에서 다시 시도하세요.");
 			}
 
 			// 지도 변수
@@ -452,24 +452,26 @@
 	</head>
 	
 	<body>
-	   <%@include file="../common/main_header.jsp" %>
-	   <main id="container">
-	      <div class="content">
-	         <div class="content_inner">
-	            <div class="list_title">
-	               <h2>지도로 찾기</h2>
-	               <p>병원명을 검색해보세요</p>
-	            </div>
-	            
-	            <div class="list_search">
-	               <form class="searchForm" name="searchForm">
-	                  <select class="searchField" name="searchField">
-	                     <option value="name">병원명</option>
-	                  </select>
-	                  <input name="searchWord" class="searchKeyword" type="text" placeholder="병원명으로 검색하세요">
-	                  <input type="submit" class="search_btn" value="">
-	               </form>
-	            </div>
+		<%@include file="../common/main_header.jsp" %>
+		<main id="container">
+			<div class="content">
+				<h2>지도로 찾기</h2>
+				<h3>병원명을 검색해보세요</h3>
+				
+				<!-- 검색 메뉴 -->
+				<div class="search_menu">
+					<form class="search_form" name="searchForm">
+						<div class="search_keyword">
+							<select class="search_field" name="searchField">
+								<option value="name">병원명</option>
+							</select>
+							<input type="text" class="search_word" name="searchWord" placeholder="병원명으로 검색하세요">
+							<input type="submit" class="search_btn" value="">
+						</div>
+					</form>
+				</div>
+				
+				<!-- 지도 -->
 	            <div class="map_wrap">
 	                <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;"></div>
 	                <!-- 지도 위에 표시될 마커 카테고리 -->
@@ -505,7 +507,6 @@
 	                </div>
 	            </div>
 	         </div>
-	      </div>
 	   </main>
 	   <%@include file="../common/main_footer.jsp" %>
 	</body>
