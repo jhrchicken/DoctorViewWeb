@@ -89,10 +89,6 @@ public class DoctorController {
 		model.addAttribute("doctorList", doctorList);
 		model.addAttribute("count", count);
 		
-		if (doctorList.isEmpty()) {
-			return "";
-		}
-		
 		return "doctor/listContent";
 	}
 	

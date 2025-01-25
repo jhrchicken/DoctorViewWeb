@@ -17,7 +17,7 @@
 				<c:choose>
 					<c:when test="${ empty doctorList }">
 						<div>
-							<p>검색 결과가 없습니다</p>
+							<p class="none">검색 결과가 없습니다</p>
 						</div>
 					</c:when>
 					<c:otherwise>

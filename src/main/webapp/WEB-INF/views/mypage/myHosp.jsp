@@ -34,7 +34,7 @@
 					<c:choose>
 						<c:when test="${ empty hospList }">
 							<div>
-								<p>검색 결과가 없습니다</p>
+								<p class="none">찜한 병원이 없어요<br/>마음에 드는 병원을 찜해보세요</p>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -108,11 +108,13 @@
 				</div>
 				
 				<!-- 페이지네이션 -->
-				<div class="pagination">
-					<div class="pagination_inner">
-						${ pagingImg }
+				<c:if test="${ not empty hospList }">
+					<div class="pagination">
+						<div class="pagination_inner">
+							${ pagingImg }
+						</div>
 					</div>
-				</div>
+				</c:if>
 			</div>
 		</div>
 	</main>

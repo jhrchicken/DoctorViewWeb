@@ -18,6 +18,157 @@
 	<body>
 		<%@include file="../common/main_header.jsp" %>
 		<main id="container">
+			<div class="content">
+				<h2>작성한 리뷰</h2>
+				<section class="review_wrap">
+					<div class="tab">
+						<ul>
+							<li class="active"><a href="">병원 리뷰</a></li>
+							<li><a href="">의사 리뷰</a></li>
+						</ul>
+					</div>
+					
+					<!-- 병원 리뷰 -->
+					<div class="tab_content">
+						<!-- 삭제를 위한 폼 -->
+						<form name="deleteHreviewForm" method="post">
+							<input type="hidden" name="api_ref" value="" />
+							<input type="hidden" name="hreview_idx" value="" />
+						</form>
+				        <form name="deleteDreviewForm" method="post">
+				             <input type="hidden" name="doc_ref" value="" />
+				             <input type="hidden" name="dreview_idx" value="" />
+				         </form>
+				         
+				         <c:choose>
+							<c:when test="${ empty hreviewList }">
+								<p class="none">작성한 리뷰가 없습니다</p>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${ hreviewList }" var="row" varStatus="loop">
+									<c:if test="${ row.original_idx == row.review_idx }">
+										<div class="review">
+											<div class="info">
+												<div class="top">
+													<h2>${ row.hosp_name }</h2>
+													<div class="crud_btn">
+														<!-- 리뷰 수정 버튼 -->
+														<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
+															<a class="edit_review_btn" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editHreviewModal"
+																onclick="openHreviewEditModal(${ row.api_ref }, ${ row.review_idx }, ${ row.score }, '${ row.content }', '${ row.cost }', '${ row.treat }', '${ row.doctor }')">
+																<span>수정하기</span>
+															</a>
+														</c:if>
+														<!-- 리뷰 삭제 버튼 -->
+														<c:if test="${ row.writer_ref.equals(sessionScope.userId) }">
+															<a class="delete_review_btn" href="javascript:void(0);" onclick="deleteHreview(${ row.api_ref }, ${ row.review_idx });">
+																<span>삭제하기</span>
+															</a>
+														</c:if>
+													</div>
+												</div>
+												<div class="bottom">
+													<!-- 작성자 아이콘 -->
+												<div class="review_icon">
+													<img src="/images/face2.png"/>
+												</div>
+												<!-- 리뷰 정보 -->
+												<div class="review_info">
+													<!-- 닉네임 -->
+													<div class="review_nickname">
+														<p>${ sessionScope.loginMember.nickname }</p>
+													</div>
+													<!-- 날짜 및 수정 여부 -->
+													<div class="info_right">
+														<div class="review_date">
+															<p>${ row.postdate }</p>
+															<c:if test="${ row.rewrite == 'T' }">
+																<p class="dot">・</p>
+																<p class="edit">수정됨</p>
+															</c:if>
+														</div>
+													</div>
+													<!-- 별점 -->
+													<div class="review_score">
+														<div class="star">
+															<c:forEach var="i" begin="0" end="${row.score - 1}">
+																<img src="/images/star.png" alt="" />
+															</c:forEach>
+															<c:forEach var="i" begin="${row.score}" end="4">
+																<img src="/images/star_empty.png" alt="" />
+															</c:forEach>
+														</div>
+														<p>${ row.score }</p>
+													</div>
+													<!-- 추가 정보 -->
+													<div class="review_extra">
+														<c:if test="${ row.doctor != null }">
+															<div class="extra_content">
+																<p class="sub_tit">담당의</p>
+																<p>${ row.doctor }</p>
+															</div>
+														</c:if>
+														<c:if test="${ row.treat != null }">
+															<c:if test="${ row.doctor != null }">
+																<div class="divider"></div>
+															</c:if>
+															<div class="extra_content">
+																<p class="sub_tit">치료내용</p>
+																<p>${ row.treat }</p>			
+															</div>
+														</c:if>
+														<c:if test="${ row.cost != null }">
+															<c:if test="${ row.doctor != null or row.treat != null }">
+																<div class="divider"></div>
+															</c:if>
+															<div class="extra_content">
+																<p class="sub_tit">비용</p>
+																<p>${ row.cost }원</p>					
+															</div>
+														</c:if>
+													</div>
+													<!-- 해시태그 -->
+													<c:if test="${ not empty hashtagList }">
+														<div class="review_hashtag">
+															<ul>
+																<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
+																	<c:if test="${ hashrow.hreview_ref == row.review_idx }">
+																		<li class="tag">
+																			<p># ${ hashrow.tag }</p>
+																		</li>
+																		<c:if test="${!loop.last && hashtagList[loop.index + 1].hreview_ref == row.review_idx}">
+																			<div class="divider"></div>
+																		</c:if>
+																	</c:if>
+																</c:forEach>
+															</ul>
+														</div>
+													</c:if>
+													<!-- 내용 -->
+													<div class="review_content">
+														<p>${ row.content }</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										</div>
+									</c:if>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					
+					
+					
+					
+				</section>
+			</div>
+		</main>
+		
+		
+		
+		
+<%-- 		<main id="container">
 		  <div class="content">
 		    <div class="content_inner">
 		      <h2>작성한 리뷰</h2>
@@ -178,7 +329,7 @@
 				</c:choose>
 		    </div>
 		  </div>
-		</main>
+		</main> --%>
 		<%@include file="../common/main_footer.jsp" %>
 
 

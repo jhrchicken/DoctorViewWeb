@@ -334,7 +334,7 @@
 																<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
 																	<c:if test="${ hashrow.hreview_ref == row.review_idx }">
 																		<li class="tag">
-																			<p>${ hashrow.tag }</p>
+																			<p># ${ hashrow.tag }</p>
 																		</li>
 																		<c:if test="${!loop.last && hashtagList[loop.index + 1].hreview_ref == row.review_idx}">
 																			<div class="divider"></div>
