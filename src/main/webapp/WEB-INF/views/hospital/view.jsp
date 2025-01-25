@@ -72,7 +72,7 @@
 									</c:if>
 								</div>
 								<div class="hosp_res">
-									<p class="sub_tit">예약제</p>
+									<p class="sub_tit">예약</p>
 									<div class="divider"></div>
 									<c:if test="${ hospitalDTO.system == 'T' }">
 										<p>가능</p>

@@ -124,13 +124,16 @@
 
 #container .hosp_wrap .hosp_list .hosp>li {
 	width: 100%;
-	height: 250px;
-	padding: 30px;
-	border-top: 1px solid #e5e5e5;
+	height: 230px;
+	padding: 40px;
+	border-radius: 10px;
+	border: 1px solid #fff;
+	box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.05);
 	position: relative;
 	display: flex;
 	align-items: center;
 	background: #fff;
+	margin-bottom: 30px;
 }
 
 #container .hosp_wrap .hosp_list .hosp>li:last-child {
