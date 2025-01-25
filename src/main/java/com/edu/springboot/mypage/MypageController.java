@@ -176,7 +176,7 @@ public class MypageController {
 		// 해시태그
 		ArrayList<HashtagDTO> hashtagList = hospitalDAO.listHashtag();
 		model.addAttribute("hashtagList", hashtagList);
-
+		
 		return "mypage/myHosp";
 	}
 	
