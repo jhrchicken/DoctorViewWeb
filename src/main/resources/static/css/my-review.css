@@ -43,7 +43,7 @@
 
 #container .content .review_wrap .tab ul li {
 	float: left;
-	width: 391px;
+	width: 585px;
 	border: 1px solid #e5e5e5;
 	position: relative;
 }
@@ -99,12 +99,48 @@
 	border-bottom: 1px solid #e5e5e5;
 }
 
-#container .content .review_wrap .review .info .top h2 {
+#container .content .review_wrap .review .info .top .hosp_info {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+#container .content .review_wrap .review .info .top .hosp_info a {
+	display: flex;
+	align-items: center;
+	gap: 5px;
 	padding: 0;
 	text-align: left;
 	font-size: 26px;
 	font-weight: bold;
-	color: #666666;
+	color: #666;
+}
+
+#container .content .review_wrap .review .info .top .hosp_info p {
+	color: #999;
+	font-weight: 500;
+}
+
+#container .content .review_wrap .review .info .top .doc_info {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+#container .content .review_wrap .review .info .top .doc_info a {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	padding: 0;
+	text-align: left;
+	font-size: 26px;
+	font-weight: bold;
+	color: #666;
+}
+
+#container .content .review_wrap .review .info .top .doc_info p {
+	color: #999;
+	font-weight: 500;
 }
 
 /* 리뷰 (상단 - 리뷰 수정 버튼) */

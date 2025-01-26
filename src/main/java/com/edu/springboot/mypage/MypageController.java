@@ -261,7 +261,7 @@ public class MypageController {
 			doctorDTO.setDoc_idx(dreview.getDoc_ref());
 			doctorDTO = doctorDAO.viewDoctor(doctorDTO);
 			dreview.setDoc_name(doctorDTO.getName());
-			dreview.setHospname(doctorDTO.getHospname());
+			dreview.setHospname(doctorDAO.selectHospName(doctorDTO));
 		}
 		
 		model.addAttribute("hreviewList", hreviewList);
