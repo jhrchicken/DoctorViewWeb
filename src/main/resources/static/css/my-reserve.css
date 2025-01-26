@@ -25,6 +25,14 @@
 	background: #f6f6f6;
 }
 
+#container .content .reserve_history p.none {
+	text-align: center;
+	color: #999;
+	font-weight: 500;
+	padding: 100px 0 50px 0;
+	line-height: 25px;
+}
+
 #container .content .reserve_history .tab {
 	text-align: center;
 	position: relative;
