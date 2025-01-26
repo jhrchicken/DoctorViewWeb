@@ -47,7 +47,7 @@
 	      		</div>
 							
 				<div class="btn_wrap">
-					<a href="../../reserve.do">예약관리 페이지로 이동</a>
+					<a href="/myReserve.do">예약관리 페이지로 이동</a>
 				</div>
 	      	</div>
       	</div>
