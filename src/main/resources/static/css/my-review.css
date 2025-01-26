@@ -84,6 +84,14 @@
     background: #fff;
 }
 
+#container .content .review_wrap p.none {
+	text-align: center;
+	color: #999;
+	font-weight: 500;
+	padding: 100px 0 50px 0;
+	line-height: 25px;
+}
+
 #container .content .review_wrap .review .info {
 	padding : 40px 60px 0 60px;
 	overflow: hidden;
