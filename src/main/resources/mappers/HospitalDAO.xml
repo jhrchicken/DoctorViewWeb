@@ -35,6 +35,30 @@
 	
 	
 	
+	<!-- 좋아요가 많은 순서대로 4개의 병원 -->
+	<select id="listHospByLikecount"
+		resultType="com.edu.springboot.hospital.HospitalDTO">
+		SELECT * 
+		FROM (
+		    SELECT Tb.*, ROWNUM AS rNum 
+		    FROM (
+		        SELECT m.*, 
+		               (SELECT COUNT(*) FROM likes l
+		                WHERE l.tablename = 'hospital' 
+		                  AND l.recodenum = (
+		                      SELECT a.api_idx 
+		                      FROM api a 
+		                      WHERE a.name = m.name
+		                  )
+		               ) AS likecount
+		        FROM member m
+		        WHERE m.auth = 'ROLE_HOSP'
+		        ORDER BY likecount DESC
+		    ) Tb
+		)
+		WHERE rNum BETWEEN 1 AND 4
+	</select>	
+	
 	<!-- 병원: 병원 입점 여부 확인 -->
 	<select id="selectHospId">
 		SELECT id FROM member WHERE name=#{param1}

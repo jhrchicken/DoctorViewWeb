@@ -72,85 +72,51 @@
 						<ul>
 							<li class="active"><a href="">베스트 병원</a></li>
 							<li><a href="">베스트 의사</a></li>
-							<li><a href="">베스트 게시글</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="best_menu_wrap">
 					<!-- 베스트병원 -->
 					<ul>
-						<li>
-							<a href="">
-								<div class="wrap">
-									<div class="img">
-										<img src="/images/home/test1.jpg" alt="">
+						<c:forEach items="${ hospList }" var="row" varStatus="loop">
+							<li>
+								<a href="/hospital/viewHosp.do?api_idx=${ row.api_idx }">
+									<div class="wrap">
+										<div class="img">
+											<c:if test="${ row.photo == null }">
+												<img src="/images/hospital.png" alt="">
+											</c:if>
+											<c:if test="${ row.photo != null }">
+												<img src="/uploads/${ row.photo }" alt="">
+											</c:if>
+										</div>
+										<strong>${ row.name }</strong>
+										<p>${ row.introduce }</p>
 									</div>
-									<strong>강동경희대학교병원</strong>
-									<p>강동경희대학교병원은 강동구 유일한 대학병원으로서, 숙련된 전문 의료진이 항상 환자의 편에서 최상의 의료서비스를 제공하기 위해 노력하고 있습니다</p>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="">
-								<div class="wrap">
-									<div class="img">
-										<img src="/images/home/test2.svg" alt="">
-									</div>
-									<strong>아주대학교의료원</strong>
-									<p>우리는 항상 당신 곁에 있으며, 당신의 아픔을 치유하기 위하여 끊임없이 헌신합니다</p>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="">
-								<div class="wrap">
-									<div class="img">
-										<img src="/images/home/test3.svg" alt="">
-									</div>
-									<strong>건국대학교병원</strong>
-									<p>환자와 직원이 건강한 병원, 건강은 건국!</p>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="">
-								<div class="wrap">
-									<div class="img">
-										<img src="/images/home/test4.jpg" alt="">
-									</div>
-									<strong>경희의료원</strong>
-									<p>‘경희가족정신’ 을 바탕으로 언제나 환자 곁에서, 환자 편에서 생각하고 행동하는 경희의료원</p>
-								</div>
-							</a>
-						</li>
+								</a>
+							</li>
+						</c:forEach>
 					</ul>
 					<!-- 베스트 의사 -->
 					<ul>
-						<li>
-							<a href="">
-								<div class="wrap">
-									<div class="img">
-										<img src="/images/home/test1.jpg" alt="">
+						<c:forEach items="${ doctorList }" var="row" varStatus="loop">
+							<li>
+								<a href="/doctor/viewDoctor.do?doc_idx=${ row.doc_idx }">
+									<div class="wrap">
+										<div class="img">
+											<c:if test="${ row.photo == null }">
+												<img src="/images/doctor.png" alt="">
+											</c:if>
+											<c:if test="${ row.photo != null }">
+												<img src="/uploads/${ row.photo }" alt="">
+											</c:if>
+										</div>
+										<strong>${ row.name }</strong>
+										<p>${ row.hospname }</p>
 									</div>
-									<strong>아잠만의사</strong>
-									<p>나 최고임</p>
-								</div>
-							</a>
-						</li>
-					</ul>
-					<!-- 베스트게시글 -->
-					<ul>
-						<li>
-							<a href="">
-								<div class="wrap">
-									<div class="img">
-										<img src="/images/home/test1.jpg" alt="">
-									</div>
-									<strong>강동경희대학교병원</strong>
-									<p>강동경희대학교병원은 강동구 유일한 대학병원으로서, 숙련된 전문 의료진이 항상 환자의 편에서 최상의 의료서비스를 제공하기 위해 노력하고 있습니다</p>
-								</div>
-							</a>
-						</li>
+								</a>
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</section>

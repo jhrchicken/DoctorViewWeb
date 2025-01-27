@@ -48,6 +48,24 @@
 		WHERE rNum between #{offset} + 1 and #{offset} + #{limit}
 	</select>
 	
+	<!-- 좋아요가 많은 순서대로 4개의 의사 -->
+	<select id="listDoctorByLikecount"
+		resultType="com.edu.springboot.doctor.DoctorDTO">
+	    SELECT * 
+	    FROM (
+	        SELECT Tb.*, ROWNUM AS rNum 
+	        FROM (
+	            SELECT d.*, 
+	                   (SELECT COUNT(*) FROM likes l 
+	                    WHERE l.tablename = 'doctor' AND l.recodenum = d.doc_idx) AS likecount
+	            FROM doctor d
+	            ORDER BY likecount DESC
+	        ) Tb
+	    )
+	    WHERE rNum BETWEEN 1 AND 4
+	</select>
+	
+	
 	<!-- 의사: 의사 일련번호 조회 -->
 	<select id="selectDoctorIdx">
 		SELECT doc_idx FROM doctor WHERE name=#{param1} AND hosp_ref=#{param2}

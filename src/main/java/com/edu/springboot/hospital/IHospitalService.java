@@ -22,6 +22,8 @@ public interface IHospitalService {
 	
 	
 	// == 병원 ==
+	// 좋아요가 많은 순서대로 4개의 병원
+	public List<HospitalDTO> listHospByLikecount();
 	// 병원 입점 여부 확인
 	public String selectHospId(String name);
 	// 병원 일련번호 확인

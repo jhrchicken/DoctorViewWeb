@@ -21,6 +21,8 @@ public interface IDoctorService {
 	public ArrayList<DoctorDTO> listDoctorContent(Map<String, Object> param);
 	// 의사 일련번호 조회
 	public String selectDoctorIdx(String doctorname, String hosp_ref);
+	// 의사 좋아요 순서대로 4개
+	public List<DoctorDTO> listDoctorByLikecount();
 	
 	// 의사 조회
 	public DoctorDTO viewDoctor(DoctorDTO doctorDTO);
