@@ -89,7 +89,7 @@
 													<div class="hosp_hashtag">
 														<ul>
 															<c:forEach items="${ hashtagList }" var="hashrow" varStatus="loop">
-																<c:if test="${ hashrow.hosp_ref == row.id }">
+																<c:if test="${ hashrow.hosp_ref != null and hashrow.hosp_ref == row.id }">
 																	<li class="tag">
 																		<p># ${ hashrow.tag }
 																	</li>

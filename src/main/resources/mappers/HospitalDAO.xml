@@ -140,7 +140,7 @@
            		)
            	)
            </if>
-           ORDER BY api_idx DESC
+           ORDER BY api_idx ASC
 	</select>
 	
 	<!-- 병원 검색: 병원 검색 -->
@@ -201,7 +201,7 @@
 	            		)
 	            	)
 	            </if>
-	            ORDER BY api_idx DESC
+	            ORDER BY api_idx ASC
 	        ) Tb
 	    )
 	   	WHERE rNum between #{param7} + 1 and #{param7} + #{param8}

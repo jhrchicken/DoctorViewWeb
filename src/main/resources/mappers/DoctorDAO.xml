@@ -26,7 +26,7 @@
 				<if test="searchWord!=null and !searchWord.equals('')">
 					WHERE ${searchField} LIKE '%'||#{searchWord}||'%'
 				</if>
-				ORDER BY doc_idx DESC
+				ORDER BY doc_idx ASC
 			) Tb
 		)
 		WHERE rNum<![CDATA[>=]]>#{start} AND rNum<![CDATA[<=]]>#{end}
@@ -42,7 +42,7 @@
 				<if test="searchWord!=null and !searchWord.equals('')">
 					WHERE ${searchField} LIKE '%'||#{searchWord}||'%'
 				</if>
-				ORDER BY doc_idx DESC
+				ORDER BY doc_idx ASC
 			) Tb
 		)
 		WHERE rNum between #{offset} + 1 and #{offset} + #{limit}
