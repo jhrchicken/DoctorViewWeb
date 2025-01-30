@@ -14,7 +14,7 @@
 	var toDay = new Date(); // 오늘 날짜 (내 컴퓨터 로컬 기준)
 	var nowDate = new Date();  // 실제 오늘날짜 고정값
 	     
-	var weeks = [${week}]; // 병원의 근무요일 데이터
+	var weeks = [${weeks}]; // 병원의 근무요일 데이터
 	
 	function buildCalendar() {
 	   let doMonth = new Date(toDay.getFullYear(), toDay.getMonth(), 1); // 이번 달의 첫 번째 날
