@@ -198,7 +198,7 @@
 					<div class="reserv_right">
 						<div class="time_select">
 							<p> 예약받을 시간과 받지않을 시간을 설정하세요.</p>
-							<p class="warning"> * '예약 open' 버튼을 통해 예약기능을 open 하는 경우<br/>회원가입시 설정한 예약횟수만큼 추가로 예약이 가능합니다.<br/>
+							<p class="warning"> * '예약 open' 버튼을 통해 예약기능을 open 하는 경우<br/>3개의 진료예약을 추가로 받을 수 있습니다.<br/>
 				        	<div class="am">
 				              	<!-- 12:00 이전만 출력 -->
 				            	<div class="time_title">오전</div>
