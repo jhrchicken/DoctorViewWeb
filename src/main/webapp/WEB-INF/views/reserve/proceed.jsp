@@ -362,13 +362,14 @@
 											<input type="tel" name="tel3" maxlength="4" value="${ tel3 }" placeholder="0000" />
 										</td>
 				                	</tr>
-					                <tr>
-					                	<td class="left">주민등록<br/>번호</td>
-										<td class="resi">
-										  <input type="text" name="rrn1" value="${ birthRrn }" maxlength="6" placeholder="주민등록번호*" /> - 
-										  <input type="text" name="rrn2" value="${ genderRrn }" maxlength="1" />
-										</td>
-					                </tr>
+									<tr>
+									    <td class="left">주민등록<br/>번호</td>
+									    <td class="resi">
+									            <input type="text" name="rrn1" value="${ birthRrn }" maxlength="6" placeholder="주민등록번호*" /> - 
+									            <input type="text" name="rrn2" value="${ genderRrn }" maxlength="1" />
+									            <span class="masking">******</span>
+									    </td>
+									</tr>
 					                <tr>
 					                	<td class="left">주소</td>
 					                  	<td><input type="text" name="address" value="${ userInfo.address }" placeholder="방문자의 주소를 입력해주세요."></td>

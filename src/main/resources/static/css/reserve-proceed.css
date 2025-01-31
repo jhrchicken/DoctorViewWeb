@@ -253,7 +253,6 @@
 }
 
 /**************************************************************************/
-
 /*** 예약자 정보 ***/
 #container .user_info {
   margin-top: 30px;
@@ -272,9 +271,27 @@
 #container .user_info .mobile>input {
   width: 28.7%;
 }
-#container .user_info .resi>input {
-  width: 46%;
+
+#container .user_info .resi {
+    display: flex;
+    align-items: center; /* 수직 정렬 */
 }
+
+#container .user_info input[name="rrn1"] {
+    width: 100px; 
+    margin-right: 4px;
+}
+
+#container .user_info input[name="rrn2"] {
+    width: 45px; 
+    margin: 0 4px;
+}
+
+#container .user_info .masking {
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
 #container .user_info .reserv_wrap {
   margin-top: 15px;
   border: 2px solid #ddd;
