@@ -66,7 +66,7 @@
 							<c:if test="${ sessionScope.userAuth == 'ROLE_HOSP' }">
 								<li><a href="/reserve/setTime.do?id=${ userId }">예약 관리</a></li>
 								<!-- **************** 이거 요청명 수정해야 할듯 *********** -->
-								<li><a href="/reserve.do">예약 리스트</a></li>
+								<li><a href="/myReserve.do">예약 리스트</a></li>
 							</c:if>
 							<!-- 일반 사용자 권한: 찜한 병원 및 찜한 의사 / 작성한 리뷰 / 출석체크 -->
 							<c:if test="${ sessionScope.userAuth != 'ROLE_HOSP' }">

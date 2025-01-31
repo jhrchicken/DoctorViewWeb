@@ -65,7 +65,7 @@ public class MypageController {
 	        return null;
 	    }
 		
-		List<ReserveDTO> reserveList;
+		List<ReserveDTO> reserveList = new ArrayList<>();
 		
 		// 로그인 한 유저의 예약 목록 
 		if(session.getAttribute("userAuth").equals("ROLE_USER")) {
@@ -78,8 +78,17 @@ public class MypageController {
 			}
 		}
 		else {
-			reserveList = reserveDAO.getReservationInfo(null, (String)session.getAttribute("userId"));
+		    List<ReserveDTO> allReservations = reserveDAO.getReservationInfo(null, id);
+		    
+		    for (ReserveDTO reserve : allReservations) {
+		        // user_ref가 'admin'이 아니고 id와 다른 경우에만 리스트에 추가
+		        if (!reserve.getUser_ref().equals("admin") && !reserve.getUser_ref().equals(id)) {
+		            reserve.setRrn(reserve.getRrn().substring(0, 8) + "******");
+		            reserveList.add(reserve); 
+		        }
+		    }
 		}
+		
 		model.addAttribute("reserveList", reserveList);
 		
 		return "mypage/myReserve"; 

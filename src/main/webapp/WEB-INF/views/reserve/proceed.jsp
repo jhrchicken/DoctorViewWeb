@@ -367,7 +367,8 @@
 									    <td class="resi">
 									            <input type="text" name="rrn1" value="${ birthRrn }" maxlength="6" placeholder="주민등록번호*" /> - 
 									            <input type="text" name="rrn2" value="${ genderRrn }" maxlength="1" />
-									            <span class="masking">******</span>
+<!-- 									            <span class="masking">******</span> -->
+									            <span class="masking">●●●●●●</span>
 									    </td>
 									</tr>
 					                <tr>

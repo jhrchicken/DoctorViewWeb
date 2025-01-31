@@ -283,13 +283,13 @@
 }
 
 #container .user_info input[name="rrn2"] {
-    width: 45px; 
+    width: 32px; 
     margin: 0 4px;
 }
 
 #container .user_info .masking {
     font-size: 16px;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 #container .user_info .reserv_wrap {
