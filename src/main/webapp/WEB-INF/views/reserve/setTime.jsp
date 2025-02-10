@@ -14,7 +14,7 @@
 	var toDay = new Date(); // 오늘 날짜 (내 컴퓨터 로컬 기준)
 	var nowDate = new Date();  // 실제 오늘날짜 고정값
 	     
-	var weeks = [${week}]; // 병원의 근무요일 데이터
+	var weeks = [${weeks}]; // 병원의 근무요일 데이터
 	
 	function buildCalendar() {
 	   let doMonth = new Date(toDay.getFullYear(), toDay.getMonth(), 1); // 이번 달의 첫 번째 날
@@ -198,8 +198,7 @@
 					<div class="reserv_right">
 						<div class="time_select">
 							<p> 예약받을 시간과 받지않을 시간을 설정하세요.</p>
-							<p class="warning"> * '예약 open' 버튼을 통해 예약기능을 open 하는 경우<br/>회원가입시 설정한 예약횟수 제한이 사라지게 됩니다.<br/>
-								반드시 '예약 close' 버튼을 통해 진료시간을 관리하세요. </p>
+							<p class="warning"> * '예약 open' 버튼을 통해 예약기능을 open 하는 경우<br/>3개의 진료예약을 추가로 받을 수 있습니다.<br/>
 				        	<div class="am">
 				              	<!-- 12:00 이전만 출력 -->
 				            	<div class="time_title">오전</div>

@@ -1,5 +1,6 @@
 package com.edu.springboot.reserve;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -30,7 +31,7 @@ public interface IReserveService {
 	public List<ReserveDTO> getReservationInfo(@Param("user_ref") String user_ref, @Param("hosp_ref") String hosp_ref);
 	
 	// 특정 날짜, 특정시간의 예약내역 개수
-	public int getReservationCount(String hosp_ref, String postdate, String posttime);
+	public int getReservationCount(String hosp_ref, String postdate, String posttime, @Param("app_id") int app_id);
 	
 
 	
@@ -54,6 +55,13 @@ public interface IReserveService {
 	// open, close 예약내역 (예약관리)
 	public int getReservationHospital(String hosp_ref, String postdate, String posttime);
 	public int getReservationAdmin(String hosp_ref, String postdate, String posttime);
+	
+	
+	
+	
+	public int getHospitalAppId(String hosp_ref, String postdate, String posttime);
+	
+	
 	
 	// 예약시간 close
 	public int deleteOpenTime(ReserveDTO reserveDTO);

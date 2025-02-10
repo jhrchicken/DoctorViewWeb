@@ -41,123 +41,99 @@ public class ReserveController {
 	public String proceedGet(Model model, HttpSession session, ReserveDTO reserveDTO) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		
-		// 예약할 병원: 기본정보 
+		// 병원 - 기본정보 
 		MemberDTO hospitalInfo  = reserveDAO.getHospital(reserveDTO);
 		model.addAttribute("hospitalInfo", hospitalInfo);
 		
-		/**************************************************/
-		// 예약할 병원: 영업시간정보
-		// 병원의 근무요일,시간 정보
-		List<HoursDTO> hospHoursList = memberDAO.selectHospHours(hospitalInfo.getId());
-		// 병원의 근무시간 정보
-		List<String> stringHospHoursList = hospHoursList.get(0).generateTimeSlots().stream()
-            .map(LocalTime::toString)
-            .collect(Collectors.toList());
-		try {
-			String hoursList = objectMapper.writeValueAsString(stringHospHoursList);
-			// 병원의 근무시간 정보
-			model.addAttribute("hoursList", hoursList);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		/**************************************************/
-		String[] weeks = new String[hospHoursList.size()];
-		for (int i = 0; i < hospHoursList.size(); i++) {
-		    HoursDTO hour = hospHoursList.get(i);
-		    weeks[i] = hour.getWeek(); 
-		}
-		// js 배열로 사용하기 위한 작업
-		String week = "";
-		for(int i=0; i<weeks.length; i++) {
-		if(i==0) 
-			week += "'"+weeks[i]+"'";
-		else 
-			week += ",'"+weeks[i]+"'";
-		}
-		model.addAttribute("week", week);
-		
-		// 예약할 병원: 예약불가 시간
-		// 해당하는 병원의 예약이 있는 시간
-		List<ReserveDTO> reserveList = reserveDAO.getReservationInfo(null, hospitalInfo.getId()); // 해당 병원의 예약 목록
-	    Map<String, List<String>> reserveMap = new HashMap<>();
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	    
-	    for (ReserveDTO reserve : reserveList) {
-	    	 String postdate = dateFormat.format(reserve.getPostdate()); // 예약 날짜를 년-월-일 형태로 
-	         String posttime = reserve.getPosttime(); // 예약 시간 
-	         
-	         // 예약가능 여부
-	         boolean isReservable;
-
-	         // admin 예약내역 있으면 무조건 close, hospital 예약내역 있으면 무조건 open, 
-	         if (reserveDAO.getReservationAdmin(reserve.getHosp_ref(), postdate, posttime) == 1) {
-	             isReservable = false;
-	         } else if (reserveDAO.getReservationCount(hospitalInfo.getId(), postdate, posttime) >= 3) {
-	             if (reserveDAO.getReservationHospital(reserve.getHosp_ref(), postdate, posttime) == 1) {
-	                 isReservable = true; 
-	             } else {
-	                 isReservable = false;
-	             }
-	         } else {
-	             isReservable = true;
-	         }
-
-	         
-	         /* 디버깅: 예약 제한 개수 변경하기 */
-        	 if( !isReservable ) {
-	        	 // 해당 날짜의 리스트가 존재하지 않으면 새로 생성
-	        	 if (!reserveMap.containsKey(postdate)) {
-	        		 reserveMap.put(postdate, new ArrayList<>());
-	        	 }
-	        	 
-	        	 // 해당 날짜의 리스트에 posttime 추가
-	        	 reserveMap.get(postdate).add(posttime);
-	         }
-	     }
-	    try {
-			objectMapper.writeValueAsString(reserveMap);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-	    
-	    // reserveMap을 json으로 변경
-	    String hospReserveMap = null;
-	    try {
-	    	hospReserveMap = objectMapper.writeValueAsString(reserveMap);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-	    model.addAttribute("hospReserveMap", hospReserveMap);
-	    /**************************************************/
-	    // 예약할 병원: 의사정보 
+	    // 병원 - 의사정보
 	    List<DoctorDTO> doctorInfo = reserveDAO.getDoctor(hospitalInfo.getId());
 	    model.addAttribute("doctorInfo", doctorInfo);
-	    
-	    // 예약하는 개인회원 정보
+		
+		// 병원 - 영업정보
+		List<HoursDTO> hospHoursList = memberDAO.selectHospHours(hospitalInfo.getId()); // 진료 시간
+
+		if (!hospHoursList.isEmpty()) {
+		    List<String> stringHospHoursList = hospHoursList.get(0).generateTimeSlots().stream()
+		        .map(LocalTime::toString)
+		        .collect(Collectors.toList()); // 영업정보 데이터 String 배열로 변환
+		    
+		    try {
+		        model.addAttribute("hoursList", objectMapper.writeValueAsString(stringHospHoursList)); // Jackson 라이브러리 이용 영업 시간(hoursList) json 반환
+		    } catch (JsonProcessingException e) {
+		        throw new RuntimeException("영업시간 JSON 변환 중 오류 발생", e);
+		    }
+		}
+		
+		String weeks = hospHoursList.stream()
+			    .map(HoursDTO::getWeek)          
+			    .map(w -> "'" + w + "'")        
+			    .collect(Collectors.joining(",")); // 진료 요일: js 배열 형식으로 반환
+
+		model.addAttribute("weeks", weeks);
+		
+		// 병원 - 예약정보
+	    List<ReserveDTO> reserveList = reserveDAO.getReservationInfo(null, hospitalInfo.getId());
+	    Map<String, List<String>> reserveMap = new HashMap<>();
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+	    for (ReserveDTO reserve : reserveList) {
+	        String postdate = dateFormat.format(reserve.getPostdate());
+	        String posttime = reserve.getPosttime();
+	        String hospRef = reserve.getHosp_ref();
+
+	        boolean isReservable = true;
+
+	        // 1. admin 예약이 있으면 무조건 예약 불가
+	        if (reserveDAO.getReservationAdmin(hospRef, postdate, posttime) == 1) {
+	            isReservable = false;
+	        } 
+	        // 2. 해당 시간 예약이 3개 이상이면 체크
+	        else if (reserveDAO.getReservationCount(hospRef, postdate, posttime, 0) >= 3) {
+	            int hospitalReserveCount = reserveDAO.getReservationHospital(hospRef, postdate, posttime);
+	            
+	            if (hospitalReserveCount != 0) {
+	                int hospitalAppId = reserveDAO.getHospitalAppId(hospRef, postdate, posttime);
+	                if (reserveDAO.getReservationCount(hospRef, postdate, posttime, hospitalAppId) >= 3) {
+	                    isReservable = false;
+	                }
+	            } else {
+	                isReservable = false;
+	            }
+	        }
+
+	        /* 디버깅: 예약 제한 개수 변경하기 */
+       	 	if( !isReservable ) {
+	        	 if (!reserveMap.containsKey(postdate)) {
+	        		 reserveMap.put(postdate, new ArrayList<>()); //해당 날짜의 리스트가 존재하지 않으면 새로 생성
+	        	 }
+	        	 
+	        	 reserveMap.get(postdate).add(posttime); // 해당 날짜의 리스트에 posttime 추가
+	         }
+	    }
+
+	    try {
+	        model.addAttribute("hospReserveMap", objectMapper.writeValueAsString(reserveMap));
+	    } catch (JsonProcessingException e) {
+	        e.printStackTrace();
+	    }
+
+
+	    // 개인회원 정보
 	    MemberDTO userInfo = memberDAO.loginMember((String)session.getAttribute("userId"),(String)session.getAttribute("userPassword"));
 	    model.addAttribute("userInfo", userInfo);
 	    
-	    // 개인회원 정보 - 전화번호
-	    String tel = userInfo.getTel();
-	    String tel1 = tel.substring(0,3);
-	    String tel2 = tel.substring(4,8);
-	    String tel3 = tel.substring(9,13);
-	    model.addAttribute("tel1", tel1);
-	    model.addAttribute("tel2", tel2);
-	    model.addAttribute("tel3", tel3);
+	    String[] tel = userInfo.getTel().split("-"); // 전화번호
+        model.addAttribute("tel1", tel[0]);
+        model.addAttribute("tel2", tel[1]);
+        model.addAttribute("tel3", tel[2]);
 	    
-	    
-	    // 개인회원 정보 - 주민등록번호
-	    String rrn = userInfo.getRrn();
-	    String birthRrn = rrn.substring(0, 6); 
-	    String genderRrn = rrn.substring(7, 8); 
-	    model.addAttribute("birthRrn", birthRrn);
-	    model.addAttribute("genderRrn", genderRrn);
+	    String rrn = userInfo.getRrn(); // 주민등록번호
+        model.addAttribute("birthRrn", rrn.substring(0, 6));
+        model.addAttribute("genderRrn", rrn.substring(7, 8));
 	    
 	    return "reserve/proceed";
 	    }
 		
-	
 	// 예약하기
 	@PostMapping("/reserve/proceed.do")
 	public String proceedPost(Model model, ReserveDTO reserveDTO, HttpServletRequest req) {
@@ -166,7 +142,6 @@ public class ReserveController {
 		
 		reserveDTO.setTel(tel);
 		reserveDTO.setRrn(rrn);
-		
 		
 		// 예약정보 저장
 		int reserveResult = reserveDAO.saveReservationInfo(reserveDTO);
@@ -181,10 +156,6 @@ public class ReserveController {
 		}
 	}
 
-
-
-
-	
 	// 예약 취소하기
 	@PostMapping("/reserve/cancel.do")
 	public String cancel(Model model, HttpSession session, ReserveDTO reserveDTO) {
@@ -201,7 +172,7 @@ public class ReserveController {
 		return "redirect:/myReserve.do";
 	}
 	
-	// 예약 시간 설정
+	// 예약 관리
 	@GetMapping("/reserve/setTime.do")
 	public String setTimeGet(Model model, HttpSession session, ReserveDTO reserveDTO, MemberDTO memberDTO) {
 		
@@ -212,99 +183,89 @@ public class ReserveController {
 		MemberDTO hospitalInfo  = reserveDAO.getMyHospital(memberDTO);
 		model.addAttribute("hospitalInfo", hospitalInfo);
 		
-		// 병원의 근무요일,시간 정보
-		List<HoursDTO> hospHoursList = memberDAO.selectHospHours(hospitalInfo.getId());
-		// 병원의 근무시간 정보
-		List<String> stringHospHoursList = hospHoursList.get(0).generateTimeSlots().stream()
-            .map(LocalTime::toString)
-            .collect(Collectors.toList());
-		try {
-			String hoursList = objectMapper.writeValueAsString(stringHospHoursList);
-			// 병원의 근무시간 정보
-			model.addAttribute("hoursList", hoursList);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+		
+		// 병원 - 영업정보
+		List<HoursDTO> hospHoursList = memberDAO.selectHospHours(hospitalInfo.getId()); // 진료 시간
+
+		if (!hospHoursList.isEmpty()) {
+		    List<String> stringHospHoursList = hospHoursList.get(0).generateTimeSlots().stream()
+		        .map(LocalTime::toString)
+		        .collect(Collectors.toList()); // 영업정보 데이터 String 배열로 변환
+		    
+		    try {
+		        model.addAttribute("hoursList", objectMapper.writeValueAsString(stringHospHoursList)); // Jackson 라이브러리 이용 hoursList json 반환
+		    } catch (JsonProcessingException e) {
+		        throw new RuntimeException("영업시간 JSON 변환 중 오류 발생", e);
+		    }
 		}
 		
-		String[] weeks = new String[hospHoursList.size()];
-		for (int i = 0; i < hospHoursList.size(); i++) {
-		    HoursDTO hour = hospHoursList.get(i);
-		    weeks[i] = hour.getWeek(); 
-		}
-		// js 배열로 사용하기 위한 작업
-		String week = "";
-		for(int i=0; i<weeks.length; i++) {
-		if(i==0) 
-			week += "'"+weeks[i]+"'";
-		else 
-			week += ",'"+weeks[i]+"'";
-		}
-		model.addAttribute("week", week);
+		String weeks = hospHoursList.stream()
+			    .map(HoursDTO::getWeek)          
+			    .map(w -> "'" + w + "'")        
+			    .collect(Collectors.joining(",")); // 진료 요일: js 배열 형식으로 반환
+
+		model.addAttribute("weeks", weeks);
 		
-		// 예약목록
-		List<ReserveDTO> reserveList = reserveDAO.getReservationInfo(null, hospitalInfo.getId());
+		// 병원 - 예약정보
+	    List<ReserveDTO> reserveList = reserveDAO.getReservationInfo(null, hospitalInfo.getId());
 	    Map<String, List<String>> reserveMap = new HashMap<>();
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	    
+
 	    for (ReserveDTO reserve : reserveList) {
-	    	 String postdate = dateFormat.format(reserve.getPostdate()); // 예약 날짜를 년-월-일 형태로 
-	         String posttime = reserve.getPosttime(); // 예약 시간 
-	         
-	         // 예약가능 여부
-	         boolean isReservable;
+	        String postdate = dateFormat.format(reserve.getPostdate());
+	        String posttime = reserve.getPosttime();
+	        String hospRef = reserve.getHosp_ref();
 
-	         // admin 예약내역 있으면 무조건 close, hospital 예약내역 있으면 무조건 open, 
-	         if (reserveDAO.getReservationAdmin(reserve.getHosp_ref(), postdate, posttime) == 1) {
-	             isReservable = false;
-	         } else if (reserveDAO.getReservationCount(hospitalInfo.getId(), postdate, posttime) >= 3) {
-	             if (reserveDAO.getReservationHospital(reserve.getHosp_ref(), postdate, posttime) == 1) {
-	                 isReservable = true; 
-	             } else {
-	                 isReservable = false;
-	             }
-	         } else {
-	             isReservable = true;
-	         }
+	        boolean isReservable = true;
 
-	         
-	         /* 디버깅: 예약 제한 개수 변경하기 */
-       	 if( !isReservable ) {
-	        	 // 해당 날짜의 리스트가 존재하지 않으면 새로 생성
+	        // 1. admin 예약이 있으면 무조건 예약 불가
+	        if (reserveDAO.getReservationAdmin(hospRef, postdate, posttime) == 1) {
+	            isReservable = false;
+	        } 
+	        // 2. 해당 시간 예약이 3개 이상이면 체크
+	        else if (reserveDAO.getReservationCount(hospRef, postdate, posttime, 0) >= 3) {
+	            int hospitalReserveCount = reserveDAO.getReservationHospital(hospRef, postdate, posttime);
+	            
+	            if (hospitalReserveCount != 0) {
+	                int hospitalAppId = reserveDAO.getHospitalAppId(hospRef, postdate, posttime);
+	                if (reserveDAO.getReservationCount(hospRef, postdate, posttime, hospitalAppId) >= 3) {
+	                    isReservable = false;
+	                }
+	            } else {
+	                isReservable = false;
+	            }
+	        }
+
+	        /* 디버깅: 예약 제한 개수 변경하기 */
+       	 	if( !isReservable ) {
 	        	 if (!reserveMap.containsKey(postdate)) {
-	        		 reserveMap.put(postdate, new ArrayList<>());
+	        		 reserveMap.put(postdate, new ArrayList<>()); //해당 날짜의 리스트가 존재하지 않으면 새로 생성
 	        	 }
 	        	 
-	        	 // 해당 날짜의 리스트에 posttime 추가
-	        	 reserveMap.get(postdate).add(posttime);
+	        	 reserveMap.get(postdate).add(posttime); // 해당 날짜의 리스트에 posttime 추가
 	         }
-	     }
+	    }
+
 	    try {
-			objectMapper.writeValueAsString(reserveMap);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-	    
-	    String hospReserveMap = null;
-	    try {
-	    	hospReserveMap = objectMapper.writeValueAsString(reserveMap);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-	    model.addAttribute("hospReserveMap", hospReserveMap);
+	        model.addAttribute("hospReserveMap", objectMapper.writeValueAsString(reserveMap));
+	    } catch (JsonProcessingException e) {
+	        e.printStackTrace();
+	    }
 
 		return "reserve/setTime";
 	}
+	
 	@PostMapping("/reserve/setTime.do")
 	public String setTimePost(HttpServletRequest req, ReserveDTO reserveDTO, RedirectAttributes redirectAttributes) {
 		String[] posttimez = req.getParameterValues("posttimez");
 		String action = req.getParameter("action"); 
 		
-		int setCloseTime;
-		int setOpenTime;
 		// 예약 닫기
 		if (action.equals("close")) {
 			for (int i = 0; i < posttimez.length; i++) {
 				reserveDTO.setPosttime(posttimez[i]);
+				
+				reserveDAO.deleteCloseTime(reserveDTO);
 				reserveDAO.deleteOpenTime(reserveDTO);
 				reserveDAO.closeTime(reserveDTO);
 			}
@@ -313,6 +274,8 @@ public class ReserveController {
 		else {
 			for (int i = 0; i < posttimez.length; i++) {
 				reserveDTO.setPosttime(posttimez[i]);
+				
+				reserveDAO.deleteOpenTime(reserveDTO);
 				reserveDAO.deleteCloseTime(reserveDTO);
 				reserveDAO.openTime(reserveDTO);
 			}

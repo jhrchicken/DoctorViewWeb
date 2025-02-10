@@ -33,6 +33,7 @@
 							
 					<!-- 전체 -->
 					<div class="tab_content">
+					
 						<!-- 예약이 있는지 확인 -->
 						<c:set var="isNone" value="T" />
 						<c:forEach items="${ reserveList }" var="row" varStatus="loop">
@@ -40,13 +41,22 @@
 								<c:set var="isNone" value="F" />
 							</c:if>
 						</c:forEach>
-						
+						<c:if test="${ userAuth eq 'ROLE_HOSP' and reserveList != null }">
+					        <c:set var="isNone" value="F" />
+					    </c:if>
+
 						<c:choose>
 							<c:when test="${ isNone eq 'T' }">
-								<p class="none">예약된 병원이 없어요<br/>병원을 예약하고 방문해보세요</p>
+								<c:if test="${ userAuth eq 'ROLE_USER'}">
+									<p class="none">예약된 병원이 없어요<br/>병원을 예약하고 방문해보세요</p>
+								</c:if>
+								<c:if test="${ userAuth eq 'ROLE_HOSP'}">
+									<p class="none">예약된 손님이 없어요
+								</c:if>
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${ reserveList }" var="row" varStatus="loop">
+									
 									<!-- user 회원 화면-->
 									<c:if test="${ userAuth eq 'ROLE_USER' }">
 										<c:if test="${ row.hide eq 'F' }">
@@ -131,6 +141,67 @@
 											</div>
 										</c:if>
 									</c:if>
+								
+									<!-- hosp 회원 화면  -->
+									<c:if test="${ userAuth eq 'ROLE_HOSP' }">
+										<!-- 예약정보 -->
+										<c:set var="reserveDate" value="${row.postdate} ${row.posttime}" />
+										<div class="reserve">
+											<div class="info">
+												<div class="top">
+													<h2>${ row.hospname }</h2>
+													<div class="btn_wrap">
+														<c:if test="${ row.cancel eq 'F' and reserveDate lt currentDate }">
+															<a class="done_btn" href="javascript:void(0);"><span>완료된 예약</span></a>
+														</c:if>
+														<c:if test="${ row.cancel eq 'T' }">
+															<a class="cancel_btn" href="javascript:void(0);"><span>취소된 예약</span></a>
+														</c:if>
+													</div>
+												</div>
+												<div class="bottom">
+													<dl>
+														<dt>예약일</dt>
+														<dd>${ row.postdate } ${ row.posttime }</dd>
+														<dt>담당의</dt>
+														<dd>${ row.doctorname }</dd>
+													</dl>
+													<dl>
+														<dt>예약자 이름</dt>
+														<dd>${ row.username }</dd>
+														<dt>전화번호</dt>
+														<dd>${ row.tel }</dd>
+													</dl>
+													<dl>
+														<dt>주민등록번호</dt>
+														<dd>${ row.rrn }</dd>
+														<dt>주소</dt>
+														<dd>${ row.address }</dd>
+													</dl>
+													<dl>
+														<dt>메모</dt>
+														<dd class="memo_dd">
+															<div class="memo">
+																<c:if test="${ empty row.hosp_memo }">
+																	<span>-</span>
+								        						</c:if>
+																<c:if test="${ not empty row.hosp_memo }">
+																	<span>${ row.hosp_memo }</span>
+								        						</c:if>
+																<div class="memo_btn">
+																	<button type="button" data-bs-toggle="modal" data-bs-target="#memoModal"
+																		onclick="openMemoModal(${ row.app_id }, '${ row.hosp_memo }')">
+																		<span>메모변경</span>
+																	</button>
+																</div>
+															</div>
+														</dd>
+													</dl>
+												</div>
+											</div>
+										</div>
+									</c:if>
+										
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
@@ -139,9 +210,13 @@
 					<!-- 완료된 예약 -->
 					<div class="tab_content">
 						<!-- 완료된 예약이 있는지 확인 -->
+						<c:set var="reserveDate" value="${row.postdate} ${row.posttime}" />
 						<c:set var="isNone" value="T" />
 						<c:forEach items="${ reserveList }" var="row" varStatus="loop">
 							<c:if test="${ userAuth eq 'ROLE_USER' and row.hide eq 'F' and reserveDate lt currentDate and row.cancel eq 'F' }">
+								<c:set var="isNone" value="F" />
+							</c:if>
+							<c:if test="${ userAuth eq 'ROLE_HOSP' and reserveDate lt currentDate and row.cancel eq 'F' }">
 								<c:set var="isNone" value="F" />
 							</c:if>
 						</c:forEach>
@@ -237,11 +312,74 @@
 											</c:if>
 										</c:if>
 									</c:if>
+								
+									<!-- hosp 회원 화면-->
+									<c:if test="${ userAuth eq 'ROLE_HOSP' }">
+										<c:if test="${ row.hide eq 'F' }">
+											<!-- 예약정보 -->
+											<c:set var="reserveDate" value="${row.postdate} ${row.posttime}" />
+				            				<c:if test="${reserveDate lt currentDate and row.cancel eq 'F'}">
+												<div class="reserve">
+													<div class="info">
+														<div class="top">
+															<h2>${ row.hospname }</h2>
+															<div class="btn_wrap">
+																<c:if test="${ row.cancel eq 'F' and reserveDate lt currentDate }">
+																	<a class="done_btn" href="javascript:void(0);"><span>완료된 예약</span></a>
+																</c:if>
+																<c:if test="${ row.cancel eq 'T' }">
+																	<a class="cancel_btn" href="javascript:void(0);"><span>취소된 예약</span></a>
+																</c:if>
+															</div>
+														</div>
+														<div class="bottom">
+															<dl>
+																<dt>예약일</dt>
+																<dd>${ row.postdate } ${ row.posttime }</dd>
+																<dt>담당의</dt>
+																<dd>${ row.doctorname }</dd>
+															</dl>
+															<dl>
+																<dt>예약자 이름</dt>
+																<dd>${ row.username }</dd>
+																<dt>전화번호</dt>
+																<dd>${ row.tel }</dd>
+															</dl>
+															<dl>
+																<dt>주민등록번호</dt>
+																<dd>${ row.rrn }</dd>
+																<dt>주소</dt>
+																<dd>${ row.address }</dd>
+															</dl>
+															<dl>
+																<dt>메모</dt>
+																<dd class="memo_dd">
+																	<div class="memo">
+																		<c:if test="${ empty row.hosp_memo }">
+																			<span>-</span>
+										        						</c:if>
+																		<c:if test="${ not empty row.hosp_memo }">
+																			<span>${ row.hosp_memo }</span>
+										        						</c:if>
+																		<div class="memo_btn">
+																			<button type="button" onclick="location.href='/reserve/extraInfo.do?app_id=${ row.app_id }';">
+																				<span>메모변경</span>
+																			</button>
+																		</div>
+																	</div>
+																</dd>
+															</dl>
+														</div>
+													</div>
+												</div>
+											</c:if>
+										</c:if>
+									</c:if>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
 					</div>
-					
+
 					<!-- 취소된 예약 -->
 					<div class="tab_content">
 						<!-- 취소된 예약이 있는지 확인 -->
@@ -250,8 +388,11 @@
 							<c:if test="${ userAuth eq 'ROLE_USER' and row.hide eq 'F' and row.cancel eq 'T' }">
 								<c:set var="isNone" value="F" />
 							</c:if>
+							<c:if test="${ userAuth eq 'ROLE_HOSP' and row.cancel eq 'T' }">
+						        <c:set var="isNone" value="F" />
+						    </c:if>
 						</c:forEach>
-						
+
 						<c:choose>
 							<c:when test="${ isNone eq 'T' }">
 								<p class="none">취소된 예약이 없어요</p>
@@ -343,6 +484,69 @@
 											</c:if>
 										</c:if>
 									</c:if>
+								
+									<!-- hosp 회원 화면-->
+									<c:if test="${ userAuth eq 'ROLE_HOSP' }">
+										<c:if test="${ row.hide eq 'F' }">
+											<!-- 예약정보 -->
+				            				<c:if test="${row.cancel eq 'T'}">
+												<div class="reserve">
+													<div class="info">
+														<div class="top">
+															<h2>${ row.hospname }</h2>
+															<div class="btn_wrap">
+																<c:if test="${ row.cancel eq 'F' and reserveDate lt currentDate }">
+																	<a class="done_btn" href="javascript:void(0);"><span>완료된 예약</span></a>
+																</c:if>
+																<c:if test="${ row.cancel eq 'T' }">
+																	<a class="cancel_btn" href="javascript:void(0);"><span>취소된 예약</span></a>
+																</c:if>
+															</div>
+														</div>
+														<div class="bottom">
+															<dl>
+																<dt>예약일</dt>
+																<dd>${ row.postdate } ${ row.posttime }</dd>
+																<dt>담당의</dt>
+																<dd>${ row.doctorname }</dd>
+															</dl>
+															<dl>
+																<dt>예약자 이름</dt>
+																<dd>${ row.username }</dd>
+																<dt>전화번호</dt>
+																<dd>${ row.tel }</dd>
+															</dl>
+															<dl>
+																<dt>주민등록번호</dt>
+																<dd>${ row.rrn }</dd>
+																<dt>주소</dt>
+																<dd>${ row.address }</dd>
+															</dl>
+															<dl>
+																<dt>메모</dt>
+																<dd class="memo_dd">
+																	<div class="memo">
+																		<c:if test="${ empty row.hosp_memo }">
+																			<span>-</span>
+										        						</c:if>
+																		<c:if test="${ not empty row.hosp_memo }">
+																			<span>${ row.hosp_memo }</span>
+										        						</c:if>
+																		<div class="memo_btn">
+																			<button type="button" data-bs-toggle="modal" data-bs-target="#memoModal"
+																				onclick="openMemoModal(${ row.app_id }, '${ row.hosp_memo }')">
+																				<span>메모변경</span>
+																			</button>
+																		</div>
+																	</div>
+																</dd>
+															</dl>
+														</div>
+													</div>
+												</div>
+											</c:if>
+										</c:if>
+									</c:if>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
@@ -364,7 +568,12 @@
 							<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 						</div>
 						<div class="modal-body">
-							<textarea class="form-control" id="memo_content" name="user_memo" style="height: 100px;"></textarea>
+							<c:if test="${ userAuth eq 'ROLE_USER' }">
+								<textarea class="form-control" id="memo_content" name="user_memo" style="height: 100px;"></textarea>
+							</c:if>
+							<c:if test="${ userAuth eq 'ROLE_HOSP' }">
+								<textarea class="form-control" id="memo_content" name="hosp_memo" style="height: 100px;"></textarea>
+							</c:if>
 						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-primary">작성하기</button>
