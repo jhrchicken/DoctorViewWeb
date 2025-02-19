@@ -408,7 +408,7 @@ DoctorViewWeb
 
 <ul>
   <li><a href="https://drive.google.com/file/d/1wGxVbj3qNO7_oJKVC0wMUjtBKSEVt2co/view?usp=sharing">ERD</a></li>
-  <li>클래스 다이어그램</li>
+  <li><a href="https://drive.google.com/file/d/1CxMAFN6PIO2vngcI23qqZjDErShFZBCg/view?usp=sharing">UserFlow</a></li>
 </ul>
 
 #### 기타
