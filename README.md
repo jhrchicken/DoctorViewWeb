@@ -407,7 +407,7 @@ DoctorViewWeb
 #### 설계 및 다이어그램
 
 <ul>
-  <li><a href="file:///C:/Users/user/Desktop/%EB%8B%A5%ED%84%B0%EB%B7%B0Pro/%EB%A6%AC%EB%93%9C%EB%AF%B8/doctorviewErd.pdf"></a>ERD</li>
+  <li><a href="file:///C:/Users/user/Desktop/%EB%8B%A5%ED%84%B0%EB%B7%B0Pro/%EB%A6%AC%EB%93%9C%EB%AF%B8/doctorviewErd.pdf">ERD</a></li>
   <li>클래스 다이어그램</li>
 </ul>
 
