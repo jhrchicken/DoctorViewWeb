@@ -27,7 +27,7 @@
 					<div class="search_region">
 						<select class="search_field" id="sido" name="searchSido">
 							<option value="">-- 시/도 선택 --</option>
-							<c:forEach items="${ sidoList }"> var="sido">
+							<c:forEach items="${ sidoList }" var="sido">
 								<option value="${ sido.sido }">${ sido.sido }</option>
 							</c:forEach>
 						</select>
