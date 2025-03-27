@@ -61,46 +61,54 @@
 								<p>${ hospitalDTO.address }</p>
 							</div>
 							<div class="hosp_detail">
-								<div class="hosp_park">
-									<p class="sub_tit">주차</p>
-									<div class="divider"></div>
-									<c:if test="${ hospitalDTO.parking == 'T' }">
-										<p>가능</p>
-									</c:if>
-									<c:if test="${ hospitalDTO.parking == 'F' }">
-										<p>불가능</p>
-									</c:if>
-								</div>
-								<div class="hosp_res">
-									<p class="sub_tit">예약</p>
-									<div class="divider"></div>
-									<c:if test="${ hospitalDTO.system == 'T' }">
-										<p>가능</p>
-									</c:if>
-									<c:if test="${ hospitalDTO.system == 'F' }">
-										<p>불가능</p>
-									</c:if>
-								</div>
-								<div class="hosp_hosp">
-									<p class="sub_tit">입원</p>
-									<div class="divider"></div>
-									<c:if test="${ hospitalDTO.hospitalize == 'T' }">
-										<p>가능</p>
-									</c:if>
-									<c:if test="${ hospitalDTO.hospitalize == 'F' }">
-										<p>불가능</p>
-									</c:if>
-								</div>
-								<div class="hosp_pcr">
-									<p class="sub_tit">PCR 검사</p>
-									<div class="divider"></div>
-									<c:if test="${ hospitalDTO.pcr == 'T' }">
-										<p>가능</p>
-									</c:if>
-									<c:if test="${ hospitalDTO.pcr == 'F' }">
-										<p>불가능</p>
-									</c:if>
-								</div>
+								<c:if test="${ hospitalDTO.parking }">
+									<div class="hosp_park">
+										<p class="sub_tit">주차</p>
+										<div class="divider"></div>
+										<c:if test="${ hospitalDTO.parking == 'T' }">
+											<p>가능</p>
+										</c:if>
+										<c:if test="${ hospitalDTO.parking == 'F' }">
+											<p>불가능</p>
+										</c:if>
+									</div>
+								</c:if>
+								<c:if test="${ hospitalDTO.system }">
+									<div class="hosp_res">
+										<p class="sub_tit">예약</p>
+										<div class="divider"></div>
+										<c:if test="${ hospitalDTO.system == 'T' }">
+											<p>가능</p>
+										</c:if>
+										<c:if test="${ hospitalDTO.system == 'F' }">
+											<p>불가능</p>
+										</c:if>
+									</div>
+								</c:if>
+								<c:if test="${ hospitalDTO.hospitalize }">
+									<div class="hosp_hosp">
+										<p class="sub_tit">입원</p>
+										<div class="divider"></div>
+										<c:if test="${ hospitalDTO.hospitalize == 'T' }">
+											<p>가능</p>
+										</c:if>
+										<c:if test="${ hospitalDTO.hospitalize == 'F' }">
+											<p>불가능</p>
+										</c:if>
+									</div>
+								</c:if>
+								<c:if test="${ hospitalDTO.pcr }">
+									<div class="hosp_pcr">
+										<p class="sub_tit">PCR 검사</p>
+										<div class="divider"></div>
+										<c:if test="${ hospitalDTO.pcr == 'T' }">
+											<p>가능</p>
+										</c:if>
+										<c:if test="${ hospitalDTO.pcr == 'F' }">
+											<p>불가능</p>
+										</c:if>
+									</div>
+								</c:if>
 							</div>
 							<!-- 찜 버튼 -->
 							<div class="info_right">

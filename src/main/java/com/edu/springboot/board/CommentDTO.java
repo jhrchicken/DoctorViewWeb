@@ -12,4 +12,5 @@ public class CommentDTO {
 	private int board_ref;
 	private String writer_ref;
 	private String nickname;
+	
 }
