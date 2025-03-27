@@ -150,16 +150,16 @@
 ### 배포 URL
 
 <ul>
-  <li>배포 URL:</li>
-  <li>관리자 URL: /admin.do</li>
+  <li>배포 URL: http://ec2-3-35-52-107.ap-northeast-2.compute.amazonaws.com:8586/</li>
+  <li>관리자 URL: http://ec2-3-35-52-107.ap-northeast-2.compute.amazonaws.com:8586/admin/index.do</li>
 </ul>
 
 ### Test ID/PW
 
 <ul>
-  <li>일반사용자: harim1104 / 12341234</li>
-  <li>병원사용자: hospital1 / 12341234</li>
-  <li>관리자: admin / 12341234</li>
+  <li>일반사용자: user1 / 1234</li>
+  <li>병원사용자: hospital1 / 1234</li>
+  <li>관리자: admin / 1234</li>
 </ul>
 
 <div align="right">
@@ -307,10 +307,6 @@ Spring MVC 패턴 with Mybatis
 
 <img src="src/main/resources/static/images/springmvc.png">
 
-<br/>
-
-<img src="src/main/resources/static/images/mybatis.png">
-
 <div align="right">
   
 [(back to top)](#readme-top)
@@ -415,7 +411,7 @@ DoctorViewWeb
 
 <ul>
   <li><a href="https://docs.google.com/spreadsheets/d/1zC_YDl9BHkNTQ4XoS8nbUvrYFBoN5bXuEljF49YOYT0/edit?usp=drive_link">개발 일정</a></li>
-  <li>릴리즈 노트</li>
+  <li><a href="http://ec2-3-35-52-107.ap-northeast-2.compute.amazonaws.com:8586/release.do">릴리즈 노트</a></li>
 </ul>
 
 <div align="right">
