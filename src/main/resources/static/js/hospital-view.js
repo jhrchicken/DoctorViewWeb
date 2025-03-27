@@ -5,6 +5,7 @@
  * @param {String} hospId - 병원사용자 아이디
  */
 function openChatRoom(userId, hospId) {
+	alert("열기");
 	window.open('/chat/index.html#/chat/view?room=' + userId + '-' + hospId + '&user=' + userId,
 			userId + '-' + hospId, 'width=500, height=650')
 }
