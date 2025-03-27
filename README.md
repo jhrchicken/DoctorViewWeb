@@ -8,7 +8,7 @@
   <p align="center">
     지금 바로 닥터뷰를 시작해보세요!
     <br />
-    <a href=""><strong>웹사이트 바로가기 »</strong></a>
+    <a href="http://ec2-3-35-52-107.ap-northeast-2.compute.amazonaws.com:8586/"><strong>웹사이트 바로가기 »</strong></a>
   </p>
 </div>
 
@@ -66,7 +66,7 @@
 2. 환자들이 병원 방문 전후에 의료진과 간편하게 소통할 수 있도록 채팅 기능을 제공합니다.
 3. 게시판을 통해 건강 정보를 공유하고 커뮤니티 내에서 자유롭게 상호작용할 수 있습니다.
 
-<b>이제 </b><a href="">여기를 클릭하여</a><b> 지역 기반 의료 시스템 매칭 플랫폼 닥터뷰를 시작해보세요!</b>
+<b>이제 </b><a href="http://ec2-3-35-52-107.ap-northeast-2.compute.amazonaws.com:8586/">여기를 클릭하여</a><b> 지역 기반 의료 시스템 매칭 플랫폼 닥터뷰를 시작해보세요!</b>
 
 <div align="right">
  
