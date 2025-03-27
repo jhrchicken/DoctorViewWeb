@@ -93,7 +93,7 @@
 				<c:if test="${ not empty sessionScope.userId }">
 					<li><p class="user_name">${ loginMember.nickname } ${ loginMember.emoji }</p><p>님</p></li>
 					<li><a href="/member/logout.do">로그아웃</a></li>
-					<li><a href="/reserve.do">나의 예약</a></li>
+					<li><a href="/myReserve.do">나의 예약</a></li>
 					<li class="chat_btn"><a href="javascript:void(0);" onclick="openChatList('${ sessionScope.userName }', '${ hospitalDTO.name }');"></a></li>
 				</c:if>
 			</ul>
