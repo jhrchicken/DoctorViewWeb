@@ -403,8 +403,8 @@ DoctorViewWeb
 #### 설계 및 다이어그램
 
 <ul>
-  <li><a href="https://drive.google.com/file/d/1wGxVbj3qNO7_oJKVC0wMUjtBKSEVt2co/view?usp=sharing">ERD</a></li>
-  <li><a href="https://drive.google.com/file/d/1CxMAFN6PIO2vngcI23qqZjDErShFZBCg/view?usp=sharing">User Flow</a></li>
+  <li><a href="https://drive.google.com/file/d/1iUhCqF1Ph4BOKmYuSbZTkatNYMCXlg0_/view?usp=drive_link">ERD</a></li>
+  <li><a href="https://drive.google.com/file/d/1w8A9AkabNHy3rTe__uZzndIpN9P8St-U/view?usp=drive_link">Usecase</a></li>
 </ul>
 
 #### 기타
